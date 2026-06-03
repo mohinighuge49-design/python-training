@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}College Notices{% endblock %}
+{% block content %}
+    <h1>College Notices</h1>
+    {% for notice in notices %}
+        <h2>{{ notice.title }}</h2>
+        <p>Date: {{ notice.date }}</p>
+        <p>{{ notice.message }}</p>
+    {% endfor %}
+<a href="{{ url_for('home') }}">Back to Home</a>
+{% endblock %}

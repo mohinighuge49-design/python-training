@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{%block title%}- College Information{%endblock%}
+
+{% block content %}
+    <h1>Welcome to Government Polytechnic Hingoli</h1>
+    <p>Location: Hingoli</p>
+    <p>Established Year: 2009</p>
+    <p>Available Courses: Computer Engineering, Mechanical Engineering, Electrical & Electronics Engineering</p>
+    <p>Principal Name: B.P.Devsarakar</p>
+    <p> Total students : {{students|length}}</p>
+    <h2>Quick stats</h2>
+    <table border="3">
+        <tr>
+                <th>Name</th>
+                <th>Roll No</th>
+                <th>Marks</th>
+        </tr>
+        {% for student in students %}
+        <tr>
+             <td>Name: {{ student.name }}</td>
+             <td>Roll No: {{ student.roll_no }}</td>
+             <td>Marks: {{ student.marks }}</td>
+        </tr>
+        
+        {% endfor %}
+
+{% endblock %}

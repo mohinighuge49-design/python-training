@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{%block title%}Home - College Smart Portal{%endblock%}
+
+{% block content %}
+    <h1>Welcome to Government Polytechnic Hingoli</h1>
+    <p>Location: Hingoli</p>
+    <p>Established Year: 2009</p>
+    <h2>Available Courses</h2>
+    <ul>
+        <li>Computer Engineering</li>
+        <li>Mechanical Engineering</li>
+        <li>Electrical & Electronics Engineering</li>
+    </ul>
+    <h3>Total students : {{students|length}}</h3>
+    <h2>Student statistics</h2>
+    
+        <table border="3">
+        <tr>
+                <th>Name</th>
+                <th>Roll No</th>
+                <th>Marks</th>
+        </tr>
+        {% for student in students %}
+        <tr>
+             <td>Name: {{ student.name }}</td>
+             <td>Roll No: {{ student.roll_no }}</td>
+             <td>Marks: {{ student.marks }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+            
+    
+    <a href="{{ url_for('home') }}">Home</a><br>
+    <a href="{{ url_for('college_info') }}">View College Information</a><br>
+    <a href="{{ url_for('students') }}">View Students</a><br>
+    <a href="{{ url_for('notices') }}">View Notices</a>
+
+{% endblock %}

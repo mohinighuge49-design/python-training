@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+   <head>
+       <title>College Information</title>
+    </head>
+    <body>
+       <nav>
+            <a href ="{{ url_for('home') }}">Home</a>
+            <a href ="{{ url_for('college_info') }}">College Info</a>
+            <a href ="{{ url_for('students') }}">Students</a>
+            <a href ="{{ url_for('notices') }}">Notices</a>
+       </nav>
+
+         <hr>
+
+         {% block content %}
+         {% endblock %}
+
+    
+
+ </html>
+
