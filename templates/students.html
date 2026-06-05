@@ -3,14 +3,19 @@
 
 
 {% block content %}
-  <p><h1>List of Students</h1></p>
-    <p>Total students: {{ students|length }}</p>
-    <table border="3">
+<style>
+    body {
+        background-color: #b6ccd6;
+    }
+    </style>
+  <p><h1>◉List of Students</h1></p>
+    <p><h3>Total students : {{students|length}}</h3></p>
+    <table border="5"cellpadding="7">
         <tr>
-            <th>Name</th>
-            <th>Roll No</th>
-            <th>Marks</th>
-            <th>Grade</th>
+            <th>👤Name</th>
+            <th>🆔Roll No</th>
+            <th>📝Marks</th>
+            <th>🏆Grade</th>
         </tr>
         {% for student in students %}
         <tr>

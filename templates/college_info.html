@@ -1,25 +1,35 @@
 {% extends "base.html" %}
-{%block title%}- College Information{%endblock%}
+{%block title%}- 🔎College Information{%endblock%}
 
 {% block content %}
-    <h1>Welcome to Government Polytechnic Hingoli</h1>
-    <p>Location: Hingoli</p>
-    <p>Established Year: 2009</p>
-    <p>Available Courses: Computer Engineering, Mechanical Engineering, Electrical & Electronics Engineering</p>
-    <p>Principal Name: B.P.Devsarakar</p>
-    <p> Total students : {{students|length}}</p>
-    <h2>Quick stats</h2>
-    <table border="3">
+<style>
+    body {
+        background-color: #b6ccd6;
+    }
+    </style>
+    <h1>✨🙏Welcome to Government Polytechnic Hingoli✨🙏</h1>
+    <p>📍Location: Hingoli</p>
+    <p>🗓️Established Year: 2009</p>
+    <p>🧑‍🏫Principal Name: B.P.Devsarakar</p>
+    <p>👥Total students : {{students|length}}</p>
+    <h3>🎓 Available Courses :</h3>
+    <ul>
+        <li>💻Computer Engineering</li>
+        <li>⚙️Mechanical Engineering</li>
+        <li>⚡Electrical & Electronics Engineering</li>
+    </ul>
+    <h2>📊Student Statistics</h2>
+    <table border="5" cellpadding="7">
         <tr>
-                <th>Name</th>
-                <th>Roll No</th>
-                <th>Marks</th>
+                <th>👤Name</th>
+                <th>🆔Roll No</th>
+                <th>📝Marks</th>
         </tr>
         {% for student in students %}
         <tr>
-             <td>Name: {{ student.name }}</td>
-             <td>Roll No: {{ student.roll_no }}</td>
-             <td>Marks: {{ student.marks }}</td>
+             <td>{{ student.name }}</td>
+             <td>{{ student.roll_no }}</td>
+             <td>{{ student.marks }}</td>
         </tr>
         
         {% endfor %}

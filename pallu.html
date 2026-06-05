@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Student Quiz Hub{% endblock %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f8fc;
+            text-align: center;
+            margin: 0;
+        }
+
+        nav {
+            background-color: #2c3e50;
+            padding: 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+            font-weight: bold;
+        }
+
+        .container {
+            padding: 40px;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        .card {
+            background: white;
+            width: 60%;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('subjects') }}">Subjects</a>
+        <a href="{{ url_for('students') }}">Students</a>
+        <a href="{{ url_for('about') }}">About</a>
+    </nav>
+
+<div class="container">
+        <div class="card">
+            <h1>📚 Welcome to Student Quiz Hub!</h1>
+
+            <p>
+                This is a platform where students can take quizzes,
+                improve their knowledge, and track their progress.
+            </p>
+
+            <h2>✨ Features</h2>
+            <p>✔ Take Subject-wise Quizzes</p>
+            <p>✔ View Scores and Results</p>
+            <p>✔ Track Quiz Attempts</p>
+            <p>✔ Monitor Learning Progress</p>
+
+            <h3>🎯 Learn, Practice, and Succeed!</h3>
+        </div>
+    </div>
+
+</body>
+</html>
+{% endblock %}

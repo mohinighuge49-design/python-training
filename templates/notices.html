@@ -1,11 +1,21 @@
+
 {% extends "base.html" %}
 {% block title %}College Notices{% endblock %}
 {% block content %}
+<style>
+    body {
+        background-color: #b6ccd6;
+    }
+    </style>
     <h1>College Notices</h1>
     {% for notice in notices %}
         <h2>{{ notice.title }}</h2>
-        <p>Date: {{ notice.date }}</p>
+        <p>Date:{{ notice.date }}</p>
         <p>{{ notice.message }}</p>
+        <p>{{ notice.note }}</p>
+        <p>{{ notice.msg }}</p>
+    
+        
     {% endfor %}
 <a href="{{ url_for('home') }}">Back to Home</a>
 {% endblock %}

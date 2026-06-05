@@ -10,16 +10,21 @@ stud = [
   ]
 notices_list= [
     {
-        "title": "python training",
-        "date": "3 june 2026",
-        "message": "python internship started from 28th may."
+
+        "title": "🚀python training",
+        "date":    " 3 june 2026",
+        "message": "💻 All students are informed that the Python Internship Program has started from 28th May 2026. ",
+        "note":"The training focuses on Python programming fundamentals, problem-solving techniques,and real-world project development. ",
+       "msg":"Students are encouraged to attend all sessions regularly and actively participate in practical activities to enhance their programming skills and career opportunities."
     }
+    
 ]
 
 @app.route('/')
 
 def home():
-    return render_template('home.html', students=stud)
+    
+    return render_template('home.html')
 
 @app.route('/college_info')
 
