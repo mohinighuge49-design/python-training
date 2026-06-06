@@ -8,21 +8,27 @@
         background-color: #b6ccd6;
     }
     </style>
-  <p><h1>◉List of Students</h1></p>
+    <p><h1>◉List of Students</h1></p>
     <p><h3>Total students : {{students|length}}</h3></p>
     <table border="5"cellpadding="7">
-        <tr>
-            <th>👤Name</th>
-            <th>🆔Roll No</th>
-            <th>📝Marks</th>
-            <th>🏆Grade</th>
-        </tr>
+
+    <table class="table table-striped table-hover" border="5" cellpadding="7">
+        <thead class="table-dark">
+        
+            <tr>
+                <th>👤Name</th>
+                <th>🆔Roll No</th>
+                <th>📝Marks</th>
+                <th>🏆Grade</th>
+            </tr>
+        </thead>
+        <tbody>
         {% for student in students %}
         <tr>
-            <td>{{ student.name }}</td>
-            <td>{{ student.roll_no }}</td>
-            <td>{{ student.marks }}</td>
-            <td>
+             <td class="fw-bold">{{ student.name }}</td>
+             <td>{{ student.roll_no }}</td>
+             <td>{{ student.marks }}</td>
+             <td class="fw-bold">
                 {% if student.marks >= 90 %}
                     A
                 {% elif student.marks >= 80 %}
@@ -36,7 +42,8 @@
                 {% endif %}
             </td>
         </tr>
+        
         {% endfor %}
+        </tbody>
     </table>
-
-{% endblock %}
+ {% endblock %}

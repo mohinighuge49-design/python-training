@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{%block title%}Home - College Smart Portal{%endblock%}
+{%block title%}Home - College Smart Portal{% endblock %}
 
 {% block content %}
 <style>
@@ -7,13 +7,19 @@
         background-color: #b6ccd6;
     }
     </style>
+    <div class="d-flex flex-column align-items-center justify-content-center" style="height: 30vh;">
+        <span class="display-3 text-center">Welcome to College Smart Portal</span>
+        <p class="lead text-center">Your one-stop destination for all college-related information and  services.</p>
+        
+    </div>
+
 
     <h1>✨🙏Welcome to Government Polytechnic Hingoli✨🙏</h1>
 
     <h3>• Dream Big • Learn Smart • Achieve Success </h3>
     <p>📍Location: Hingoli</p>
     <p>🗓️Established Year: 2009</p>
-    <h2>◉Available Courses</h2>
+    <h2>🎓Available Courses</h2>
     <ul>
         <li>💻Computer Engineering</li>
         <li>⚙️Mechanical Engineering</li>
@@ -23,9 +29,9 @@
     
 
     <h4>🔗Quick Links</h4>
-    <a href="{{ url_for('home') }}">Home</a><br>
-    <a href="{{ url_for('college_info') }}">View College Information</a><br>
-    <a href="{{ url_for('students') }}">View Students</a><br>
-    <a href="{{ url_for('notices') }}">View Notices</a>
+    <a class="nav-link" href="{{ url_for('home') }}">• home</a><br>
+    <a class="nav-link" href="{{ url_for('college_info') }}">• View College Information</a><br>
+    <a class="nav-link" href="{{ url_for('students') }}">• View Students</a><br>
+    <a class="nav-link" href="{{ url_for('notices') }}">• View Notices</a>
 
 {% endblock %}
