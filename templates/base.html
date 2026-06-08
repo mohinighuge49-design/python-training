@@ -7,26 +7,68 @@
                 
     </head>
     <body>
-       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="container">
               
-                <span class="display-3 text-center">
-                <a class="navbar-brand" href="{{ url_for('home') }}">Home</a>
-                <a class="navbar-brand" href="{{ url_for('college_info') }}">College_info</a>
-                <a class="navbar-brand" href="{{ url_for('students') }}">students_info</a>
-                <a class="navbar-brand" href="{{ url_for('notices') }}">Notices</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+    <div class="container">
+
+             <a class="navbar-brand fw-bold fs-3" href="/">🎓 College Smart Portal </a>
+
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link active px-3" href="/"> 🏠 Home </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link px-3" href="/college_info"> 🏫 College Info</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link px-3" href="/students">👨‍🎓 Students</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link px-3" href="/notices">📢 Notice </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link px-3" href="/about">⚠️about</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link px-3" href="/add_students">➕add_students</a>       
+                <li>  
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+                <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                    
                 </div>
-                </span>
                 </div>
         </nav>
 
         <div class="container mt-4">
         
          <hr>
+    {% block content %}
+    {% endblock %}
 
-         {% block content %}
-         {% endblock %}
-
+         
     
 
  </html>

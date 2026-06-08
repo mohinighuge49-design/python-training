@@ -1,49 +1,103 @@
 {% extends "base.html" %}
-{% block title %} Students - College Smart Portal{% endblock %}
-
 
 {% block content %}
-<style>
-    body {
-        background-color: #b6ccd6;
-    }
-    </style>
-    <p><h1>◉List of Students</h1></p>
-    <p><h3>Total students : {{students|length}}</h3></p>
-    <table border="5"cellpadding="7">
 
-    <table class="table table-striped table-hover" border="5" cellpadding="7">
-        <thead class="table-dark">
+<div class="container mt-5">
+
+    <!-- Header Card -->
+    <div class="card shadow-lg border-0 mb-4">
+        <div class="card-body text-center bg-primary text-white">
+            <h1 class="display-6">
+                <i class="bi bi-people-fill"></i>
+                Students Information
+            </h1>
+
+            <span class="badge bg-warning text-dark fs-5 mt-2">
+                Total Students : {{ students|length }}
+            </span>
+        </div>
+    </div>
+
+    <!-- Search Box -->
+    <div class="card shadow-sm border-0 mb-3">
+        <div class="card-body">
+            <input type="text"
+                   class="form-control"
+                   placeholder="🔍 Search Student...">
+        </div>
+    </div>
+
+    <!-- Table Card -->
+    <div class="card shadow-lg border-0">
+
+        <div class="card-header bg-dark text-white">
+            <h4>
+                <i class="bi bi-table"></i>
+                Student Records
+            </h4>
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table table-hover table-striped mb-0 align-middle">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>👤 Name</th>
+                        <th>🆔 Roll No</th>
+                        <th>📖 Marks</th>
+                        <th>🏆 Grade</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                {% for student in students %}
+
+                    <tr>
+                        <td>{{ student.name }}</td>
+
+                        <td>
+                            <span class="badge bg-info">
+                                {{ student.roll_no }}
+                            </span>
+                        </td>
+
+                        <td>{{ student.marks }}</td>
+
+                  <td>
+                        {% if student.marks >= 90 %}
+                        <span class="badge bg-info">A+</span> 
+                        {% elif student.marks >= 80 %}
+                           <span class="badge bg-danger">A</span> 
+                        {% elif student.marks >= 70 %}
+                            <span class="badge bg-warning">B+</span> 
+                        {% elif student.marks >= 60 %}
+                            <span class="badge bg-success">B</span>
+                        {% elif student.marks >= 50 %}
+                            <span class="badge bg-danger">C</span>
+                        {% else %}
+                            <span class="badge bg-primary">Fail</span>
+                        {% endif %}
+
+                        </td>
         
-            <tr>
-                <th>👤Name</th>
-                <th>🆔Roll No</th>
-                <th>📝Marks</th>
-                <th>🏆Grade</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for student in students %}
-        <tr>
-             <td class="fw-bold">{{ student.name }}</td>
-             <td>{{ student.roll_no }}</td>
-             <td>{{ student.marks }}</td>
-             <td class="fw-bold">
-                {% if student.marks >= 90 %}
-                    A
-                {% elif student.marks >= 80 %}
-                    B
-                {% elif student.marks >= 70 %}
-                    C
-                {% elif student.marks >= 60 %}
-                    D
-                {% else %}
-                    F
-                {% endif %}
-            </td>
-        </tr>
-        
-        {% endfor %}
-        </tbody>
-    </table>
- {% endblock %}
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+</div>
+   <div class="card-footer bg-dark text-white text-center py-3 mt-6">
+    @ 2026 Government Polytechnic Hingoli
+</div>
+
+{% endblock %}

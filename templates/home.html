@@ -1,37 +1,147 @@
 {% extends "base.html" %}
-{%block title%}Home - College Smart Portal{% endblock %}
+
+{% block title %} Home - College Smart Portal {% endblock %}
 
 {% block content %}
-<style>
-    body {
-        background-color: #b6ccd6;
-    }
-    </style>
-    <div class="d-flex flex-column align-items-center justify-content-center" style="height: 30vh;">
-        <span class="display-3 text-center">Welcome to College Smart Portal</span>
-        <p class="lead text-center">Your one-stop destination for all college-related information and  services.</p>
-        
+
+<!-- Hero Section -->
+<div class="bg-primary text-white text-center p-5 rounded shadow">
+    <h1 class="display-4 fw-bold">
+        🎓 Government Polytechnic Hingoli
+    </h1>
+    <p class="lead">
+        Empowering Students Through Quality Technical Education
+    </p>
+    <a href="/college_info" class="btn btn-light btn-lg mt-2">
+        Explore College
+    </a>
+</div>
+
+<!-- Welcome Section -->
+<div class="mt-5">
+    <h2 class="text-center fw-bold">
+        ✨ Welcome to Government Polytechnic Hingoli ✨
+    </h2>
+
+    <p class="text-center fs-5">
+        Dream Big • Learn Smart • Achieve Success
+    </p>
+
+    <div class="text-center">
+        <p>📍 Location: Hingoli</p>
+        <p>🏫 Established Year: 2009</p>
+    </div>
+</div>
+
+<!-- Quick Stats -->
+<div class="row mt-5">
+
+    <div class="col-md-3 mb-3">
+        <div class="card shadow text-center h-100">
+            <div class="card-body">
+                <h2 class="text-primary">500+</h2>
+                <p>Students</p>
+            </div>
+        </div>
     </div>
 
+    <div class="col-md-3 mb-3">
+        <div class="card shadow text-center h-100">
+            <div class="card-body">
+                <h2 class="text-success">3</h2>
+                <p>Departments</p>
+            </div>
+        </div>
+    </div>
 
-    <h1>✨🙏Welcome to Government Polytechnic Hingoli✨🙏</h1>
+    <div class="col-md-3 mb-3">
+        <div class="card shadow text-center h-100">
+            <div class="card-body">
+                <h2 class="text-danger">2009</h2>
+                <p>Established</p>
+            </div>
+        </div>
+    </div>
 
-    <h3>• Dream Big • Learn Smart • Achieve Success </h3>
-    <p>📍Location: Hingoli</p>
-    <p>🗓️Established Year: 2009</p>
-    <h2>🎓Available Courses</h2>
-    <ul>
-        <li>💻Computer Engineering</li>
-        <li>⚙️Mechanical Engineering</li>
-        <li>⚡Electrical & Electronics Engineering</li>
-    </ul>
-    
-    
+    <div class="col-md-3 mb-3">
+        <div class="card shadow text-center h-100">
+            <div class="card-body">
+                <h2 class="text-warning">95%</h2>
+                <p>Placement Support</p>
+            </div>
+        </div>
+    </div>
 
-    <h4>🔗Quick Links</h4>
-    <a class="nav-link" href="{{ url_for('home') }}">• home</a><br>
-    <a class="nav-link" href="{{ url_for('college_info') }}">• View College Information</a><br>
-    <a class="nav-link" href="{{ url_for('students') }}">• View Students</a><br>
-    <a class="nav-link" href="{{ url_for('notices') }}">• View Notices</a>
+</div>
+
+<!-- Courses Section -->
+<div class="mt-5">
+
+    <h2 class="text-center mb-4">
+        📚 Available Courses
+    </h2>
+
+    <div class="row">
+
+        <div class="col-md-4 mb-3">
+            <div class="card shadow h-100">
+                <div class="card-body text-center">
+                    <h4>💻 Computer Engineering</h4>
+                    <p>
+                        Programming, Web Development,
+                        AI and Software Development
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card shadow h-100">
+                <div class="card-body text-center">
+                    <h4>⚙ Mechanical Engineering</h4>
+                    <p>
+                        CAD Design, Manufacturing
+                        and Industrial Technology
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card shadow h-100">
+                <div class="card-body text-center">
+                    <h4>⚡ Electrical & Electronics Engineering</h4>
+                    <p>
+                        Power Systems,
+                        Electronics and Automation
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Quick Links -->
+<div class="mt-5 text-center">
+
+    <h2 class="mb-4">
+        🔗 Quick Access
+    </h2>
+
+    <a href="/" class="btn btn-primary btn-lg m-2"> 🏠 Home</a>
+
+    <a href="/college_info" class="btn btn-success btn-lg m-2"> 🏫 College Info</a>
+
+    <a href="/students_info" class="btn btn-warning btn-lg m-2">👨‍🎓 Students </a>
+
+    <a href="/notices" class="btn btn-danger btn-lg m-2">📢 Notices </a>
+
+    <a href="/about" class="btn btn-info btn-lg m-2">⚠️about </a>
+
+    <a href="/add_students" class="btn btn-secondary m-2">➕add_students</a>
+</div>
+
 
 {% endblock %}

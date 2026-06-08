@@ -2,41 +2,119 @@
 {%block title%}- 🔎College Information{%endblock%}
 
 {% block content %}
-<style>
-    body {
-        background-color: #b6ccd6;
-    }
-    </style>
-
-    <h1>✨🙏Welcome to Government Polytechnic Hingoli✨🙏</h1>
-    <p>📍Location: Hingoli</p>
-    <p>🗓️Established Year: 2009</p>
-    <p>🧑‍🏫Principal Name: B.P.Devsarakar</p>
-    <p>👥Total students : {{students|length}}</p>
-    <h3>🎓 Available Courses :</h3>
-    <ul>
-        <li>💻Computer Engineering</li>
-        <li>⚙️Mechanical Engineering</li>
-        <li>⚡Electrical & Electronics Engineering</li>
-    </ul>
-    <h2>📊Student Statistics</h2>
-    <table class="table table-striped table-hover" border="7">
-        <thead class="table-dark">
-            <tr>
-                <th>👤Name</th>
-                <th>🆔Roll No</th>
-                <th>📝Marks</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for student in students %}
-        <tr>
-             <td class="fw-bold">{{ student.name }}</td>
-             <td >{{ student.roll_no }}</td>
-             <td >{{ student.marks }}</td>
-        </tr>
+<div class="container mt-4">
+ <div class="bg-primary text-white text-center p-5 rounded shadow">
+    <h1>🎓 Government Polytechnic Hingoli</h1>
+    <p class="lead">Empowering Minds, Shaping Futures</p>
+ </div>
         
-        {% endfor %}
-        </tbody>
-    </table>
-{% endblock %}
+</div>         
+       
+<div class="row mt-5">
+
+     <div class="col-md-3 mb-3">
+        <div class=" border rounded p-3 text-center">
+          <h5>Location</h5>
+             <p> Hingoli,Maharashtra</p>
+        </div>
+    </div>
+
+    <div class =" col md-3 mb-3">
+         <div class=" border rounded p-3 text-center">
+            <h5>Established Year</h5>
+            <p> 2009</p>
+            </div>
+    </div>
+
+    
+    <div class ="col md-3 mb-3">
+         <div class="border rounded p-3 text-center">
+            <h5>Principal</h5>
+            <p> B.P.Deosarkar</p>
+            </div>
+    </div>
+
+    <div class ="col md-3 mb-3">
+        <div class=" border rounded p-3 text-center">
+            <h5>Total Students</h5>
+            <p>1000+</p>
+            </div>
+    </div>
+ 
+</div>
+
+<div class="card mt-4 shadow">
+    <div class="card-header bg-dark text-white">
+        <h3>🎓 Available Courses</h3>
+    </div>
+
+    <div class="card-body">
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="card border-primary shadow-sm">
+                    <div class="card-body">
+                        <h5>💻 Computer Engineering</h5>
+                        <p>Programming, Web Development & AI</p>
+                    </div>
+                </div>
+            </div>
+
+          
+            <div class="col-md-4">
+                <div class="card border-success shadow-sm">
+                    <div class="card-body">
+                        <h5>⚙ Mechanical Engineering</h5>
+                        <p>Design & Manufacturing Systems</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card border-warning shadow-sm">
+                    <div class="card-body">
+                        <h5>⚡ Electrical Engineering</h5>
+                        <p>Power Systems & Electronics</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card mt-4 shadow">
+
+    <div class="card-header bg-primary text-white">
+        <h3>📊 Student Statistics</h3>
+    </div>
+
+    <div class="card-body">
+
+        <table class="table table-hover table-bordered">
+
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Roll No</th>
+                    <th>Marks</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.roll_no }}</td>
+                    <td>{{ student.marks }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+{%endblock%}

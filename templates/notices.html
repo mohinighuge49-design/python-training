@@ -1,22 +1,56 @@
-
 {% extends "base.html" %}
+
 {% block title %}College Notices{% endblock %}
+
 {% block content %}
-<style>
-    body {
-        background-color: #b6ccd6;
-    }
-    </style>
-    <div class="d-flex flex-column align-items-center justify-content-center" style="height: 30vh;">
-    <span class="display-3 text-center fw-bold">College Notice</span></div>    
-    {% for notice in notices %}
-        <h2>{{ notice.title }}</h2>
-        <p>Date:{{ notice.date }}</p>
-        <p>{{ notice.message }}</p>
-        <p>{{ notice.note }}</p>
-        <p>{{ notice.msg }}</p>
-    
-        
-    {% endfor %}
-<a href="{{ url_for('home') }}"><--Back to Home</a>
+
+<div class="container mt-5">
+
+<div class="text-center mb-5">
+    <div class="display-5 fw-bold text-primary">
+        📢 College Notice Board
+    </div>
+    <p class="text-muted">
+        Latest Updates & Announcements
+    </p>
+</div>
+
+{% for notice in notices %}
+
+<div class="card shadow-lg border-0 mb-4">
+
+    <!-- Notice Header -->
+    <div class="card-header bg-primary text-white ">
+        <h3 class="mb-0">{{ notice.title }}</h3>
+    </div>
+
+    <!-- Notice Body -->
+    <div class="card-body">
+
+        <div class="alert alert-warning mt-6">
+            <strong>📅 Date:</strong> {{ notice.date }}
+        </div>
+
+        <div class="alert alert-info mt-4">
+            {{ notice.message }}
+        </div>
+
+        <div class="alert alert-success mt-4">
+            {{ notice.note }}
+        </div>
+
+        <div class="alert alert-secondary mt-4">
+            {{ notice.msg }}
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+   <div class="card-footer bg-dark text-white text-center py-3 mb-2">
+    @ 2026 Government Polytechnic Hingoli
+</div>
 {% endblock %}
