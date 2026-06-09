@@ -4,14 +4,6 @@ from database import get_db , init_db,MOHINI_DB
 app = Flask(__name__)
 app.secret_key='abc1234567890'  # Needed for flashing messages
 
-
-stud=[
-    {"name":"Rohit  ","roll_no":1,"marks":85},
-    {"name":"Priya  ","roll_no":2,"marks":90},
-    {"name":"Amit   ","roll_no":3,"marks":78},
-    {"name":"Sneha  ","roll_no":4,"marks":92},
-    {"name":"Rahul  ","roll_no":5,"marks":88}
-  ]
 notices_list= [
     {
 
@@ -34,16 +26,22 @@ def home():
 @app.route('/college_info')
 
 def college_info():
-    return render_template('college_info.html', students=stud)
+    return render_template('college_info.html')
 
 @app.route('/students')
 def students():
     conn = get_db(MOHINI_DB)
-    students = conn.execute("SELECT * FROM stud").fetchall()
+
+    students = conn.execute(
+        "SELECT * FROM stud"
+    ).fetchall()
+
     conn.close()
 
-    return render_template("students.html", students=stud)
-
+    return render_template(
+        "students.html",
+        students=students
+    )
 @app.route('/notices')
 
 def notices():
@@ -54,6 +52,7 @@ def notices():
 def about():
     return render_template('about.html')
 
+  
 @app.route("/add_students", methods=["GET", "POST"])
 def add_student():
     if request.method == "POST":
@@ -62,28 +61,41 @@ def add_student():
         roll_no = request.form["roll_no"]
 
         if not name or not marks or not roll_no:
-            flash('Please provide both name and marks', 'danger')
+            flash("Please provide name, roll number and marks", "danger")
             return render_template("add_students.html")
-        
+
         conn = get_db(MOHINI_DB)
-        conn.execute('''INSERT INTO stud
-                     (name,roll_no,marks) VALUES(?,?,?)''',
-                     (name, roll_no, int(marks))
-                     )
+
+        conn.execute(
+            '''INSERT INTO stud (name, roll_no, marks)
+               VALUES (?, ?, ?)''',
+            (name, roll_no, int(marks))
+        )
+
         conn.commit()
         conn.close()
 
-        # Print to terminal
-        print(f"Received new student: {name} with marks: {marks}")
-        # #new student dictionary
-        new_student = {"name": name,"roll_no":int(roll_no), "marks": int(marks)}
-        stud.append(new_student)
-        # Flash message to user
         flash(f"Student {name} added successfully!", "success")
-        print(f"Updated students list: {stud}")
-    return render_template("add_students.html")
-  
 
+        return redirect(url_for("add_student"))
+
+    return render_template("add_students.html")
+@app.route('/delete/<int:id>')
+def delete_student(id):
+    conn = get_db(MOHINI_DB)
+
+    conn.execute(
+        "DELETE FROM stud WHERE id = ?",
+        (id,)
+    )
+
+    conn.commit()
+    conn.close()
+
+    flash("Student deleted successfully!", "success")
+
+    return redirect(url_for('students'))
+    
 if __name__ == "__main__":
     init_db()  # Initialize the database
     app.run(debug=True)                                                                                                                                                    

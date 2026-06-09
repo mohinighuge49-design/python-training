@@ -47,6 +47,7 @@
                         <th>🆔 Roll No</th>
                         <th>📖 Marks</th>
                         <th>🏆 Grade</th>
+                        <th>⚙️ Action</th>
                     </tr>
                 </thead>
 
@@ -64,6 +65,14 @@
                         </td>
 
                         <td>{{ student.marks }}</td>
+
+                        <td>
+                            <a href="{{ url_for('delete_student', id=student.id) }}"
+                            class="btn btn-danger btn-sm"
+                            onclick="return confirm('Are you sure?')">
+                            Delete
+                            </a>
+                        </td>
 
                   <td>
                         {% if student.marks >= 90 %}
