@@ -1,5 +1,5 @@
 from flask import Flask, render_template,request,flash,url_for,redirect
-from database import get_db , init_db
+from database import get_db , init_db,MOHINI_DB
 
 app = Flask(__name__)
 app.secret_key='abc1234567890'  # Needed for flashing messages
@@ -36,18 +36,13 @@ def home():
 def college_info():
     return render_template('college_info.html', students=stud)
 
-'''@app.route('/students')
-
-def students():
-    return render_template('students.html', students=stud)'''
-
 @app.route('/students')
 def students():
-    conn = get_db()
+    conn = get_db(MOHINI_DB)
     students = conn.execute("SELECT * FROM stud").fetchall()
     conn.close()
 
-    return render_template('students.html', students=stud)
+    return render_template("students.html", students=stud)
 
 @app.route('/notices')
 
@@ -59,38 +54,36 @@ def notices():
 def about():
     return render_template('about.html')
 
-@app.route('/add_students', methods=['GET','POST'])
+@app.route("/add_students", methods=["GET", "POST"])
 def add_student():
-     if request.method == "POST":
-      name = request.form['student_name']
-      roll_no = request.form['student_id']
-      marks = int(request.form['student_marks'])
-      print("student added ")  
-                
-      new_stud={
-                "name":name,
-                "roll_no":int(roll_no),
-                "marks": int(marks),
-               
-                }
+    if request.method == "POST":
+        name = request.form["name"]
+        marks = request.form["marks"]
+        roll_no = request.form["roll_no"]
 
-      stud.append(new_stud)
-      flash(f"student added successfully" , "success") 
-      print(f"new student list: {stud}")
+        if not name or not marks or not roll_no:
+            flash('Please provide both name and marks', 'danger')
+            return render_template("add_students.html")
+        
+        conn = get_db(MOHINI_DB)
+        conn.execute('''INSERT INTO stud
+                     (name,roll_no,marks) VALUES(?,?,?)''',
+                     (name, roll_no, int(marks))
+                     )
+        conn.commit()
+        conn.close()
 
-      conn = get_db()
-      conn.execute(
-      "INSERT INTO stud(name, roll_no, marks) VALUES (?, ?, ?)",
-      (name, roll_no, marks))
-      conn.commit()
-      conn.close()
+        # Print to terminal
+        print(f"Received new student: {name} with marks: {marks}")
+        # #new student dictionary
+        new_student = {"name": name,"roll_no":int(roll_no), "marks": int(marks)}
+        stud.append(new_student)
+        # Flash message to user
+        flash(f"Student {name} added successfully!", "success")
+        print(f"Updated students list: {stud}")
+    return render_template("add_students.html")
+  
 
-     
-      return redirect(url_for('add_student'))
-     return render_template('add_students.html')
-
-if __name__ == '__main__':
-  init_db()
-  print("Welcome to College Smart Portal")
-  app.run(debug=True)
-
+if __name__ == "__main__":
+    init_db()  # Initialize the database
+    app.run(debug=True)                                                                                                                                                    

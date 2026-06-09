@@ -17,16 +17,15 @@
         {% endfor %}
     {% endif %}
 {% endwith %}
-             <div class="card-body">
+                <div class="card-body p-4">
                 <form action="{{url_for('add_student')}}" method="POST">
-        
-                
+
                 <div class="mb-3 mt-2">
-                <label class="form-label fw-bold"> Name: <input required name = "student_name" class="form-control" placeholder="Enter Student name" type="text">
+                <label class="form-label fw-bold"> name: <input required name = "name" class="form-control" placeholder="Enter Student name" type="text">
                 <div class="mb-3 mt-2">
-                <label class="form-label fw-bold">roll no: <input required name = "student_id" class="form-control" placeholder="Enter Student ID" type="text"> 
+                <label class="form-label fw-bold">roll_no: <input required name = "roll_no" class="form-control" placeholder="Enter Student ID" type="text"> 
                 <div class="mb-3 mt-2">
-                <label class="form-label fw-bold">marks: <input required name = "student_marks" class="form-control" placeholder="Enter Student marks" type="number">
+                <label class="form-label fw-bold">marks: <input required name = "marks" class="form-control" placeholder="Enter Student marks" type="number">
                 <div class="d-grid gap-2 mt-4">
                 <button class="btn btn-primary fw-bold" type="submit">Add Student</button>
                 </div>
