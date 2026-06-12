@@ -87,3 +87,33 @@ def student_login():
 
 
 student_login()
+
+
+
+
+
+
+
+
+@app.route('/edit/<int:id>', methods=['GET', 'POST'])
+def edit_student(id):
+    conn = get_db(MOHINI_DB)
+    
+    if request.method == 'POST':
+        name = request.form['student_name']
+        marks = request.form['marks']
+        subject = request.form.get('subject', '')
+        attendance = request.form.get('attendance', 0)
+        
+        if not name:
+            flash('Name cannot be empty', 'danger')
+            return redirect(url_for('edit_student', id=id))
+        
+        conn.execute
+        ('''UPDATE students SET name=?, marks=?, subject=?, attendance=? 
+                     WHERE id=?''', (name, int(marks), subject, int(attendance), id))
+        conn.commit()
+        conn.close()
+        flash(f'{name} updated successfully!', 'success')
+        return redirect(url_for('students_page'))
+    

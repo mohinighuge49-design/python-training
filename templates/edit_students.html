@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Edit Student — {{student['name']}}{% endblock %}
+
+{% block content %}
+
+<div class="row" justify-content center>
+<div class="col-md-6">
+
+<div class="card shadow-sm ">
+    <div class="card-header py-3" style="background-color: #d77768;">
+        <h5 class="mb-0 text-white">
+            ✏️Update Student
+        </h5>
+    </div>
+
+    <div class="card-body p-4">
+    
+        <div class="alert alert-danger" py-2 mb-4>
+            <small>
+                <strong>Student you want to update: </strong>
+                {{ student['name'] }}
+                roll_no: {{student['roll_no']}}-
+                marks: {{ student['marks'] }}
+            </small>
+        </div>
+
+         <form action="{{url_for('detail',id=student['id'])}}"
+              method="POST">
+
+
+        <form action="{{url_for('edit_student',id=student['id'])}}"
+              method="POST">
+
+              <div class="mb-3">
+                <label class="form-label fw-bold">Student Name:</label>
+              
+              <input required
+               name="name" class="form-control" placeholder="Enter Student Name" type="text" value="{{ student['name'] }}">
+              </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Roll No:</label>
+                <input required
+                 name="roll_no" min="0" class="form-control" placeholder="Enter Roll Number" type="number" value="{{ student['roll_no'] }}">
+                </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Marks:</label>
+                <input required
+                  name="marks"  min="0" class="form-control" placeholder="Enter Marks" type="number" value="{{ student['marks'] }}">
+                </div>
+
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-dark fw-bold">
+                    Save Changes
+                </button>
+                <a href="{{ url_for('students') }}"
+                   class="btn btn-outline-secondary mt-2">
+                    Cancel
+                </a>
+            </div>
+
+        </form>
+    </form>
+    </div>
+
+</div>
+
+</div>
+</div>
+</div>
+
+{% endblock %}

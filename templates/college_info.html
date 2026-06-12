@@ -1,84 +1,277 @@
+
 {% extends "base.html" %}
-{%block title%}- 🔎College Information{%endblock%}
+
+{% block title %}College Information{% endblock %}
 
 {% block content %}
+
 <div class="container mt-4">
- <div class="bg-primary text-white text-center p-5 rounded shadow">
-    <h1>🎓 Government Polytechnic Hingoli</h1>
-    <p class="lead">Empowering Minds, Shaping Futures</p>
- </div>
-        
-</div>         
-       
-<div class="row mt-5">
 
-     <div class="col-md-3 mb-3">
-        <div class=" border rounded p-3 text-center">
-          <h5>Location</h5>
-             <p> Hingoli,Maharashtra</p>
+    <!-- College Header -->
+    <div class="card shadow-lg border-0 mb-4">
+        <div class="card-body bg-primary text-white text-center py-5">
+
+            <h1 class="display-5 fw-bold">
+                🎓 Government Polytechnic Hingoli
+            </h1>
+
+            <p class="lead">
+                Empowering Minds, Shaping Futures
+            </p>
+
+            <span class="badge bg-warning text-dark fs-6">
+                Established in 2009
+            </span>
+
         </div>
     </div>
 
-    <div class =" col md-3 mb-3">
-         <div class=" border rounded p-3 text-center">
-            <h5>Established Year</h5>
-            <p> 2009</p>
-            </div>
-    </div>
+    <!-- Statistics Section -->
+    <div class="row g-3 mb-4">
 
-    
-    <div class ="col md-3 mb-3">
-         <div class="border rounded p-3 text-center">
-            <h5>Principal</h5>
-            <p> B.P.Deosarkar</p>
-            </div>
-    </div>
-
-    <div class ="col md-3 mb-3">
-        <div class=" border rounded p-3 text-center">
-            <h5>Total Students</h5>
-            <p>1000+</p>
-            </div>
-    </div>
- 
-</div>
-
-<div class="card mt-4 shadow">
-    <div class="card-header bg-dark text-white">
-        <h3>🎓 Available Courses</h3>
-    </div>
-
-    <div class="card-body">
-        <div class="row">
-
-            <div class="col-md-4">
-                <div class="card border-primary shadow-sm">
-                    <div class="card-body">
-                        <h5>💻 Computer Engineering</h5>
-                        <p>Programming, Web Development & AI</p>
-                    </div>
-                </div>
-            </div>
-
-          
-            <div class="col-md-4">
-                <div class="card border-success shadow-sm">
-                    <div class="card-body">
-                        <h5>⚙ Mechanical Engineering</h5>
-                        <p>Design & Manufacturing Systems</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card border-warning shadow-sm">
-                    <div class="card-body">
-                        <h5>⚡ Electrical Engineering</h5>
-                        <p>Power Systems & Electronics</p>
-                    </div>
+        <div class="col-md-3">
+            <div class="card shadow text-center h-100">
+                <div class="card-body">
+                    <h1>📍</h1>
+                    <h5>Location</h5>
+                    <p>Hingoli, Maharashtra</p>
                 </div>
             </div>
         </div>
+
+        <div class="col-md-3">
+            <div class="card bg-success text-white shadow text-center h-100">
+                <div class="card-body">
+                    <h1>🏫</h1>
+                    <h5>Established</h5>
+                    <p>2009</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-warning shadow text-center h-100">
+                <div class="card-body">
+                    <h1>👨‍🏫</h1>
+                    <h5>Principal</h5>
+                    <p>B.P. Deosarakar Sir</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-danger text-white shadow text-center h-100">
+                <div class="card-body">
+                    <h1>👨‍🎓</h1>
+                    <h5>Total Students</h5>
+                    <p>1000+</p>
+                </div>
+            </div>
+        </div>
+
     </div>
+
+    <!-- About College -->
+    <div class="card shadow-lg border-0 mb-4">
+
+        <div class="card-header bg-dark text-white">
+            <h4>🏫 About College</h4>
+        </div>
+
+        <div class="card-body">
+
+            <p>
+                Government Polytechnic Hingoli is a reputed technical institute
+                established in 2009 under the Government of Maharashtra.
+                The college offers diploma programs in various engineering
+                disciplines and focuses on quality education, practical
+                training, and skill development.
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- Courses -->
+    <div class="card shadow-lg border-0 mb-4">
+
+        <div class="card-header bg-primary text-white">
+            <h4>📚 Available Courses</h4>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row g-3">
+
+                <div class="col-md-4">
+                    <div class="card border-primary shadow text-center">
+                        <div class="card-body">
+                            💻
+                            <h6 class="mt-2">Computer Engineering</h6>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card border-success shadow text-center">
+                        <div class="card-body">
+                            ⚙️
+                            <h6 class="mt-2">Mechanical Engineering</h6>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card border-warning shadow text-center">
+                        <div class="card-body">
+                            ⚡
+                            <h6 class="mt-2">Electrical Engineering</h6>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Facilities -->
+    <div class="card shadow-lg border-0 mb-4">
+
+        <div class="card-header bg-info text-white">
+            <h4>🏢 Facilities</h4>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row g-3 text-center">
+
+                <div class="col-md-2">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            💻 <br> Computer Lab
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            📚 <br> Library
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            ⚙️ <br> Workshop
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            📶 <br> Wi-Fi
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            🏏 <br> Sports
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            🏠 <br> Hostel
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Achievements -->
+    <div class="card shadow-lg border-0 mb-4">
+
+        <div class="card-header bg-success text-white">
+            <h4>🏆 Achievements</h4>
+        </div>
+
+        <div class="card-body">
+
+            <ul class="list-group">
+                <li class="list-group-item">✅ 1000+ Successful Diploma Graduates</li>
+                <li class="list-group-item">✅ Excellent Placement Support</li>
+                <li class="list-group-item">✅ Modern Computer Laboratories</li>
+                <li class="list-group-item">✅ Industry-Oriented Training Programs</li>
+            </ul>
+
+        </div>
+
+    </div>
+
+    <!-- Contact Information -->
+    <div class="card shadow-lg border-0">
+
+        <div class="card-header bg-dark text-white">
+            <h4>📞 Contact Information</h4>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row text-center">
+
+                <div class="col-md-4">
+                <div class="card shadow">
+                <div class="card border-success shadow text-center">
+                <div class="card-body">
+                    <h5>📍 Address</h5>
+                    <p>Government Polytechnic Hingoli, Maharashtra</p>
+                </div>
+                </div>
+                </div>
+                </div>
+
+                <div class="col-md-4">
+                 <div class="card shadow">
+                <div class="card border-success shadow text-center">
+                <div class="card-body">
+                    <h5>📱 Phone</h5>
+                    <p>+91 XXXXX XXXXX</p>
+                </div>
+                </div>
+                </div>
+                </div>
+               
+
+                <div class="col-md-4">
+                <div class="card shadow">
+                <div class="card border-success shadow text-center">
+                <div class="card-body">
+                    <h5>📧 Email</h5>
+                    <p>info@gphingoli.ac.in</p>
+                </div>
+                </div>
+                </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
-{%endblock%}
+
+{% endblock %}

@@ -15,7 +15,7 @@ def init_db():
     conn = get_db(MOHINI_DB)
 
     conn.execute('''
-        CREATE TABLE IF NOT EXISTS stud (
+        CREATE TABLE IF NOT EXISTS stud(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             roll_no INTEGER NOT NULL,
@@ -30,7 +30,7 @@ def insert_stud(name, roll_no, marks):
     conn = get_db(MOHINI_DB)
 
     conn.execute(
-        "INSERT INTO stud (name, roll_no, marks) VALUES (?, ?, ?)",
+        "INSERT INTO stud(name, roll_no, marks) VALUES (?, ?, ?)",
         (name, roll_no, marks)
     )
 
