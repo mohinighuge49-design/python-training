@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1 id="myHeading">Hello Everyone</h1>
+        <!-- JavaScript code to change the heading text after 2 seconds -->
+         <!JS will take this id and change the text to "Welcome to JavaScript!" after 2 seconds -->
+         <button id ="mybutton">Click Me</button>
+
+         <script>
+            //Step 1 Take the element by ID
+            const heading = document.getElementById('myHeading');
+            // document - represents the whole HTML document
+            // getElementById - method to select an element by its ID
+            // 'myHeading' - the ID of the element we want to select
+            //Step 2- button click event
+            const button = document.getElementById('mybutton');
+            button.addEventListener('click', function() {
+                heading.textContent = "Welcome to College Smart Portal....!";
+                //Text content - property to change the text inside an element
+            });
+                //addEventListener - method to listen for events on an element
+                // 'click' - the event we want to listen for
+                // function() { ... } - the code to execute when the event occurs
+         </script>
+    </body>
+</html>

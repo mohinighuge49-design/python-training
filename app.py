@@ -1,5 +1,3 @@
-
-
 from flask import Flask, render_template, request, flash, url_for, redirect
 from database import get_db, init_db, MOHINI_DB
 
@@ -50,6 +48,11 @@ def notices():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+@app.route('/contact_us')
+def contact_us():
+    return render_template('contact_us.html')
+
 
 
 @app.route("/add_students", methods=["GET", "POST"])
