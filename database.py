@@ -90,7 +90,6 @@ def insert_stud(name, roll_no, Subject, marks):
     conn.commit()
     conn.close()
 
-
+init_db()
 if __name__ == '__main__':
-    init_db()
-    print("Database initialized successfully!")
+    app.run(debug=True)
