@@ -1,0 +1,377 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+.dashboard-card{
+    border:none;
+    border-radius:18px;
+    transition:0.3s;
+}
+
+.dashboard-card:hover{
+    transform:translateY(-8px);
+}
+
+.chart-card{
+    border:none;
+    border-radius:18px;
+}
+
+.dashboard-title{
+    font-weight:bold;
+    color:#2c3e50;
+}
+
+.ranking-header th{
+    background: linear-gradient(135deg,#fc466b,#3f5efb);
+    color:white;
+    border: none;
+}
+</style>
+
+<div class="container-fluid px-4">
+
+    <h2 class="dashboard-title mb-4">
+    🎓 Student Performance Dashboard
+    </h2>
+<div class="row g-4">
+
+    <!-- Total Students -->
+    <div class="col-md-3">
+        <div class="card border-0 shadow-lg text-white"
+             style="background: linear-gradient(135deg,#38ef7d,#11998e); border-radius:20px;">
+            <div class="card-body text-center p-4">
+                <h1>👨‍🎓</h1>
+                <h6>Total Students</h6>
+                <h1 class="fw-bold">{{ total_students }}</h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Total Subjects -->
+    <div class="col-md-3">
+        <div class="card border-0 shadow-lg text-white"
+         style="background: linear-gradient(135deg,#839ac6,#2a5298);border-radius:20px;">
+           
+            <div class="card-body text-center p-4">
+                <h1>📚</h1>
+                <h6>Total Subjects</h6>
+                <h1 class="fw-bold">{{ total_Subject }}</h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pass / Fail -->
+    <div class="col-md-3">
+        <div class="card border-0 shadow-lg text-white"
+             style="background: linear-gradient(135deg,#ffd200,#cb7b19); border-radius:20px;">
+            <div class="card-body text-center p-4">
+                <h1>✅</h1>
+                <h6>Pass / Fail</h6>
+                <h1 class="fw-bold">{{ pass_count }}/{{ fail_count }}</h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pass Percentage -->
+    <div class="col-md-3">
+        <div class="card border-0 shadow-lg text-white"
+             style="background: linear-gradient(135deg,#ed4d72,#d03418); border-radius:20px;">
+            <div class="card-body text-center p-4">
+                <h1>📈</h1>
+                <h6>Pass Percentage</h6>
+                <h1 class="fw-bold">{{ pass_percentage }}%</h1>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+   <div class="row mt-4 g-4">
+
+    <!-- Topper Card -->
+    <div class="col-md-4">
+       <div class="card border-0 shadow-lg text-dark"
+    style=" background: linear-gradient(135deg,#fc466b,#3f5efb);border-radius:20px;">
+         
+            <div class="card-body text-center p-4">
+                <h1>🏆</h1>
+                <h5 class="mb-3">Topper Student</h5>
+                <hr>
+                <h2 class="fw-bold">
+                    {{ topper['name'] }}
+                </h2>
+
+                <h4>
+                    {{ topper['marks'] }} Marks
+                </h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+    <div class="card border-0 shadow-lg text-white"
+    style="background: linear-gradient(135deg, #f6d365, #fda085,#e57e61); border-radius:20px;">
+        <div class="card-body text-center p-4">
+
+            <h1>🏆</h1>
+
+            <h4>Best Subject</h4>
+
+            <hr>
+
+            <h2 class="fw-bold">
+                {{ best_subject['Subject'] }}
+            </h2>
+
+            <h5>
+                Average:
+                {{ best_subject['avg_marks'] }}
+            </h5>
+
+        </div>
+    </div>
+</div>
+
+
+    <!-- Average Marks Card -->
+    <div class="col-md-4">
+        <div class="card border-0 shadow-lg text-white"
+             style="background: linear-gradient(135deg, #36d1dc, #5b86e5); border-radius:20px;">
+            <div class="card-body text-center p-4">
+                <h1>📈</h1>
+                <h5 class="mb-3">Average Marks</h5>
+                <hr>
+                <h1 class="fw-bold">
+                    {{ avg_marks }}
+                </h1>
+
+                <p class="mb-0">
+                    Overall Performance
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!--Top 5 ranking-->
+<div class="row mt-4">
+    <div class="col-md-12">
+
+        <div class="card border-0 shadow-lg"
+             style="border-radius:20px;">
+
+            <div class="card-body">
+
+                <h3 class="text-center mb-4">
+                    🏅 Top 5 Students Ranking
+                </h3>
+
+                <div class="table-responsive">
+
+                    <table class="table align-middle text-center">
+
+                         <thead class="table-dark">
+                           <tr>
+                                <th>Rank</th>
+                                <th>Student Name</th>
+                                <th>Marks</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for student in top_students %}
+
+                            <tr>
+
+                                <td>
+                                    {% if loop.index == 1 %}
+                                        <span class="fs-3">🥇</span>
+                                    {% elif loop.index == 2 %}
+                                        <span class="fs-3">🥈</span>
+                                    {% elif loop.index == 3 %}
+                                        <span class="fs-3">🥉</span>
+                                    {% else %}
+                                        <span class="badge bg-dark fs-6">
+                                            {{ loop.index }}
+                                        </span>
+                                    {% endif %}
+                                </td>
+
+                                <td class="fw-bold">
+                                    {{ student['name'] }}
+                                </td>
+
+                                <td>
+                                    <span class="badge bg-success fs-6">
+                                        {{ student['marks'] }} Marks
+                                    </span>
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="row mt-4">
+
+    <div class="col-md-12">
+
+        <div class="card border-0 shadow-lg"
+             style="border-radius:20px;">
+
+            <div class="card-body">
+
+                <h3 class="text-center mb-4">
+                    🕒 Recent Students
+                </h3>
+
+                <div class="table-responsive">
+
+                    <table class="table table-hover text-center">
+
+                        <thead class="recent-header">
+                            <tr>
+                                <thead>
+                            
+                                <th style="background:#5b86e5;color:white;">Name</th>
+                                <th style="background:#5b86e5;color:white;">Subject</th>
+                                <th style="background:#5b86e5;color:white;">Marks</th>
+                          
+                            </thead>
+                            </tr>
+                          
+
+                        <tbody>
+
+                            {% for student in recent_students %}
+                            <tr>
+                                <td>{{ student['name'] }}</td>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        {{ student['Subject'] }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-success">
+                                        {{ student['marks'] }}
+                                    </span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!--REsult analysis-->
+    <div class="row mt-4">
+
+        <div class="col-md-6 mx-auto">
+
+            <div class="card chart-card shadow-lg">
+
+                <div class="card-body">
+
+                    <h4 class="text-center mb-4">
+                        📉 Result Analysis
+                    </h4>
+
+                    <canvas id="resultChart" height="120"></canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const centerText = {
+    id: 'centerText',
+    beforeDraw(chart) {
+        const {ctx} = chart;
+        const width = chart.width;
+        const height = chart.height;
+
+        ctx.restore();
+
+        ctx.font = 'bold 28px Arial';
+        ctx.textBaseline = 'middle';
+        ctx.textAlign = 'center';
+
+        ctx.fillText(
+            '{{ pass_percentage }}%',
+            width / 2,
+            height / 2
+        );
+
+        ctx.save();
+    }
+};
+
+const ctx = document.getElementById('resultChart');
+
+new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Pass', 'Fail'],
+        datasets: [{
+            data: [{{ pass_count }}, {{ fail_count }}],
+            backgroundColor: [
+                '#198754',
+                '#dc3545'
+            ],
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        cutout: '70%',
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    font: {
+                        size: 20
+                    },
+                    padding: 20
+                }
+            }
+        }
+    },
+    plugins: [centerText]
+});
+</script>
+{% endblock %}

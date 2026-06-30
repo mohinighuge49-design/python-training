@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, flash, url_for, redirect,session
 from database import get_db, init_db, MOHINI_DB
 from werkzeug.security import generate_password_hash, check_password_hash
+import csv
+from flask import Response
 
 
 app = Flask(__name__)
@@ -34,6 +36,127 @@ def about():
 @app.route('/contact_us')
 def contact_us():
     return render_template('contact_us.html')
+
+@app.route('/dashboard')
+def dashboard():
+    conn = get_db(MOHINI_DB)
+
+    total_students = conn.execute(
+        "SELECT COUNT(*) FROM stud"
+    ).fetchone()[0]
+
+    total_Subject = conn.execute(
+        "SELECT COUNT(DISTINCT Subject) FROM stud"
+    ).fetchone()[0]
+
+    pass_count = conn.execute(
+        "SELECT COUNT(*) FROM stud WHERE marks >= 35"
+    ).fetchone()[0]
+
+    fail_count = conn.execute(
+        "SELECT COUNT(*) FROM stud WHERE marks < 35"
+    ).fetchone()[0]
+
+    avg_marks = conn.execute(
+        "SELECT ROUND(AVG(marks),2) FROM stud"
+    ).fetchone()[0]
+
+    topper = conn.execute(
+        "SELECT name, marks FROM stud ORDER BY marks DESC LIMIT 1"
+    ).fetchone()
+
+    pass_percentage = 0
+    if total_students > 0:
+        pass_percentage = round(
+            (pass_count / total_students) * 100, 2
+        )
+
+    top_students = conn.execute(
+        """
+        SELECT name, marks
+        FROM stud
+        ORDER BY marks DESC
+        LIMIT 5
+        """
+    ).fetchall()
+
+    best_subject = conn.execute(
+    """
+    SELECT Subject,
+           ROUND(AVG(marks),2) as avg_marks
+    FROM stud
+    GROUP BY Subject
+    ORDER BY avg_marks DESC
+    LIMIT 1
+    """
+).fetchone()
+
+    recent_students = conn.execute(
+    """
+    SELECT name, Subject, marks
+    FROM stud
+    ORDER BY id DESC
+    LIMIT 5
+    """
+).fetchall()
+
+    conn.close()
+
+    return render_template(
+        'dashboard.html',
+        total_students=total_students,
+        total_Subject=total_Subject,
+        pass_count=pass_count,
+        fail_count=fail_count,
+        avg_marks=avg_marks,
+        top_students=top_students,
+        recent_students=recent_students,
+        topper=topper,
+        best_subject=best_subject,
+        pass_percentage=pass_percentage
+    )
+
+
+#...........Export.............
+
+@app.route('/export')
+def export_data():
+
+    conn = get_db(MOHINI_DB)
+
+    students = conn.execute(
+        "SELECT * FROM stud"
+    ).fetchall()
+
+    conn.close()
+
+    def generate():
+        data = csv.writer(
+            open('temp.csv', 'w', newline='')
+        )
+
+    output = []
+
+    output.append("ID,Name,Roll No,Subject,Marks\n")
+
+    for student in students:
+        output.append(
+            f"{student['id']},"
+            f"{student['name']},"
+            f"{student['roll_no']},"
+            f"{student['Subject']},"
+            f"{student['marks']}\n"
+        )
+
+    return Response(
+        output,
+        mimetype="text/csv",
+        headers={
+            "Content-Disposition":
+            "attachment; filename=students.csv"
+        }
+    )
+
 
 #============add_students==========
 

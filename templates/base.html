@@ -37,22 +37,58 @@
             color: #000 !important;
             font-weight: 600;
         }
+
+                .dark-mode{
+            background:#121212;
+            color:white;
+        }
+
+        .dark-mode .card{
+            background:#1e1e1e;
+            color:white;
+        }
+
+        .dark-mode table{
+            color:white;
+        }
+        
+.card{
+    animation: fadeIn 0.8s ease;
+}
+
+      .export-btn{
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+    padding: 8px 18px;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.export-btn:hover{
+    background: white;
+    color: black;
+}
     </style>
+
 
 </head>
 
 <body>
 
 <!-- NAVBAR START -->
+
 <nav class="navbar navbar-expand-lg navbar-dark shadow-lg"
      style="background: linear-gradient(90deg,#0f2027,#203a43,#2c5364);">
 
     <div class="container">
 
         <!-- Logo -->
-        <a class="navbar-brand fw-bold fs-4 text-warning" href="/">
-            🎓 College Smart Portal
+         <a class="navbar-brand fw-bold" href="/">
+             🎓 college Management System
         </a>
+       
 
         <!-- Hamburger Button -->
         <button class="navbar-toggler" type="button"
@@ -105,9 +141,14 @@
                     <a class="nav-link custom-link" href="/about">ℹ️ About</a>
                 </li>
 
-            </ul>
+                <li class="nav-item">
+                    <a class="nav-link custom-link" href="/dashboard">📊 Dashboard</a>
+                </li>
 
- <div class="dropdown">
+            </ul>
+               
+
+    <div class="dropdown">
 
             <a class="btn btn-outline-light btn-sm dropdown-toggle d-flex align-items-center gap-2"
                href="#"
@@ -169,6 +210,12 @@
         </div>
        </div>
     </div>
+
+
+  <a href="/export" class="export-btn">
+    📥 Export Data
+</a>
+
 </nav>
 <!-- NAVBAR END -->
 
@@ -190,6 +237,26 @@
 
 </div>
 
+<button onclick="toggleTheme()" class="btn btn-dark">
+    Dark Mode
+</button>
+
+<script>
+function toggleTheme() {
+    document.body.classList.toggle("dark-mode");
+
+    if(document.body.classList.contains("dark-mode")){
+        localStorage.setItem("theme","dark");
+    } else {
+        localStorage.setItem("theme","light");
+    }
+}
+
+if(localStorage.getItem("theme")=="dark"){
+    document.body.classList.add("dark-mode");
+}
+</script>
+
 <!-- PAGE CONTENT -->
 <div class="container mt-4">
 
@@ -200,6 +267,8 @@
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </body>
 </html>
