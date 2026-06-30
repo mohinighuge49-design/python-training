@@ -1,5 +1,7 @@
-from flask import Flask, render_template, request, flash, url_for, redirect
+from flask import Flask, render_template, request, flash, url_for, redirect,session
 from database import get_db, init_db, MOHINI_DB
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 app = Flask(__name__)
 app.secret_key = 'abc1234567890'
@@ -17,33 +19,13 @@ notices_list = [
 def home():
     return render_template('home.html')
 
-
 @app.route('/college_info')
 def college_info():
     return render_template('college_info.html')
 
-
-@app.route('/students')
-def students():
-    search = request.args.get('search', '')
-    conn = get_db(MOHINI_DB)
-
-    if search:
-        students = conn.execute(
-            "SELECT * FROM stud WHERE name LIKE ?",
-            ('%' + search + '%',)
-        ).fetchall()
-    else:
-        students = conn.execute("SELECT * FROM stud").fetchall()
-
-    conn.close()
-    return render_template('students.html', students=students)
-
-
 @app.route('/notices')
 def notices():
     return render_template('notices.html', notices=notices_list)
-
 
 @app.route('/about')
 def about():
@@ -53,11 +35,13 @@ def about():
 def contact_us():
     return render_template('contact_us.html')
 
-
+#============add_students==========
 
 @app.route("/add_students", methods=["GET", "POST"])
 def add_student():
-
+    if session.get('role') !='admin':
+        flash("Admins only..! You do not have permission","danger")
+        return redirect(url_for('home'))
     if request.method == "POST":
 
         name = request.form["name"]
@@ -84,10 +68,73 @@ def add_student():
 
     return render_template("add_students.html")
 
+#=========FILTER ROUTE==========
 
+@app.route('/filter')
+def filter_students():
+   
+    subject = request.args.get('subject', '')
+    grade = request.args.get('grade', '')
+
+    conn = get_db(MOHINI_DB)
+    
+    subjects = conn.execute('''SELECT DISTINCT Subject FROM stud
+                            WHERE subject IS NOT NULL
+                            AND subject != ""
+                            ORDER BY subject ASC''').fetchall()    
+    
+    query = 'SELECT * FROM stud WHERE 1=1'
+    params = []
+    if subject:
+      query += ' AND Subject = ?'
+      params.append(subject)
+    if grade =='excellent':
+        query += ' AND marks >= 90'
+    elif grade == 'good':
+        query += ' AND marks >= 75 AND marks < 90'
+    elif grade == 'average':
+        query += ' AND marks >= 60 AND marks < 75'
+    elif grade == 'poor':
+        query += ' AND marks < 45'
+        
+    query += ' ORDER BY id DESC'
+    students = conn.execute(query, params).fetchall()
+    conn.close()
+    return render_template('filter.html', students=students, subjects=subjects, selected_subject=subject, selected_grade=grade)
+
+
+#========filter===========
+@app.route('/students')
+def students():
+
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    search = request.args.get('search', '')
+    conn = get_db(MOHINI_DB)
+
+    if search:
+        students = conn.execute(
+            "SELECT * FROM stud WHERE name LIKE ?",
+            ('%' + search + '%',)
+        ).fetchall()
+    else:
+        students = conn.execute(
+            "SELECT * FROM stud"
+        ).fetchall()
+
+    conn.close()
+
+    return render_template(
+        'students.html',
+        students=students
+    )
+
+#==========students_details (view)==============
 @app.route("/students_details/<int:id>")
 def detail(id):
 
+    
     conn = get_db(MOHINI_DB)
 
     student = conn.execute(
@@ -103,13 +150,16 @@ def detail(id):
 
     return render_template("detail.html", student=student)
 
-
+#=========edit_student  (update)===========
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])
 def edit_student(id):
+   if session.get('role') !='admin':
+        flash("Admins only..! You do not have permission","danger")
+        return redirect(url_for('home'))
+  
+   conn = get_db(MOHINI_DB)
 
-    conn = get_db(MOHINI_DB)
-
-    if request.method == 'POST':
+   if request.method == 'POST':
 
         name = request.form['name']
         roll_no = request.form['roll_no']
@@ -127,21 +177,23 @@ def edit_student(id):
         flash("Student updated successfully!", "success")
         return redirect(url_for('students'))
 
-    student = conn.execute(
+   student = conn.execute(
         "SELECT * FROM stud WHERE id=?",
         (id,)
     ).fetchone()
 
-    conn.close()
+   conn.close()
 
-    return render_template('edit_students.html', student=student)
+   return render_template('edit_students.html', student=student)
 
-
+#==========delete_student  (delete)===========
 @app.route('/delete/<int:id>')
 def delete_student(id):
-
+    if session.get('role') !='admin':
+        flash("Admins only..! You do not have permission","danger")
+        return redirect(url_for('home'))
     conn = get_db(MOHINI_DB)
-
+ 
     conn.execute("DELETE FROM stud WHERE id=?", (id,))
 
     conn.commit()
@@ -150,44 +202,127 @@ def delete_student(id):
     flash("Student deleted successfully!", "success")
     return redirect(url_for('students'))
 
+#======REGISTER, LOGIN ,LOGOUT=========
+@app.route('/register', methods=['GET', 'POST'])
+def register():
 
-# =========================
-# 🔥 FILTER ROUTE FIXED
-# =========================
-@app.route('/filter')
-def filter_students():
-    #Values from URL
-    subject = request.args.get('subject', '')
-    grade = request.args.get('grade', '')
+    if request.method == 'POST':
 
-    conn = get_db(MOHINI_DB)
-    # Unique subjects for dropdown
-    subjects = conn.execute('''SELECT DISTINCT Subject FROM stud
-                            WHERE subject IS NOT NULL
-                            AND subject != ""
-                            ORDER BY subject ASC''').fetchall()    
-    
-    #Dynamic query- WHERE 1=1
-    query = 'SELECT * FROM stud WHERE 1=1'
-    params = []
-    if subjects:
-        query += ' AND subject = ?'
-        params.append(subject)
-    if grade =='excellent':
-        query += ' AND marks >= 90'
-    elif grade == 'good':
-        query += ' AND marks >= 75 AND marks < 90'
-    elif grade == 'average':
-        query += ' AND marks >= 60 AND marks < 75'
-    elif grade == 'poor':
-        query += ' AND marks < 45'
+        username = request.form['username']
+        Email = request.form['Email']
+        password = request.form['password']
+
+        hashed = generate_password_hash(password)
+
+        conn = get_db(MOHINI_DB)
+
+        conn.execute(
+            '''
+            INSERT INTO users
+            (username,Email,password,role)
+            VALUES (?,?,?,?)
+            ''',
+            (username,Email,hashed,'student')
+        )
+
+        conn.commit()
+        conn.close()
+
+        flash("Registration Successful!", "success")
+        return redirect('/login')
+
+    return render_template("register.html")
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+
+    if request.method == 'POST':
+
+        username = request.form['username']
+        password = request.form['password']
+
+      
+        conn = get_db(MOHINI_DB)
+        user = conn.execute('SELECT * FROM users WHERE username = ?', (username,)).fetchone()
+        conn.close()
         
-    query += ' ORDER BY id DESC'
-    students = conn.execute(query, params).fetchall()
+        if user and check_password_hash(user['password'], password):
+            session['username'] = username
+            session['Email'] = user['Email']
+            session['role'] = user['role']
+            flash(f'Welcome {username}!', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('Invalid username or password', 'danger')
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+
+    session.pop('username', None)
+    session.pop('role',None)
+    flash("You have been logged out..!", "info")
+
+    return redirect(url_for('login'))
+
+#==========PROFILE PAGE , SETTINGS , AND EDIT PROFILE============
+
+@app.route('/profile')
+def profile():
+    if not session.get('username'):
+        return redirect('/login')
+    return render_template('profile.html')
+
+
+@app.route('/settings')
+def settings():
+    if not session.get('username'):
+        return redirect('/login')
+    return render_template('settings.html')
+
+@app.route('/edit_profile', methods=['GET', 'POST'])
+def edit_profile():
+    if not session.get('username'):
+        return redirect('/login')
+
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+
+        # ⚠️ Example: store in session (you can save in DB later)
+        session['name'] = name
+        session['email'] = email
+
+        flash("Profile updated successfully!", "success")
+        return redirect('/profile')
+
+    return render_template('edit_profile.html')
+
+@app.route('/subjects')
+def subjects():
+    conn= get_db(MOHINI_DB)
+    rows = conn.execute('''
+            SELECT subjects.name AS subject_name, COUNT(stud.id) AS student_count
+            FROM subjects
+            LEFT JOIN stud ON stud.subject = subjects.name
+            GROUP BY subjects.name
+            ORDER BY subjects.name
+    ''').fetchall()
     conn.close()
-    return render_template('filter.html', students=students, subjects=subjects, selected_subject=subject, selected_grade=grade)
+    return render_template('subjects.html', rows=rows)
 
+@app.route('/check')
+def check():
+    conn = get_db(MOHINI_DB)
 
+    rows = conn.execute("PRAGMA table_info(stud)").fetchall()
+
+    result = []
+    for row in rows:
+        result.append(dict(row))
+
+    conn.close()
+    return str(result)
 
 if __name__ == "__main__":
     init_db()

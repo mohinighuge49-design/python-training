@@ -1,0 +1,56 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow p-4" style="max-width:500px; margin:auto;">
+
+        <h3 class="text-center">👤 Profile</h3>
+        <hr>
+
+        <p><b>Name:</b> {{ session.get('username','Not set') }}</p>
+        <p><b>Email:</b> {{ session.get('Email','Not set') }}</p>
+
+        <!-- PASSWORD SECTION -->
+        <p>
+            <b>Password:</b>
+            <span id="passwordField">••••••••</span>
+
+            <button type="button" class="btn btn-sm btn-outline-primary ms-2"
+                    onclick="togglePassword()">
+                👁 Show
+            </button>
+        </p>
+
+        <a href="/edit_profile" class="btn btn-warning w-100 mt-3">
+            ✏️ Edit Profile
+        </a>
+
+    </div>
+
+</div>
+
+<!-- JS -->
+<script>
+let isVisible = false;
+let realPassword = "{{ session.get('password','123456') }}"; // demo only
+
+function togglePassword() {
+    const field = document.getElementById("passwordField");
+    const btn = event.target;
+
+    if (!isVisible) {
+        field.innerText = realPassword;
+        btn.innerText = "🙈 Hide";
+        isVisible = true;
+    } else {
+        field.innerText = "••••••••";
+        btn.innerText = "👁 Show";
+        isVisible = false;
+    }
+}
+</script>
+
+{% endblock %}

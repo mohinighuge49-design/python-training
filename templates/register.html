@@ -1,0 +1,102 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6 col-lg-5">
+
+            <div class="card border-0 shadow-lg rounded-4">
+
+                <div class="card-body p-5">
+
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold text-primary">🎓 Register</h2>
+                        <p class="text-muted">
+                            Create your College Smart Portal account
+                        </p>
+                    </div>
+
+                    <form method="POST">
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">
+                                👤 Username
+                            </label>
+                            <input type="text"
+                                   name="username"
+                                   class="form-control form-control-lg rounded-3"
+                                   placeholder="Enter username"
+                                   required>
+                        </div>
+
+                         <div class="mb-4">
+                            <label class="form-label fw-semibold">
+                               Email
+                            </label>
+                            <input type="email"
+                            name="email" 
+                            class="form-control form-control-lg rounded-3" 
+                            placeholder="Enter Email"
+                            required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">
+                                🔒 Password
+                            </label>
+                            <input type="password"
+                                   name="password"
+                                   class="form-control form-control-lg rounded-3"
+                                   placeholder="Enter password"
+                                   required>
+                        </div>
+
+                        <button type="submit"
+                                class="btn btn-primary w-100 py-2 rounded-3 fw-bold">
+                            Register
+                        </button>
+
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <span class="text-muted">
+                            Already have an account?
+                        </span>
+
+                        <a href="{{ url_for('login') }}"
+                           class="text-decoration-none fw-bold">
+                            Login Here
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+body{
+    background: linear-gradient(135deg, #e3f2fd, #ffffff);
+    min-height: 100vh;
+}
+
+
+.card{
+    backdrop-filter: blur(10px);
+}
+
+.form-control:focus{
+    box-shadow: 0 0 12px rgba(13,110,253,0.3);
+}
+</style>
+
+{% endblock %}

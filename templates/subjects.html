@@ -1,0 +1,46 @@
+
+{% extends "base.html" %}
+
+{% block title %}Subjects - College Portal{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    
+    <div class="text-center mb-4">
+        <h1 class="fw-bold text-primary">📚 Subjects Dashboard</h1>
+        <p class="text-muted">Available Subjects & Student Count</p>
+    </div>
+
+    <div class="row">
+        {% for row in rows %}
+        <div class="col-md-4 mb-4">
+             <div class="card border-primary shadow text-center">
+            <div class="card shadow-lg border-0 text-center">
+                <div class="card-body">
+
+                    <h1>📖</h1>
+
+                    <h5 class="fw-bold mt-2">
+                        {{ row['subject_name'] }}
+                    </h5>
+
+                    <h2 class="fw-bold text-primary">
+                        {{ row['student_count'] }}
+                    </h2>
+
+                    <span class="badge bg-success">
+                        Students
+                    </span>
+
+                </div>
+            </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}
+

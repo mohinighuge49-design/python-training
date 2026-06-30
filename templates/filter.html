@@ -157,6 +157,9 @@ table tbody tr:hover {
                         </td>
 
                         <td>
+                            <a href="{{ url_for('detail', id=student.id) }}"
+                               class="btn btn-warning btn-sm"> View</a>
+
                             <a href="{{ url_for('edit_student', id=student['id']) }}"
                                class="btn btn-sm btn-primary">Edit</a>
 
@@ -183,5 +186,12 @@ table tbody tr:hover {
     </div>
 
 </div>
+
+  <footer style="background-color: #1e3a5f;" class="text-white text-center py-3 mt-5">
+        <small>
+            🎓 College Portal &nbsp;|&nbsp;
+            Built with Python + Flask + Bootstrap &nbsp;🎓&nbsp;
+        </small>
+    </footer>
 
 {% endblock %}

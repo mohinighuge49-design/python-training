@@ -2,36 +2,64 @@
 
 {% block content %}
 
+<style>
+    .header-gradient{
+        background: linear-gradient(135deg,#0d6efd,#4dabf7);
+    }
+
+    .table tbody tr{
+        transition: 0.3s;
+    }
+
+    .table tbody tr:hover{
+        transform: scale(1.01);
+    }
+
+    .search-card{
+        border-radius: 15px;
+    }
+</style>
+
 <div class="container mt-5">
 
+    <!-- Header -->
     <div class="card shadow-lg border-0 mb-4">
-        <div class="card-body text-center bg-primary text-white">
+        <div class="card-body text-center text-white header-gradient">
             <h1 class="display-6">
                 <i class="bi bi-people-fill"></i>
                 Students Information
             </h1>
 
-            <span class="badge bg-warning text-dark fs-5 mt-2">
+            <span class="badge bg-warning text-dark px-3 py-2 fs-6 mt-2">
                 Total Students : {{ students|length }}
             </span>
         </div>
     </div>
 
-    <form method="GET" action ="/students">
-        <div class="card-shadow-sm border-0 mb-3">
+    <!-- Search -->
+    <div class="card shadow-sm border-0 mb-4 search-card">
         <div class="card-body">
-        <input type="text"
-        name="search"
-        class="form-control w-100"
-        placeholder="🔍search students">
-        </div>
-        </div>
-    </form>
 
+            <div class="input-group">
+                <span class="input-group-text">
+                    🔍
+                </span>
+
+                <input type="text"
+                       id="searchInput"
+                       class="form-control"
+                       placeholder="Search Students by Name, Roll No or Subject without reloading the page">
+            </div>
+
+           
+        </div>
+    </div>
+
+    <!-- Table Card -->
     <div class="card shadow-lg border-0">
 
-        <div class="card-header bg-dark text-white">
-            <h4>
+        <div class="card-header bg-dark text-white mb-2">
+            <h4 class="mb-0">
                 <i class="bi bi-table"></i>
                 Student Records
             </h4>
@@ -43,23 +71,29 @@
 
                 <thead class="table-dark">
                     <tr>
+                        <th>#</th>
                         <th>👤 Name</th>
                         <th>🆔 Roll No</th>
                         <th>📖 Subject</th>
-                        <th>📖 Marks</th>
+                        <th>📝 Marks</th>
                         <th>🏆 Grade</th>
                         <th>⚙️ Action</th>
                     </tr>
                 </thead>
 
-                <tbody>
+                <tbody id="tableBody">
 
                 {% if students %}
 
                     {% for student in students %}
-                    <tr>
 
-                        <td>{{ student.name }}</td>
+                    <tr data-search="{{ student.name|lower }} {{ student.roll_no }} {{ student.Subject|lower }}">
+
+                        <td>{{ loop.index }}</td>
+
+                        <td>
+                            <strong>{{ student.name }}</strong>
+                        </td>
 
                         <td>
                             <span class="badge bg-info">
@@ -67,54 +101,80 @@
                             </span>
                         </td>
 
-                         <td>
-                                {{ student.Subject }}
+                        <td>
+                            {{ student.Subject }}
                         </td>
-
-                        <td>{{ student.marks }}</td>
 
                         <td>
                             {% if student.marks >= 90 %}
-                                <span class="badge bg-success">A+</span>
-                            {% elif student.marks >= 80 %}
-                                <span class="badge bg-primary">A</span>
-                            {% elif student.marks >= 70 %}
-                                <span class="badge bg-warning text-dark">B+</span>
+                                <span class="text-success fw-bold">
+                                    {{ student.marks }}
+                                </span>
+
                             {% elif student.marks >= 60 %}
-                                <span class="badge bg-info">B</span>
-                            {% elif student.marks >= 50 %}
-                                <span class="badge bg-secondary">C</span>
+                                <span class="text-primary fw-bold">
+                                    {{ student.marks }}
+                                </span>
+
                             {% else %}
-                                <span class="badge bg-danger">Fail</span>
+                                <span class="text-danger fw-bold">
+                                    {{ student.marks }}
+                                </span>
                             {% endif %}
                         </td>
 
                         <td>
-                            <a href="{{ url_for('detail', id=student.id) }}"
-                               class="btn btn-danger btn-sm">
-                                View
-                            </a>
 
+                            {% if student.marks >= 90 %}
+                                <span class="badge bg-success">A+</span>
+
+                            {% elif student.marks >= 80 %}
+                                <span class="badge bg-primary">A</span>
+
+                            {% elif student.marks >= 70 %}
+                                <span class="badge bg-warning text-dark">B+</span>
+
+                            {% elif student.marks >= 60 %}
+                                <span class="badge bg-info">B</span>
+
+                            {% elif student.marks >= 50 %}
+                                <span class="badge bg-secondary">C</span>
+
+                            {% else %}
+                                <span class="badge bg-danger">Fail</span>
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            <a href="{{ url_for('detail', id=student.id) }}"
+                               class="btn btn-primary btn-sm">
+                                👁️ View
+                            </a>
+                         {% if session.get('role') == 'admin' %}
                             <a href="{{ url_for('edit_student', id=student.id) }}"
                                class="btn btn-warning btn-sm">
-                                Update
+                                ✏️ Update
                             </a>
 
                             <a href="{{ url_for('delete_student', id=student.id) }}"
-                               class="btn btn-success btn-sm"
+                               class="btn btn-danger btn-sm"
                                onclick="return confirm('Are you sure you want to delete this student?')">
-                                Delete
+                                🗑️ Delete
                             </a>
+                          {% endif %}
                         </td>
 
                     </tr>
+
                     {% endfor %}
 
                 {% else %}
 
                     <tr>
-                        <td colspan="5" class="text-center text-muted py-4">
-                            No Students Found
+                        <td colspan="7" class="text-center py-5 text-muted">
+                            😔 No Students Found
                         </td>
                     </tr>
 
@@ -128,10 +188,55 @@
 
     </div>
 
-    <div class="card-footer bg-dark text-white text-center py-3 mt-4">
-        © 2026 Government Polytechnic Hingoli
-    </div>
-
+     <footer style="background-color: #052349;" class="text-white text-center py-3 mt-3">
+        <small>
+            🎓 College Portal &nbsp;|&nbsp;
+            Built with Python + Flask + Bootstrap &nbsp;🎓&nbsp;
+        </small>
+    </footer>
 </div>
 
+<!-- Live Search Script -->
+
+<script>
+
+const searchInput = document.getElementById('searchInput');
+const rows = document.querySelectorAll('#tableBody tr');
+
+searchInput.addEventListener('keyup', function(){
+
+    const query = this.value.toLowerCase();
+
+    rows.forEach(function(row){
+
+        const data = row.dataset.search;
+
+        if(data.includes(query)){
+            row.style.display = '';
+        }
+        else{
+            row.style.display = 'none';
+        }
+
+    });
+
+});
+
+</script>
+
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
