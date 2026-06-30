@@ -87,7 +87,7 @@ def filter_students():
     params = []
     if subject:
       query += ' AND Subject = ?'
-      params.append(subject)
+      params.append(subject) 
     if grade =='excellent':
         query += ' AND marks >= 90'
     elif grade == 'good':

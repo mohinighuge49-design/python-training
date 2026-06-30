@@ -54,7 +54,7 @@ def init_db():
         )
     ''')
 
-    default_subjects = [
+    default_subjects = [ 
         'Java',
         'C++',
         'Python',
