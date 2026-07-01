@@ -339,6 +339,15 @@ def register():
 
         conn = get_db(MOHINI_DB)
 
+        existing_user = conn.execute(
+            "SELECT * FROM users WHERE username = ?",
+            (username,)
+        ).fetchone()
+
+        if existing_user:
+            flash("Username already exists!", "danger")
+            return redirect('/register')
+
         conn.execute(
             '''
             INSERT INTO users
