@@ -342,7 +342,7 @@ def register():
         conn.execute(
             '''
             INSERT INTO users
-            (username,email,password,role)
+            (username,Email,password,role)
             VALUES (?,?,?,?)
             ''',
             (username,email,hashed,'student')
