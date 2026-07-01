@@ -158,11 +158,11 @@
 
 
 <!--Top 5 ranking-->
-<div class="row mt-4">
-    <div class="col-md-12">
+<div class="row mt-4 g-4">
+    <div class="col-md-6 d-flex">
 
-        <div class="card border-0 shadow-lg"
-             style="border-radius:20px;">
+        <div class="card shadow w-100"
+             style="min-height:280px;">
 
             <div class="card-body">
 
@@ -172,7 +172,7 @@
 
                 <div class="table-responsive">
 
-                    <table class="table align-middle text-center">
+                    <table class="table table-hover table-striped table-bordered text-center">
 
                          <thead class="table-dark">
                            <tr>
@@ -227,42 +227,46 @@
         </div>
 
     </div>
-</div>
 
-<div class="row mt-4">
 
-    <div class="col-md-12">
 
-        <div class="card border-0 shadow-lg"
-             style="border-radius:20px;">
+    <div class="col-md-6 d-flex">
 
+         <div class="card shadow w-100"
+             style="min-height:280px;">
             <div class="card-body">
 
                 <h3 class="text-center mb-4">
-                    🕒 Recent Students
+                    🕒 Recently added Students
                 </h3>
 
                 <div class="table-responsive">
 
-                    <table class="table table-hover text-center">
+                    <table class="table table-hover table-striped table-bordered text-center">
 
                         <thead class="recent-header">
-                            <tr>
-                                <thead>
-                            
+                                <th style="background:#5b86e5;color:white;">#</th> 
                                 <th style="background:#5b86e5;color:white;">Name</th>
                                 <th style="background:#5b86e5;color:white;">Subject</th>
                                 <th style="background:#5b86e5;color:white;">Marks</th>
                           
-                            </thead>
+                            
                             </tr>
-                          
+                        </thead>
 
                         <tbody>
 
                             {% for student in recent_students %}
                             <tr>
-                                <td>{{ student['name'] }}</td>
+                                <td>
+                                    <span class="badge bg-dark fs-6">
+                                            {{ loop.index }}
+                                        </span>
+                                </td>
+                               <td class="fw-bold">
+                                    {{ student['name'] }}
+                                </td>
+
                                 <td>
                                     <span class="badge bg-primary">
                                         {{ student['Subject'] }}
@@ -285,9 +289,6 @@
             </div>
 
         </div>
-
-    </div>
-
 </div>
 
 <!--REsult analysis-->

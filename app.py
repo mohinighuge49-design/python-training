@@ -332,7 +332,7 @@ def register():
     if request.method == 'POST':
 
         username = request.form['username']
-        Email = request.form['Email']
+        email = request.form['email']
         password = request.form['password']
 
         hashed = generate_password_hash(password)
@@ -342,10 +342,10 @@ def register():
         conn.execute(
             '''
             INSERT INTO users
-            (username,Email,password,role)
+            (username,email,password,role)
             VALUES (?,?,?,?)
             ''',
-            (username,Email,hashed,'student')
+            (username,email,hashed,'student')
         )
 
         conn.commit()
@@ -371,7 +371,7 @@ def login():
         
         if user and check_password_hash(user['password'], password):
             session['username'] = username
-            session['Email'] = user['Email']
+            session['email'] = user['email']
             session['role'] = user['role']
             flash(f'Welcome {username}!', 'success')
             return redirect(url_for('home'))

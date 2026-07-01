@@ -4,40 +4,79 @@
 
 {% block content %}
 
-<!-- Hero Section -->
-<div class="bg-primary text-white text-center p-5 rounded shadow">
-    <h1 class="display-4 fw-bold">
+<style>
+.hero-section {
+    background: linear-gradient(135deg, #0d6efd, #6610f2);
+    color: white;
+    text-align: center;
+    padding: 70px 20px;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* glow effect */
+.hero-section::before,
+.hero-section::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(50px);
+}
+
+.hero-section::before {
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.2);
+    top: -50px;
+    left: -50px;
+}
+
+.hero-section::after {
+    width: 250px;
+    height: 250px;
+    background: rgba(255,255,255,0.15);
+    bottom: -60px;
+    right: -60px;
+}
+</style>
+
+
+<!-- HERO -->
+<div class="hero-section shadow-lg">
+
+    <h1 class="display-3 fw-bold mb-3">
         🎓 Government Polytechnic Hingoli
     </h1>
-    <p class="lead">
-        Empowering Students Through Quality Technical Education
+
+    <p class="lead mb-4">
+        Empowering Students Through Quality Technical Education 🚀
     </p>
-    <a href="/college_info" class="btn btn-light btn-lg mt-2">
-        Explore College
+
+    <a href="/college_info" class="btn btn-light btn-lg px-4">
+        📘 Explore College
     </a>
+
 </div>
 
-<!-- Welcome Section -->
-<div class="mt-5">
-    <h2 class="text-center fw-bold">
-        ✨ Welcome to Government Polytechnic Hingoli ✨
-    </h2>
 
-    <p class="text-center fs-5">
+<!-- WELCOME -->
+<div class="mt-5 text-center">
+    <h2 class="fw-bold">✨ Welcome to Government Polytechnic Hingoli ✨</h2>
+
+    <p class="fs-5 text-muted">
         Dream Big • Learn Smart • Achieve Success
     </p>
 
-    <div class="text-center">
-        <p>📍 Location: Hingoli</p>
-        <p>🏫 Established Year: 2009</p>
-    </div>
+    <p>📍 Hingoli | 🏫 Established 2009</p>
 </div>
 
-<!-- Quick Stats -->
-<div class="row mt-5">
+
+<!-- STATS -->
+<div class="row mt-5 text-center">
 
     <div class="col-md-3 mb-3">
-        <div class="card shadow text-center h-100">
+        <div class="card shadow border-0 h-100">
             <div class="card-body">
                 <h2 class="text-primary">1000+</h2>
                 <p>Students</p>
@@ -46,7 +85,7 @@
     </div>
 
     <div class="col-md-3 mb-3">
-        <div class="card shadow text-center h-100">
+        <div class="card shadow border-0 h-100">
             <div class="card-body">
                 <h2 class="text-success">3</h2>
                 <p>Departments</p>
@@ -55,7 +94,7 @@
     </div>
 
     <div class="col-md-3 mb-3">
-        <div class="card shadow text-center h-100">
+        <div class="card shadow border-0 h-100">
             <div class="card-body">
                 <h2 class="text-danger">2009</h2>
                 <p>Established</p>
@@ -64,58 +103,48 @@
     </div>
 
     <div class="col-md-3 mb-3">
-        <div class="card shadow text-center h-100">
+        <div class="card shadow border-0 h-100">
             <div class="card-body">
                 <h2 class="text-warning">95%</h2>
-                <p>Placement Support</p>
+                <p>Placement</p>
             </div>
         </div>
     </div>
 
 </div>
 
-<!-- Courses Section -->
+
+<!-- COURSES -->
 <div class="mt-5">
 
-    <h2 class="text-center mb-4">
-        📚 Available Courses
-    </h2>
+    <h2 class="text-center mb-4">📚 Available Courses</h2>
 
     <div class="row">
 
         <div class="col-md-4 mb-3">
-            <div class="card shadow h-100">
-                <div class="card-body text-center">
-                    <h4>💻 Computer Engineering</h4>
-                    <p>
-                        Programming, Web Development,
-                        AI and Software Development
-                    </p>
-                </div>
+               <div class="card border-primary shadow text-center">
+            <div class="card shadow-lg border-0 h-100 text-center p-3">
+                <h4>💻 Computer Engineering</h4>
+                <p>Programming, Web Development, AI & Software Development</p>
             </div>
+        </div>
         </div>
 
         <div class="col-md-4 mb-3">
-            <div class="card shadow h-100">
-                <div class="card-body text-center">
-                    <h4>⚙ Mechanical Engineering</h4>
-                    <p>
-                        CAD Design, Manufacturing
-                        and Industrial Technology
-                    </p>
-                </div>
+               <div class="card border-primary shadow text-center">
+            <div class="card shadow-lg border-0 h-100 text-center p-3">
+                <h4>⚙ Mechanical Engineering</h4>
+                <p>CAD Design, Manufacturing, Machine learning & Industrial Technology</p>
             </div>
+        </div>
         </div>
 
         <div class="col-md-4 mb-3">
-            <div class="card shadow h-100">
-                <div class="card-body text-center">
-                    <h4>⚡ Electrical & Electronics Engineering</h4>
-                    <p>
-                        Power Systems,
-                        Electronics and Automation
-                    </p>
-                </div>
+            <div class="card border-primary shadow text-center">
+            <div class="card shadow-lg border-0 h-100 text-center p-3">
+                <h4>⚡ Electrical Engineering</h4>
+                <p>Power Systems, Electronics ,Circuit design & Automation</p>
+            </div>
             </div>
         </div>
 
@@ -123,25 +152,19 @@
 
 </div>
 
-<!-- Quick Links -->
+
+<!-- QUICK LINKS -->
 <div class="mt-5 text-center">
 
-    <h2 class="mb-4">
-        🔗 Quick Access
-    </h2>
+    <h2 class="mb-4">🔗 Quick Access</h2>
 
-    <a href="/" class="btn btn-primary btn-lg m-2"> 🏠 Home</a>
+    <a href="/" class="btn btn-primary btn-lg m-2">🏠 Home</a>
+    <a href="/college_info" class="btn btn-success btn-lg m-2">🏫 College Info</a>
+    <a href="/students_info" class="btn btn-warning btn-lg m-2">👨‍🎓 Students</a>
+    <a href="/notices" class="btn btn-danger btn-lg m-2">📢 Notices</a>
+    <a href="/about" class="btn btn-info btn-lg m-2">🏫 About</a>
+    <a href="/add_students" class="btn btn-secondary btn-lg m-2">➕ Add Students</a>
 
-    <a href="/college_info" class="btn btn-success btn-lg m-2"> 🏫 College Info</a>
-
-    <a href="/students_info" class="btn btn-warning btn-lg m-2">👨‍🎓 Students </a>
-
-    <a href="/notices" class="btn btn-danger btn-lg m-2">📢 Notices </a>
-
-    <a href="/about" class="btn btn-info btn-lg m-2">⚠️about </a>
-
-    <a href="/add_students" class="btn btn-secondary m-2">➕add_students</a>
 </div>
-
 
 {% endblock %}
