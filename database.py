@@ -6,6 +6,11 @@ MOHINI_DB = os.environ.get(
     os.path.join(os.path.dirname(__file__), "college_records.db")
 )
 
+# ABSOLUTE PATH -always with app.py folder
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MOHINI_DB = os.path.join(BASE_DIR, "college_records.db")
+
+
 def get_db(db_path):
     conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
