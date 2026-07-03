@@ -34,7 +34,8 @@ def init_db():
         CREATE TABLE IF NOT EXISTS users(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT NOT NULL UNIQUE,
-            password TEXT NOT NULL
+            password TEXT NOT NULL,
+            email TEXT
         )
     ''')
 
@@ -47,7 +48,7 @@ def init_db():
 
     try:
         conn.execute(
-            "ALTER TABLE users ADD COLUMN Email TEXT"
+            "ALTER TABLE users ADD COLUMN email TEXT"
         )
     except Exception:
         pass
