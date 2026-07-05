@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, url_for, redirect,session
+from flask import Flask, jsonify, render_template, request, flash, url_for, redirect,session
 from database import get_db, init_db, MOHINI_DB
 from werkzeug.security import generate_password_hash, check_password_hash
 import csv
@@ -456,7 +456,81 @@ def check():
     conn.close()
     return str(result)
 
+    from flask import jsonify, request
 
+
+@app.route('/assistant')
+def assistant():
+    return render_template('assistant.html')
+
+    #============================chatboat route==============================
+@app.route('/chatbot', methods=['POST'])
+def chatbot():
+
+    message = request.form.get('message', '').lower().strip()
+
+    conn = get_db(MOHINI_DB)
+
+    # ---------------- SMART KEYWORD MATCH ---------------- #
+
+    responses = {
+
+        # greetings
+        "hello": "👋 Hello Student! How can I help you?",
+        "hi": "👋 Hi! Ask me about college, students, marks, subjects.",
+
+        # college info
+        "college": "🏫 Government Polytechnic Hingoli is a technical institute.",
+        "about college": "🏫 It provides diploma courses in engineering fields.",
+
+        # students
+        "students": lambda: f"👨‍🎓 Total Students: {conn.execute('SELECT COUNT(*) as c FROM stud').fetchone()['c']}",
+        "total students": lambda: f"👨‍🎓 Total Students: {conn.execute('SELECT COUNT(*) as c FROM stud').fetchone()['c']}",
+
+        # topper
+        "topper": lambda: (
+            lambda r: f"🏆 Topper: {r['name']} with {r['marks']} marks"
+        )(conn.execute("SELECT name, marks FROM stud ORDER BY marks DESC LIMIT 1").fetchone()),
+
+        # average
+        "average": lambda: (
+            lambda r: f"📊 Average Marks: {round(r['avg'],2)}"
+        )(conn.execute("SELECT AVG(marks) as avg FROM stud").fetchone()),
+
+        # recent
+        "recent": lambda: (
+            lambda r: "🕒 Recent Students: " +
+            ", ".join([i["name"] for i in conn.execute("SELECT name FROM stud ORDER BY id DESC LIMIT 5").fetchall()])
+        )(),
+
+        # subjects
+        "subjects": lambda: (
+            lambda r: "📚 Subjects: " +
+            ", ".join([i["name"] for i in conn.execute("SELECT name FROM subjects").fetchall()])
+        )()
+    }
+
+    reply = None
+
+    # ---------------- SMART SEARCH ---------------- #
+    for key in responses:
+        if key in message:
+            result = responses[key]
+            reply = result() if callable(result) else result
+            break
+
+    # ---------------- DEFAULT AI RESPONSE ---------------- #
+    if not reply:
+        if "marks" in message:
+            reply = "📊 You can ask: topper, average marks, or student details."
+        elif "name" in message:
+            reply = "👨‍🎓 Try: show students or recent students."
+        else:
+            reply = "🤖 Sorry, I didn't understand. Try asking about students, topper, marks, subjects."
+
+    conn.close()
+
+    return jsonify({"reply": reply})
 init_db()
 if __name__ == "__main__":
     
