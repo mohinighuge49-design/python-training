@@ -21,6 +21,10 @@ notices_list = [
 def home():
     return render_template('home.html')
 
+@app.route('/dbpath')
+def dbpath():
+    return MOHINI_DB
+
 @app.route('/college_info')
 def college_info():
     return render_template('college_info.html')
