@@ -473,43 +473,84 @@ def chatbot():
 
     # ---------------- SMART KEYWORD MATCH ---------------- #
 
+    
     responses = {
 
-        # greetings
+        # ================= GREETINGS =================
         "hello": "👋 Hello Student! How can I help you?",
         "hi": "👋 Hi! Ask me about college, students, marks, subjects.",
+        "good morning": "🌅 Good Morning! Ready to learn?",
+        "good night": "🌙 Good Night! Take rest 😊",
 
-        # college info
+        # ================= COLLEGE INFO =================
         "college": "🏫 Government Polytechnic Hingoli is a technical institute.",
         "about college": "🏫 It provides diploma courses in engineering fields.",
+        "database": "🗄️ Database is connected to student management system.",
 
-        # students
+        # ================= HELP =================
+        "help": "🤖 Try: students, topper, average, subjects, recent, marks",
+
+        # ================= STUDENTS =================
         "students": lambda: f"👨‍🎓 Total Students: {conn.execute('SELECT COUNT(*) as c FROM stud').fetchone()['c']}",
         "total students": lambda: f"👨‍🎓 Total Students: {conn.execute('SELECT COUNT(*) as c FROM stud').fetchone()['c']}",
+        "count students": lambda: f"👨‍🎓 Total Students: {conn.execute('SELECT COUNT(*) as c FROM stud').fetchone()['c']}",
 
-        # topper
+        "show students": lambda: (
+            "👨‍🎓 Students List:\n" +
+            "\n".join([i["name"] for i in conn.execute("SELECT name FROM stud").fetchall()])
+        ),
+
+        # ================= TOPPER =================
         "topper": lambda: (
             lambda r: f"🏆 Topper: {r['name']} with {r['marks']} marks"
         )(conn.execute("SELECT name, marks FROM stud ORDER BY marks DESC LIMIT 1").fetchone()),
 
-        # average
+        "highest marks": lambda: f"🏆 Highest Marks: {conn.execute('SELECT MAX(marks) as m FROM stud').fetchone()['m']}",
+
+        "lowest marks": lambda: f"📉 Lowest Marks: {conn.execute('SELECT MIN(marks) as m FROM stud').fetchone()['m']}",
+
+        # ================= AVERAGE =================
         "average": lambda: (
             lambda r: f"📊 Average Marks: {round(r['avg'],2)}"
         )(conn.execute("SELECT AVG(marks) as avg FROM stud").fetchone()),
 
-        # recent
+        # ================= RECENT =================
         "recent": lambda: (
-            lambda r: "🕒 Recent Students: " +
+            "🕒 Recent Students: " +
             ", ".join([i["name"] for i in conn.execute("SELECT name FROM stud ORDER BY id DESC LIMIT 5").fetchall()])
-        )(),
+        ),
 
-        # subjects
+        # ================= SUBJECTS =================
         "subjects": lambda: (
-            lambda r: "📚 Subjects: " +
+            "📚 Subjects: " +
             ", ".join([i["name"] for i in conn.execute("SELECT name FROM subjects").fetchall()])
-        )()
-    }
+        ),
 
+        # ================= PASS / FAIL =================
+        "pass students": lambda: f"✅ Passed Students: {conn.execute('SELECT COUNT(*) as c FROM stud WHERE marks >= 40').fetchone()['c']}",
+        "fail students": lambda: f"❌ Failed Students: {conn.execute('SELECT COUNT(*) as c FROM stud WHERE marks < 40').fetchone()['c']}",
+
+        # ================= EXTRA SMART =================
+        "marks": "📊 Try: topper, average marks, highest marks, lowest marks",
+
+        "student list": lambda: (
+            "👨‍🎓 All Students:\n" +
+            "\n".join([i["name"] for i in conn.execute("SELECT name FROM stud").fetchall()])
+        ),
+
+        "top 5": lambda: (
+            "🏅 Top 5 Students:\n" +
+            "\n".join(
+                [f"{i['name']} - {i['marks']}" for i in conn.execute(
+                    "SELECT name, marks FROM stud ORDER BY marks DESC LIMIT 5"
+                ).fetchall()]
+            )
+        ),
+
+        "attendance": "📅 Attendance system is coming soon in next update!",
+
+        "result": "📊 Ask: topper, average, pass students, fail students"
+    }
     reply = None
 
     # ---------------- SMART SEARCH ---------------- #
