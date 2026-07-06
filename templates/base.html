@@ -83,8 +83,60 @@ from{opacity:0;transform:translateY(15px);}
 to{opacity:1;transform:translateY(0);}
 }
 
+.ai-assistant-btn{
+    position: relative;
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    color: white !important;
+    background: linear-gradient(
+        45deg,
+        #00dbde,
+        #fc00ff,
+        #00dbde
+    );
+    background-size: 300% 300%;
+    animation: gradientMove 4s ease infinite;
+    box-shadow: 0 0 15px rgba(252,0,255,0.5);
+    transition: all 0.3s ease;
+}
 
+.ai-assistant-btn:hover{
+    transform: translateY(-4px) scale(1.05);
+    box-shadow:
+        0 0 20px #fc00ff,
+        0 0 40px #00dbde;
+}
 
+.ai-assistant-btn::before{
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: 50px;
+    background: linear-gradient(
+        45deg,
+        #00dbde,
+        #fc00ff,
+        #00dbde
+    );
+    z-index: -1;
+    filter: blur(12px);
+    opacity: 0.8;
+}
+
+@keyframes gradientMove{
+    0%{
+        background-position: 0% 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0% 50%;
+    }
+}
 </style>
 
 </head>
@@ -168,13 +220,11 @@ to{opacity:1;transform:translateY(0);}
                         class="btn btn-outline-light px-3">
                     <i class="bi bi-moon-stars-fill"></i> Dark
                 </button>
-
-                <li class="nav-item">
-                    <a class="nav-link custom-link" href="/assistant">
+              <li class="nav-item">
+                    <a class="ai-assistant-btn" href="/assistant">
                         🤖 AI Assistant
                     </a>
-                </li>
-
+             </li>
                 <!-- Profile -->
                 <div class="dropdown">
                     <a class="btn btn-primary dropdown-toggle"
