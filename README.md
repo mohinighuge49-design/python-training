@@ -1,4 +1,4 @@
-🎓 # python-training
+🎓 # python-training :- College Smart Portal
 
 A web application built with Python and Flask.
 
@@ -20,7 +20,8 @@ https://mohini.pythonanywhere.com/
 - **Deployment:** PythonAnywhere
 
 ## 🚀 How to Run Locally
-....bash
-git clone https://mohini.pythonanywhere.com/
+```bash
+git clone (https://github.com/mohinighuge49-design/python-training.git)
+cd  python-training 
 pip install -r requirements.txt
 python app.py
