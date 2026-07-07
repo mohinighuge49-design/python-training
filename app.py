@@ -485,6 +485,14 @@ def chatbot():
         "hi": "👋 Hi! Ask me about college, students, marks, subjects.",
         "good morning": "🌅 Good Morning! Ready to learn?",
         "good night": "🌙 Good Night! Take rest 😊",
+        "ok": "👍 Okay! What else do you want to know?",
+        "bye": "👋 Goodbye! See you soon.",
+        "thanks": "🙏 You're welcome! Happy to help.",
+        "thank you": "🙏 You're welcome! Happy to help.",
+        "ohk": "👍 Okay! What else do you want to know?",
+        "done": "✅ Great! Anything else you want to ask?",
+        "welcome": "🙏 You're welcome! Happy to help.",
+        "good": "👍 Great! Keep up the good work.",
 
         # ================= COLLEGE INFO =================
         "college": "🏫 Government Polytechnic Hingoli is a technical institute.",

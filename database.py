@@ -1,4 +1,4 @@
-import sqlite3
+import sqlite3 ,app
 import os
 
 MOHINI_DB = os.environ.get(
