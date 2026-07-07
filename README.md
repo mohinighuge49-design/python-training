@@ -1,4 +1,4 @@
-🎓 # python-training
+🎓 # python-training :- College Smart Portal
 
 A web application built with Python and Flask.
 
