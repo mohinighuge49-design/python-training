@@ -172,6 +172,12 @@
                     onclick="sendMessage()">
                     🚀 Send
                 </button>
+  
+                <button
+                    class="btn btn-warning ms-2"
+                    onclick="speakLastReply()">
+                    🔊 Listen
+                </button>
 
             </div>
 
@@ -182,6 +188,8 @@
 </div>
 
 <script>
+
+let lastReply = "";
 
 function sendMessage(){
 
@@ -228,6 +236,8 @@ function sendMessage(){
         .getElementById("typing")
         .remove();
 
+        lastReply = data.reply;
+
         chat.innerHTML += `
         <div class="bot-msg">
 
@@ -240,8 +250,6 @@ function sendMessage(){
 
         </div>
         `;
-
-        speak(data.reply);
 
         chat.scrollTop =
         chat.scrollHeight;
@@ -260,19 +268,20 @@ function startVoice(){
 
         let text = event.results[0][0].transcript;
 
-        console.log("VOICE:", text);
-
         document.getElementById("userInput").value = text;
 
         sendMessage();
     };
 
-    recognition.onerror = function(e){
+    recognition.onerror = function(event){
+
         console.log("VOICE ERROR:", event.error);
+
     };
 
     recognition.start();
 }
+
 function speak(text){
 
     window.speechSynthesis.cancel();
@@ -280,14 +289,23 @@ function speak(text){
     let speech =
     new SpeechSynthesisUtterance(text);
 
-    speech.lang="en-US";
-    speech.rate=1;
-    speech.pitch=1;
-    speech.volume=1;
+    speech.lang = "en-IN";
+    speech.rate = 1;
+    speech.pitch = 1;
+    speech.volume = 1;
 
     window.speechSynthesis.speak(speech);
 }
 
-</script>
+function speakLastReply(){
 
+    if(!lastReply){
+        alert("No AI response available.");
+        return;
+    }
+
+    speak(lastReply);
+}
+
+</script>
 {% endblock %}

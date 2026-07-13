@@ -1,0 +1,42 @@
+[33m126b5f9[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m HEAD@{0}: reset: moving to 126b5f9
+[33m836a8c8[m HEAD@{1}: commit: update code
+[33m328bc39[m HEAD@{2}: commit: added some new content
+[33m62d51d4[m HEAD@{3}: commit: Load environment variables from .env file using BASE_DIR path
+[33mc1df3d8[m HEAD@{4}: commit: Added AI tips and use environment variable for API key.
+[33mc3254bd[m HEAD@{5}: commit: Added AI tip and .env file.
+[33m742dc6c[m HEAD@{6}: commit: Add initial implementation of day_AI.py with Groq client and student data
+[33m126b5f9[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m HEAD@{7}: pull --tags origin master: Merge made by the 'ort' strategy.
+[33m27b3b26[m HEAD@{8}: commit: Import app module in database.py and adjust navbar alignment in base.html
+[33m76c3585[m HEAD@{9}: pull: Fast-forward
+[33m4c56b2b[m HEAD@{10}: commit: add dbpath route to return MOHINI_DB
+[33m4812f87[m HEAD@{11}: commit: get_db function use
+[33m96bc49d[m HEAD@{12}: commit: add AI assistant button with gradient animation
+[33m2982a3a[m HEAD@{13}: commit: add online status indicator
+[33me2be799[m HEAD@{14}: commit: add AI assistant and chatbot functionality
+[33mf35f504[m HEAD@{15}: commit: correct users table
+[33m909c144[m HEAD@{16}: commit: correct database path configuration
+[33mc5368d5[m HEAD@{17}: commit: fix: add username existence check during registration
+[33mcfe1254[m HEAD@{18}: commit: update college_records database file
+[33me219a58[m HEAD@{19}: commit: fix: correct column name casing in user registration query
+[33m87880f1[m HEAD@{20}: commit: enhance UI components across templates
+[33me679ca0[m HEAD@{21}: commit: Add student performance dashboard and export functionality
+[33m34526e0[m HEAD@{22}: commit: database initialization and add requirements file
+[33m6331b13[m HEAD@{23}: commit: Join , and sub dashboard added
+[33md905f2d[m HEAD@{24}: commit: git add .
+[33m20b754d[m HEAD@{25}: commit: Day 16: use of javascript
+[33m2faa513[m HEAD@{26}: commit: Day 15: search,filter on table
+[33mccfd57c[m HEAD@{27}: commit: Day 13 : search box,CRUD operations
+[33mbc2842d[m HEAD@{28}: commit: using sqlite
+[33mf631a33[m HEAD@{29}: commit: using sqlite
+[33m4dbd329[m HEAD@{30}: commit: permant student added
+[33ma11a4cd[m HEAD@{31}: commit: Day 7
+[33md7bd2fd[m HEAD@{32}: commit: Day 5
+[33m06831cc[m HEAD@{33}: commit: Day 5
+[33m8802c9b[m HEAD@{34}: commit: Day 5
+[33mf4ebd86[m HEAD@{35}: commit: Day 4
+[33mc9d3b51[m HEAD@{36}: commit: list,loops,functions program
+[33m65775a6[m HEAD@{37}: commit: list program
+[33m53d434b[m HEAD@{38}: pull origin master --allow-unrelated-histories: Merge made by the 'ort' strategy.
+[33m4ec7c4e[m HEAD@{39}: reset: moving to HEAD
+[33m4ec7c4e[m HEAD@{40}: reset: moving to HEAD
+[33m4ec7c4e[m HEAD@{41}: commit (initial): Day first program

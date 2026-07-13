@@ -136,17 +136,37 @@
                     <div class="text-center mt-4">
 
                         <a href="{{ url_for('students') }}"
-                           class="btn btn-secondary">
+                        class="btn btn-secondary">
                             ⬅ Back
                         </a>
 
                         <a href="{{ url_for('edit_student', id=student.id) }}"
-                           class="btn btn-warning">
+                        class="btn btn-warning">
                             ✏ Edit
                         </a>
 
-                    </div>
+                        {% if tip %}
 
+                            <div class="alert alert-success mt-3">
+
+                            <h5>🤖 AI Study Tips</h5>
+
+                            <p>
+                            {{ tip }}
+                            </p>
+
+                            </div>
+
+                            {% endif %}
+
+
+                        <!-- ID Card -->
+                        <a href="{{ url_for('id_card', student_id=student.id) }}"
+                        class="btn btn-primary">
+                            🪪 Generate ID Card
+                        </a>
+
+                    </div>
                 </div>
 
             </div>

@@ -1,29 +1,37 @@
-from flask import Flask, jsonify, render_template, request, flash, url_for, redirect,session
+from email import message
+import os
+from dotenv import load_dotenv
+from flask import Flask, jsonify, render_template, request, flash, url_for, redirect, session, abort
 from database import get_db, init_db, MOHINI_DB
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 import csv
 from flask import Response
+from groq import Groq
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+load_dotenv(os.path.join(BASE_DIR, '.env'))
+
+groq_client = Groq(
+    api_key=os.getenv("GROQ_API_KEY")
+)
 
 app = Flask(__name__)
 app.secret_key = 'abc1234567890'
 
-notices_list = [
-    {
-        "title": "🚀python training related Notices",
-        "message": "Python Internship Program started.",
-        "note": "Training focuses on Python fundamentals.",
-        "msg": "Students should attend regularly."
-    }
-]
+UPLOAD_FOLDER = "static/uploads"
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+notices_list = [ { "title": "🚀python training related Notices", 
+                  "message": "Python Internship Program started.",
+                  "note": "Training focuses on Python fundamentals.", 
+                  "msg": "Students should attend regularly." } ]
 
 @app.route('/')
 def home():
     return render_template('home.html')
-
-@app.route('/dbpath')
-def dbpath():
-    return MOHINI_DB
 
 @app.route('/college_info')
 def college_info():
@@ -460,7 +468,49 @@ def check():
     conn.close()
     return str(result)
 
-    from flask import jsonify, request
+#============================day_AI route==============================   
+@app.route("/students/<int:id>/tip")
+def get_ai_tip(id):
+    conn = get_db(MOHINI_DB)
+
+    student = conn.execute(
+        "SELECT * FROM stud WHERE id = ?",
+        (id,)
+    ).fetchone()
+
+    conn.close()
+
+    if student is None:
+        abort(404)
+
+    prompt = f"""
+    Give short 2-3 study tips.maximum 45 words, Simple, encouraging and student-friendly."""
+
+    client = Groq(
+        api_key=os.environ.get("GROQ_API_KEY"))
+    response = client.chat.completions.create( model="llama-3.1-8b-instant",
+        messages=[
+            {"role": "user", "content": prompt}
+        ]
+    )
+
+    tip = response.choices[0].message.content
+
+    try:
+        response = client.chat.completions.create(
+            model="llama-3.1-8b-instant",
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
+        )
+
+        tip = response.choices[0].message.content
+
+    except Exception as e:
+     tip = f"Error: {e}"
+     print("GROQ ERROR:", e)
+
+    return render_template("detail.html",student=student,tip=tip)
 
 
 @app.route('/assistant')
@@ -501,6 +551,9 @@ def chatbot():
 
         # ================= HELP =================
         "help": "🤖 Try: students, topper, average, subjects, recent, marks",
+        "give me some study tips": "📚 Ask for AI study tips on student detail page.",
+        "how to manage timing":  "⏰ Create a study schedule, prioritize tasks, and take breaks.",
+        "how to improve concentration": "🧘‍♂️ Practice mindfulness, eliminate distractions",
 
         # ================= STUDENTS =================
         "students": lambda: f"👨‍🎓 Total Students: {conn.execute('SELECT COUNT(*) as c FROM stud').fetchone()['c']}",
@@ -574,16 +627,92 @@ def chatbot():
 
     # ---------------- DEFAULT AI RESPONSE ---------------- #
     if not reply:
-        if "marks" in message:
-            reply = "📊 You can ask: topper, average marks, or student details."
-        elif "name" in message:
-            reply = "👨‍🎓 Try: show students or recent students."
-        else:
-            reply = "🤖 Sorry, I didn't understand. Try asking about students, topper, marks, subjects."
+
+        try:
+
+            completion = groq_client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=[
+                    {
+                       "role": "system",
+                        "content": """
+                        You are Mohini's College Smart Portal AI Assistant.
+
+                        Rules:
+                        - If the user asks in Marathi, reply in simple Marathi + English mix.
+                        - If the user asks in English, reply in simple English.
+                        - Keep answers short, clear, and student-friendly.
+                        - Help diploma students with study, coding, college, and career questions.
+                        - Use bullet points when useful.
+                        """
+                    },
+                    {
+                        "role": "user",
+                        "content": message
+                    }
+                ]
+            )
+
+            reply = completion.choices[0].message.content
+
+        except Exception as e:
+
+            print("GROQ ERROR:", e)
+
+            reply = "⚠️ AI service is currently unavailable."
+
 
     conn.close()
 
     return jsonify({"reply": reply})
+#===============ID-Card=====================
+
+@app.route('/id_card/<int:student_id>')
+def id_card(student_id):
+
+    db = get_db(MOHINI_DB)
+
+    student = db.execute(
+        "SELECT * FROM stud WHERE id=?",
+        (student_id,)
+    ).fetchone()
+
+    return render_template( 'id-card.html', student=student )
+
+
+@app.route('/upload_photo/<int:id>', methods=['POST'])
+def upload_photo(id):
+
+    photo = request.files.get('photo')
+
+    if photo and photo.filename:
+
+        filename = secure_filename(photo.filename)
+
+        photo.save(
+            os.path.join(
+                app.config['UPLOAD_FOLDER'],
+                filename
+            )
+        )
+
+        db = get_db(MOHINI_DB)
+
+        db.execute(
+            "UPDATE stud SET photo=? WHERE id=?",
+            (filename, id)
+        )
+
+        db.commit()
+
+    return redirect(url_for('id_card',
+                            student_id=id))
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html"), 404
+
 init_db()
 if __name__ == "__main__":
     

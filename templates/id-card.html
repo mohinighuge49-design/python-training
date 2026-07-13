@@ -1,0 +1,247 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+body{
+    background:#f1f5f9;
+}
+
+.id-card{
+    width:500px;
+    margin:auto;
+    background:white;
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 20px 50px rgba(0,0,0,.18);
+    transition:.3s;
+}
+
+.id-card:hover{
+    transform:translateY(-5px);
+}
+
+.header{
+    background:linear-gradient(135deg,#2563eb,#9333ea);
+    color:white;
+    text-align:center;
+    padding:35px 20px 55px;
+}
+
+.header h3{
+
+    font-weight:700;
+    letter-spacing:.5px;
+
+}
+
+.avatar,
+.profile-pic{
+
+    width:140px;
+    height:140px;
+    border-radius:50%;
+    margin:auto;
+    margin-top:-40px;
+    border:6px solid white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:65px;
+    font-weight:bold;
+    background:linear-gradient(135deg,#2563eb,#9333ea);
+    color:white;
+    object-fit:cover;
+    box-shadow:0 10px 25px rgba(0,0,0,.2);
+}
+
+.content{
+    padding:25px;
+   text-align:center;
+}
+.content h2{
+    font-weight:700;
+    color:#1e293b;
+}
+
+.info-card{
+    border:none;
+    border-radius:18px;
+    background:white;
+    padding:20px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.info-card:hover{
+    transform:scale(1.05);
+    box-shadow:0 12px 30px rgba(37,99,235,.25);
+}
+
+.info-card small{
+    color:#64748b;
+    font-size:14px;
+}
+
+
+.info-card h4{
+    margin-top:8px;
+    color:#2563eb;
+    font-weight:700;
+}
+
+.badge{
+    padding:10px 18px;
+    border-radius:20px;
+}
+
+.footer{
+    background:#f8fafc;
+    text-align:center;
+    padding:15px;
+    color:#475569;
+    font-weight:600;
+}
+
+@media print {
+
+.btn,
+form,
+nav,
+footer,
+.no-print{
+
+display:none !important;
+
+}
+
+.id-card{
+
+width:100%;
+box-shadow:none;
+margin:0 auto;
+
+}
+
+body{
+background:white;
+}
+
+}
+</style>
+<div class="container mt-4">
+<div class="id-card">
+
+    <div class="header">
+
+     <h3>🏫 College Smart Portal</h3>
+        <small>Government Polytechnic Hingoli</small>
+    </div>
+
+    {% if student.photo %}
+
+    <img src="{{ url_for('static', filename='uploads/' + student.photo) }}"
+         class="profile-pic">
+
+
+    {% else %}
+
+    <div class="avatar">
+        {{ student.name[0]|upper }}
+    </div>
+
+    {% endif %}
+
+    <div class="content">
+
+        <h2>{{ student.name }}</h2>
+            <span class="badge bg-success fs-6">
+                👑 {{ session.get('role', 'Student')|title }}
+            </span>
+
+        <div class="row mt-4">
+
+            <div class="col-6 mb-3">
+
+                <div class="card info-card">
+                    <small>🆔 Student ID</small>
+                    <h4>{{ student.id }}</h4>
+                </div>
+
+            </div>
+
+            <div class="col-6 mb-3">
+
+                <div class="card info-card">
+                    <small>🎫 Roll No</small>
+                    <h4>{{ student.roll_no }}</h4>
+                </div>
+
+            </div>
+
+            <div class="col-12 mb-3">
+
+                <div class="card info-card">
+                    <small>📊 Marks</small>
+                    <h4>{{ student.marks }}/100</h4>
+                </div>
+
+            </div>
+
+        </div>
+
+        <p class="mt-3">
+        <b>🏅 Grade:</b>
+        {% if student.marks >= 90 %}
+        <span class="badge bg-success"> A+ </span>
+
+        {% elif student.marks >= 75 %}
+            <span class="badge bg-primary"> A </span>
+        {% elif student.marks >= 60 %}
+
+            <span class="badge bg-warning text-dark">B   </span>
+        {% else %}
+            <span class="badge bg-danger">C</span>
+        {% endif %}
+
+        </p>
+    </div>
+
+    <div class="footer">🎓 Academic Year 2026-27</div>
+</div>
+
+<div class="text-center mt-3">
+
+<button onclick="window.print();"
+        class="btn btn-primary">
+
+🖨️ Print ID Card
+
+</button>
+
+</div>
+
+<div class="card mt-4 p-3 text-center photo-upload-card"
+     style="max-width:350px; margin:auto;">
+
+<h6>📷 Add Your Photo (Optional)</h6>
+
+<form action="{{ url_for('upload_photo', id=student.id) }}"
+      method="POST"
+      enctype="multipart/form-data">
+
+<input type="file"
+       name="photo"
+       class="form-control form-control-sm mb-3"
+       accept="image/*">
+
+<button type="submit"
+        class="btn btn-success btn-sm">
+
+Upload Photo
+</button>
+</form>
+</div>
+</div>
+{% endblock %}
