@@ -1,0 +1,276 @@
+{% extends "base.html" %}
+
+{% block title %}Report Card{% endblock %}
+
+{% block content %}
+
+<style>
+
+@media print {
+
+    .print-btn {
+        display: none;
+    }
+
+}
+
+</style>
+
+<div class="container mt-5 mb-5">
+
+    <div class="card shadow-lg border-0">
+
+        <!-- Header -->
+        <div class="card-header bg-primary text-white text-center p-4">
+
+            <h2>🏫 Government Polytechnic Hingoli</h2>
+            <h4>Student Academic Report Card</h4>
+            <p class="mb-0">College Smart Portal</p>
+
+        </div>
+
+
+        <div class="card-body p-4">
+
+
+            <!-- Student Profile -->
+
+            <div class="row align-items-center mb-4">
+
+
+                <div class="col-md-4 text-center">
+
+                    {% if student.photo %}
+
+                    <img src="{{ url_for('static',filename='uploads/'+student.photo) }}"
+                    width="140"
+                    height="140"
+                    class="rounded-circle shadow"
+                    style="object-fit:cover;">
+
+                    {% else %}
+
+                    <img src="{{ url_for('static',filename='uploads/default.png') }}"
+                    width="140"
+                    height="140"
+                    class="rounded-circle shadow">
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="col-md-8">
+
+                    <h2 class="fw-bold">
+                        {{student.name}}
+                    </h2>
+
+                    <p>
+                        <b>Roll Number:</b> {{student.roll_no}}
+                    </p>
+
+                    <p>
+                        <b>Subject:</b> {{student.Subject}}
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- Marks Section -->
+
+
+            <h4 class="text-center mb-3">
+                📊 Academic Performance
+            </h4>
+
+
+            <table class="table table-bordered text-center shadow-sm">
+
+
+                <thead class="table-primary">
+
+                    <tr>
+
+                        <th>Subject</th>
+                        <th>Marks</th>
+                        <th>Grade</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    <tr>
+
+                        <td>
+                            {{student.Subject}}
+                        </td>
+
+
+                        <td>
+                            {{student.marks}} / 100
+                        </td>
+
+
+                        <td>
+
+                        {% if grade=="A+" %}
+
+                        <span class="badge bg-success">
+                            A+
+                        </span>
+
+                        {% elif grade=="A" %}
+
+                        <span class="badge bg-primary">
+                            A
+                        </span>
+
+                        {% elif grade=="B+" %}
+
+                        <span class="badge bg-warning text-dark">
+                            B+
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge bg-secondary">
+                            {{grade}}
+                        </span>
+
+                        {% endif %}
+
+                        </td>
+
+
+                    </tr>
+
+
+                </tbody>
+
+
+            </table>
+
+
+
+            <!-- Progress -->
+
+
+            <div class="mt-4">
+
+
+                <h5>
+                    Performance Percentage
+                </h5>
+
+
+                <div class="progress"
+                style="height:30px;">
+
+
+                    <div class="progress-bar bg-success"
+                    style="width:{{student.marks}}%">
+
+
+                    {{student.marks}}%
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- Result -->
+
+
+            <div class="text-center mt-4">
+
+
+            {% if result=="PASS" %}
+
+                <div class="alert alert-success">
+
+                    🎉 Congratulations!
+                    <br>
+                    Result: <b>PASS</b>
+
+                </div>
+
+
+            {% else %}
+
+
+                <div class="alert alert-danger">
+
+                    Result:
+                    <b>FAIL</b>
+
+                </div>
+
+
+            {% endif %}
+
+
+            </div>
+
+
+
+            <!-- Footer -->
+
+
+            <div class="row mt-5 text-center">
+
+
+                <div class="col-md-6">
+
+                    ___________________
+
+                    <br>
+
+                    Student Signature
+
+                </div>
+
+
+
+                <div class="col-md-6">
+                  _______________________
+                   <br>
+                        Project Guide Signature
+                </div>
+
+            </div>
+
+            <div class="text-center mt-4">
+
+                <button onclick="window.print()" class="btn btn-dark print-btn">
+                🖨 Download / Print Report
+                </button>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

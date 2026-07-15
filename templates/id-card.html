@@ -139,19 +139,24 @@ background:white;
         <small>Government Polytechnic Hingoli</small>
     </div>
 
+       <div class="text-center mb-3">
+
     {% if student.photo %}
-
     <img src="{{ url_for('static', filename='uploads/' + student.photo) }}"
-         class="profile-pic">
-
-
+         width="120"
+         height="120"
+         class="rounded-circle d-block mx-auto"
+         style="object-fit: cover;">
     {% else %}
-
-    <div class="avatar">
-        {{ student.name[0]|upper }}
-    </div>
-
+    <img src="{{ url_for('static', filename='uploads/default.png') }}"
+         width="120"
+         height="120"
+         class="rounded-circle d-block mx-auto"
+         style="object-fit: cover;">
     {% endif %}
+
+</div>
+
 
     <div class="content">
 

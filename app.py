@@ -197,9 +197,9 @@ def add_student():
         conn = get_db(MOHINI_DB)
 
         conn.execute(
-            "INSERT INTO stud(name, roll_no, Subject, marks) VALUES (?,?,?,?)",
-            (name, roll_no, Subject, marks)
-        )
+        "INSERT INTO stud(name, roll_no, Subject, marks, photo) VALUES (?,?,?,?,?)",
+        (name, roll_no, Subject, marks, "default.png")
+    )
 
         conn.commit()
         conn.close()
@@ -208,6 +208,49 @@ def add_student():
         return redirect(url_for("students"))
 
     return render_template("add_students.html")
+
+
+    # ============ REPORT CARD ============
+
+@app.route('/report_card/<int:student_id>')
+def report_card(student_id):
+
+    conn = get_db(MOHINI_DB)
+
+    student = conn.execute(
+        "SELECT * FROM stud WHERE id=?",
+        (student_id,)
+    ).fetchone()
+
+    conn.close()
+
+    if student is None:
+        flash("Student not found!", "danger")
+        return redirect(url_for('students'))
+
+    # Grade calculation
+    marks = student['marks']
+
+    if marks >= 90:
+        grade = "A+"
+    elif marks >= 80:
+        grade = "A"
+    elif marks >= 70:
+        grade = "B+"
+    elif marks >= 60:
+        grade = "B"
+    else:
+        grade = "C"
+
+    result = "PASS" if marks >= 35 else "FAIL"
+
+
+    return render_template(
+        "report_card.html",
+        student=student,
+        grade=grade,
+        result=result
+    )
 
 #=========FILTER ROUTE==========
 
