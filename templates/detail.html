@@ -159,7 +159,11 @@
 
                             {% endif %}
 
-
+                        <a href="{{ url_for('get_ai_tip', id=student.id) }}"
+                        class="btn btn-success">
+                            🤖 AI Tip
+                        </a>
+                        
                         <!-- ID Card -->
                         <a href="{{ url_for('id_card', student_id=student.id) }}"
                         class="btn btn-primary">
