@@ -18,6 +18,20 @@
     .search-card{
         border-radius: 15px;
     }
+
+    /* Avatar */
+.avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #072f85;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
 </style>
 
 <div class="container mt-5">
@@ -91,8 +105,35 @@
 
                         <td>{{ loop.index }}</td>
 
-                        <td>
-                            <strong>{{ student.name }}</strong>
+                       <td>
+                            <div class="d-flex align-items-center gap-2">
+                               
+                       <div class="text-center mb-4">
+
+                            {% if student.photo %}
+
+                                <img src="{{ url_for('static', filename='uploads/' + student.photo) }}"
+                                    width="50"
+                                    height="50"
+                                    class="rounded-circle"
+                                    style="object-fit:cover;">
+
+                            {% else %}
+
+                                <img src="{{ url_for('static', filename='uploads/default.png') }}"
+                                    width="50"
+                                    height="50"
+                                    class="rounded-circle"
+                                    style="object-fit:cover;">
+
+                            {% endif %}
+
+
+                        </div>
+                                  <span class="text-dark fw-bold">
+                                    {{ student.name }}
+                                </span>
+                            </div>
                         </td>
 
                         <td>
