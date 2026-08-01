@@ -290,6 +290,16 @@ def filter_students():
 #========filter===========
 @app.route('/students')
 def students():
+   
+    page = request.args.get('page', 1, type=int)
+    per_page = 5
+    offset = (page - 1) * per_page
+    conn = get_db(MOHINI_DB)
+    students = conn.execute('SELECT * FROM students ORDER BY id DESC LIMIT ? OFFSET ?', (per_page, offset)).fetchall()
+    total = conn.execute('SELECT COUNT(*) FROM students').fetchone()[0]
+    conn.close()
+    total_pages = (total + per_page - 1) // per_page  # Calculate total pages
+     
 
     if 'username' not in session:
         return redirect(url_for('login'))
@@ -311,7 +321,9 @@ def students():
 
     return render_template(
         'students.html',
-        students=students
+        students=students,
+        page=page,
+        total_pages=total_pages
     )
 
 #==========students_details (view)==============
