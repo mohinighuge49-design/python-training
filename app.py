@@ -1,5 +1,6 @@
 from email import message
 import os
+from re import search
 from dotenv import load_dotenv
 from flask import Flask, jsonify, render_template, request, flash, url_for, redirect, session, abort
 from database import get_db, init_db, MOHINI_DB
@@ -37,7 +38,72 @@ notices_list = [ { "title": "🚀python training related Notices",
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+
+    conn = get_db(MOHINI_DB)
+
+    # Dashboard Cards
+    total_students = conn.execute(
+        "SELECT COUNT(*) FROM stud"
+    ).fetchone()[0]
+
+    total_subjects = conn.execute(
+        "SELECT COUNT(DISTINCT Subject) FROM stud"
+    ).fetchone()[0]
+
+    pass_count = conn.execute(
+        "SELECT COUNT(*) FROM stud WHERE marks >= 40"
+    ).fetchone()[0]
+
+    fail_count = conn.execute(
+        "SELECT COUNT(*) FROM stud WHERE marks < 35"
+    ).fetchone()[0]
+
+    pass_percentage = round((pass_count / total_students) * 100, 2) if total_students else 0
+
+    avg_marks = conn.execute(
+        "SELECT ROUND(AVG(marks),2) FROM stud"
+    ).fetchone()[0]
+
+    topper = conn.execute(
+        "SELECT * FROM stud ORDER BY marks DESC LIMIT 1"
+    ).fetchone()
+
+    best_subject = conn.execute("""
+        SELECT Subject,
+               ROUND(AVG(marks),2) AS avg_marks
+        FROM stud
+        GROUP BY Subject
+        ORDER BY avg_marks DESC
+        LIMIT 1
+    """).fetchone()
+
+    top_students = conn.execute("""
+        SELECT * FROM stud
+        ORDER BY marks DESC
+        LIMIT 5
+    """).fetchall()
+
+    recent_students = conn.execute("""
+        SELECT * FROM stud
+        ORDER BY id DESC
+        LIMIT 5
+    """).fetchall()
+
+    conn.close()
+
+    return render_template(
+        "home.html",
+        total_students=total_students,
+        total_subjects=total_subjects,
+        pass_count=pass_count,
+        fail_count=fail_count,
+        pass_percentage=pass_percentage,
+        avg_marks=avg_marks,
+        topper=topper,
+        best_subject=best_subject,
+        top_students=top_students,
+        recent_students=recent_students
+    )
 
 @app.route('/college_info')
 def college_info():
@@ -118,8 +184,11 @@ def dashboard():
     """
 ).fetchall()
 
+    print("Total Students:", total_students)
+    print("Pass Count:", pass_count)
+    print("Fail Count:", fail_count)
+    print("Pass Percentage:", pass_percentage)
     conn.close()
-
     return render_template(
         'dashboard.html',
         total_students=total_students,
@@ -180,15 +249,33 @@ def export_data():
 
 @app.route("/add_students", methods=["GET", "POST"])
 def add_student():
-    if session.get('role') !='admin':
-        flash("Admins only..! You do not have permission","danger")
+
+    if session.get('role') != 'admin':
+        flash("Admins only..! You do not have permission", "danger")
         return redirect(url_for('home'))
+
     if request.method == "POST":
 
         name = request.form["name"]
         roll_no = request.form["roll_no"]
         Subject = request.form["Subject"]
         marks = request.form["marks"]
+
+        # Photo Upload
+        photo = request.files.get("photo")
+
+        filename = "default.png"
+
+        if photo and photo.filename != "":
+
+            filename = secure_filename(photo.filename)
+
+            photo.save(
+                os.path.join(
+                    app.config["UPLOAD_FOLDER"],
+                    filename
+                )
+            )
 
         if not name or not roll_no or not Subject or not marks:
             flash("Please provide all fields", "danger")
@@ -197,18 +284,22 @@ def add_student():
         conn = get_db(MOHINI_DB)
 
         conn.execute(
-        "INSERT INTO stud(name, roll_no, Subject, marks, photo) VALUES (?,?,?,?,?)",
-        (name, roll_no, Subject, marks, "default.png")
-    )
+            """
+            INSERT INTO stud
+            (name, roll_no, Subject, marks, photo)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (name, roll_no, Subject, marks, filename)
+        )
 
         conn.commit()
         conn.close()
 
         flash(f"{name} added successfully!", "success")
+
         return redirect(url_for("students"))
 
     return render_template("add_students.html")
-
 
     # ============ REPORT CARD ============
 
@@ -290,42 +381,83 @@ def filter_students():
 #========filter===========
 @app.route('/students')
 def students():
-   
-    page = request.args.get('page', 1, type=int)
-    per_page = 5
-    offset = (page - 1) * per_page
-    conn = get_db(MOHINI_DB)
-    students = conn.execute('SELECT * FROM students ORDER BY id DESC LIMIT ? OFFSET ?', (per_page, offset)).fetchall()
-    total = conn.execute('SELECT COUNT(*) FROM students').fetchone()[0]
-    conn.close()
-    total_pages = (total + per_page - 1) // per_page  # Calculate total pages
-     
 
     if 'username' not in session:
         return redirect(url_for('login'))
 
-    search = request.args.get('search', '')
+    page = request.args.get('page', 1, type=int)
+    per_page = 5
+    offset = (page - 1) * per_page
+
+    search = request.args.get('search', '').strip()
+
     conn = get_db(MOHINI_DB)
 
     if search:
+
+        total = conn.execute(
+            """
+            SELECT COUNT(*)
+            FROM stud
+            WHERE name LIKE ?
+               OR Subject LIKE ?
+               OR roll_no LIKE ?
+            """,
+            (
+                f"%{search}%",
+                f"%{search}%",
+                f"%{search}%"
+            )
+        ).fetchone()[0]
+
         students = conn.execute(
-            "SELECT * FROM stud WHERE name LIKE ?",
-            ('%' + search + '%',)
+            """
+            SELECT *
+            FROM stud
+            WHERE name LIKE ?
+               OR Subject LIKE ?
+               OR roll_no LIKE ?
+            ORDER BY id DESC
+            LIMIT ? OFFSET ?
+            """,
+            (
+                f"%{search}%",
+                f"%{search}%",
+                f"%{search}%",
+                per_page,
+                offset
+            )
         ).fetchall()
+
     else:
+
+        total = conn.execute(
+            "SELECT COUNT(*) FROM stud"
+        ).fetchone()[0]
+
         students = conn.execute(
-            "SELECT * FROM stud"
+            """
+            SELECT *
+            FROM stud
+            ORDER BY id DESC
+            LIMIT ? OFFSET ?
+            """,
+            (per_page, offset)
         ).fetchall()
 
     conn.close()
 
+    total_pages = (total + per_page - 1) // per_page
+
     return render_template(
-        'students.html',
+        "students.html",
         students=students,
         page=page,
-        total_pages=total_pages
+        per_page=per_page,
+        total=total,
+        total_pages=total_pages,
+        search=search
     )
-
 #==========students_details (view)==============
 @app.route("/students_details/<int:id>")
 def detail(id):
@@ -768,6 +900,60 @@ def upload_photo(id):
 
     return redirect(url_for('id_card',
                             student_id=id))
+
+@app.route("/live_search")
+def live_search():
+
+    search = request.args.get("search", "").strip()
+
+    conn = get_db(MOHINI_DB)
+
+    students = conn.execute("""
+        SELECT *
+        FROM stud
+        WHERE name LIKE ?
+        OR Subject LIKE ?
+        OR roll_no LIKE ?
+        ORDER BY id DESC
+    """,
+    (
+        f"%{search}%",
+        f"%{search}%",
+        f"%{search}%"
+    )).fetchall()
+
+    conn.close()
+
+    result = []
+
+    for s in students:
+
+        if s["marks"] >= 90:
+            grade = "A+"
+        elif s["marks"] >= 80:
+            grade = "A"
+        elif s["marks"] >= 70:
+            grade = "B+"
+        elif s["marks"] >= 60:
+            grade = "B"
+        elif s["marks"] >= 50:
+            grade = "C"
+        else:
+            grade = "Fail"
+
+        result.append({
+
+            "id": s["id"],
+            "name": s["name"],
+            "roll_no": s["roll_no"],
+            "Subject": s["Subject"],
+            "marks": s["marks"],
+            "grade": grade,
+            "photo": s["photo"] if s["photo"] else "default.png"
+
+        })
+
+    return jsonify(result)
 
 
 @app.errorhandler(404)

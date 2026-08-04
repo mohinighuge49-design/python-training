@@ -1,42 +1,213 @@
 {% extends "base.html" %}
-{% block title %}Add Students{% endblock %}
+{% block title %}Add Student{% endblock %}
+
 {% block content %}
- <div class="row justify-content-center">
-    <div class="col-md-6 mb-10">
-        <div class="card-header bg-dark  text-center text-white">
-            <h2>Add Students</h2>
-        </div>
-          <div class="card shadow text-center mt-4">
 
-                <div class="card-body p-4">
-                <form action="{{url_for('add_student')}}" method="POST">
+<style>
+body{
+    background:#eef4ff;
+}
 
-                <div class="mb-3 mt-2">
-                <label class="form-label fw-bold"> name: <input required name = "name" class="form-control" placeholder="Enter Student name" type="text">
-                <div class="mb-3 mt-2">
-                <label class="form-label fw-bold">roll_no: <input required name = "roll_no" class="form-control" placeholder="Enter Student ID" type="text"> 
-                <div class="mb-3 mt-2">
-                <label class="form-label fw-bold">Subject: <input required name = "Subject"
+.add-card{
+    max-width:650px;
+    margin:auto;
+    border:none;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 15px 40px rgba(0,0,0,.15);
+}
 
-                    class="form-control" placeholder="Enter subject" type="text">
-                <div class="mb-3 mt-2">
-                <label class="form-label fw-bold">marks: <input required name = "marks" class="form-control" placeholder="Enter Student marks" type="number">
-                <div class="d-grid gap-2 mt-4">
-                <button class="btn btn-primary fw-bold" type="submit">Add Student</button>
-                </div>
-            
-                </form>
-            </div>
-        </div>
-    </div>
-    <a href="/about" class="btn btn-info btn-lg mb-2 mt-4"><--Back to home</a>
- </div>
+.card-header-custom{
+    background:linear-gradient(135deg,#0d6efd,#6610f2);
+    color:white;
+    text-align:center;
+    padding:25px;
+}
 
-     <footer style="background-color: #052349;" class="text-white text-center py-3 mt-3">
-        <small>
-            🎓 College Portal &nbsp;|&nbsp;
-            Built with Python + Flask + Bootstrap &nbsp;🎓&nbsp;
-        </small>
-    </footer>
+.profile-preview{
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    object-fit:cover;
+    border:5px solid #0d6efd;
+    box-shadow:0 8px 20px rgba(0,0,0,.2);
+}
+
+.form-control{
+    border-radius:12px;
+}
+
+.btn-save{
+    border-radius:30px;
+    padding:12px;
+    font-weight:bold;
+    font-size:18px;
+}
+
+.back-btn{
+    border-radius:30px;
+}
+
+.card-footer{
+    background:#f8f9fa;
+    text-align:center;
+    font-size:14px;
+}
+</style>
+
+<div class="container py-5">
+
+<div class="card add-card">
+
+<div class="card-header-custom">
+
+<h2>🎓 Add New Student</h2>
+
+<p class="mb-0">
+College Smart Portal
+</p>
+
+</div>
+
+<div class="card-body p-4">
+
+<form
+action="{{ url_for('add_student') }}"
+method="POST"
+enctype="multipart/form-data">
+
+<div class="text-center mb-4">
+
+<img
+id="preview"
+src="{{ url_for('static', filename='uploads/default.png') }}"
+class="profile-preview">
+
+</div>
+
+<div class="mb-3">
+
+<label class="fw-bold">
+👤 Student Name
+</label>
+
+<input
+type="text"
+name="name"
+required
+class="form-control"
+placeholder="Enter Student Name">
+
+</div>
+
+<div class="mb-3">
+
+<label class="fw-bold">
+🆔 Roll Number
+</label>
+
+<input
+type="text"
+name="roll_no"
+required
+class="form-control"
+placeholder="Enter Roll Number">
+
+</div>
+
+<div class="mb-3">
+
+<label class="fw-bold">
+📚 Subject
+</label>
+
+<input
+type="text"
+name="Subject"
+required
+class="form-control"
+placeholder="Enter Subject">
+
+</div>
+
+<div class="mb-3">
+
+<label class="fw-bold">
+📊 Marks
+</label>
+
+<input
+type="number"
+name="marks"
+required
+class="form-control"
+placeholder="Enter Marks">
+
+</div>
+
+<div class="mb-4">
+
+<label class="fw-bold">
+📷 Upload Student Photo
+</label>
+
+<input
+type="file"
+name="photo"
+accept=".jpg,.jpeg,.png,.gif"
+class="form-control">
+
+</div>
+
+<div class="d-grid">
+
+<button
+type="submit"
+class="btn btn-primary btn-save">
+
+➕ Add Student
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+<div class="card-footer">
+
+<a
+href="/"
+class="btn btn-outline-primary back-btn">
+
+🏠 Back to Home
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const photoInput=document.querySelector("input[name='photo']");
+
+photoInput.addEventListener("change",function(e){
+
+const file=e.target.files[0];
+
+if(file){
+
+document.getElementById("preview").src=
+URL.createObjectURL(file);
+
+}
+
+});
+
+</script>
 
 {% endblock %}

@@ -8,12 +8,12 @@
     border:none;
     border-radius:30px;
     overflow:hidden;
-    background:white;
+    background:rgb(227, 227, 227);
     box-shadow:0 20px 50px rgba(0,0,0,.15);
 }
 
 .chat-header{
-    background:linear-gradient(135deg,#0d6efd,#6610f2);
+    background:linear-gradient(135deg,#6d0d82,#a01d9e);
     color:white;
     text-align:center;
     padding:25px;
@@ -66,7 +66,7 @@
     border:none;
     border-radius:50px;
     padding:15px;
-    background:#f8f9fa;
+    background:#b1c3d6;
 }
 
 .chat-input:focus{
@@ -114,8 +114,85 @@
 }
 
 #chatMessages::-webkit-scrollbar-thumb{
-    background:#cfd8dc;
+    background:#3180a1;
     border-radius:20px;
+}
+.suggestion-chips{
+
+    display:flex;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+
+    padding:12px 18px;
+
+}
+
+.chip{
+
+    border:none;
+
+    border-radius:25px;
+
+    background:#b9bdc1;
+
+    padding:8px 15px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.chip:hover{
+
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+
+    color:white;
+
+    transform:translateY(-2px);
+
+}
+.bot-message{
+    background:#fff;
+    border-radius:18px;
+    padding:15px;
+    margin:15px 0;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.bot-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:10px;
+}
+
+.bot-title{
+    font-weight:600;
+    color:#2563eb;
+}
+
+.copy-btn{
+    border:none;
+    background:#bcd6de;
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.copy-btn:hover{
+    background:#2563eb;
+    color:#fff;
+    transform:scale(1.1);
+}
+
+.message-text{
+    white-space:pre-wrap;
+    line-height:1.4;
 }
 
 </style>
@@ -134,6 +211,35 @@
         </div>
 
         <div class="card-body">
+
+            <div class="suggestion-chips">
+
+    <button class="chip"
+            onclick="setQuestion('Show topper student')">
+        🏆 Topper
+    </button>
+
+    <button class="chip"
+            onclick="setQuestion('Total students')">
+        👨‍🎓 Students
+    </button>
+
+    <button class="chip"
+            onclick="setQuestion('Best subject')">
+        📚 Best Subject
+    </button>
+
+    <button class="chip"
+            onclick="setQuestion('Average marks')">
+        📈 Average
+    </button>
+
+    <button class="chip"
+            onclick="setQuestion('Pass percentage')">
+        ✅ Pass %
+    </button>
+
+</div>
 
             <div id="chatMessages">
 
@@ -193,31 +299,33 @@ let lastReply = "";
 
 function sendMessage(){
 
-    let input =
-    document.getElementById("userInput");
-
-    let msg =
-    input.value.trim();
+    let input = document.getElementById("userInput");
+    let msg = input.value.trim();
 
     if(msg==="") return;
 
-    let chat =
-    document.getElementById("chatMessages");
 
+    let chat = document.getElementById("chatMessages");
+
+
+    // user message
     chat.innerHTML += `
     <div class="user-msg">
         <span>${msg}</span>
     </div>
     `;
 
+
+    // typing
     chat.innerHTML += `
     <div id="typing" class="typing">
         🤖 AI is typing...
     </div>
     `;
 
-    chat.scrollTop =
-    chat.scrollHeight;
+
+    chat.scrollTop = chat.scrollHeight;
+
 
     fetch("/chatbot",{
         method:"POST",
@@ -228,34 +336,69 @@ function sendMessage(){
         body:"message="+encodeURIComponent(msg)
     })
 
+
     .then(res=>res.json())
+
 
     .then(data=>{
 
-        document
-        .getElementById("typing")
-        .remove();
+
+        let typing =
+        document.getElementById("typing");
+
+        if(typing){
+            typing.remove();
+        }
+
 
         lastReply = data.reply;
 
+
+        // AI response + copy button
         chat.innerHTML += `
-        <div class="bot-msg">
 
-            <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png"
-                 width="40">
+        <div class="bot-message">
 
-            <span>
-                🤖 ${data.reply}
-            </span>
+            <div class="bot-top">
+
+                <span class="bot-title">
+                    🤖 College AI
+                </span>
+
+
+                <button 
+                class="copy-btn"
+                onclick="copyMessage(this)">
+                    📋
+                </button>
+
+
+            </div>
+
+
+            <div class="message-text">
+                ${data.reply}
+            </div>
+
 
         </div>
+
         `;
+
 
         chat.scrollTop =
         chat.scrollHeight;
+
+
+    })
+
+    .catch(error=>{
+        console.log(error);
     });
 
+
     input.value="";
+
 }
 
 function startVoice(){
@@ -307,5 +450,54 @@ function speakLastReply(){
     speak(lastReply);
 }
 
+
+function setQuestion(question){
+
+    document.getElementById("userInput").value = question;
+
+    sendMessage();
+
+}
+
+function copyMessage(button){
+
+    let text =
+    button
+    .closest(".bot-message")
+    .querySelector(".message-text")
+    .innerText;
+
+
+    navigator.clipboard.writeText(text)
+    .then(()=>{
+
+        button.innerHTML="✅";
+
+        setTimeout(()=>{
+
+            button.innerHTML="📋";
+
+        },1500);
+
+    });
+
+}
+
+function copyMessage(button){
+
+    const text = button
+        .closest(".bot-message")
+        .querySelector(".message-text")
+        .innerText;
+
+    navigator.clipboard.writeText(text);
+
+    button.innerHTML = '<i class="bi bi-check-lg"></i>';
+
+    setTimeout(()=>{
+        button.innerHTML = '<i class="bi bi-clipboard"></i>';
+    },1500);
+
+}
 </script>
 {% endblock %}

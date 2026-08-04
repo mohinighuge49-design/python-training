@@ -12,7 +12,18 @@
 .dashboard-card:hover{
     transform:translateY(-8px);
 }
+.card{
+    transition:0.3s;
+}
 
+.card:hover{
+    transform:translateY(-6px);
+}
+.table thead{
+    position:sticky;
+    top:0;
+    z-index:10;
+}
 .chart-card{
     border:none;
     border-radius:18px;
@@ -29,12 +40,26 @@
     border: none;
 }
 </style>
-
 <div class="container-fluid px-4">
 
-    <h2 class="dashboard-title mb-4">
-    🎓 Student Performance Dashboard
-    </h2>
+    <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+
+        <div>
+            <h2 class="dashboard-title fw-bold">
+                <i class="bi bi-speedometer2 text-primary"></i>
+                Student Performance Dashboard
+            </h2>
+            <p class="text-muted mb-0">
+                Welcome to College Smart Portal
+            </p>
+        </div>
+
+        <div class="text-end mt-3 mt-md-0">
+            <h5 id="currentDate" class="mb-1 text-primary"></h5>
+            <h4 id="currentTime" class="fw-bold text-dark"></h4>
+        </div>
+
+    </div>
 <div class="row g-4">
 
     <!-- Total Students -->
@@ -99,13 +124,16 @@
                 <h1>🏆</h1>
                 <h5 class="mb-3">Topper Student</h5>
                 <hr>
-                <h2 class="fw-bold">
-                    {{ topper['name'] }}
-                </h2>
+                {% if topper %}
 
-                <h4>
-                    {{ topper['marks'] }} Marks
-                </h4>
+                    <h2 class="fw-bold">{{ topper['name'] }}</h2>
+                    <h4>{{ topper['marks'] }} Marks</h4>
+
+                    {% else %}
+
+                    <h4>No Data</h4>
+
+                    {% endif %}
             </div>
         </div>
     </div>
@@ -245,6 +273,7 @@
                     <table class="table table-hover table-striped table-bordered text-center">
 
                         <thead class="recent-header">
+                            <tr>
                                 <th style="background:#5b86e5;color:white;">#</th> 
                                 <th style="background:#5b86e5;color:white;">Name</th>
                                 <th style="background:#5b86e5;color:white;">Subject</th>
@@ -374,5 +403,35 @@ new Chart(ctx, {
     },
     plugins: [centerText]
 });
+</script>
+
+<footer class="text-center mt-5 mb-3 text-secondary">
+    © 2026 College Smart Portal | Developed using Python • Flask • Bootstrap
+</footer>
+<script>
+
+function updateDateTime(){
+
+    const now = new Date();
+
+    const options = {
+        weekday:'long',
+        year:'numeric',
+        month:'long',
+        day:'numeric'
+    };
+
+    document.getElementById("currentDate").innerHTML =
+        now.toLocaleDateString("en-IN", options);
+
+    document.getElementById("currentTime").innerHTML =
+        now.toLocaleTimeString("en-IN");
+
+}
+
+updateDateTime();
+
+setInterval(updateDateTime,1000);
+
 </script>
 {% endblock %}

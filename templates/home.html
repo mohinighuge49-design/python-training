@@ -1,170 +1,835 @@
 {% extends "base.html" %}
 
-{% block title %} Home - College Smart Portal {% endblock %}
+{% block title %}Government Polytechnic Hingoli{% endblock %}
 
 {% block content %}
 
 <style>
-.hero-section {
-    background: linear-gradient(135deg, #0d6efd, #6610f2);
-    color: white;
-    text-align: center;
-    padding: 70px 20px;
+
+body{
+    background:#eef4ff;
+}
+
+/* ================= HERO ================= */
+
+
+.hero{
+    background:linear-gradient(135deg,#0d6efd,#6610f2);
+    min-height:440px;
+    border-radius:25px;
+    color:white;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    width:350px;
+    height:350px;
+    background:rgba(255,255,255,.15);
+    border-radius:50%;
+    top:-120px;
+    right:-120px;
+    filter:blur(40px);
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    width:280px;
+    height:280px;
+    background:rgba(255,255,255,.10);
+    border-radius:50%;
+    left:-80px;
+    bottom:-80px;
+    filter:blur(35px);
+}
+
+/* Glass Card */
+
+.glass{
+    background:rgba(255,255,255,.18);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,.25);
+    border-radius:20px;
+    padding:35px;
+}
+
+.welcome-card{
+    border: none;
     border-radius: 20px;
-    position: relative;
-    overflow: hidden;
 }
 
-/* glow effect */
-.hero-section::before,
-.hero-section::after {
-    content: "";
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(50px);
+.welcome-card .card-body{
+    padding: 12px 20px !important;
 }
 
-.hero-section::before {
-    width: 200px;
-    height: 200px;
-    background: rgba(255,255,255,0.2);
-    top: -50px;
-    left: -50px;
+.welcome-card h2{
+    font-size: 1.5rem;
+    margin-bottom: 5px;
 }
 
-.hero-section::after {
-    width: 250px;
-    height: 250px;
-    background: rgba(255,255,255,0.15);
-    bottom: -60px;
-    right: -60px;
+.welcome-card p{
+    font-size: 0.9rem;
 }
+
+.welcome-card{
+    border: none;
+    border-radius: 20px;
+    height: 120px !important;
+}
+
+.welcome-card .card-body{
+    height: 100%;
+    padding: 10px 20px !important;
+}
+/* Floating Cards */
+
+.info-card{
+    border:none;
+    border-radius:18px;
+    transition:.35s;
+}
+
+.info-card:hover{
+    transform:translateY(-10px);
+}
+
+/* Counter */
+
+.counter{
+    font-size:42px;
+    font-weight:bold;
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+.hero{
+    min-height:auto;
+    text-align:center;
+    padding:35px;
+}
+
+.hero h1{
+    font-size:34px;
+}
+
+#calendar {
+    max-width: 220px;
+    margin: auto;
+    font-size: 12px;
+}
+
+.fc .fc-toolbar-title {
+    font-size: 16px;
+}
+
+.fc .fc-button {
+    font-size: 11px;
+    padding: 3px 6px;
+}
+
+.fc-daygrid-day-number {
+    font-size: 12px;
+}
+
+
+}
+
+.card{
+    height: 420px;
+}
+
+#calendar{
+    font-size:10px;
+}
+
+.fc{
+    height:300px !important;
+}
+
+.fc .fc-toolbar-title{
+    font-size:14px;
+}
+
+.fc-button{
+    font-size:9px !important;
+    padding:2px 5px !important;
+}
+.footer{
+    background: linear-gradient(135deg,#0e2b57,#1671bb);
+    color: white;
+    border-radius: 20px 20px 0 0;
+    margin-top: 60px;
+}
+
+.footer h6{
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.footer p,
+.footer small{
+    margin: 0;
+    color: #f8f9fa;
+}
+
 </style>
 
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
 
-<!-- HERO -->
-<div class="hero-section shadow-lg">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
 
-    <h1 class="display-3 fw-bold mb-3">
-        🎓 Government Polytechnic Hingoli
-    </h1>
+<div class="container-fluid px-4">
 
-    <p class="lead mb-4">
-        Empowering Students Through Quality Technical Education 🚀
-    </p>
+<!-- ================= Welcome Card ================= -->
 
-    <a href="/college_info" class="btn btn-light btn-lg px-4">
-        📘 Explore College
-    </a>
+<div class="card shadow-lg border-0 welcome-card">
+    <div class="card-body text-center py-2">
+
+        <h2 class="fw-bold text-primary mb-1">
+            Welcome, {{ session['username'] }} 👋
+        </h2>
+
+        <span class="badge bg-success">
+            {{ session['role']|title }}
+        </span>
+
+        <p class="text-muted mt-1 mb-0">
+            Welcome to College Smart Portal
+        </p>
+
+    </div>
+</div>
+<!-- ================= HERO ================= -->
+
+<div class="hero shadow-lg mt-4">
+
+<div class="container">
+
+<div class="row align-items-center">
+
+<div class="col-lg-7">
+
+<div class="glass">
+
+<h1 class="display-3 fw-bold">
+
+🎓 Government Polytechnic Hingoli
+
+</h1>
+
+<p class="lead mt-4">
+
+Empowering Students Through Quality Technical Education with Innovation, Technology and Excellence.
+
+</p>
+
+<div class="mt-4">
+
+<a href="/college_info" class="btn btn-light hero-btn">
+
+🏫 Explore College
+
+</a>
+
+<a href="/students" class="btn btn-outline-light hero-btn">
+
+👨‍🎓 Students
+
+</a>
 
 </div>
 
-
-<!-- WELCOME -->
-<div class="mt-5 text-center">
-    <h2 class="fw-bold">✨ Welcome to Government Polytechnic Hingoli ✨</h2>
-
-    <p class="fs-5 text-muted">
-        Dream Big • Learn Smart • Achieve Success
-    </p>
-
-    <p>📍 Hingoli | 🏫 Established 2009</p>
 </div>
 
+</div>
 
-<!-- STATS -->
-<div class="row mt-5 text-center">
+<div class="col-lg-5 text-center">
 
-    <div class="col-md-3 mb-3">
-        <div class="card shadow border-0 h-100">
+<img
+src="{{ url_for('static', filename='uploads/g.p.Hingoli_college.jpg') }}"
+class="img-fluid rounded"
+style="max-height:320px;">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<!-- ================= Statistics ================= -->
+
+<div class="row mt-5 g-4">
+<div class="col-lg-3 col-md-6">
+    <div class="card info-card shadow text-center p-4 h-100">
+        <h1>👨‍🎓</h1>
+        <div class="counter text-primary">
+            {{ total_students }}
+        </div>
+        <h5>Total Students</h5>
+    </div>
+</div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card info-card shadow text-center p-4 h-100">
+            <h1>🏫</h1>
+            <div class="counter text-success" id="deptCounter">3</div>
+            <h5>Departments</h5>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card info-card shadow text-center p-4 h-100">
+            <h1>💼</h1>
+            <div class="counter text-danger" id="placementCounter">95%</div>
+            <h5>Placement %</h5>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card info-card shadow text-center p-4 h-100">
+            <h1>📅</h1>
+            <div class="counter text-warning" id="yearCounter">2009</div>
+            <h5>Established</h5>
+        </div>
+    </div>
+
+</div>
+<!-- ================= Second Row ================= -->
+
+<div class="row mt-5 g-4">
+
+    <!-- Principal -->
+
+    <div class="col-lg-4">
+
+        <div class="card shadow-lg border-0 ">
+
+            <div class="card-body text-center">
+
+               <img
+                src="{{ url_for('static', filename='uploads/default.png') }}"
+                class="img-fluid rounded-circle"
+                width="140"
+                height="140"
+                style="object-fit:cover;">
+                            <h4 class="mt-3">
+
+                    Principal
+
+                </h4>
+
+                <h5 class="text-primary">
+
+                    Government Polytechnic Hingoli
+
+                </h5>
+
+                <p class="text-muted">
+
+                    Welcome to Government Polytechnic Hingoli.
+                    We believe in Quality Education,
+                    Innovation and Skill Development.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Notices -->
+
+    <div class="col-lg-4">
+
+        <div class="card shadow-lg border-0 ">
+
+            <div class="card-header bg-danger text-white">
+
+                🔔 Latest Notices
+
+            </div>
+
             <div class="card-body">
-                <h2 class="text-primary">1000+</h2>
-                <p>Students</p>
+
+                <ul class="list-group list-group-flush">
+
+                    <li class="list-group-item">
+                        📢 Semester Examination Schedule
+                    </li>
+
+                    <li class="list-group-item">
+                        📢 Scholarship Notice
+                    </li>
+
+                    <li class="list-group-item">
+                        📢 Placement Drive
+                    </li>
+
+                    <li class="list-group-item">
+                        📢 Cultural Event
+                    </li>
+
+                </ul>
+
+                <div class="text-center mt-4">
+
+                    <a href="/notices"
+                       class="btn btn-danger">
+
+                        View All Notices →
+
+                    </a>
+
+                </div>
+
+
             </div>
+
         </div>
+
     </div>
+      <!-- Calendar -->
 
-    <div class="col-md-3 mb-3">
-        <div class="card shadow border-0 h-100">
-            <div class="card-body">
-                <h2 class="text-success">3</h2>
-                <p>Departments</p>
-            </div>
-        </div>
-    </div>
+<!-- Calendar -->
+<div class="col-lg-4">
 
-    <div class="col-md-3 mb-3">
-        <div class="card shadow border-0 h-100">
-            <div class="card-body">
-                <h2 class="text-danger">2009</h2>
-                <p>Established</p>
-            </div>
-        </div>
-    </div>
+    <div class="card shadow-lg border-0 ">
 
-    <div class="col-md-3 mb-3">
-        <div class="card shadow border-0 h-100">
-            <div class="card-body">
-                <h2 class="text-warning">95%</h2>
-                <p>Placement</p>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-
-<!-- COURSES -->
-<div class="mt-5">
-
-    <h2 class="text-center mb-4">📚 Available Courses</h2>
-
-    <div class="row">
-
-        <div class="col-md-4 mb-3">
-               <div class="card border-primary shadow text-center">
-            <div class="card shadow-lg border-0 h-100 text-center p-3">
-                <h4>💻 Computer Engineering</h4>
-                <p>Programming, Web Development, AI & Software Development</p>
-            </div>
-        </div>
+        <div class="card-header bg-primary text-white text-center">
+            📅 Calendar
         </div>
 
-        <div class="col-md-4 mb-3">
-               <div class="card border-primary shadow text-center">
-            <div class="card shadow-lg border-0 h-100 text-center p-3">
-                <h4>⚙ Mechanical Engineering</h4>
-                <p>CAD Design, Manufacturing, Machine learning & Industrial Technology</p>
-            </div>
-        </div>
-        </div>
-
-        <div class="col-md-4 mb-3">
-            <div class="card border-primary shadow text-center">
-            <div class="card shadow-lg border-0 h-100 text-center p-3">
-                <h4>⚡ Electrical Engineering</h4>
-                <p>Power Systems, Electronics ,Circuit design & Automation</p>
-            </div>
-            </div>
+        <div class="card-body">
+            <div id="calendar"></div>
         </div>
 
     </div>
 
 </div>
 
+    
+</div>
 
-<!-- QUICK LINKS -->
-<div class="mt-5 text-center">
+</div>
+<!-- ===================== OUR DEPARTMENTS ===================== -->
 
-    <h2 class="mb-4">🔗 Quick Access</h2>
+<div class="container mt-5">
 
-    <a href="/" class="btn btn-primary btn-lg m-2">🏠 Home</a>
-    <a href="/college_info" class="btn btn-success btn-lg m-2">🏫 College Info</a>
-    <a href="/students_info" class="btn btn-warning btn-lg m-2">👨‍🎓 Students</a>
-    <a href="/notices" class="btn btn-danger btn-lg m-2">📢 Notices</a>
-    <a href="/about" class="btn btn-info btn-lg m-2">🏫 About</a>
-    <a href="/add_students" class="btn btn-secondary btn-lg m-2">➕ Add Students</a>
+    <h2 class="text-center fw-bold mb-5">
+        📚 Our Departments
+    </h2>
+
+    <div class="row g-4">
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="card info-card shadow-lg h-100 text-center">
+
+                <div class="card-body">
+
+                    <h1 class="display-3">💻</h1>
+
+                    <h4 class="mt-3">
+                        Computer Engineering
+                    </h4>
+
+                    <p class="text-muted">
+
+                        Python, Java, Web Development,
+                        Database, AI, Machine Learning,
+                        Networking & Software Engineering.
+
+                    </p>
+
+                    <a href="/college_info"
+                       class="btn btn-primary">
+
+                        Read More
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="card info-card shadow-lg h-100 text-center">
+
+                <div class="card-body">
+
+                    <h1 class="display-3">⚙️</h1>
+
+                    <h4 class="mt-3">
+
+                        Mechanical Engineering
+
+                    </h4>
+
+                    <p class="text-muted">
+
+                        CAD, CAM, CNC,
+                        Manufacturing,
+                        Automobile,
+                        Production Technology.
+
+                    </p>
+
+                    <a href="/college_info"
+                       class="btn btn-success">
+
+                        Read More
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="card info-card shadow-lg h-100 text-center">
+
+                <div class="card-body">
+
+                    <h1 class="display-3">⚡</h1>
+
+                    <h4 class="mt-3">
+
+                        Electrical Engineering
+
+                    </h4>
+
+                    <p class="text-muted">
+
+                        Power Systems,
+                        Electrical Machines,
+                        Automation,
+                        Industrial Electronics.
+
+                    </p>
+
+                    <a href="/college_info"
+                       class="btn btn-warning">
+
+                        Read More
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
+<!-- ===================== FACILITIES ===================== -->
+
+<div class="container mt-5">
+
+    <h2 class="text-center fw-bold mb-5">
+
+        🏫 College Facilities
+
+    </h2>
+
+    <div class="row g-4">
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card shadow-lg border-0 text-center h-100">
+
+                <div class="card-body">
+
+                    <h1 class="display-4">🖥️</h1>
+
+                    <h5>
+
+                        Computer Lab
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card shadow-lg border-0 text-center h-100">
+
+                <div class="card-body">
+
+                    <h1 class="display-4">📚</h1>
+
+                    <h5>
+
+                        Library
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card shadow-lg border-0 text-center h-100">
+
+                <div class="card-body">
+
+                    <h1 class="display-4">⚽</h1>
+
+                    <h5>
+
+                        Sports
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card shadow-lg border-0 text-center h-100">
+
+                <div class="card-body">
+
+                    <h1 class="display-4">🌐</h1>
+
+                    <h5>
+
+                        Free Wi-Fi
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===================== CAMPUS GALLERY ===================== -->
+
+<div class="container mt-5">
+
+    <h2 class="text-center fw-bold mb-5">
+
+        📸 Campus Gallery
+
+    </h2>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+
+            <img
+            src="{{ url_for('static', filename='images/college1.jpg') }}"
+            class="img-fluid rounded shadow">
+
+        </div>
+
+        <div class="col-md-4">
+
+            <img
+            src="{{ url_for('static', filename='uploads/g.p.Hingoli_college.jpg') }}"
+            class="img-fluid rounded shadow">
+
+        </div>
+
+        <div class="col-md-4">
+
+            <img
+            src="{{ url_for('static', filename='images/college3.jpg') }}"
+            class="img-fluid rounded shadow">
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===================== QUICK ACCESS ===================== -->
+
+<div class="container mt-5 mb-5">
+
+    <h2 class="text-center fw-bold mb-5">
+
+        🚀 Quick Access
+
+    </h2>
+
+    <div class="row g-4">
+
+        <div class="col-lg-3 col-md-6">
+
+            <a href="/students"
+               class="text-decoration-none">
+
+                <div class="card shadow-lg border-0 text-center h-100">
+
+                    <div class="card-body">
+
+                        <h1>👨‍🎓</h1>
+
+                        <h5>
+
+                            Students
+
+                        </h5>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <a href="/dashboard"
+               class="text-decoration-none">
+
+                <div class="card shadow-lg border-0 text-center h-100">
+
+                    <div class="card-body">
+
+                        <h1>📊</h1>
+
+                        <h5>
+
+                            Dashboard
+
+                        </h5>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <a href="/notices"
+               class="text-decoration-none">
+
+                <div class="card shadow-lg border-0 text-center h-100">
+
+                    <div class="card-body">
+
+                        <h1>📢</h1>
+
+                        <h5>
+
+                            Notices
+
+                        </h5>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <a href="/assistant"
+               class="text-decoration-none">
+
+                <div class="card shadow-lg border-0 text-center h-100">
+
+                    <div class="card-body">
+
+                        <h1>🤖</h1>
+
+                        <h5>
+
+                            AI Assistant
+
+                        </h5>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+
+        height: 500,
+
+        selectable: true,
+
+        dateClick: function(info) {
+            alert("Selected Date: " + info.dateStr);
+        }
+
+    });
+
+    calendar.render();
+
+});
+</script>
+<footer class="footer mt-5">
+    <div class="container text-center py-3">
+        <h6 class="mb-2">🎓 College Smart Portal</h6>
+
+        <p class="mb-1">
+            Government Polytechnic Hingoli
+        </p>
+
+        <p class="mb-1">
+            Developed by <strong>Mohini Ghuge</strong>
+        </p>
+    </div>
+</footer>
 {% endblock %}

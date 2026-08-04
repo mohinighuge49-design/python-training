@@ -53,6 +53,11 @@ def init_db():
     except Exception:
         pass
 
+    try:
+     conn.execute("ALTER TABLE stud ADD COLUMN photo TEXT")
+    except Exception:
+     pass
+
     conn.execute('''
         CREATE TABLE IF NOT EXISTS subjects(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -97,5 +102,3 @@ def insert_stud(name, roll_no, Subject, marks):
     conn.close()
 
 init_db()
-if __name__ == '__main__':
-    app.run(debug=True)
