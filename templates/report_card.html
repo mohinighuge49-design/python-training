@@ -84,84 +84,57 @@
 
             <!-- Marks Section -->
 
+<h4 class="text-center mb-3">
+    📊 Academic Performance
+</h4>
 
-            <h4 class="text-center mb-3">
-                📊 Academic Performance
-            </h4>
+<table class="table table-bordered text-center shadow-sm">
 
+    <thead class="table-primary">
+        <tr>
+            <th>Subject</th>
+            <th>Marks</th>
+            <th>Grade</th>
+        </tr>
+    </thead>
 
-            <table class="table table-bordered text-center shadow-sm">
+    <tbody>
+        <tr>
 
+            <td>
+                {{ student.Subject }}
+            </td>
 
-                <thead class="table-primary">
+            <td>
+                {{ student.marks }} / 100
+            </td>
 
-                    <tr>
+            <td>
 
-                        <th>Subject</th>
-                        <th>Marks</th>
-                        <th>Grade</th>
+                {% if grade=="A+" %}
 
-                    </tr>
+                    <span class="badge bg-success">A+</span>
 
-                </thead>
+                {% elif grade=="A" %}
 
+                    <span class="badge bg-primary">A</span>
 
-                <tbody>
+                {% elif grade=="B+" %}
 
+                    <span class="badge bg-warning text-dark">B+</span>
 
-                    <tr>
+                {% else %}
 
-                        <td>
-                            {{student.Subject}}
-                        </td>
+                    <span class="badge bg-secondary">{{ grade }}</span>
 
+                {% endif %}
 
-                        <td>
-                            {{student.marks}} / 100
-                        </td>
+            </td>
 
-                         <td>
-                            {{student.email}}
-                        </td>
+        </tr>
+    </tbody>
 
-                        <td>
-
-                        {% if grade=="A+" %}
-
-                        <span class="badge bg-success">
-                            A+
-                        </span>
-
-                        {% elif grade=="A" %}
-
-                        <span class="badge bg-primary">
-                            A
-                        </span>
-
-                        {% elif grade=="B+" %}
-
-                        <span class="badge bg-warning text-dark">
-                            B+
-                        </span>
-
-                        {% else %}
-
-                        <span class="badge bg-secondary">
-                            {{grade}}
-                        </span>
-
-                        {% endif %}
-
-                        </td>
-
-
-                    </tr>
-
-
-                </tbody>
-
-
-            </table>
+</table>
 
 
 
