@@ -6,235 +6,600 @@ About Us - College Smart Portal
 
 {% block content %}
 
-<div class="container mt-4">
+<style>
 
-    
-    <div class="bg-primary text-white text-center p-5 rounded shadow">
-        <h1>📘 About College Smart Portal</h1>
-        <p class="lead">
+.hero-section{
+    background:linear-gradient(135deg,#0d6efd,#6610f2);
+    color:#fff;
+    border-radius:25px;
+    padding:60px 30px;
+    text-align:center;
+    box-shadow:0 15px 40px rgba(0,0,0,.15);
+}
+
+.hero-section h1{
+    font-weight:700;
+}
+
+.hero-section p{
+    font-size:18px;
+    opacity:.95;
+}
+
+.about-card{
+    border:none;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    transition:.35s;
+}
+
+.about-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 20px 45px rgba(0,0,0,.18);
+}
+
+.section-title{
+    text-align:center;
+    font-weight:700;
+    margin-bottom:30px;
+    position:relative;
+}
+
+.section-title::after{
+    content:"";
+    width:80px;
+    height:4px;
+    background:#0d6efd;
+    display:block;
+    margin:12px auto 0;
+    border-radius:50px;
+}
+
+</style>
+
+<div class="container py-4">
+
+    <!-- Hero Section -->
+
+    <div class="hero-section mb-4">
+
+        <h1>
+            🎓  About College Smart Portal
+        </h1>
+
+        <p class="lead mb-0">
             Smart Solution for College Information Management
         </p>
+
     </div>
 
-    
-    <div class="card shadow mt-4">
-        <div class="card border-danger shadow text-center">
-        <div class="card-body">
-            <h2>🎯 Project Overview</h2>
+    <!-- Overview -->
 
-            <p>
-                College Smart Portal is a web-based application developed
-                using Python, Flask, Bootstrap and Jinja2.
-                This portal helps students and staff access college
-                information quickly and efficiently.
+    <div class="card about-card mb-4">
+
+        <div class="card-body p-4">
+
+            <h2 class="section-title">
+                📘 Project Overview
+            </h2>
+
+            <p class="text-center">
+
+                College Smart Portal is a modern web-based application
+                developed using <b>Python</b>, <b>Flask</b>,
+                <b>Bootstrap</b> and <b>Jinja2</b>.
+
             </p>
 
-            <p>
-                The system provides student records, notices,
-                college information and statistics through a
-                modern and user-friendly interface.
+            <p class="text-center">
+
+                It helps students and staff access college information,
+                student records, notices and statistics through an easy,
+                fast and user-friendly interface.
+
             </p>
+
         </div>
-        </div>
+
     </div>
 
-    
-    <div class="card shadow mt-4">
-        <div class="card border-info shadow">
-        <div class="card-body">
+    <!-- Objectives -->
 
-            <h2>🚀 Project Objectives</h2>
+    <div class="card about-card mb-4">
 
-            <ul>
-                <li>Provide digital access to college information.</li>
-                <li>Manage student records efficiently.</li>
-                <li>Display latest notices and announcements.</li>
-                <li>Improve communication within the college.</li>
-                <li>Create a modern and responsive web portal.</li>
-            </ul>
+        <div class="card-body p-4">
 
-        </div>
-    </div>
+            <h2 class="section-title">
+                🚀 Project Objectives
+            </h2>
 
-   
+            <div class="row text-center">
 
-    <div class="card shadow mt-2 ">
-        <div class="card border-dark shadow text-center">
-        <div class="card-body ">
+                <div class="col-md-4 mb-3">
 
-                  <h2>✨ Features</h2>
+                    <div class="border rounded-4 p-4 h-100">
 
-            <div class="row ">
+                        💻
 
-                <div class="col-md-3 mb-3">
-                    
-                    <div class="card border-dark shadow text-center">
-                    <div class="border rounded p-3 text-center">
-                        🏫
-                        <h5>College Info</h5>
+                        <h5 class="mt-3">
+                            Digital Access
+                        </h5>
+
+                        <p class="text-muted">
+                            Provide easy online access to college information.
+                        </p>
+
                     </div>
-                
-                    </div>
+
                 </div>
 
-                <div class="col-md-3 mb-3">
-                    <div class="card border-dark shadow text-center">
-                    <div class="border rounded p-3 text-center">
+                <div class="col-md-4 mb-3">
+
+                    <div class="border rounded-4 p-4 h-100">
+
                         👨‍🎓
-                        <h5>Student Records</h5>
+
+                        <h5 class="mt-3">
+                            Student Management
+                        </h5>
+
+                        <p class="text-muted">
+                            Maintain student records efficiently.
+                        </p>
+
                     </div>
-                    </div>
+
                 </div>
 
-                <div class="col-md-3 mb-3">
-                    <div class="card border-dark shadow text-center">
-                    <div class="border rounded p-3 text-center">
+                <div class="col-md-4 mb-3">
+
+                    <div class="border rounded-4 p-4 h-100">
+
                         📢
-                        <h5>Notice board</h5>
+
+                        <h5 class="mt-3">
+                            Communication
+                        </h5>
+
+                        <p class="text-muted">
+                            Share notices and announcements quickly.
+                        </p>
+
                     </div>
-                    </div>
+
                 </div>
 
-                <div class="col-md-3 mb-3">
-                    <div class="card border-dark shadow text-center">
-                    <div class="border rounded p-3 text-center">
-                        📊
-                        <h5> Quick Statistics</h5>
-                    </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3 mb-3">
-                    <div class="card border-dark shadow text-center">
-                    <div class="border rounded p-3 text-center">
-                        🎨
-                        <h5> user Friendly interface</h5>
-                    </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3 mb-3">
-                    <div class="card border-dark shadow text-center">
-                    <div class="border rounded p-3 text-center">
-                        🌐
-                        <h5>Web Based Access</h5>
-                    </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3 mb-3">
-                    <div class="card border-dark shadow text-center">
-                    <div class="border rounded p-3 text-center">
-                        🔍
-                        <h5>Easy navigation</h5>
-                    </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3 mb-3">
-                    <div class="card border-dark shadow text-center">
-                    <div class="border rounded p-3 text-center">
-                        ⚡
-                        <h5>Responsive Design</h5>
-                    </div>
-                    </div>
-                </div>
-                
-
-            </div>  
-
-   
-           
-
-        </div>
-        </div>
-    </div>
-
-   
-    <div class="card shadow mt-4">
-        <div class="card border-primary shadow text-center">
-        <div class="card-body">
-
-            <h2>🛠 Technologies Used</h2>
-
-            <table class="table table-bordered table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Technology</th>
-                        <th>Purpose</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>Python</td>
-                        <td>Backend Development</td>
-                    </tr>
-
-                    <tr>
-                        <td>Flask</td>
-                        <td>Web Framework</td>
-                    </tr>
-
-                    <tr>
-                        <td>HTML</td>
-                        <td>Page Structure</td>
-                    </tr>
-
-                    <tr>
-                        <td>Bootstrap 5</td>
-                        <td>Responsive Design</td>
-                    </tr>
-
-                    <tr>
-                        <td>Jinja2</td>
-                        <td>Template Engine</td>
-                    </tr>
-                </tbody>
-            </table>
             </div>
 
         </div>
+
     </div>
+        <!-- Features -->
 
-    
-    <div class="card shadow mt-4">
-        <div class="bg-secondary card-body">
+    <style>
 
-            <h2>🌟 Vision</h2>
+    .feature-card{
+        border:none;
+        border-radius:20px;
+        padding:30px 20px;
+        text-align:center;
+        background:#fff;
+        box-shadow:0 8px 20px rgba(0,0,0,.08);
+        transition:.35s;
+        height:100%;
+    }
 
-            <p>
-                To create a smart, efficient and user-friendly digital
-                platform that simplifies access to college information
-                and enhances the learning experience of students.
-            </p>
+    .feature-card:hover{
+        transform:translateY(-8px);
+        background:linear-gradient(135deg,#c0acc3,#95439b);
+        color:#fff;
+        box-shadow:0 18px 40px rgba(0,0,0,.18);
+    }
+
+    .feature-card .icon{
+        font-size:45px;
+        margin-bottom:15px;
+    }
+
+    .feature-card p{
+        color:#6c757d;
+        margin-bottom:0;
+        transition:.3s;
+    }
+
+    .feature-card:hover p{
+        color:#f8f9fa;
+    }
+
+    </style>
+
+    <div class="card about-card mb-4">
+
+        <div class="card-body p-4">
+
+            <h2 class="section-title">
+                ✨ Features
+            </h2>
+
+            <div class="row g-4">
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-card">
+                        <div class="icon">🏫</div>
+                        <h5>College Info</h5>
+                        <p>Complete college information in one place.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-card">
+                        <div class="icon">👨‍🎓</div>
+                        <h5>Student Records</h5>
+                        <p>Store and manage student details easily.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-card">
+                        <div class="icon">📢</div>
+                        <h5>Notice Board</h5>
+                        <p>Latest announcements and important updates.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-card">
+                        <div class="icon">📊</div>
+                        <h5>Statistics</h5>
+                        <p>View reports and useful college statistics.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-card">
+                        <div class="icon">🎨</div>
+                        <h5>Modern UI</h5>
+                        <p>Clean, attractive and user-friendly interface.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-card">
+                        <div class="icon">🌐</div>
+                        <h5>Web Access</h5>
+                        <p>Access the portal anytime from any device.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-card">
+                        <div class="icon">🔍</div>
+                        <h5>Easy Navigation</h5>
+                        <p>Simple menu and quick navigation experience.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-card">
+                        <div class="icon">⚡</div>
+                        <h5>Responsive</h5>
+                        <p>Works perfectly on desktop, tablet and mobile.</p>
+                    </div>
+                </div>
+
+            </div>
 
         </div>
+
+    </div>
+        <!-- Technologies Used -->
+
+    <div class="card about-card mb-4">
+
+        <div class="card-body p-4">
+
+            <h2 class="section-title">
+                🛠 Technologies Used
+            </h2>
+
+            <div class="table-responsive">
+
+                <table class="table table-hover table-bordered align-middle text-center">
+
+                    <thead class="table-primary">
+
+                        <tr>
+
+                            <th width="30%">Technology</th>
+                            <th>Purpose</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>🐍 Python</td>
+                            <td>Backend Development</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>⚡ Flask</td>
+                            <td>Web Application Framework</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>🎨 Bootstrap 5</td>
+                            <td>Responsive UI Design</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>🌐 HTML5</td>
+                            <td>Web Page Structure</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>🎯 CSS3</td>
+                            <td>Styling & Animations</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>📄 Jinja2</td>
+                            <td>Dynamic HTML Templates</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>🗄 SQLite</td>
+                            <td>Database Management</td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
     </div>
 
-    
-    <div class="card shadow mt-4 mb-4">
-        <div class="card border-primary shadow text-center">
-        <div class="card-body text-center">
+    <!-- Vision -->
 
-            <h2>👩‍💻 Developed By</h2>
-            <p>
+    <div class="card about-card mb-4">
+
+        <div class="card-body p-5 text-center">
+
+            <h2 class="section-title">
+                🌟 Our Vision
+            </h2>
+
+            <p class="lead">
+
+                Our vision is to build a modern, smart and user-friendly
+                digital platform that simplifies college information
+                management and enhances the learning experience for
+                students, faculty and staff.
+
+            </p>
+
+            <hr>
+
+            <div class="row mt-4">
+
+                <div class="col-md-4 mb-3">
+
+                    <div class="border rounded-4 p-4 h-100">
+
+                        🚀
+
+                        <h5 class="mt-3">
+                            Innovation
+                        </h5>
+
+                        <p class="text-muted">
+                            Deliver modern digital solutions for education.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <div class="border rounded-4 p-4 h-100">
+
+                        🤝
+
+                        <h5 class="mt-3">
+                            Collaboration
+                        </h5>
+
+                        <p class="text-muted">
+                            Improve communication among students and staff.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <div class="border rounded-4 p-4 h-100">
+
+                        ⭐
+
+                        <h5 class="mt-3">
+                            Excellence
+                        </h5>
+
+                        <p class="text-muted">
+                            Provide a reliable and efficient portal experience.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+        <!-- Developer Section -->
+
+    <style>
+
+    .developer-card{
+        border:none;
+        border-radius:25px;
+        box-shadow:0 15px 35px rgba(0,0,0,.10);
+        transition:.35s;
+    }
+
+    .developer-card:hover{
+        transform:translateY(-8px);
+        box-shadow:0 22px 45px rgba(0,0,0,.18);
+    }
+
+    .profile-img{
+        width:150px;
+        height:150px;
+        object-fit:cover;
+        border-radius:50%;
+        border:5px solid #0d6efd;
+        box-shadow:0 10px 25px rgba(0,0,0,.18);
+    }
+
+    .skill-box{
+        border:1px solid #dee2e6;
+        border-radius:15px;
+        padding:18px;
+        transition:.3s;
+        background:#fff;
+    }
+
+    .skill-box:hover{
+        background:#0d6efd;
+        color:#fff;
+        transform:scale(1.05);
+    }
+
+    .contact-box{
+        background:linear-gradient(135deg,#154fa7,#2c0669);
+        color:white;
+        border-radius:20px;
+    }
+
+    </style>
+
+    <div class="card developer-card mb-4">
+
+        <div class="card-body text-center p-5">
+
+            <img
+                src="{{ url_for('static', filename='uploads/monu.png') }}"
+                class="profile-img">
+
+            <h2 class="mt-4 fw-bold">
+                👩‍💻 Developed By
+            </h2>
+
+            <h3 class="text-primary fw-bold">
+                Mohini Vijay Ghuge
+            </h3>
+
+            <p class="text-muted mb-3">
                 Student of Government Polytechnic Hingoli
             </p>
-            <p>
-               Mohini Vijay Ghuge
-            </p>
+
+            <span class="badge bg-primary fs-6 px-4 py-2">
+                Computer Engineering
+            </span>
+
+            <hr class="my-4">
+
+            <div class="row g-3">
+
+                <div class="col-md-3 col-6">
+                    <div class="skill-box">
+                        🐍
+                        <h6 class="mt-2 mb-0">Python</h6>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-6">
+                    <div class="skill-box">
+                        ⚡
+                        <h6 class="mt-2 mb-0">Flask</h6>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-6">
+                    <div class="skill-box">
+                        🎨
+                        <h6 class="mt-2 mb-0">Bootstrap</h6>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-6">
+                    <div class="skill-box">
+                        💻
+                        <h6 class="mt-2 mb-0">Jinja2</h6>
+                    </div>
+                </div>
+
+            </div>
 
         </div>
-        </div>
+
     </div>
- </div>
 
-    <footer style="background-color: #1e3a5f;" class="text-white text-center py-3 mt-3">
-        <small>
-            🎓 College Portal &nbsp;|&nbsp;
-            Built with Python + Flask + Bootstrap &nbsp;🎓&nbsp;
-        </small>
-    </footer>
+    <!-- Contact -->
+
+   <div class="text-center my-5">
+
+    <a href="/contact_us"
+       class="btn btn-lg text-white px-5 py-3 rounded-pill shadow"
+       style="background:linear-gradient(135deg,#0d6efd,#6610f2);;">
+
+        📞 Contact Us →
+
+    </a>
+
+</div>
+
+</div>
+
+<footer class="text-center text-white py-4"
+style="background:#0f172a;">
+
+    <h5 class="mb-2">
+        🎓 College Smart Portal
+    </h5>
+
+    <p class="mb-0">
+        Built with ❤️ using Python • Flask • Bootstrap • Jinja2
+    </p>
+
+    <small class="text-light">
+        © 2026 All Rights Reserved
+    </small>
+
+</footer>
 
 {% endblock %}
