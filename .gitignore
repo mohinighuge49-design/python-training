@@ -1,2 +1,4 @@
-
 .env
+college_records.db
+college_records_backup.db
+__pycache__/
