@@ -1,6 +1,8 @@
 from email import message
 import os
 from re import search
+from turtle import title
+from click import prompt
 from dotenv import load_dotenv
 from flask import Flask, jsonify, render_template, request, flash, url_for, redirect, session, abort
 from database import get_db, init_db, MOHINI_DB
@@ -109,9 +111,46 @@ def home():
 def college_info():
     return render_template('college_info.html')
 
-@app.route('/notices')
+@app.route('/notices', methods=['GET', 'POST'])
 def notices():
-    return render_template('notices.html', notices=notices_list)
+
+    if request.method == 'POST':
+
+        new_notice = {
+            "title": request.form['title'],
+            "message": request.form['message'],
+            "note": request.form['note'],
+            "msg": request.form['msg']
+        }
+
+        notices_list.append(new_notice)
+
+        flash("✅ Notice Added Successfully", "success")
+
+
+    return render_template(
+        'notices.html',
+        notices=notices_list
+    )
+
+@app.route('/delete_notice/<int:id>')
+def delete_notice(id):
+
+    if session.get('role') != 'admin':
+        return redirect(url_for('login'))
+
+    db = get_db()
+
+    db.execute(
+        "DELETE FROM notices WHERE id = ?",
+        (id,)
+    )
+
+    db.commit()
+
+    flash("Notice deleted successfully!", "success")
+
+    return redirect(url_for('notices'))
 
 @app.route('/about')
 def about():
@@ -706,14 +745,29 @@ def get_ai_tip(id):
     return render_template("detail.html",student=student,tip=tip)
 
 
-@app.route('/assistant')
+@app.route("/assistant")
 def assistant():
-    return render_template('assistant.html')
+
+    db = get_db(MOHINI_DB)
+
+    chats = db.execute(
+        """
+        SELECT id, chat_title, created_at
+        FROM chat_history
+        ORDER BY created_at DESC
+        """
+    ).fetchall()
+
+
+    return render_template(
+        "assistant.html",
+        chats=chats
+    )
 
     #============================chatboat route==============================
 @app.route('/chatbot', methods=['POST'])
 def chatbot():
-
+    print("=== CHATBOT ROUTE CALLED ===")
     message = request.form.get('message', '').lower().strip()
 
     conn = get_db(MOHINI_DB)
@@ -854,12 +908,120 @@ def chatbot():
 
             reply = "⚠️ AI service is currently unavailable."
 
+    # ================= SAVE CHAT HISTORY ================= #
 
+    user_id = session.get("user_id", 0)
+
+    print("USER ID:", user_id)
+    print("MESSAGE:", message)
+    print("REPLY:", reply)
+
+
+    # check first chat for title
+    old_chat = conn.execute(
+        """
+        SELECT id 
+        FROM chat_history 
+        WHERE user_id=?
+        LIMIT 1
+        """,
+        (user_id,)
+    ).fetchone()
+
+    title = generate_chat_title(message)
+  
+
+    print("Saving chat...")
+    print("USER ID:", user_id)
+    print("MESSAGE:", message)
+    print("REPLY:", reply)
+    print("TITLE:", title)
+
+    conn.execute(
+        """
+        INSERT INTO chat_history
+        (user_id, user_message, ai_reply, chat_title)
+        VALUES (?,?,?,?)
+        """,
+        (
+            user_id,
+            message,
+            reply,
+            title
+        )
+    )
+
+
+    conn.commit()
     conn.close()
 
-    return jsonify({"reply": reply})
-#===============ID-Card=====================
 
+    return jsonify({
+        "reply": reply
+    })
+
+@app.route("/chat-history")
+def get_chat_history():
+
+    db = get_db(MOHINI_DB)
+
+    history = db.execute(
+        """
+        SELECT id, chat_title
+        FROM chat_history
+        ORDER BY id DESC
+        """
+    ).fetchall()
+
+
+    return jsonify([
+        {
+            "id":h["id"],
+            "title":h["chat_title"]
+        }
+        for h in history
+    ])
+@app.route("/clear_chat")
+def clear_chat():
+
+    db = get_db(MOHINI_DB)
+
+    db.execute(
+        "DELETE FROM chat_history"
+    )
+
+    db.commit()
+
+    return redirect("/assistant")
+def generate_chat_title(message):
+
+    prompt = f"""
+    Create a short chat title (2-4 words)
+    from this user message.
+
+    Message:
+    {message}
+
+    Only return title.
+    """
+
+    try:
+        response = groq_client.chat.completions.create(
+            model="llama-3.1-8b-instant",
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
+        )
+
+        title = response.choices[0].message.content.strip()
+        return title
+
+    except Exception:
+        return "New Chat"
+#===============ID-Card=====================
 @app.route('/id_card/<int:student_id>')
 def id_card(student_id):
 
@@ -959,7 +1121,6 @@ def live_search():
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template("404.html"), 404
-
 init_db()
 if __name__ == "__main__":
     

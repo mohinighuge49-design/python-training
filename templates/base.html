@@ -6,144 +6,1734 @@
 <link rel="stylesheet"
 href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <title>🎓 College Smart Portal</title>
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 <style>
 
+/* =====================================================
+   🌌 COLLEGE SMART PORTAL - PREMIUM GLOBAL THEME
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+html,
+body{
+    height:100%;
+}
+
 body{
     font-family:'Segoe UI',sans-serif;
-    background:#f5f7fb;
+    min-height:100vh;
+
+    background:
+        radial-gradient(
+            circle at 8% 5%,
+            rgba(59,130,246,.32) 0%,
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 92% 92%,
+            rgba(139,92,246,.30) 0%,
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(255,255,255,.95) 0%,
+            transparent 58%
+        ),
+        linear-gradient(
+            135deg,
+            #eef6ff 0%,
+            #f8f5ff 48%,
+            #eeeaff 100%
+        );
+
+    background-attachment:fixed;
+    color:#212529;
     transition:.4s;
 }
 
-.dark-mode{
-    background:#121212;
-    color:#fff;
+body::before{
+    content:"";
+    position:fixed;
+    width:420px;
+    height:420px;
+    background:rgba(37,99,235,.15);
+    border-radius:50%;
+    top:-160px;
+    left:-160px;
+    filter:blur(90px);
+    z-index:-2;
+    pointer-events:none;
 }
 
-.dark-mode .card,
-.dark-mode .table,
-.dark-mode .dropdown-menu{
-    background:#1e1e1e;
-    color:#fff;
+body::after{
+    content:"";
+    position:fixed;
+    width:420px;
+    height:420px;
+    background:rgba(124,58,237,.15);
+    border-radius:50%;
+    bottom:-160px;
+    right:-160px;
+    filter:blur(90px);
+    z-index:-2;
+    pointer-events:none;
 }
 
-.dark-mode .navbar{
-    background:#111!important;
+
+/* =====================================================
+   📦 PAGE WRAPPER
+===================================================== */
+
+.page-wrapper{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
 }
+
+.main-content{
+    flex:1;
+}
+
+
+/* =====================================================
+   🧭 NAVBAR
+===================================================== */
 
 .navbar{
-    backdrop-filter:blur(12px);
-    background:linear-gradient(90deg,#0f2027,#203a43,#2c5364)!important;
-    box-shadow:0 8px 20px rgba(0,0,0,.25);
+    background:
+        linear-gradient(
+            90deg,
+            #0b1220,
+            #172554,
+            #1d4ed8
+        ) !important;
+
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+
+    box-shadow:
+        0 8px 30px rgba(15,23,42,.28);
+
+    padding:14px 20px;
+
+    position:relative;
+    z-index:1000;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.10);
 }
 
 .navbar-brand{
-    font-size:24px;
+    font-size:25px;
     font-weight:700;
-}
-
-.nav-link.custom-link{
-    color:#fff!important;
-    border-radius:12px;
-    padding:8px 14px;
+    color:#fff !important;
+    letter-spacing:.5px;
     transition:.3s;
 }
 
-.nav-link.custom-link:hover{
-    background:rgba(255,255,255,.15);
+.navbar-brand:hover{
     transform:translateY(-2px);
 }
 
-.btn{
-    border-radius:30px;
+.custom-link{
+    color:white !important;
+    padding:9px 14px;
+    border-radius:12px;
+    font-weight:500;
     transition:.3s;
+    position:relative;
+}
+
+.custom-link::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    bottom:3px;
+    width:0;
+    height:2px;
+    background:#93c5fd;
+    transform:translateX(-50%);
+    transition:.3s;
+}
+
+.custom-link:hover{
+    background:rgba(255,255,255,.12);
+    transform:translateY(-2px);
+}
+
+.custom-link:hover::after{
+    width:55%;
+}
+
+
+/* =====================================================
+   🤖 AI ASSISTANT BUTTON
+===================================================== */
+
+.ai-assistant-btn{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:11px 24px;
+    border-radius:50px;
+    text-decoration:none;
+    color:white !important;
+    font-weight:700;
+
+    background:
+        linear-gradient(
+            135deg,
+            #06b6d4,
+            #7c3aed,
+            #ec4899
+        );
+
+    background-size:200% 200%;
+
+    animation:
+        aiGradient 5s ease infinite;
+
+    box-shadow:
+        0 8px 25px rgba(124,58,237,.28);
+
+    transition:.35s;
+}
+
+.ai-assistant-btn:hover{
+    transform:
+        translateY(-4px)
+        scale(1.04);
+
+    box-shadow:
+        0 10px 35px rgba(124,58,237,.45);
+}
+
+@keyframes aiGradient{
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+}
+
+
+/* =====================================================
+   🔘 BUTTONS
+===================================================== */
+
+.btn{
+    border-radius:50px;
+    font-weight:600;
+    transition:.30s;
 }
 
 .btn:hover{
-    transform:translateY(-2px);
-    box-shadow:0 10px 20px rgba(0,0,0,.2);
+    transform:translateY(-3px);
+    box-shadow:
+        0 12px 22px rgba(0,0,0,.18);
 }
+
+.btn-primary{
+    background:#2563eb;
+    border:none;
+}
+
+.btn-success{
+    border:none;
+}
+
+.btn-danger{
+    border:none;
+}
+
+.btn-warning{
+    border:none;
+}
+
+
+/* =====================================================
+   🃏 NORMAL CARDS - LIGHT MODE
+===================================================== */
+
+.card{
+    border:none;
+    border-radius:24px;
+
+    background:rgba(255,255,255,.78);
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.75);
+
+    box-shadow:
+        0 10px 30px rgba(30,64,175,.08);
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        border-color .35s ease;
+
+    animation:fadeUp .6s ease;
+
+    position:relative;
+    overflow:hidden;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+
+    border-color:rgba(99,102,241,.18);
+
+    box-shadow:
+        0 20px 45px rgba(30,64,175,.15);
+}
+
+.card::after{
+    content:"";
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.45),
+            transparent 70%
+        );
+
+    top:-100px;
+    right:-80px;
+
+    pointer-events:none;
+    transition:.5s;
+}
+
+.card:hover::after{
+    transform:scale(1.4);
+}
+
+
+/* =====================================================
+   ✨ GLASS
+===================================================== */
+
+.glass{
+    background:rgba(255,255,255,.62);
+
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+
+    border:
+        1px solid rgba(255,255,255,.65);
+
+    box-shadow:
+        0 15px 40px rgba(30,64,175,.10);
+}
+
+
+/* =====================================================
+   📊 STATS CARDS
+===================================================== */
+
+.stats-card{
+    border:none;
+    border-radius:22px;
+    padding:25px;
+    color:#fff;
+    overflow:hidden;
+    position:relative;
+    transition:.35s;
+}
+
+.stats-card:hover{
+    transform:translateY(-8px);
+
+    box-shadow:
+        0 18px 40px rgba(0,0,0,.18);
+}
+
+.stats-card::before{
+    content:"";
+    position:absolute;
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:rgba(255,255,255,.15);
+    top:-40px;
+    right:-40px;
+}
+
+.bg-blue{
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
+}
+
+.bg-green{
+    background:
+        linear-gradient(
+            135deg,
+            #10b981,
+            #059669
+        );
+}
+
+.bg-orange{
+    background:
+        linear-gradient(
+            135deg,
+            #f59e0b,
+            #ea580c
+        );
+}
+
+.bg-purple{
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #5b21b6
+        );
+}
+
+
+/* =====================================================
+   📢 NOTICE CARD
+===================================================== */
+
+.notice-card{
+    border-left:
+        6px solid #2563eb;
+    transition:.3s;
+}
+
+.notice-card:hover{
+    border-left-color:#7c3aed;
+    transform:translateY(-6px);
+}
+
+
+/* =====================================================
+   👨‍🎓 STUDENT CARD
+===================================================== */
+
+.student-card img{
+    border-radius:15px;
+    object-fit:cover;
+}
+
+.student-card{
+    transition:.3s;
+}
+
+.student-card:hover{
+    transform:scale(1.02);
+}
+
+
+/* =====================================================
+   📋 TABLE
+===================================================== */
+
+.table{
+    width:100% !important;
+    display:table !important;
+    table-layout:auto !important;
+
+    background:#fff;
+
+    border-radius:18px;
+    overflow:hidden;
+
+    box-shadow:
+        0 10px 25px rgba(30,64,175,.08);
+
+    border-collapse:separate !important;
+    border-spacing:0 !important;
+}
+
+.table thead{
+    display:table-header-group !important;
+
+    background:
+        linear-gradient(
+            90deg,
+            #2563eb,
+            #1d4ed8
+        );
+
+    color:#fff;
+}
+
+.table tbody{
+    display:table-row-group !important;
+}
+
+.table tr{
+    display:table-row !important;
+    width:100% !important;
+}
+
+.table th,
+.table td{
+    display:table-cell !important;
+    vertical-align:middle !important;
+}
+
+.table th{
+    padding:15px;
+    font-weight:600;
+    border:none;
+}
+
+.table td{
+    padding:14px;
+}
+
+.table tbody tr{
+    transition:.3s;
+}
+
+.table tbody tr:hover{
+    background:#eef6ff;
+    transform:none !important;
+}
+
+.table-responsive{
+    width:100%;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+}
+
+
+/* =====================================================
+   📝 FORMS
+===================================================== */
+
+.form-control,
+.form-select{
+    border-radius:14px;
+
+    border:
+        1px solid #dbe4f0;
+
+    padding:12px 15px;
+
+    transition:.3s;
+
+    box-shadow:none;
+
+    background:rgba(255,255,255,.9);
+}
+
+.form-control:focus,
+.form-select:focus{
+    border-color:#2563eb;
+
+    box-shadow:
+        0 0 0 .2rem
+        rgba(37,99,235,.15);
+}
+
+input[type="search"],
+input[type="text"]{
+    border-radius:30px;
+}
+
+
+/* =====================================================
+   ⚠️ ALERTS
+===================================================== */
+
+.alert{
+    border:none;
+    border-radius:18px;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.08);
+}
+
+
+/* =====================================================
+   🏷️ BADGES
+===================================================== */
+
+.badge{
+    border-radius:30px;
+    padding:8px 12px;
+    font-weight:600;
+}
+
+
+/* =====================================================
+   🖼️ IMAGES
+===================================================== */
+
+img{
+    transition:.35s;
+}
+
+img:hover{
+    transform:scale(1.03);
+}
+
+.rounded-circle{
+    border:
+        4px solid white;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.15);
+}
+
+
+/* =====================================================
+   📜 DROPDOWN
+===================================================== */
 
 .dropdown-menu{
     border:none;
     border-radius:18px;
-    box-shadow:0 12px 30px rgba(0,0,0,.2);
-}
 
-.card{
-    border:none;
-    border-radius:20px;
-    animation:fade .7s;
-}
-
-@keyframes fade{
-from{opacity:0;transform:translateY(15px);}
-to{opacity:1;transform:translateY(0);}
-}
-
-.ai-assistant-btn{
-    position: relative;
-    display: inline-block;
-    padding: 12px 24px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 700;
-    color: white !important;
-    background: linear-gradient(
-        45deg,
-        #00dbde,
-        #fc00ff,
-        #00dbde
-    );
-    background-size: 300% 300%;
-    animation: gradientMove 4s ease infinite;
-    box-shadow: 0 0 15px rgba(252,0,255,0.5);
-    transition: all 0.3s ease;
-}
-
-.ai-assistant-btn:hover{
-    transform: translateY(-4px) scale(1.05);
     box-shadow:
-        0 0 20px #fc00ff,
-        0 0 40px #00dbde;
+        0 15px 35px rgba(0,0,0,.15);
+
+    overflow:hidden;
 }
 
-.ai-assistant-btn::before{
-    content: "";
-    position: absolute;
-    inset: -3px;
-    border-radius: 50px;
-    background: linear-gradient(
-        45deg,
-        #00dbde,
-        #fc00ff,
-        #00dbde
-    );
-    z-index: -1;
-    filter: blur(12px);
-    opacity: 0.8;
+.dropdown-item{
+    transition:.3s;
 }
 
-@keyframes gradientMove{
-    0%{
-        background-position: 0% 50%;
-    }
-    50%{
-        background-position: 100% 50%;
-    }
+.dropdown-item:hover{
+    background:#eef4ff;
+    padding-left:20px;
+}
+
+
+/* =====================================================
+   📄 PAGE TITLE
+===================================================== */
+
+.page-title{
+    font-size:34px;
+    font-weight:700;
+    color:#1e3a8a;
+}
+
+.page-subtitle{
+    color:#6b7280;
+}
+
+
+/* =====================================================
+   🔗 LINKS
+===================================================== */
+
+a{
+    text-decoration:none;
+}
+
+a:hover{
+    text-decoration:none;
+}
+
+
+/* =====================================================
+   🔄 LOADER
+===================================================== */
+
+#loader{
+    position:fixed;
+    width:100%;
+    height:100%;
+
+    background:white;
+
+    top:0;
+    left:0;
+
+    z-index:9999;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.loader-box{
+    text-align:center;
+}
+
+.spinner{
+    width:50px;
+    height:50px;
+
+    border:
+        5px solid #ddd;
+
+    border-top:
+        5px solid #0d6efd;
+
+    border-radius:50%;
+
+    animation:
+        spin 1s linear infinite;
+
+    margin:auto;
+}
+
+.loader-box h5{
+    margin-top:20px;
+    color:#0d6efd;
+    font-weight:600;
+}
+
+@keyframes spin{
     100%{
-        background-position: 0% 50%;
+        transform:rotate(360deg);
     }
+}
+
+
+/* =====================================================
+   ✨ PAGE ANIMATION
+===================================================== */
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+
+/* =====================================================
+   💡 ICONS
+===================================================== */
+
+.bi{
+    transition:.3s;
+}
+
+.bi:hover{
+    transform:scale(1.2);
+}
+
+
+/* =====================================================
+   🌙 DARK MODE - BODY
+===================================================== */
+
+body.dark-mode{
+
+    min-height:100vh;
+
+    background:
+        radial-gradient(
+            circle at 5% 15%,
+            rgba(37,99,235,.45) 0%,
+            transparent 32%
+        ),
+
+        radial-gradient(
+            circle at 95% 85%,
+            rgba(124,58,237,.42) 0%,
+            transparent 35%
+        ),
+
+        linear-gradient(
+            135deg,
+            #020617 0%,
+            #0b1224 48%,
+            #111827 100%
+        ) !important;
+
+    color:#ffffff !important;
+}
+
+
+/* =====================================================
+   🌌 DARK GLOW
+===================================================== */
+
+body.dark-mode::before{
+    content:"";
+
+    position:fixed;
+
+    width:500px;
+    height:500px;
+
+    top:-220px;
+    left:-180px;
+
+    background:
+        rgba(37,99,235,.25);
+
+    border-radius:50%;
+
+    filter:blur(100px);
+
+    z-index:-2;
+
+    pointer-events:none;
+}
+
+body.dark-mode::after{
+    content:"";
+
+    position:fixed;
+
+    width:500px;
+    height:500px;
+
+    bottom:-220px;
+    right:-180px;
+
+    background:
+        rgba(124,58,237,.28);
+
+    border-radius:50%;
+
+    filter:blur(100px);
+
+    z-index:-2;
+
+    pointer-events:none;
+}
+
+
+/* =====================================================
+   🧭 DARK NAVBAR
+===================================================== */
+
+body.dark-mode .navbar{
+    background:
+        linear-gradient(
+            90deg,
+            #020617,
+            #0f172a,
+            #172554
+        ) !important;
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.45);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+}
+
+body.dark-mode .navbar-brand,
+body.dark-mode .navbar a,
+body.dark-mode .navbar .nav-link,
+body.dark-mode .navbar span{
+    color:#ffffff !important;
+}
+
+body.dark-mode .custom-link:hover{
+    background:rgba(255,255,255,.10);
+    color:#ffffff !important;
+}
+
+
+/* =====================================================
+   📝 DARK MODE - GLOBAL TEXT
+===================================================== */
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6{
+    color:#ffffff !important;
+}
+
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode label,
+body.dark-mode small,
+body.dark-mode li{
+    color:#e2e8f0;
+}
+
+body.dark-mode .text-dark{
+    color:#ffffff !important;
+}
+
+body.dark-mode .text-muted{
+    color:#cbd5e1 !important;
+}
+
+body.dark-mode .page-title{
+    color:#60a5fa !important;
+}
+
+body.dark-mode .page-subtitle{
+    color:#cbd5e1 !important;
+}
+
+
+/* =====================================================
+   🔗 DARK LINKS
+===================================================== */
+
+body.dark-mode a{
+    color:#60a5fa;
+}
+
+body.dark-mode a:hover{
+    color:#93c5fd;
+}
+
+
+/* =====================================================
+   🃏 DARK NORMAL CARDS
+===================================================== */
+
+/*
+   IMPORTANT:
+   Only normal cards become dark.
+   Colorful cards are excluded.
+*/
+
+body.dark-mode .card:not(.dashboard-card):not(.stats-card):not(.bg-primary):not(.bg-success):not(.bg-info):not(.bg-warning):not(.bg-danger):not(.bg-dark):not([style*="linear-gradient"]){
+
+    background:
+        rgba(15,23,42,.94) !important;
+
+    color:#ffffff !important;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.35);
+}
+
+
+/* Normal card text */
+
+body.dark-mode .card:not(.dashboard-card):not(.stats-card):not(.bg-primary):not(.bg-success):not(.bg-info):not(.bg-warning):not(.bg-danger):not(.bg-dark):not([style*="linear-gradient"]) h1,
+body.dark-mode .card:not(.dashboard-card):not(.stats-card):not(.bg-primary):not(.bg-success):not(.bg-info):not(.bg-warning):not(.bg-danger):not(.bg-dark):not([style*="linear-gradient"]) h2,
+body.dark-mode .card:not(.dashboard-card):not(.stats-card):not(.bg-primary):not(.bg-success):not(.bg-info):not(.bg-warning):not(.bg-danger):not(.bg-dark):not([style*="linear-gradient"]) h3,
+body.dark-mode .card:not(.dashboard-card):not(.stats-card):not(.bg-primary):not(.bg-success):not(.bg-info):not(.bg-warning):not(.bg-danger):not(.bg-dark):not([style*="linear-gradient"]) h4,
+body.dark-mode .card:not(.dashboard-card):not(.stats-card):not(.bg-primary):not(.bg-success):not(.bg-info):not(.bg-warning):not(.bg-danger):not(.bg-dark):not([style*="linear-gradient"]) h5,
+body.dark-mode .card:not(.dashboard-card):not(.stats-card):not(.bg-primary):not(.bg-success):not(.bg-info):not(.bg-warning):not(.bg-danger):not(.bg-dark):not([style*="linear-gradient"]) h6{
+    color:#ffffff !important;
+}
+
+body.dark-mode .card:not(.dashboard-card):not(.stats-card):not(.bg-primary):not(.bg-success):not(.bg-info):not(.bg-warning):not(.bg-danger):not(.bg-dark):not([style*="linear-gradient"]) p{
+    color:#e2e8f0 !important;
+}
+
+
+/* =====================================================
+   ✨ DARK GLASS
+===================================================== */
+
+body.dark-mode .glass{
+    background:
+        rgba(30,41,59,.65) !important;
+
+    border:
+        1px solid rgba(255,255,255,.10);
+
+    color:#f8fafc !important;
+
+    backdrop-filter:blur(20px);
+}
+
+
+/* =====================================================
+   🎨 BOOTSTRAP COLORFUL CARDS
+   KEEP THEIR ORIGINAL COLORS
+===================================================== */
+
+body.dark-mode .card.bg-primary{
+    background-color:#0d6efd !important;
+    color:#ffffff !important;
+}
+
+body.dark-mode .card.bg-success{
+    background-color:#198754 !important;
+    color:#ffffff !important;
+}
+
+body.dark-mode .card.bg-info{
+    background-color:#0dcaf0 !important;
+    color:#212529 !important;
+}
+
+body.dark-mode .card.bg-warning{
+    background-color:#ffc107 !important;
+    color:#212529 !important;
+}
+
+body.dark-mode .card.bg-danger{
+    background-color:#dc3545 !important;
+    color:#ffffff !important;
+}
+
+body.dark-mode .card.bg-dark{
+    background-color:#212529 !important;
+    color:#ffffff !important;
+}
+
+
+/* Colorful card text */
+
+body.dark-mode .card.bg-primary *,
+body.dark-mode .card.bg-success *,
+body.dark-mode .card.bg-danger *{
+    color:#050505 !important;
+}
+
+body.dark-mode .card.bg-info *,
+body.dark-mode .card.bg-warning *{
+    color:#212529 !important;
+}
+
+
+/* =====================================================
+   🎨 INLINE GRADIENT CARDS
+   KEEP ORIGINAL GRADIENT
+===================================================== */
+
+body.dark-mode .card[style*="linear-gradient"]{
+    color:#ffffff !important;
+}
+
+body.dark-mode .card[style*="linear-gradient"] *{
+    color:#ffffff !important;
+}
+
+
+/* =====================================================
+   📊 DASHBOARD CARDS
+===================================================== */
+
+body.dark-mode .dashboard-card{
+    color:#ffffff !important;
+}
+
+body.dark-mode .dashboard-card *{
+    color:#ffffff !important;
+}
+
+
+/* Your exact dashboard gradients */
+
+body.dark-mode .dashboard-card:nth-child(1){
+    background:
+        linear-gradient(
+            135deg,
+            #d18bd2,
+            #1d4ed8
+        ) !important;
+}
+
+body.dark-mode .dashboard-card:nth-child(2){
+    background:
+        linear-gradient(
+            135deg,
+            #e2b89a,
+            #059669
+        ) !important;
+}
+
+body.dark-mode .dashboard-card:nth-child(3){
+    background:
+        linear-gradient(
+            135deg,
+            #de8da3,
+            #1e40af
+        ) !important;
+}
+
+body.dark-mode .dashboard-card:nth-child(4){
+    background:
+        linear-gradient(
+            135deg,
+            #d1adcc,
+            #334155
+        ) !important;
+}
+
+
+/* =====================================================
+   📊 STATS CARDS
+===================================================== */
+
+body.dark-mode .stats-card{
+    color:#ffffff !important;
+}
+
+body.dark-mode .stats-card *{
+    color:#ffffff !important;
+}
+
+body.dark-mode .stats-card.bg-blue{
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        ) !important;
+}
+
+body.dark-mode .stats-card.bg-green{
+    background:
+        linear-gradient(
+            135deg,
+            #10b981,
+            #059669
+        ) !important;
+}
+
+body.dark-mode .stats-card.bg-orange{
+    background:
+        linear-gradient(
+            135deg,
+            #f59e0b,
+            #ea580c
+        ) !important;
+}
+
+body.dark-mode .stats-card.bg-purple{
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #5b21b6
+        ) !important;
+}
+
+
+/* =====================================================
+   📋 DARK TABLE
+===================================================== */
+
+body.dark-mode .table{
+    background:
+        rgba(15,23,42,.94) !important;
+
+    color:#1b1a1a !important;
+}
+
+body.dark-mode .table td,
+body.dark-mode .table th{
+    color:#161616 !important;
+    border-color:#334155 !important;
+}
+
+body.dark-mode .table thead{
+    background:
+        linear-gradient(
+            90deg,
+            #2563eb,
+            #1d4ed8
+        ) !important;
+}
+
+body.dark-mode .table thead th{
+    color:#ffffff !important;
+}
+
+body.dark-mode .table tbody tr:hover{
+    background:#273449 !important;
+}
+
+
+/* =====================================================
+   📝 DARK FORMS
+===================================================== */
+
+body.dark-mode form{
+    color:#ffffff;
+}
+
+body.dark-mode form label,
+body.dark-mode .form-label{
+    color:#e2e8f0 !important;
+}
+
+body.dark-mode .form-control,
+body.dark-mode .form-select{
+    background:
+        rgba(15,23,42,.75) !important;
+
+    color:#ffffff !important;
+
+    border:
+        1px solid #475569 !important;
+}
+
+body.dark-mode .form-control::placeholder{
+    color:#94a3b8 !important;
+    opacity:1;
+}
+
+body.dark-mode .form-control:focus,
+body.dark-mode .form-select:focus{
+    background:
+        rgba(15,23,42,.95) !important;
+
+    color:#ffffff !important;
+
+    border-color:#3b82f6 !important;
+
+    box-shadow:
+        0 0 0 4px rgba(59,130,246,.15),
+        0 8px 25px rgba(0,0,0,.25);
+}
+
+body.dark-mode option{
+    background:#1e293b !important;
+    color:#ffffff !important;
+}
+
+
+/* =====================================================
+   🔘 DARK BUTTONS
+===================================================== */
+
+body.dark-mode .btn{
+    color:#ffffff !important;
+}
+
+body.dark-mode .btn-primary{
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #3b82f6
+        ) !important;
+
+    color:#ffffff !important;
+    border:none !important;
+}
+
+body.dark-mode .btn-outline-primary{
+    color:#60a5fa !important;
+    border-color:#3b82f6 !important;
+}
+
+body.dark-mode .btn-outline-primary:hover{
+    background:#2563eb !important;
+    color:#ffffff !important;
+}
+
+body.dark-mode .btn-outline-light{
+    color:#ffffff !important;
+}
+
+
+/* =====================================================
+   📢 DARK ALERT
+===================================================== */
+
+body.dark-mode .alert{
+    color:#f8fafc !important;
+
+    background:
+        rgba(30,41,59,.85) !important;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+}
+
+body.dark-mode .alert h1,
+body.dark-mode .alert h2,
+body.dark-mode .alert h3,
+body.dark-mode .alert h4,
+body.dark-mode .alert h5,
+body.dark-mode .alert h6,
+body.dark-mode .alert p,
+body.dark-mode .alert span{
+    color:#ffffff !important;
+}
+
+
+/* =====================================================
+   📜 DARK DROPDOWN
+===================================================== */
+
+body.dark-mode .dropdown-menu{
+    background:
+        rgba(15,23,42,.97) !important;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.4);
+}
+
+body.dark-mode .dropdown-item{
+    color:#e2e8f0 !important;
+}
+
+body.dark-mode .dropdown-item:hover{
+    background:#1e293b !important;
+    color:#ffffff !important;
+}
+
+
+/* =====================================================
+   🏷️ DARK BADGES
+===================================================== */
+
+body.dark-mode .badge{
+    color:#ffffff !important;
+}
+
+
+/* =====================================================
+   🦶 DARK FOOTER
+===================================================== */
+
+body.dark-mode footer{
+    color:#cbd5e1 !important;
+}
+
+body.dark-mode footer p,
+body.dark-mode footer span,
+body.dark-mode footer small,
+body.dark-mode footer h4,
+body.dark-mode footer h5{
+    color:#e2e8f0 !important;
+}
+
+
+/* =====================================================
+   🤖 AI BUTTON
+===================================================== */
+
+body.dark-mode .ai-assistant-btn{
+    color:#ffffff !important;
+}
+
+
+/* =====================================================
+   🌙 DARK ICONS
+===================================================== */
+
+body.dark-mode .bi{
+    color:inherit;
+}
+
+
+/* =====================================================
+   🔐 LOGIN CARD
+===================================================== */
+
+body.dark-mode .login-card,
+body.dark-mode .auth-card{
+    position:relative;
+    overflow:hidden;
+
+    background:
+        rgba(30,41,59,.82) !important;
+
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.45);
+}
+
+body.dark-mode .login-card::before,
+body.dark-mode .auth-card::before{
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    top:-100px;
+    right:-70px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.20),
+            transparent 70%
+        );
+
+    border-radius:50%;
+
+    pointer-events:none;
+}
+
+
+/* =====================================================
+   🔥 INLINE BLACK TEXT FIX
+===================================================== */
+
+body.dark-mode [style*="color:black"],
+body.dark-mode [style*="color: black"],
+body.dark-mode [style*="color:#000"],
+body.dark-mode [style*="color: #000"],
+body.dark-mode [style*="color:#212529"],
+body.dark-mode [style*="color: #212529"]{
+    color:#ffffff !important;
+}
+
+
+/* =====================================================
+   ☀️ LIGHT MODE
+===================================================== */
+
+body:not(.dark-mode){
+    background:
+        radial-gradient(
+            circle at 5% 5%,
+            rgba(59,130,246,.22),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 95% 90%,
+            rgba(124,58,237,.20),
+            transparent 32%
+        ),
+
+        linear-gradient(
+            135deg,
+            #edf5ff 0%,
+            #ffffff 48%,
+            #f3efff 100%
+        ) !important;
+
+    color:#1e293b !important;
+}
+
+
+/* =====================================================
+   ☀️ LIGHT NAVBAR
+===================================================== */
+
+body:not(.dark-mode) .navbar{
+    background:
+        linear-gradient(
+            90deg,
+            #0f172a 0%,
+            #172554 50%,
+            #2563eb 100%
+        ) !important;
+
+    color:#ffffff !important;
+
+    box-shadow:
+        0 8px 30px rgba(15,23,42,.25) !important;
+}
+
+body:not(.dark-mode) .navbar-brand,
+body:not(.dark-mode) .navbar .custom-link{
+    color:#ffffff !important;
+}
+
+body:not(.dark-mode) .navbar .custom-link:hover{
+    color:#ffffff !important;
+    background:rgba(255,255,255,.14) !important;
+}
+
+
+/* =====================================================
+   ☀️ LIGHT LOGIN
+===================================================== */
+
+body:not(.dark-mode) .login-card{
+    background:
+        rgba(255,255,255,.88) !important;
+
+    border:
+        1px solid rgba(255,255,255,.9) !important;
+
+    box-shadow:
+        0 25px 60px rgba(30,64,175,.16),
+        0 5px 20px rgba(0,0,0,.06) !important;
+}
+
+body:not(.dark-mode) .login-title{
+    color:#2563eb !important;
+}
+
+body:not(.dark-mode) .login-card label{
+    color:#334155 !important;
+}
+
+body:not(.dark-mode) .login-subtitle,
+body:not(.dark-mode) .login-card .text-muted{
+    color:#64748b !important;
+}
+
+body:not(.dark-mode) .login-card a{
+    color:#2563eb !important;
+}
+
+body:not(.dark-mode) .login-card a:hover{
+    color:#7c3aed !important;
+}
+
+
+/* =====================================================
+   🖼️ GALLERY
+===================================================== */
+
+.campus-gallery img{
+    width:100%;
+    height:260px;
+    object-fit:cover;
+    border-radius:20px;
+}
+
+body.dark-mode .campus-gallery{
+    color:#ffffff !important;
+}
+
+body.dark-mode .campus-gallery h1,
+body.dark-mode .campus-gallery h2,
+body.dark-mode .campus-gallery h3,
+body.dark-mode .campus-gallery h4,
+body.dark-mode .campus-gallery h5,
+body.dark-mode .campus-gallery h6{
+    color:#ffffff !important;
+}
+
+
+/* =====================================================
+   🌊 TRANSITIONS
+===================================================== */
+
+body,
+.card,
+.navbar,
+.form-control,
+.form-select,
+.dropdown-menu,
+footer{
+    transition:
+        background .4s ease,
+        color .3s ease,
+        border-color .3s ease,
+        box-shadow .4s ease;
+}
+
+button,
+a,
+.card,
+.btn,
+.form-control,
+.form-select,
+.dropdown-item,
+img{
+    transition:
+        background .3s,
+        color .3s,
+        border .3s,
+        box-shadow .3s,
+        transform .3s;
+}
+
+
+/* =====================================================
+   🦶 FOOTER
+===================================================== */
+
+footer{
+    margin-top:60px;
+    padding:25px;
+    text-align:center;
+    color:#6b7280;
+    font-size:15px;
+}
+
+
+/* =====================================================
+   📏 SHADOW UTILITIES
+===================================================== */
+
+.shadow-soft{
+    box-shadow:
+        0 12px 35px
+        rgba(30,64,175,.08);
+}
+
+.shadow-hover:hover{
+    box-shadow:
+        0 18px 40px
+        rgba(30,64,175,.18);
+}
+
+
+/* =====================================================
+   📱 RESPONSIVE
+===================================================== */
+
+@media(max-width:992px){
+
+    .navbar-brand{
+        font-size:21px;
+    }
+
+    .custom-link{
+        padding:8px 10px;
+    }
+
+    .ai-assistant-btn{
+        margin-top:10px;
+    }
+}
+
+@media(max-width:768px){
+
+    .card{
+        margin-bottom:20px;
+    }
+
+    .table{
+        font-size:14px;
+        min-width:650px;
+    }
+
+    .table th,
+    .table td{
+        padding:12px 10px;
+        font-size:14px;
+    }
+
+    .btn{
+        width:100%;
+        margin-bottom:10px;
+    }
+
+    .page-title{
+        font-size:28px;
+    }
+
+    .campus-gallery img{
+        height:230px;
+    }
+}
+
+
+/* =====================================================
+   📜 CUSTOM SCROLLBAR
+===================================================== */
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#eef4ff;
+}
+
+::-webkit-scrollbar-thumb{
+    background:
+        linear-gradient(
+            #3b82f6,
+            #7c3aed
+        );
+
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:
+        linear-gradient(
+            #2563eb,
+            #5b21b6
+        );
+}
+/* WHITE CONTENT → BLACK TEXT */
+body.dark-mode .card[style*="background:#fff"] *,
+body.dark-mode .card[style*="background: #fff"] *,
+body.dark-mode .card[style*="background:white"] *,
+body.dark-mode .card[style*="background: white"] *,
+body.dark-mode .list-group-item {
+    color:#000000 !important;
+}
+/* =====================================================
+   🌙 DARK MODE - WHITE INNER CARDS MUST HAVE BLACK TEXT
+===================================================== */
+
+/* Skill boxes */
+.dark-mode .skill-box,
+.dark-mode .skill-box * {
+    color: #000000 !important;
+}
+
+/* Achievement list */
+.dark-mode .list-group-item,
+.dark-mode .list-group-item * {
+    color: #000000 !important;
+}
+
+/* White Bootstrap cards */
+.dark-mode .bg-white,
+.dark-mode .bg-white * {
+    color: #000000 !important;
+}
+
+/* Cards which have white background */
+.dark-mode .card-body.bg-white,
+.dark-mode .card-body.bg-white * {
+    color: #000000 !important;
+}
+
+/* Keep colorful cards text WHITE */
+.dark-mode .dashboard-card,
+.dark-mode .dashboard-card *,
+.dark-mode .stats-card,
+.dark-mode .stats-card * {
+    color: #ffffff !important;
 }
 </style>
-
 </head>
 
 <body>
 
+    <!-- Page Loader -->
+<div id="loader">
+    <div class="loader-box">
+        <div class="spinner"></div>
+        <h5>Loading College Portal...</h5>
+    </div>
+</div>
     <!-- PREMIUM NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container-fluid px-4">
@@ -340,10 +1930,17 @@ function updateDateTime(){
         "🗓️ " + date + "<br>" +
         "⏰ " + time;
 }
-
 setInterval(updateDateTime,1000);
-
 updateDateTime();
+</script>
+<script>
+
+window.addEventListener("load", function(){
+
+    document.getElementById("loader").style.display="none";
+
+});
+
 </script>
 </body>
 </html>

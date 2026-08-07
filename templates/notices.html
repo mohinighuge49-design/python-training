@@ -44,9 +44,193 @@
 </div>
 
 {% endfor %}
+<!-- ================= FOOTER ================= -->
 
-</div>
-   <div class="card-footer bg-dark text-white text-center py-3 mb-2">
-    @ 2026 Government Polytechnic Hingoli
-</div>
+<footer class="footer mt-5">
+
+    <div class="container py-5">
+
+        <div class="row g-4">
+
+            <!-- College Info -->
+            <div class="col-md-4">
+
+                <h4>
+                    🎓 College Smart Portal
+                </h4>
+
+                <p>
+                    Government Polytechnic Hingoli
+                </p>
+
+                <p>
+                    Smart Digital Campus Management System
+                </p>
+
+            </div>
+
+
+            <!-- Empty Space -->
+            <div class="col-md-4 text-center">
+
+                <div class="footer-icon">
+                    🏫
+                </div>
+
+                <p>
+                    Empowering Students Through Technology
+                </p>
+
+            </div>
+
+
+            <!-- Developer -->
+            <div class="col-md-4">
+
+                <h5>
+                    👩‍💻 Developer
+                </h5>
+
+                <p>
+                    Mohini Ghuge
+                </p>
+
+                <p>
+                    🚀 Python Internship Project
+                </p>
+
+                <p>
+                    ⚙ Flask | SQLite | Bootstrap
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <hr>
+
+
+        <div class="text-center footer-bottom">
+
+            © 2026 College Smart Portal 
+            | All Rights Reserved
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<style>
+
+.footer {
+
+    background: linear-gradient(135deg,#0f172a,#1e40af);
+
+    color:white;
+
+    border-radius:30px 30px 0 0;
+
+    box-shadow:0 -10px 35px rgba(0,0,0,0.2);
+
+}
+
+
+.footer h4 {
+
+    font-size:24px;
+
+    font-weight:700;
+
+    margin-bottom:15px;
+
+}
+
+
+.footer h5 {
+
+    color:#93c5fd;
+
+    font-size:20px;
+
+    font-weight:700;
+
+    margin-bottom:15px;
+
+}
+
+
+.footer p {
+
+    color:#dbeafe;
+
+    font-size:15px;
+
+    margin-bottom:8px;
+
+}
+
+
+.footer-icon {
+
+    font-size:55px;
+
+    margin-bottom:15px;
+
+    animation: float 3s ease-in-out infinite;
+
+}
+
+
+.footer .col-md-4 {
+
+    transition:0.3s;
+
+}
+
+
+.footer .col-md-4:hover {
+
+    transform:translateY(-6px);
+
+}
+
+
+.footer hr {
+
+    border-color:rgba(255,255,255,0.3);
+
+}
+
+
+.footer-bottom {
+
+    color:#bfdbfe;
+
+    font-size:14px;
+
+}
+
+
+
+@keyframes float {
+
+    0% {
+        transform:translateY(0);
+    }
+
+    50% {
+        transform:translateY(-8px);
+    }
+
+    100% {
+        transform:translateY(0);
+    }
+
+}
+
+
+</style>
 {% endblock %}

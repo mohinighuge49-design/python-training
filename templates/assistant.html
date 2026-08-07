@@ -5,29 +5,64 @@
 <style>
 
 .chat-card{
+
+    height:100%;
+
     border:none;
-    border-radius:30px;
+
+    border-radius:25px;
+
     overflow:hidden;
-    background:rgb(227, 227, 227);
-    box-shadow:0 20px 50px rgba(0,0,0,.15);
+
+    background:white;
+
+    box-shadow:
+    0 20px 50px rgba(0,0,0,.15);
+
+}
+.chat-header{
+
+    background:
+    linear-gradient(135deg,#6d0d82,#a01d9e);
+
+    color:white;
+
+    text-align:center;
+
+    padding:18px;
+
 }
 
-.chat-header{
-    background:linear-gradient(135deg,#6d0d82,#a01d9e);
-    color:white;
-    text-align:center;
-    padding:25px;
-}
 
 .chat-header h2{
-    font-weight:700;
+
+    font-size:24px;
+
+    margin-bottom:5px;
+
+}
+.chat-input-area{
+
+    position:sticky;
+
+    bottom:0;
+
+    background:white;
+
+    padding:12px;
+
 }
 
 #chatMessages{
-    height:500px;
+
+    height:calc(100vh - 360px);
+
     overflow-y:auto;
+
     padding:25px;
-    background:linear-gradient(to bottom,#f8f9ff,#ffffff);
+
+    background:#ffffff;
+
 }
 
 .user-msg{
@@ -73,7 +108,88 @@
     box-shadow:0 0 0 0.2rem rgba(20, 93, 203, 0.25);
     background:white;
 }
+/* CHATGPT STYLE SIDEBAR */
 
+.chat-sidebar{
+
+    width:260px;
+
+    background:#171717;
+
+    color:white;
+
+    padding:15px;
+
+    border-radius:15px;
+
+    height:100%;
+
+}
+
+
+.chat-sidebar h5{
+
+    color:white;
+
+    margin-bottom:20px;
+
+}
+
+
+.chat-sidebar .btn-primary{
+
+    background:#2f2f2f;
+
+    border:none;
+
+    color:white;
+
+    text-align:left;
+
+}
+
+
+.chat-sidebar .btn-primary:hover{
+
+    background:#3f3f3f;
+
+}
+
+
+.chat-item{
+    display: block;
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 10px;
+    background: #f8f9fa;
+    color: #222;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid #e5e7eb;
+    transition: .3s;
+}
+
+.chat-item:hover{
+    background: #e9f2ff;
+    color: #0d6efd;
+}
+.chat-sidebar .btn-danger{
+
+    background:#2f2f2f;
+
+    border:none;
+
+    color:#ff6b6b;
+
+}
+
+
+.chat-sidebar hr{
+
+    border-color:#444;
+
+}
 .voice-btn{
     width:55px;
     height:55px;
@@ -117,6 +233,17 @@
     background:#3180a1;
     border-radius:20px;
 }
+.chat-sidebar{
+    height:560px;
+    overflow-y:auto;
+}
+
+
+.chat-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
 .suggestion-chips{
 
     display:flex;
@@ -155,11 +282,13 @@
 
 }
 .bot-message{
-    background:#fff;
-    border-radius:18px;
+
+    background:transparent;
+
     padding:15px;
+
     margin:15px 0;
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
 }
 
 .bot-top{
@@ -173,7 +302,53 @@
     font-weight:600;
     color:#2563eb;
 }
+.ai-reply-box{
 
+    background:#ffffff;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:18px;
+
+    padding:18px;
+
+    margin-top:10px;
+
+    max-width:75%;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+
+.ai-reply-box .copy-btn{
+
+    display:block;
+
+    margin-left:auto;
+
+    margin-top:12px;
+
+    width:auto;
+
+    height:auto;
+
+    padding:6px 15px;
+
+    border-radius:20px;
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+
+.ai-reply-box .copy-btn:hover{
+
+    background:#1d4ed8;
+
+}
 .copy-btn{
     border:none;
     background:#bcd6de;
@@ -194,10 +369,264 @@
     white-space:pre-wrap;
     line-height:1.4;
 }
+.assistant-layout{
+    display:flex;
+    gap:20px;
+    height:calc(100vh - 150px);
+    align-items:stretch;
+}
 
+.chat-sidebar{
+
+    width:280px;
+    background:#ffffff;
+    padding:18px;
+
+    border-radius:20px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
+
+    height:100%;
+
+    overflow-y:auto;
+
+}
+.chat-area{
+
+    flex:1;
+
+    height:100%;
+
+}
+
+.chat-item{
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:10px;
+    cursor:pointer;
+    background:#f8f9fa;
+}
+
+
+.chat-item:hover{
+    background:#e9f2ff;
+}
+
+.new-chat-btn{
+
+display:block;
+
+padding:12px;
+
+border-radius:10px;
+
+background:#2f2f2f;
+
+color:white;
+
+text-decoration:none;
+
+margin-bottom:15px;
+
+}
+
+.clear-btn{
+
+display:block;
+
+padding:10px;
+
+color:#ff7777;
+
+text-decoration:none;
+
+border-radius:10px;
+
+}
+
+
+.clear-btn:hover{
+
+background:#2f2f2f;
+
+}
+.new-chat-btn:hover{
+
+background:#404040;
+
+color:white;
+
+}
+
+@media(max-width:768px){
+
+    .assistant-layout{
+        flex-direction:column;
+    }
+
+
+    .chat-sidebar{
+        width:100%;
+    }
+
+.chat-card{
+
+    height:650px;
+
+}
+
+#chatMessages{
+
+    height:400px;
+
+}
+}
+.chat-sidebar{
+
+    display:flex;
+    flex-direction:column;
+
+}
+
+
+.chat-list{
+
+    flex:1;
+
+    overflow-y:auto;
+
+}
+
+.chat-item{
+    padding:12px;
+    margin-bottom:8px;
+    border-radius:10px;
+    background:#f8f9fa;
+    color:#212529;
+    border:1px solid #dee2e6;
+    font-size:14px;
+    font-weight:500;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.chat-item:hover{
+    background:linear-gradient(135deg,#a25eb2,#5e28aa,#a01d9e);
+    color:#fff;
+}
+
+.chat-item:hover,
+.chat-item.active{
+
+    background:#2f2f2f;
+
+    color:white;
+
+}
+
+
+
+.sidebar-bottom{
+
+    margin-top:auto;
+
+    padding-top:15px;
+
+    border-top:1px solid #444;
+
+}
+
+
+.clear-btn{
+
+    display:block;
+
+    text-align:center;
+
+    padding:10px;
+
+    border-radius:10px;
+
+    background:#2f2f2f;
+
+    color:#ff7777;
+
+    text-decoration:none;
+
+}
+
+
+.clear-btn:hover{
+
+    background:#3a3a3a;
+
+}
 </style>
 
 <div class="container py-5">
+
+<div class="assistant-layout">
+
+
+    <!-- LEFT SIDEBAR -->
+  <div class="chat-sidebar">
+
+    <h5>
+        🤖 Your Chats
+    </h5>
+
+
+    <a href="/assistant"
+       id="newChatBtn"
+       class="new-chat-btn">
+        ✏️ New chat
+    </a>
+
+
+    <hr>
+
+
+    <div class="chat-list">
+
+        {% for chat in chats %}
+
+        <div class="chat-item">
+
+            {{ chat.chat_title }}
+
+        </div>
+
+        {% endfor %}
+
+
+        <!-- Current Chat -->
+        <div class="chat-item active">
+
+            College AI Chat
+
+        </div>
+
+
+    </div>
+
+
+    <!-- Bottom Clear Button -->
+    <div class="sidebar-bottom">
+
+        <a href="/clear_chat"
+           id="clearHistoryBtn"
+           class="clear-btn">
+
+            🗑 Clear History
+
+        </a>
+
+    </div>
+
+
+</div>
+  <!-- RIGHT CHAT AREA -->
+<div class="chat-area">
 
     <div class="card chat-card">
 
@@ -208,6 +637,7 @@
             </small>
             <h2 class="mt-2">
                 <span class="badge bg-success">Online</span>
+                </h2>
         </div>
 
         <div class="card-body">
@@ -241,7 +671,7 @@
 
 </div>
 
-            <div id="chatMessages">
+<div class="conversation" id="chatMessages">
 
                 <div class="bot-msg">
 
@@ -256,7 +686,7 @@
 
             </div>
 
-            <div class="d-flex align-items-center mt-3">
+      <div class="d-flex align-items-center mt-3 chat-input-area">
 
                 <input
                     type="text"
@@ -292,6 +722,8 @@
     </div>
 
 </div>
+</div>
+</div>
 
 <script>
 
@@ -325,6 +757,7 @@ function sendMessage(){
 
 
     chat.scrollTop = chat.scrollHeight;
+    loadHistory();
 
 
     fetch("/chatbot",{
@@ -355,40 +788,38 @@ function sendMessage(){
 
 
         // AI response + copy button
-        chat.innerHTML += `
+    chat.innerHTML += `
 
-        <div class="bot-message">
+<div class="bot-message">
 
-            <div class="bot-top">
-
-                <span class="bot-title">
-                    🤖 College AI
-                </span>
+    <div class="bot-title">
+        🤖 College AI
+    </div>
 
 
-                <button 
-                class="copy-btn"
-                onclick="copyMessage(this)">
-                    📋
-                </button>
+    <div class="ai-reply-box">
 
-
-            </div>
-
-
-            <div class="message-text">
-                ${data.reply}
-            </div>
-
-
+        <div class="message-text">
+            ${data.reply}
         </div>
 
-        `;
+
+        <button 
+        class="copy-btn"
+        onclick="copyMessage(this)">
+            📋 Copy
+        </button>
+
+    </div>
+
+
+</div>
+
+`;
 
 
         chat.scrollTop =
         chat.scrollHeight;
-
 
     })
 
@@ -461,30 +892,6 @@ function setQuestion(question){
 
 function copyMessage(button){
 
-    let text =
-    button
-    .closest(".bot-message")
-    .querySelector(".message-text")
-    .innerText;
-
-
-    navigator.clipboard.writeText(text)
-    .then(()=>{
-
-        button.innerHTML="✅";
-
-        setTimeout(()=>{
-
-            button.innerHTML="📋";
-
-        },1500);
-
-    });
-
-}
-
-function copyMessage(button){
-
     const text = button
         .closest(".bot-message")
         .querySelector(".message-text")
@@ -498,6 +905,114 @@ function copyMessage(button){
         button.innerHTML = '<i class="bi bi-clipboard"></i>';
     },1500);
 
+}
+
+// ================= CHAT STORAGE =================
+
+let chatMessages = document.getElementById("chatMessages");
+
+
+// Load old chat history
+window.onload = function(){
+
+    let history = localStorage.getItem("chatHistory");
+
+    if(history){
+        chatMessages.innerHTML = history;
+    }
+
+};
+
+
+// Save chat history
+function saveHistory(){
+
+    localStorage.setItem(
+        "chatHistory",
+        chatMessages.innerHTML
+    );
+
+}
+
+
+// Call this after every user + AI message
+function addMessage(message){
+
+    chatMessages.innerHTML += message;
+
+    saveHistory();
+
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+}
+
+
+
+// ================= NEW CHAT =================
+
+document.getElementById("newChatBtn")
+.addEventListener("click",function(){
+
+    chatMessages.innerHTML = "";
+
+    localStorage.removeItem("chatHistory");
+
+    chatMessages.innerHTML = `
+    <div class="bot-msg">
+        👋 Hi! New chat started. How can I help you?
+    </div>
+    `;
+
+    saveHistory();
+
+});
+
+
+
+// ================= CLEAR HISTORY =================
+
+document.getElementById("clearHistoryBtn")
+.addEventListener("click",function(){
+
+    let confirmClear = confirm(
+        "Are you sure you want to clear chat history?"
+    );
+
+
+    if(confirmClear){
+
+        localStorage.removeItem("chatHistory");
+
+        chatMessages.innerHTML = "";
+
+        alert("✅ Chat history cleared");
+
+    }
+
+});
+function loadHistory(){
+
+fetch("/chat-history")
+.then(res=>res.json())
+.then(data=>{
+
+    let list = document.querySelector(".chat-list");
+
+    list.innerHTML = "";
+
+    data.forEach(item=>{
+
+        let div = document.createElement("div");
+
+        div.className = "chat-item";
+
+        div.textContent = "💬 " + item.title;
+
+        list.appendChild(div);
+
+    });
+
+});
 }
 </script>
 {% endblock %}

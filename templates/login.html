@@ -1,82 +1,117 @@
-
-
 {% extends "base.html" %}
 
 {% block content %}
 
-<div class="container py-5">
+<div class="login-page">
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center align-items-center">
 
         <div class="col-md-6 col-lg-5">
 
-            <div class="card shadow-lg border-0 rounded-4">
+            <div class="card login-card shadow-lg border-0 rounded-4">
 
                 <div class="card-body p-5">
 
+                    <!-- LOGIN HEADER -->
                     <div class="text-center mb-4">
-                        <h2 class="fw-bold text-primary">
-                            🔐 Login
+
+                        <div class="login-icon">
+                            🔐
+                        </div>
+
+                        <h2 class="fw-bold text-primary login-title">
+                            Login
                         </h2>
-                        <p class="text-muted">
+
+                        <p class="text-muted login-subtitle">
                             Welcome Back...!
                         </p>
+
                     </div>
 
+
+                    <!-- LOGIN FORM -->
                     <form method="POST">
 
+                        <!-- USERNAME -->
                         <div class="mb-3">
+
                             <label class="form-label fw-semibold">
                                 👤 Username
                             </label>
 
-                            <input type="text"
-                                   name="username"
-                                   class="form-control form-control-lg rounded-3"
-                                   placeholder="Enter Username"
-                                    required>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label class="form-label fw-semibold">
-                               Email
-                            </label>
-                             
-                            <input type="email"
-                            name="email" 
-                            class="form-control form-control-lg rounded-3" 
-                            placeholder="Enter Email"
-                            required>
+                            <input
+                                type="text"
+                                name="username"
+                                class="form-control form-control-lg rounded-3"
+                                placeholder="Enter Username"
+                                required
+                            >
+
                         </div>
 
+
+                        <!-- EMAIL -->
                         <div class="mb-4">
+
+                            <label class="form-label fw-semibold">
+                                📧 Email
+                            </label>
+
+                            <input
+                                type="email"
+                                name="email"
+                                class="form-control form-control-lg rounded-3"
+                                placeholder="Enter Email"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- PASSWORD -->
+                        <div class="mb-4">
+
                             <label class="form-label fw-semibold">
                                 🔒 Password
                             </label>
 
-                            <input type="password"
-                                   name="password"
-                                   class="form-control form-control-lg rounded-3"
-                                   placeholder="Enter Password"
-                                   required>
+                            <input
+                                type="password"
+                                name="password"
+                                class="form-control form-control-lg rounded-3"
+                                placeholder="Enter Password"
+                                required
+                            >
+
                         </div>
 
-                        <button type="submit"
-                                class="btn btn-primary w-100 py-2 rounded-3 fw-bold">
+
+                        <!-- LOGIN BUTTON -->
+                        <button
+                            type="submit"
+                            class="btn btn-primary w-100 py-2 rounded-3 fw-bold login-btn"
+                        >
                             Login
                         </button>
 
                     </form>
 
+
+                    <!-- REGISTER -->
                     <div class="text-center mt-4">
+
                         <span class="text-muted">
                             Don't have an account?
                         </span>
 
-                        <a href="{{ url_for('register') }}"
-                           class="text-decoration-none fw-bold">
+                        <a
+                            href="{{ url_for('register') }}"
+                            class="text-decoration-none fw-bold"
+                        >
                             Register Here
                         </a>
+
                     </div>
 
                 </div>
@@ -89,19 +124,453 @@
 
 </div>
 
+
+<!-- =====================================================
+     LOGIN PAGE DESIGN
+===================================================== -->
+
 <style>
-body{
-    background: #f4f7fc;
-    min-height: 100vh;
+
+.login-page{
+
+    min-height:calc(100vh - 90px);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:40px 20px;
+
 }
 
-.card{
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+
+/* =====================================================
+   LOGIN CARD
+===================================================== */
+
+.login-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+        rgba(255,255,255,.78) !important;
+
+    backdrop-filter:blur(22px);
+
+    -webkit-backdrop-filter:blur(22px);
+
+    border:
+        1px solid rgba(255,255,255,.75) !important;
+
+    box-shadow:
+        0 25px 70px rgba(30,64,175,.16) !important;
+
+    transition:
+        transform .4s ease,
+        box-shadow .4s ease;
+
 }
 
-.form-control:focus{
-    box-shadow: 0 0 10px rgba(11, 83, 192, 0.25);
+
+/* TOP LIGHT EFFECT */
+
+.login-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    top:-100px;
+    right:-60px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(59,130,246,.22),
+            transparent 70%
+        );
+
+    border-radius:50%;
+
+    pointer-events:none;
+
+}
+
+
+/* BOTTOM PURPLE GLOW */
+
+.login-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    bottom:-120px;
+    left:-80px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(124,58,237,.16),
+            transparent 70%
+        );
+
+    border-radius:50%;
+
+    pointer-events:none;
+
+}
+
+
+/* =====================================================
+   LOGIN ICON
+===================================================== */
+
+.login-icon{
+
+    font-size:42px;
+
+    margin-bottom:5px;
+
+    animation:
+        loginFloat 3s ease-in-out infinite;
+
+}
+
+
+@keyframes loginFloat{
+
+    0%,
+    100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-5px);
+    }
+
+}
+
+
+/* =====================================================
+   LOGIN TITLE
+===================================================== */
+
+.login-title{
+
+    letter-spacing:.5px;
+
+    margin-bottom:5px;
+
+}
+
+
+.login-subtitle{
+
+    font-size:14px;
+
+}
+
+
+/* =====================================================
+   LABELS
+===================================================== */
+
+.login-card label{
+
+    color:#334155;
+
+}
+
+
+/* =====================================================
+   INPUTS
+===================================================== */
+
+.login-card .form-control{
+
+    background:
+        rgba(255,255,255,.75);
+
+    border:
+        1px solid #dbe4f0;
+
+    transition:
+        border-color .3s,
+        box-shadow .3s,
+        transform .3s;
+
+}
+
+
+.login-card .form-control:hover{
+
+    border-color:#93c5fd;
+
+}
+
+
+.login-card .form-control:focus{
+
+    background:#fff;
+
+    border-color:#3b82f6;
+
+    box-shadow:
+        0 0 0 4px rgba(59,130,246,.12);
+
+    transform:translateY(-1px);
+
+}
+
+
+/* =====================================================
+   LOGIN BUTTON
+===================================================== */
+
+.login-btn{
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #4f46e5
+        ) !important;
+
+    border:none !important;
+
+    box-shadow:
+        0 8px 20px rgba(37,99,235,.22);
+
+    transition:
+        transform .3s,
+        box-shadow .3s;
+
+}
+
+
+.login-btn:hover{
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 14px 30px rgba(37,99,235,.32);
+
+}
+
+
+/* =====================================================
+   REGISTER LINK
+===================================================== */
+
+.login-card a{
+
+    color:#2563eb;
+
+    transition:.3s;
+
+}
+
+
+.login-card a:hover{
+
+    color:#7c3aed;
+
+}
+
+
+/* =====================================================
+   🌙 DARK MODE
+===================================================== */
+
+.dark-mode .login-card{
+
+    background:
+        rgba(30,41,59,.84) !important;
+
+    border:
+        1px solid rgba(255,255,255,.09) !important;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.45) !important;
+
+}
+
+
+.dark-mode .login-card label{
+
+    color:#e2e8f0 !important;
+
+}
+
+
+.dark-mode .login-title{
+
+    color:#60a5fa !important;
+
+}
+
+
+.dark-mode .login-subtitle{
+
+    color:#94a3b8 !important;
+
+}
+
+
+.dark-mode .login-card .form-control{
+
+    background:
+        rgba(15,23,42,.75) !important;
+
+    color:#f8fafc !important;
+
+    border:
+        1px solid #475569 !important;
+
+}
+
+
+.dark-mode .login-card .form-control::placeholder{
+
+    color:#94a3b8 !important;
+
+}
+
+
+.dark-mode .login-card .form-control:focus{
+
+    background:
+        rgba(15,23,42,.95) !important;
+
+    color:#fff !important;
+
+    border-color:#3b82f6 !important;
+
+    box-shadow:
+        0 0 0 4px rgba(59,130,246,.16);
+
+}
+
+
+.dark-mode .login-card .text-muted{
+
+    color:#94a3b8 !important;
+
+}
+
+
+.dark-mode .login-card a{
+
+    color:#60a5fa !important;
+
+}
+
+
+.dark-mode .login-card a:hover{
+
+    color:#c4b5fd !important;
+
+}
+
+
+/* =====================================================
+   📱 MOBILE
+===================================================== */
+
+@media(max-width:576px){
+
+    .login-page{
+
+        padding:25px 15px;
+
+    }
+
+    .login-card .card-body{
+
+        padding:30px 22px !important;
+
+    }
+
+    .login-icon{
+
+        font-size:36px;
+
+    }
+
+    .login-title{
+
+        font-size:26px;
+
+    }
+
+}
+/* =====================================================
+   🔧 LOGIN WIDTH FIX
+===================================================== */
+
+.login-page{
+    width:100% !important;
+    min-height:calc(100vh - 90px);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:40px 20px;
+}
+
+.login-page > .row{
+    width:100% !important;
+    margin-left:0 !important;
+    margin-right:0 !important;
+}
+
+.login-page .col-md-6,
+.login-page .col-lg-5{
+    width:100%;
+}
+
+.login-page .login-card{
+    width:100% !important;
+    max-width:520px;
+    margin-left:auto;
+    margin-right:auto;
+}
+/* =====================================================
+   🚫 PREVENT GLOBAL CSS FROM BREAKING BOOTSTRAP GRID
+===================================================== */
+
+.login-page .row{
+    display:flex !important;
+    flex-wrap:wrap !important;
+}
+
+.login-page .card-body{
+    width:100% !important;
+}
+
+.login-page .login-card *{
+    max-width:none;
+}
+
+.login-page .login-card input{
+    width:100% !important;
+}
+
+.login-page .login-card button{
+    width:100% !important;
 }
 </style>
 

@@ -86,6 +86,24 @@ def init_db():
         except sqlite3.IntegrityError:
             pass
 
+    conn.execute('''
+        CREATE TABLE IF NOT EXISTS chat_history(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER,
+            user_message TEXT,
+            ai_reply TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    ''')
+    try:
+        conn.execute("ALTER TABLE chat_history ADD COLUMN chat_title TEXT")
+    except Exception:
+        pass
+
+    print(conn.execute(
+        "SELECT * FROM chat_history LIMIT 1"
+    ).fetchone())
+    
     conn.commit()
     conn.close()
 
