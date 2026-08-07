@@ -1723,9 +1723,99 @@ body.dark-mode .list-group-item {
     color: #ffffff !important;
 }
 </style>
+<style>
+
+/* Default Dark Theme */
+
+body.dark-mode{
+    background:#121212;
+    color:white;
+}
+body.dark-mode .card{
+    background:#1e293b;
+    color:#ffffff;
+    border:1px solid rgba(255,255,255,0.08);
+    box-shadow:0 10px 25px rgba(0,0,0,0.35);
+}
+body.dark-mode .navbar{
+    background:#111827 !important;
+}
+
+
+body.dark-mode .table{
+    color:white;
+}
+/* Developer Card Theme */
+
+.developer-card h2,
+.developer-card h3,
+.developer-card p{
+    color: var(--text-color) !important;
+}
+
+
+/* Dark mode developer card */
+
+body.dark-mode .developer-card{
+    background:#1e1e1e;
+}
+
+
+/* Light mode developer card */
+/* Developer Card */
+body.light-mode .developer-card{
+    background:white;
+}
+body.light-mode {
+    min-height: 100vh;
+    background: linear-gradient(
+        135deg,
+        #e4def5,
+        #eae4ea,
+         #e4def5
+    ) !important;
+    color: #25233A;
+}
+/* Cards */
+body.light-mode .card {
+    background: #ffffff !important;
+    color: #25233a !important;
+    border: 1px solid #e4dff0;
+    box-shadow: 0 8px 25px rgba(80, 60, 120, 0.08);
+}
+
+
+/* Navbar */
+.navbar{
+    background:#111827 !important;
+}
+
+
+/* Tables */
+body.light-mode .table{
+    color:#25233a;
+}
+
+
+/* Page Height */
+html {
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Dark Theme */
+body.dark-mode {
+    background: #1a2340 !important;
+    color: #ffffff;
+}
+</style>
 </head>
 
-<body>
+<body class="dark-mode">
 
     <!-- Page Loader -->
 <div id="loader">
@@ -1806,11 +1896,14 @@ body.dark-mode .list-group-item {
                     <i class="bi bi-download"></i> Export
                 </a>
 
-                <!-- Dark Mode -->
-                <button onclick="toggleTheme()"
-                        class="btn btn-outline-light px-3">
-                    <i class="bi bi-moon-stars-fill"></i> Dark
-                </button>
+              <!-- Theme Toggle -->
+            <button onclick="toggleTheme()"
+                    class="btn btn-outline-light px-3"
+                    id="themeBtn">
+
+                <i class="bi bi-sun-fill"></i> Light
+
+            </button>
               <li class="nav-item">
                     <a class="ai-assistant-btn" href="/assistant">
                         🤖 AI Assistant
@@ -1850,7 +1943,7 @@ body.dark-mode .list-group-item {
             </div>
 
         </div>
-        <div class="text-white ms-auto fw-bold text-center" id="datetime"></div>
+      <div class="ms-auto fw-bold text-center" id="datetime"></div>
     </div>
 
     
@@ -1940,6 +2033,57 @@ window.addEventListener("load", function(){
     document.getElementById("loader").style.display="none";
 
 });
+
+</script>
+<script>
+
+function toggleTheme(){
+
+let body=document.body;
+let btn=document.getElementById("themeBtn");
+
+
+body.classList.toggle("dark-mode");
+body.classList.toggle("light-mode");
+
+
+if(body.classList.contains("light-mode")){
+
+localStorage.setItem("theme","light");
+
+btn.innerHTML='<i class="bi bi-moon-stars-fill"></i>';
+
+}
+
+else{
+
+localStorage.setItem("theme","dark");
+
+btn.innerHTML='<i class="bi bi-sun-fill"></i>';
+
+}
+
+}
+
+
+
+window.onload=function(){
+
+let theme=localStorage.getItem("theme");
+
+let btn=document.getElementById("themeBtn");
+
+
+if(theme=="light"){
+
+document.body.classList.remove("dark-mode");
+document.body.classList.add("light-mode");
+
+btn.innerHTML='<i class="bi bi-moon-stars-fill"></i> Dark';
+
+}
+
+}
 
 </script>
 </body>
