@@ -104,6 +104,20 @@ def init_db():
         "SELECT * FROM chat_history LIMIT 1"
     ).fetchone())
     
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS feedback (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        rating INTEGER NOT NULL,
+        message TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+""")
+
+    conn.execute("""
+        ALTER TABLE feedback
+        ADD COLUMN suggestion TEXT
+    """)
     conn.commit()
     conn.close()
 

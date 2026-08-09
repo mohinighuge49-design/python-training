@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block title %}Student Feedback{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="card shadow-lg border-0 rounded-4 p-4">
+
+        <div class="text-center mb-4">
+            <div style="font-size: 45px;">💬</div>
+
+            <h2 class="fw-bold">
+                Student Feedback
+            </h2>
+
+            <p class="text-muted">
+                Before you logout, please share your experience.
+            </p>
+        </div>
+
+        <form method="POST">
+
+            <!-- Rating -->
+            <div class="mb-4 text-center">
+
+                <label class="form-label fw-bold d-block">
+                    How was your experience?
+                </label>
+
+                <div class="rating-stars">
+
+                    {% for i in range(1, 6) %}
+
+                    <input
+                        type="radio"
+                        name="rating"
+                        id="rating{{ i }}"
+                        value="{{ i }}"
+                        required>
+
+                    <label
+                        for="rating{{ i }}"
+                        data-rating="{{ i }}">
+                        ★
+                    </label>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <!-- Feedback -->
+            <div class="mb-4">
+
+                <label class="form-label fw-bold">
+                    Your Feedback
+                </label>
+
+                <textarea
+                    name="message"
+                    class="form-control"
+                    rows="5"
+                    placeholder="Tell us about your experience..."
+                    required></textarea>
+
+            </div>
+            <!-- Suggestions -->
+            <div class="mb-4">
+                <label class="form-label fw-bold">
+                    💡 Suggestions for Improvement
+                </label>
+
+                <textarea
+                    name="suggestion"
+                    class="form-control"
+                    rows="4"
+                    placeholder="Is there anything we can improve? (Optional)"></textarea>
+            </div>
+
+            <!-- Submit -->
+            <button
+                type="submit"
+                class="btn btn-primary w-100 rounded-3 py-2 fw-bold">
+
+                ⭐ Submit Feedback & Logout
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<style>
+
+.rating-stars {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+/* Hide radio buttons */
+.rating-stars input {
+    display: none;
+}
+
+/* Normal star */
+.rating-stars label {
+    font-size: 42px;
+    color: #d3d3d3;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+/* Selected stars */
+.rating-stars label.active {
+    color: #ffc107 !important;
+}
+
+/* Hover */
+.rating-stars label:hover {
+    color: #ffc107;
+    transform: scale(1.1);
+}
+
+</style>
+
+
+<script>
+
+document.querySelectorAll('.rating-stars label').forEach(function(star) {
+
+    star.addEventListener('click', function() {
+
+        let selectedRating =
+            parseInt(this.getAttribute('data-rating'));
+
+        document.querySelectorAll('.rating-stars label')
+            .forEach(function(currentStar) {
+
+                let starNumber =
+                    parseInt(currentStar.getAttribute('data-rating'));
+
+                if (starNumber <= selectedRating) {
+
+                    currentStar.classList.add('active');
+
+                } else {
+
+                    currentStar.classList.remove('active');
+
+                }
+
+            });
+
+    });
+
+});
+
+</script>
+
+{% endblock %}

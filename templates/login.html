@@ -19,7 +19,7 @@
                             🔐
                         </div>
 
-                        <h2 class="fw-bold text-primary login-title">
+                        <h2 class="fw-bold login-title">
                             Login
                         </h2>
 
@@ -123,26 +123,18 @@
     </div>
 
 </div>
-
-
-<!-- =====================================================
-     LOGIN PAGE DESIGN
-===================================================== -->
-
 <style>
 
+/* =====================================================
+   LOGIN PAGE
+===================================================== */
+
 .login-page{
-
     min-height:calc(100vh - 90px);
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     padding:40px 20px;
-
 }
 
 
@@ -151,35 +143,38 @@
 ===================================================== */
 
 .login-card{
-
     position:relative;
-
     overflow:hidden;
 
     background:
-        rgba(255,255,255,.78) !important;
+        linear-gradient(
+            rgba(255,255,255,.78),
+            rgba(255,255,255,.78)
+        ),
+        linear-gradient(
+            135deg,
+            #5587d2,
+            #ec4899
+        ) !important;
+
+    background-origin:border-box;
+    background-clip:padding-box, border-box;
+
+    border:2px solid transparent !important;
 
     backdrop-filter:blur(22px);
-
     -webkit-backdrop-filter:blur(22px);
 
-    border:
-        1px solid rgba(255,255,255,.75) !important;
-
     box-shadow:
+        0 0 0 1px #5587d2,
+        0 0 12px rgba(236,72,153,.20),
         0 25px 70px rgba(30,64,175,.16) !important;
-
-    transition:
-        transform .4s ease,
-        box-shadow .4s ease;
-
 }
 
 
 /* TOP LIGHT EFFECT */
 
 .login-card::before{
-
     content:"";
 
     position:absolute;
@@ -200,14 +195,12 @@
     border-radius:50%;
 
     pointer-events:none;
-
 }
 
 
 /* BOTTOM PURPLE GLOW */
 
 .login-card::after{
-
     content:"";
 
     position:absolute;
@@ -228,7 +221,6 @@
     border-radius:50%;
 
     pointer-events:none;
-
 }
 
 
@@ -237,14 +229,11 @@
 ===================================================== */
 
 .login-icon{
-
     font-size:42px;
-
     margin-bottom:5px;
 
     animation:
         loginFloat 3s ease-in-out infinite;
-
 }
 
 
@@ -258,7 +247,6 @@
     50%{
         transform:translateY(-5px);
     }
-
 }
 
 
@@ -267,18 +255,22 @@
 ===================================================== */
 
 .login-title{
-
     letter-spacing:.5px;
-
     margin-bottom:5px;
+}
 
+
+/* FORCE LOGIN TITLE PINK */
+
+.login-card h2.login-title,
+.login-card h2.login-title.text-primary{
+    color:#ec4899 !important;
+    -webkit-text-fill-color:#9261e7 !important;
 }
 
 
 .login-subtitle{
-
     font-size:14px;
-
 }
 
 
@@ -287,9 +279,7 @@
 ===================================================== */
 
 .login-card label{
-
     color:#334155;
-
 }
 
 
@@ -298,7 +288,6 @@
 ===================================================== */
 
 .login-card .form-control{
-
     background:
         rgba(255,255,255,.75);
 
@@ -309,19 +298,15 @@
         border-color .3s,
         box-shadow .3s,
         transform .3s;
-
 }
 
 
 .login-card .form-control:hover{
-
     border-color:#93c5fd;
-
 }
 
 
 .login-card .form-control:focus{
-
     background:#fff;
 
     border-color:#3b82f6;
@@ -330,43 +315,51 @@
         0 0 0 4px rgba(59,130,246,.12);
 
     transform:translateY(-1px);
-
 }
 
 
 /* =====================================================
-   LOGIN BUTTON
+   💗 LOGIN BUTTON
 ===================================================== */
 
 .login-btn{
-
     background:
         linear-gradient(
             135deg,
-            #2563eb,
-            #4f46e5
+            #7f45b9,
+            #f472b6,
+            #7f4ebe
         ) !important;
 
     border:none !important;
 
+    color:#ffffff !important;
+
     box-shadow:
-        0 8px 20px rgba(37,99,235,.22);
+        0 8px 20px rgba(127,69,185,.25);
 
     transition:
-        transform .3s,
-        box-shadow .3s;
-
+        transform .3s ease,
+        box-shadow .3s ease;
 }
 
 
 .login-btn:hover{
+    transform:translateY(-3px);
 
-    transform:
-        translateY(-3px);
+    color:#ffffff !important;
 
     box-shadow:
-        0 14px 30px rgba(37,99,235,.32);
+        0 14px 30px rgba(127,69,185,.35);
+}
 
+
+.login-btn:focus{
+    color:#ffffff !important;
+
+    box-shadow:
+        0 0 0 4px rgba(127,69,185,.18),
+        0 8px 20px rgba(127,69,185,.25);
 }
 
 
@@ -375,62 +368,66 @@
 ===================================================== */
 
 .login-card a{
-
     color:#2563eb;
-
     transition:.3s;
-
 }
 
 
 .login-card a:hover{
-
     color:#7c3aed;
-
 }
 
 
 /* =====================================================
    🌙 DARK MODE
 ===================================================== */
-
 .dark-mode .login-card{
+    background-image:
+        linear-gradient(
+            rgba(30,41,59,.84),
+            rgba(30,41,59,.84)
+        ),
+        linear-gradient(
+            135deg,
+            #5587d2,
+            #ec4899
+        ) !important;
 
-    background:
-        rgba(30,41,59,.84) !important;
+    background-origin:border-box;
+    background-clip:padding-box, border-box;
 
-    border:
-        1px solid rgba(255,255,255,.09) !important;
+    border:2px solid transparent !important;
 
     box-shadow:
         0 25px 70px rgba(0,0,0,.45) !important;
+}
 
+/* =====================================================
+   💗 DARK MODE LOGIN TITLE
+===================================================== */
+
+.dark-mode .login-card h2.login-title,
+.dark-mode .login-card h2.login-title.text-primary{
+    background:linear-gradient(
+        90deg,
+        #5587d2,
+        #ec4899
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    background-clip:text;
+
+    font-weight:700;
 }
 
 
-.dark-mode .login-card label{
-
-    color:#e2e8f0 !important;
-
-}
-
-
-.dark-mode .login-title{
-
-    color:#60a5fa !important;
-
-}
-
-
-.dark-mode .login-subtitle{
-
-    color:#94a3b8 !important;
-
-}
-
+/* =====================================================
+   DARK MODE INPUTS
+===================================================== */
 
 .dark-mode .login-card .form-control{
-
     background:
         rgba(15,23,42,.75) !important;
 
@@ -438,19 +435,15 @@
 
     border:
         1px solid #475569 !important;
-
 }
 
 
 .dark-mode .login-card .form-control::placeholder{
-
     color:#94a3b8 !important;
-
 }
 
 
 .dark-mode .login-card .form-control:focus{
-
     background:
         rgba(15,23,42,.95) !important;
 
@@ -460,28 +453,69 @@
 
     box-shadow:
         0 0 0 4px rgba(59,130,246,.16);
-
 }
 
+
+/* =====================================================
+   DARK MODE TEXT
+===================================================== */
 
 .dark-mode .login-card .text-muted{
-
     color:#94a3b8 !important;
-
 }
 
 
+/* =====================================================
+   💗 DARK MODE LOGIN BUTTON
+===================================================== */
+
+.dark-mode .login-btn{
+    background:
+        linear-gradient(
+            135deg,
+            #7f45b9,
+            #f472b6,
+            #7f4ebe
+        ) !important;
+
+    color:#ffffff !important;
+
+    border:none !important;
+
+    box-shadow:
+        0 8px 20px rgba(236,72,153,.30) !important;
+}
+
+
+.dark-mode .login-btn:hover{
+    background:
+        linear-gradient(
+            135deg,
+            #7f45b9,
+            #f472b6,
+            #7f4ebe
+        ) !important;
+
+    color:#ffffff !important;
+
+    box-shadow:
+        0 14px 30px rgba(236,72,153,.45) !important;
+
+    transform:translateY(-3px);
+}
+
+
+/* =====================================================
+   REGISTER LINK DARK MODE
+===================================================== */
+
 .dark-mode .login-card a{
-
     color:#60a5fa !important;
-
 }
 
 
 .dark-mode .login-card a:hover{
-
     color:#c4b5fd !important;
-
 }
 
 
@@ -492,36 +526,30 @@
 @media(max-width:576px){
 
     .login-page{
-
         padding:25px 15px;
-
     }
 
     .login-card .card-body{
-
         padding:30px 22px !important;
-
     }
 
     .login-icon{
-
         font-size:36px;
-
     }
 
     .login-title{
-
         font-size:26px;
-
     }
-
 }
+
+
 /* =====================================================
    🔧 LOGIN WIDTH FIX
 ===================================================== */
 
 .login-page{
     width:100% !important;
+
     min-height:calc(100vh - 90px);
 
     display:flex;
@@ -531,23 +559,31 @@
     padding:40px 20px;
 }
 
+
 .login-page > .row{
     width:100% !important;
+
     margin-left:0 !important;
     margin-right:0 !important;
 }
+
 
 .login-page .col-md-6,
 .login-page .col-lg-5{
     width:100%;
 }
 
+
 .login-page .login-card{
     width:100% !important;
+
     max-width:520px;
+
     margin-left:auto;
     margin-right:auto;
 }
+
+
 /* =====================================================
    🚫 PREVENT GLOBAL CSS FROM BREAKING BOOTSTRAP GRID
 ===================================================== */
@@ -557,21 +593,44 @@
     flex-wrap:wrap !important;
 }
 
+
 .login-page .card-body{
     width:100% !important;
 }
+
 
 .login-page .login-card *{
     max-width:none;
 }
 
+
 .login-page .login-card input{
     width:100% !important;
 }
 
+
 .login-page .login-card button{
     width:100% !important;
 }
-</style>
+/* 💙💗 Gradient Border Glow */
 
+.login-card{
+   border:2px solid #ec4899 !important;
+
+box-shadow:
+    0 0 0 1px #5587d2,
+    0 0 12px rgba(236,72,153,.20),
+    0 25px 70px rgba(30,64,175,.16) !important;
+}
+
+
+.dark-mode .login-card{
+    border:5px solid #271152 !important;
+
+    box-shadow:
+        0 0 0 1px #5587d2,
+        0 0 14px rgba(236,72,153,.25),
+        0 25px 70px rgba(0,0,0,.45) !important;
+}
+</style>
 {% endblock %}

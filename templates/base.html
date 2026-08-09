@@ -1909,6 +1909,15 @@ body.dark-mode {
                         🤖 AI Assistant
                     </a>
              </li>
+
+             {% if session.get('role') == 'admin' %}
+                <li class="nav-item">
+                    <a class="nav-link"
+                    href="{{ url_for('admin_feedback') }}">
+                        💬 Feedback
+                    </a>
+                </li>
+                {% endif %}
                 <!-- Profile -->
                 <div class="dropdown">
                     <a class="btn btn-primary dropdown-toggle"

@@ -1,5 +1,6 @@
 from email import message
-import os
+import smtplib
+from email.message import EmailMessage
 from re import search
 from turtle import title
 from click import prompt
@@ -12,6 +13,9 @@ import csv
 from flask import Response
 from groq import Groq
 import os
+
+EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 load_dotenv(os.path.join(BASE_DIR, '.env'))
@@ -156,10 +160,59 @@ def delete_notice(id):
 def about():
     return render_template('about.html')
 
-@app.route('/contact_us')
+@app.route('/contact_us', methods=['GET', 'POST'])
 def contact_us():
-    return render_template('contact_us.html')
 
+    if request.method == 'POST':
+
+        name = request.form.get('name')
+        email = request.form.get('email')
+        subject = request.form.get('subject')
+        message = request.form.get('message')
+
+        try:
+
+            msg = EmailMessage()
+
+            msg['Subject'] = f"College Smart Portal - {subject}"
+            msg['From'] = EMAIL_ADDRESS
+            msg['To'] = EMAIL_ADDRESS
+            msg['Reply-To'] = email
+
+            msg.set_content(f"""
+New Contact Message
+
+Name: {name}
+Email: {email}
+Subject: {subject}
+
+Message:
+{message}
+""")
+
+            with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+
+                smtp.login(
+                    os.getenv('EMAIL_ADDRESS'),
+                    os.getenv('EMAIL_PASSWORD')
+                )
+
+                smtp.send_message(msg)
+
+            flash('✅ Message sent successfully!', 'success')
+
+        except Exception as e:
+
+            print('EMAIL ERROR:', e)
+
+            flash(
+                '❌ Message could not be sent.',
+                'danger'
+            )
+
+        return redirect(url_for('contact_us'))
+
+    return render_template('contact_us.html')
 @app.route('/dashboard')
 def dashboard():
     conn = get_db(MOHINI_DB)
@@ -631,16 +684,129 @@ def login():
         else:
             flash('Invalid username or password', 'danger')
     return render_template('login.html')
-
 @app.route('/logout')
 def logout():
+    if 'username' not in session:
+        return redirect(url_for('login'))
 
-    session.pop('username', None)
-    session.pop('role',None)
-    flash("You have been logged out..!", "info")
+    return redirect(url_for('feedback'))
 
-    return redirect(url_for('login'))
+@app.route('/feedback', methods=['GET', 'POST'])
+def feedback():
 
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+
+        rating = request.form.get('rating')
+        message = request.form.get('message')
+        username = session.get('username')
+        suggestion = request.form.get('suggestion')
+
+        # Save feedback in database
+        conn = get_db(MOHINI_DB)
+
+        conn.execute("""
+        INSERT INTO feedback (name, rating, message, suggestion)
+        VALUES (?, ?, ?, ?)
+        """, (username, rating, message, suggestion))
+
+        conn.commit()
+        conn.close()
+
+        # Email create
+        email = EmailMessage()
+
+        email['Subject'] = f"Student Feedback - {rating}/5 ⭐"
+        email['From'] = os.getenv('EMAIL_ADDRESS')
+        email['To'] = os.getenv('EMAIL_ADDRESS')
+
+        email.set_content(f"""
+            Student Feedback Received
+
+            Student Username: {username}
+
+            Rating: {rating}/5 ⭐
+
+            Feedback:
+            {message}
+
+            Suggestions for Improvement:
+            {suggestion if suggestion else "No suggestion provided."}
+
+            Thank you.
+            """)
+
+        try:
+            # Gmail SMTP
+            with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+                smtp.login(
+                    os.getenv('EMAIL_ADDRESS'),
+                    os.getenv('EMAIL_PASSWORD')
+                )
+
+                smtp.send_message(email)
+
+            flash('Feedback submitted successfully! Thank you 😊', 'success')
+
+        except Exception as e:
+            print("EMAIL ERROR:", e)
+            flash('Feedback submitted, but email could not be sent.', 'danger')
+
+        return redirect(url_for('logout'))
+
+    return render_template('feedback.html')
+
+@app.route('/admin/feedback')
+def admin_feedback():
+
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    # Only admin can access
+    if session.get('role') != 'admin':
+        flash('Access denied!', 'danger')
+        return redirect(url_for('home'))
+
+    conn = get_db(MOHINI_DB)
+
+    feedbacks = conn.execute("""
+      SELECT id, name, rating, message, suggestion, created_atFROM feedback
+        ORDER BY created_at DESC
+    """).fetchall()
+
+    conn.close()
+
+    return render_template(
+        'admin_feedback.html',
+        feedbacks=feedbacks
+    )
+
+@app.route('/admin/feedback/delete/<int:id>', methods=['POST'])
+def delete_feedback(id):
+
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    # Only admin
+    if session.get('role') != 'admin':
+        flash('Access denied!', 'danger')
+        return redirect(url_for('home'))
+
+    conn = get_db(MOHINI_DB)
+
+    conn.execute(
+        "DELETE FROM feedback WHERE id = ?",
+        (id,)
+    )
+
+    conn.commit()
+    conn.close()
+
+    flash('Feedback deleted successfully!', 'success')
+
+    return redirect(url_for('admin_feedback'))
 #==========PROFILE PAGE , SETTINGS , AND EDIT PROFILE============
 
 @app.route('/profile')

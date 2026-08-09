@@ -16,7 +16,7 @@
 
         <div class="col-md-3">
              <div class="card shadow-sm">
-            <div class="card border-dark">
+            <div class="card border-light">
             <div class="card  shadow h-100 text-center">
                 <div class="card-body">
                     <h3>📍</h3>
@@ -30,7 +30,7 @@
 
         <div class="col-md-3">
              <div class="card shadow-sm">
-            <div class="card border-success">
+            <div class="card border-light">
             <div class="card  shadow h-100 text-center">
                 <div class="card-body">
                     <h3>📞</h3>
@@ -44,7 +44,7 @@
 
         <div class="col-md-3">
              <div class="card shadow-sm">
-            <div class="card border-dark">
+            <div class="card border-light">
             <div class="card shadow h-100 text-center">
                 <div class="card-body">
                     <h3>📧</h3>
@@ -58,7 +58,7 @@
 
         <div class="col-md-3">
              <div class="card shadow-sm">
-            <div class="card border-success">
+            <div class="card border-light">
             <div class="card shadow h-100 text-center">
                 <div class="card-body">
                     <h3>🕒</h3>
@@ -80,20 +80,48 @@
                 <div class="card-body">
                     <h3 class="mb-3">Send Message</h3>
 
-                    <form>
-                        <input type="text" class="form-control mb-3" placeholder="Your Name">
+                    <form method="POST" action="{{ url_for('contact_us') }}">
 
-                        <input type="email" class="form-control mb-3" placeholder="Your Email">
+    <input
+        type="text"
+        name="name"
+        class="form-control mb-3"
+        placeholder="Your Name"
+        required
+    >
 
-                        <input type="text" class="form-control mb-3" placeholder="Subject">
+    <input
+        type="email"
+        name="email"
+        class="form-control mb-3"
+        placeholder="Your Email"
+        required
+    >
 
-                        <textarea class="form-control mb-3" rows="5"
-                        placeholder="Write your message"></textarea>
+    <input
+        type="text"
+        name="subject"
+        class="form-control mb-3"
+        placeholder="Subject"
+        required
+    >
 
-                        <button class="btn btn-success">
-                            Send Message 🚀
-                        </button>
-                    </form>
+    <textarea
+        name="message"
+        class="form-control mb-3"
+        rows="5"
+        placeholder="Write your message"
+        required
+    ></textarea>
+
+    <button
+        type="submit"
+        class="btn btn-success"
+    >
+        Send Message 🚀
+    </button>
+
+</form>
 
                 </div>
             </div>

@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}Student Feedback{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="card shadow-lg border-0 rounded-4">
+
+        <div class="card-body p-4">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+
+                <div>
+                    <h2 class="fw-bold mb-1">
+                        💬 Student Feedback
+                    </h2>
+
+                    <p class="text-muted mb-0">
+                        View and manage student feedback
+                    </p>
+                </div>
+
+            </div>
+
+            {% if feedbacks %}
+
+            <div class="table-responsive">
+                    <table class="table feedback-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Student</th>
+                            <th>Rating</th>
+                            <th>Feedback</th>
+                            <th>Suggestion</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for feedback in feedbacks %}
+
+                        <tr>
+
+                            <td>
+                                {{ loop.index }}
+                            </td>
+
+                            <td>
+                                <strong>{{ feedback['name'] }}</strong>
+                            </td>
+
+                            <td>
+                                {% for i in range(feedback['rating']) %}
+                                    ⭐
+                                {% endfor %}
+                            </td>
+
+                            <td style="max-width: 350px;">
+                                {{ feedback['message'] }}
+                            </td>
+                            <td>
+                                {{ feedback['suggestion'] or 'No suggestion' }}
+                            </td>
+                            <td>
+                                {{ feedback['created_at'] }}
+                            </td>
+
+                            <td>
+
+                                <form
+                                    method="POST"
+                                    action="{{ url_for('delete_feedback', id=feedback['id']) }}"
+                                    onsubmit="return confirm('Delete this feedback?');">
+
+                                    <button
+                                        type="submit"
+                                        class="btn btn-danger btn-sm">
+
+                                        🗑️ Delete
+
+                                    </button>
+
+                                </form>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <div class="text-center py-5">
+
+                <div style="font-size: 50px;">
+                    💬
+                </div>
+
+                <h5 class="mt-3">
+                    No feedback yet
+                </h5>
+
+                <p class="text-muted">
+                    Student feedback will appear here.
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+<style>
+/* Light Mode */
+body.light-mode .feedback-table th {
+    background: #f1f3f5 !important;
+    color: #212529 !important;
+}
+
+body.light-mode .feedback-table td {
+    color: #212529 !important;
+}
+
+/* Dark Mode */
+body.dark-mode .feedback-table th {
+    background: #2b2b2b !important;
+    color: white !important;
+}
+
+body.dark-mode .feedback-table td {
+    background: #1e1e1e !important;
+    color: white !important;
+}
+</style>
+{% endblock %}
