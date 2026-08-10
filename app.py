@@ -14,11 +14,11 @@ from flask import Response
 from groq import Groq
 import os
 
-EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
-EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
-
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 load_dotenv(os.path.join(BASE_DIR, '.env'))
+
+EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 
 groq_client = Groq(
     api_key=os.getenv("GROQ_API_KEY")
@@ -684,38 +684,42 @@ def login():
         else:
             flash('Invalid username or password', 'danger')
     return render_template('login.html')
+
 @app.route('/logout')
 def logout():
-    if 'username' not in session:
-        return redirect(url_for('login'))
-
-    return redirect(url_for('feedback'))
+    username = session.get('username')
+    session.clear()
+    return redirect(url_for('feedback', user=username))
 
 @app.route('/feedback', methods=['GET', 'POST'])
 def feedback():
-
-    if 'username' not in session:
-        return redirect(url_for('login'))
 
     if request.method == 'POST':
 
         rating = request.form.get('rating')
         message = request.form.get('message')
-        username = session.get('username')
         suggestion = request.form.get('suggestion')
+
+        # Logout झाल्यानंतर URL मधून username घ्या
+        username = request.args.get('user') or request.form.get('name') or "Anonymous"
 
         # Save feedback in database
         conn = get_db(MOHINI_DB)
 
         conn.execute("""
-        INSERT INTO feedback (name, rating, message, suggestion)
-        VALUES (?, ?, ?, ?)
-        """, (username, rating, message, suggestion))
+            INSERT INTO feedback (name, rating, message, suggestion)
+            VALUES (?, ?, ?, ?)
+        """, (
+            username,
+            rating,
+            message,
+            suggestion
+        ))
 
         conn.commit()
         conn.close()
 
-        # Email create
+        # Email
         email = EmailMessage()
 
         email['Subject'] = f"Student Feedback - {rating}/5 ⭐"
@@ -723,24 +727,25 @@ def feedback():
         email['To'] = os.getenv('EMAIL_ADDRESS')
 
         email.set_content(f"""
-            Student Feedback Received
+Student Feedback Received
 
-            Student Username: {username}
+Student Username: {username}
 
-            Rating: {rating}/5 ⭐
+Rating: {rating}/5 ⭐
 
-            Feedback:
-            {message}
+Feedback:
+{message}
 
-            Suggestions for Improvement:
-            {suggestion if suggestion else "No suggestion provided."}
+Suggestions for Improvement:
+{suggestion if suggestion else "No suggestion provided."}
 
-            Thank you.
-            """)
+Thank you.
+""")
 
         try:
-            # Gmail SMTP
+
             with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+
                 smtp.login(
                     os.getenv('EMAIL_ADDRESS'),
                     os.getenv('EMAIL_PASSWORD')
@@ -748,31 +753,51 @@ def feedback():
 
                 smtp.send_message(email)
 
-            flash('Feedback submitted successfully! Thank you 😊', 'success')
+            flash(
+                'Feedback submitted successfully! Thank you 😊',
+                'success'
+            )
 
         except Exception as e:
+
             print("EMAIL ERROR:", e)
-            flash('Feedback submitted, but email could not be sent.', 'danger')
 
-        return redirect(url_for('logout'))
+            flash(
+                'Feedback submitted, but email could not be sent.',
+                'danger'
+            )
 
-    return render_template('feedback.html')
+        return redirect(url_for('login'))
 
+    # GET request → Feedback page दाखवा
+    username = request.args.get('user', '')
+
+    return render_template(
+        'feedback.html',
+        username=username
+    )
 @app.route('/admin/feedback')
 def admin_feedback():
-
     if 'username' not in session:
         return redirect(url_for('login'))
 
-    # Only admin can access
     if session.get('role') != 'admin':
         flash('Access denied!', 'danger')
         return redirect(url_for('home'))
 
     conn = get_db(MOHINI_DB)
 
+    print("DATABASE:", MOHINI_DB)
+
+    print("ADMIN FEEDBACK COLUMNS:")
+    columns = conn.execute("PRAGMA table_info(feedback)").fetchall()
+
+    for column in columns:
+        print(dict(column))
+
     feedbacks = conn.execute("""
-      SELECT id, name, rating, message, suggestion, created_atFROM feedback
+        SELECT id, name, rating, message, suggestion, created_at
+        FROM feedback
         ORDER BY created_at DESC
     """).fetchall()
 
@@ -789,22 +814,16 @@ def delete_feedback(id):
     if 'username' not in session:
         return redirect(url_for('login'))
 
-    # Only admin
-    if session.get('role') != 'admin':
-        flash('Access denied!', 'danger')
-        return redirect(url_for('home'))
+    db = get_db()
 
-    conn = get_db(MOHINI_DB)
-
-    conn.execute(
+    db.execute(
         "DELETE FROM feedback WHERE id = ?",
         (id,)
     )
 
-    conn.commit()
-    conn.close()
+    db.commit()
 
-    flash('Feedback deleted successfully!', 'success')
+    flash("Feedback deleted successfully!", "success")
 
     return redirect(url_for('admin_feedback'))
 #==========PROFILE PAGE , SETTINGS , AND EDIT PROFILE============
