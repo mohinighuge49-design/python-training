@@ -1,13 +1,470 @@
 {% extends "base.html" %}
 
-{% block content %}
-<div class="container text-center mt-5">
-    <h1 class="display-3 text-danger">404</h1>
-    <h3>Page Not Found</h3>
-    <p>The page you are looking for doesn't exist.</p>
+{% block title %}
+Page Not Found - College Smart Portal
+{% endblock %}
 
-    <a href="{{ url_for('home') }}" class="btn btn-primary">
-        Go Home
-    </a>
+{% block content %}
+
+<style>
+
+/* ==============================
+   404 PAGE
+============================== */
+
+.error-page{
+    min-height:calc(100vh - 160px);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:40px 20px;
+}
+
+
+/* ==============================
+   ERROR CARD
+============================== */
+
+.error-card{
+    width:100%;
+    max-width:700px;
+
+    position:relative;
+    overflow:hidden;
+
+    padding:55px 30px;
+
+    text-align:center;
+
+    border-radius:30px;
+
+    background:white;
+
+    border:1px solid #e5e5ec;
+
+    box-shadow:
+        0 20px 55px rgba(60,50,100,.13);
+
+    transition:.35s ease;
+}
+
+
+.error-card:hover{
+    transform:translateY(-5px);
+
+    box-shadow:
+        0 25px 65px rgba(60,50,100,.18);
+}
+
+
+/* Decorative circles */
+
+.error-card::before{
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    border-radius:50%;
+
+    background:rgba(13,110,253,.07);
+
+    top:-90px;
+    left:-70px;
+}
+
+
+.error-card::after{
+    content:"";
+
+    position:absolute;
+
+    width:160px;
+    height:160px;
+
+    border-radius:50%;
+
+    background:rgba(214,51,132,.07);
+
+    bottom:-80px;
+    right:-60px;
+}
+
+
+/* ==============================
+   ERROR ICON
+============================== */
+
+.error-icon{
+    position:relative;
+
+    width:90px;
+    height:90px;
+
+    margin:0 auto 20px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    font-size:42px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef3ff,
+            #fbeafa
+        );
+
+    box-shadow:
+        0 10px 25px rgba(60,50,120,.12);
+
+    animation:floatIcon 3s ease-in-out infinite;
+}
+
+
+@keyframes floatIcon{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-8px);
+    }
+
+}
+
+
+/* ==============================
+   404 NUMBER
+============================== */
+
+.error-number{
+    position:relative;
+
+    margin:0;
+
+    font-size:100px;
+
+    line-height:1;
+
+    font-weight:900;
+
+    letter-spacing:5px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #6610f2,
+            #d63384
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+}
+
+
+/* ==============================
+   TEXT
+============================== */
+
+.error-title{
+    margin-top:15px;
+
+    font-size:28px;
+
+    font-weight:800;
+
+    color:#25293d;
+}
+
+
+.error-description{
+    max-width:480px;
+
+    margin:12px auto 25px;
+
+    color:#707487;
+
+    font-size:15px;
+
+    line-height:1.7;
+}
+
+
+/* ==============================
+   BUTTONS
+============================== */
+
+.error-actions{
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+    position:relative;
+}
+
+
+.home-btn{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    padding:12px 25px;
+
+    border-radius:30px;
+
+    color:white !important;
+
+    text-decoration:none;
+
+    font-weight:700;
+
+    background:
+        linear-gradient(
+            90deg,
+            #0d6efd,
+            #6610f2
+        );
+
+    box-shadow:
+        0 10px 22px rgba(60,70,220,.22);
+
+    transition:.3s ease;
+}
+
+
+.home-btn:hover{
+    transform:translateY(-3px);
+
+    color:white !important;
+
+    box-shadow:
+        0 14px 28px rgba(60,70,220,.30);
+}
+
+
+.back-btn{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    padding:11px 23px;
+
+    border-radius:30px;
+
+    color:#555b6f;
+
+    text-decoration:none;
+
+    font-weight:700;
+
+    background:#f1f2f6;
+
+    border:1px solid #e0e1e7;
+
+    transition:.3s ease;
+}
+
+
+.back-btn:hover{
+    transform:translateY(-3px);
+
+    color:#0d6efd;
+
+    background:#eef3ff;
+}
+
+
+/* ==============================
+   SMALL MESSAGE
+============================== */
+
+.error-footer{
+    margin-top:28px;
+
+    color:#9295a3;
+
+    font-size:12px;
+
+    position:relative;
+}
+
+
+/* ==============================
+   DARK MODE
+============================== */
+
+body.dark-mode .error-card{
+    background:#1e1e23;
+
+    border-color:#373740;
+}
+
+
+body.dark-mode .error-title{
+    color:white;
+}
+
+
+body.dark-mode .error-description{
+    color:#c3c3cc;
+}
+
+
+body.dark-mode .error-icon{
+    background:#2c2940;
+}
+
+
+body.dark-mode .back-btn{
+    background:#292930;
+
+    border-color:#3b3b43;
+
+    color:#d0d0d7;
+}
+
+
+body.dark-mode .back-btn:hover{
+    background:#302b48;
+
+    color:#70a7ff;
+}
+
+
+body.dark-mode .error-footer{
+    color:#a5a5af;
+}
+
+
+/* ==============================
+   RESPONSIVE
+============================== */
+
+@media(max-width:600px){
+
+    .error-page{
+        padding:25px 15px;
+    }
+
+    .error-card{
+        padding:45px 20px;
+    }
+
+    .error-number{
+        font-size:75px;
+    }
+
+    .error-title{
+        font-size:23px;
+    }
+
+    .error-description{
+        font-size:14px;
+    }
+
+}
+
+</style>
+
+
+<div class="error-page">
+
+    <div class="error-card">
+
+
+        <!-- Error Icon -->
+
+        <div class="error-icon">
+            🔍
+        </div>
+
+
+        <!-- 404 -->
+
+        <h1 class="error-number">
+            404
+        </h1>
+
+
+        <!-- Title -->
+
+        <h2 class="error-title">
+            Oops! Page Not Found 😕
+        </h2>
+
+
+        <!-- Description -->
+
+        <p class="error-description">
+
+            The page you're looking for doesn't exist,
+            may have been moved, or the link might be incorrect.
+
+        </p>
+
+
+        <!-- Buttons -->
+
+        <div class="error-actions">
+
+
+            <a
+                href="{{ url_for('home') }}"
+                class="home-btn">
+
+                <i class="bi bi-house-fill"></i>
+
+                Go to Home
+
+            </a>
+
+
+            <a
+                href="javascript:history.back()"
+                class="back-btn">
+
+                <i class="bi bi-arrow-left"></i>
+
+                Go Back
+
+            </a>
+
+
+        </div>
+
+
+        <!-- Footer -->
+
+        <div class="error-footer">
+
+            💡 Don't worry, let's get you back on track!
+
+        </div>
+
+
+    </div>
+
 </div>
+
 {% endblock %}

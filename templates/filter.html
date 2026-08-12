@@ -176,6 +176,71 @@ table tbody tr:hover {
             </table>
 
         </div>
+        <!-- PAGINATION -->
+{% if total_pages > 1 %}
+
+<div class="d-flex justify-content-center py-4">
+
+    <nav>
+        <ul class="pagination mb-0">
+
+            <!-- Previous -->
+            {% if page > 1 %}
+            <li class="page-item">
+                <a class="page-link"
+                   href="{{ url_for('filter_students',
+                       subject=selected_subject,
+                       grade=selected_grade,
+                       page=page-1) }}">
+                    ← Previous
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">← Previous</span>
+            </li>
+            {% endif %}
+
+
+            <!-- Page Numbers -->
+            {% for p in range(1, total_pages + 1) %}
+
+            <li class="page-item {% if p == page %}active{% endif %}">
+                <a class="page-link"
+                   href="{{ url_for('filter_students',
+                       subject=selected_subject,
+                       grade=selected_grade,
+                       page=p) }}">
+                    {{ p }}
+                </a>
+            </li>
+
+            {% endfor %}
+
+
+            <!-- Next -->
+            {% if page < total_pages %}
+            <li class="page-item">
+                <a class="page-link"
+                   href="{{ url_for('filter_students',
+                       subject=selected_subject,
+                       grade=selected_grade,
+                       page=page+1) }}">
+                    Next →
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Next →</span>
+            </li>
+            {% endif %}
+
+        </ul>
+    </nav>
+
+</div>
+
+{% endif %}
 
         {% else %}
         <div class="p-4 text-center text-muted">

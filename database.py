@@ -100,6 +100,12 @@ def init_db():
     except Exception:
         pass
 
+    try:
+        conn.execute(
+            "ALTER TABLE chat_history ADD COLUMN conversation_id TEXT"
+        )
+    except Exception:
+        pass    
     print(conn.execute(
         "SELECT * FROM chat_history LIMIT 1"
     ).fetchone())

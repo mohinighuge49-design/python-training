@@ -1,0 +1,1897 @@
+{% extends "base.html" %}
+
+{% block title %}
+Documentation - College Smart Portal
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =====================================================
+   DOCUMENTATION PAGE
+===================================================== */
+
+.documentation-page{
+    padding:30px 0 60px;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.documentation-hero{
+    position:relative;
+    overflow:hidden;
+
+    padding:45px 30px;
+
+    border-radius:28px;
+
+    text-align:center;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #6610f2,
+            #d63384
+        );
+
+    box-shadow:
+        0 18px 45px rgba(70,50,150,.22);
+}
+
+
+.documentation-hero::before{
+    content:"";
+
+    position:absolute;
+
+    width:220px;
+    height:220px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.09);
+
+    top:-100px;
+    left:-70px;
+}
+
+
+.documentation-hero::after{
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.08);
+
+    right:-50px;
+    bottom:-80px;
+}
+
+
+.documentation-hero-icon{
+    position:relative;
+
+    font-size:50px;
+
+    margin-bottom:8px;
+}
+
+
+.documentation-hero h1{
+    position:relative;
+
+    margin:0 0 10px;
+
+    font-size:36px;
+
+    font-weight:800;
+}
+
+
+.documentation-hero p{
+    position:relative;
+
+    max-width:700px;
+
+    margin:auto;
+
+    font-size:15px;
+
+    line-height:1.7;
+
+    opacity:.94;
+}
+
+
+/* =====================================================
+   QUICK NAVIGATION
+===================================================== */
+
+.doc-navigation{
+    margin-top:25px;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:15px;
+}
+
+
+.doc-nav-item{
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:16px;
+
+    border-radius:15px;
+
+    text-decoration:none;
+
+    background:white;
+
+    border:1px solid #e2e4eb;
+
+    color:#292d40;
+
+    box-shadow:
+        0 8px 22px rgba(0,0,0,.06);
+
+    transition:.3s ease;
+}
+
+
+.doc-nav-item:hover{
+    transform:translateY(-5px);
+
+    color:#0d6efd;
+
+    box-shadow:
+        0 13px 28px rgba(0,0,0,.10);
+}
+
+
+.doc-nav-icon{
+    width:42px;
+    height:42px;
+
+    flex-shrink:0;
+
+    border-radius:12px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:20px;
+
+    background:#eef3ff;
+}
+
+
+.doc-nav-item span{
+    font-size:14px;
+
+    font-weight:700;
+}
+
+
+/* =====================================================
+   DOCUMENTATION CARD
+===================================================== */
+
+.doc-card{
+    margin-top:25px;
+
+    padding:30px;
+
+    background:white;
+
+    border-radius:22px;
+
+    border:1px solid #e3e4eb;
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.07);
+}
+
+
+.doc-heading{
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:12px;
+}
+
+
+.doc-heading-icon{
+    width:45px;
+    height:45px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:13px;
+
+    font-size:22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef3ff,
+            #f5eaff
+        );
+}
+
+
+.doc-card h2{
+    margin:0;
+
+    font-size:23px;
+
+    font-weight:800;
+
+    color:#20263c;
+}
+
+
+.doc-card > p{
+    color:#6d7182;
+
+    font-size:14px;
+
+    line-height:1.8;
+
+    margin-bottom:20px;
+}
+
+
+/* =====================================================
+   STEP CARDS
+===================================================== */
+
+.steps-container{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:18px;
+}
+
+
+.doc-step{
+    position:relative;
+
+    padding:22px;
+
+    border-radius:17px;
+
+    background:#f8f9ff;
+
+    border:1px solid #e3e5ee;
+
+    transition:.3s ease;
+}
+
+
+.doc-step:hover{
+    transform:translateY(-5px);
+
+    background:white;
+
+    box-shadow:
+        0 12px 28px rgba(60,60,100,.10);
+}
+
+
+.step-number{
+    width:38px;
+    height:38px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    color:white;
+
+    font-size:14px;
+
+    font-weight:800;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #6610f2
+        );
+
+    margin-bottom:12px;
+}
+
+
+.doc-step h5{
+    margin-bottom:8px;
+
+    font-size:17px;
+
+    font-weight:800;
+
+    color:#282d42;
+}
+
+
+.doc-step p{
+    margin:0;
+
+    color:#74788a;
+
+    font-size:13px;
+
+    line-height:1.7;
+}
+
+
+/* =====================================================
+   INFO LIST
+===================================================== */
+
+.info-list{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+}
+
+
+.info-item{
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:12px;
+
+    padding:15px;
+
+    border-radius:13px;
+
+    background:#f8f9fc;
+
+    border:1px solid #e4e5eb;
+}
+
+
+.info-item-icon{
+    font-size:20px;
+
+    min-width:28px;
+}
+
+
+.info-item strong{
+    display:block;
+
+    color:#292d40;
+
+    margin-bottom:3px;
+
+    font-size:14px;
+}
+
+
+.info-item span{
+    color:#74788a;
+
+    font-size:13px;
+
+    line-height:1.6;
+}
+
+
+/* =====================================================
+   FEATURE GUIDE
+===================================================== */
+
+.feature-guide{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:17px;
+}
+
+
+.guide-box{
+    padding:20px;
+
+    border-radius:16px;
+
+    background:#fff;
+
+    border:1px solid #e2e4eb;
+
+    transition:.3s ease;
+}
+
+
+.guide-box:hover{
+    transform:translateY(-5px);
+
+    box-shadow:
+        0 12px 28px rgba(60,60,100,.10);
+}
+
+
+.guide-icon{
+    font-size:28px;
+
+    margin-bottom:10px;
+}
+
+
+.guide-box h5{
+    margin-bottom:7px;
+
+    color:#252a40;
+
+    font-size:16px;
+
+    font-weight:800;
+}
+
+
+.guide-box p{
+    margin:0;
+
+    color:#74788a;
+
+    font-size:13px;
+
+    line-height:1.7;
+}
+
+
+/* =====================================================
+   AI ASSISTANT GUIDE
+===================================================== */
+
+.ai-guide{
+    display:flex;
+
+    align-items:center;
+
+    gap:25px;
+
+    padding:22px;
+
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f1f4ff,
+            #f9edff
+        );
+
+    border:1px solid #e1ddf4;
+}
+
+
+.ai-guide-icon{
+    width:70px;
+    height:70px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:20px;
+
+    font-size:35px;
+
+    background:white;
+
+    box-shadow:
+        0 8px 20px rgba(70,60,120,.12);
+}
+
+
+.ai-guide h4{
+    margin-bottom:7px;
+
+    color:#272b40;
+
+    font-weight:800;
+}
+
+
+.ai-guide p{
+    margin:0;
+
+    color:#707487;
+
+    font-size:13px;
+
+    line-height:1.7;
+}
+
+
+/* =====================================================
+   ADMIN GUIDE
+===================================================== */
+
+.admin-table{
+    width:100%;
+
+    border-collapse:collapse;
+
+    overflow:hidden;
+
+    border-radius:14px;
+}
+
+
+.admin-table th{
+    padding:13px;
+
+    background:#f0f3ff;
+
+    color:#34384c;
+
+    font-size:13px;
+
+    text-align:left;
+}
+
+
+.admin-table td{
+    padding:13px;
+
+    border-top:1px solid #e5e6ec;
+
+    color:#6d7181;
+
+    font-size:13px;
+}
+
+
+.admin-table tr:hover td{
+    background:#fafaff;
+}
+
+
+/* =====================================================
+   SETUP BOX
+===================================================== */
+
+.setup-box{
+    padding:20px;
+
+    border-radius:15px;
+
+    background:#17171c;
+
+    color:#e8e8ee;
+
+    font-family:
+        Consolas,
+        Monaco,
+        monospace;
+
+    font-size:13px;
+
+    line-height:1.9;
+
+    overflow-x:auto;
+}
+
+
+/* =====================================================
+   PROJECT LINKS
+===================================================== */
+
+.project-links{
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:13px;
+}
+
+
+.project-link{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    padding:11px 20px;
+
+    border-radius:25px;
+
+    text-decoration:none;
+
+    color:white !important;
+
+    font-size:14px;
+
+    font-weight:700;
+
+    transition:.3s ease;
+}
+
+
+.project-link:hover{
+    transform:translateY(-3px);
+
+    color:white !important;
+}
+
+
+.github-link{
+    background:#18181c;
+}
+
+
+.live-link{
+    background:
+        linear-gradient(
+            90deg,
+            #0d6efd,
+            #315fe8
+        );
+}
+
+
+.contact-link{
+    background:
+        linear-gradient(
+            90deg,
+            #d63384,
+            #6610f2
+        );
+}
+
+
+/* =====================================================
+   BACK TO TOP
+===================================================== */
+
+.back-top{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    margin-top:20px;
+
+    padding:9px 17px;
+
+    border-radius:22px;
+
+    text-decoration:none;
+
+    color:#5d6375;
+
+    background:#f1f2f6;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    transition:.3s ease;
+}
+
+
+.back-top:hover{
+    color:#0d6efd;
+
+    transform:translateY(-2px);
+}
+
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+body.dark-mode .doc-nav-item,
+body.dark-mode .doc-card,
+body.dark-mode .guide-box{
+    background:#1e1e23;
+
+    border-color:#373740;
+
+    color:white;
+}
+
+
+body.dark-mode .doc-nav-item:hover{
+    color:#70a7ff;
+}
+
+
+body.dark-mode .doc-card h2,
+body.dark-mode .doc-step h5,
+body.dark-mode .guide-box h5,
+body.dark-mode .info-item strong,
+body.dark-mode .ai-guide h4{
+    color:white;
+}
+
+
+body.dark-mode .doc-card > p,
+body.dark-mode .doc-step p,
+body.dark-mode .guide-box p,
+body.dark-mode .info-item span,
+body.dark-mode .ai-guide p{
+    color:#c4c4ce;
+}
+
+
+body.dark-mode .doc-step,
+body.dark-mode .info-item{
+    background:#25252c;
+
+    border-color:#3b3b44;
+}
+
+
+body.dark-mode .doc-step:hover,
+body.dark-mode .guide-box:hover{
+    background:#292933;
+}
+
+
+body.dark-mode .doc-nav-icon,
+body.dark-mode .doc-heading-icon{
+    background:#30284b;
+}
+
+
+body.dark-mode .ai-guide{
+    background:
+        linear-gradient(
+            135deg,
+            #25283b,
+            #30263b
+        );
+
+    border-color:#48405d;
+}
+
+
+body.dark-mode .ai-guide-icon{
+    background:#303038;
+}
+
+
+body.dark-mode .admin-table th{
+    background:#302c42;
+
+    color:white;
+}
+
+
+body.dark-mode .admin-table td{
+    border-color:#3a3a42;
+
+    color:#c3c3cc;
+}
+
+
+body.dark-mode .admin-table tr:hover td{
+    background:#292933;
+}
+
+
+body.dark-mode .back-top{
+    background:#292930;
+
+    color:#c4c4cc;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:900px){
+
+    .doc-navigation{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .feature-guide{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+
+@media(max-width:650px){
+
+    .documentation-page{
+        padding:20px 0 40px;
+    }
+
+
+    .documentation-hero{
+        padding:38px 20px;
+    }
+
+
+    .documentation-hero h1{
+        font-size:28px;
+    }
+
+
+    .documentation-hero p{
+        font-size:14px;
+    }
+
+
+    .doc-navigation{
+        grid-template-columns:1fr;
+    }
+
+
+    .steps-container,
+    .feature-guide{
+        grid-template-columns:1fr;
+    }
+
+
+    .doc-card{
+        padding:22px;
+    }
+
+
+    .ai-guide{
+        flex-direction:column;
+
+        text-align:center;
+    }
+
+
+    .project-links{
+        justify-content:center;
+    }
+
+}
+
+</style>
+
+
+<div class="documentation-page" id="top">
+
+
+    <!-- =================================================
+         HERO
+    ================================================= -->
+
+    <div class="documentation-hero">
+
+        <div class="documentation-hero-icon">
+            📚
+        </div>
+
+        <h1>
+            How to Use College Smart Portal
+        </h1>
+
+        <p>
+            A simple step-by-step guide to help you
+            navigate and use the features of the
+            College Smart Portal.
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         QUICK NAVIGATION
+    ================================================= -->
+
+    <div class="doc-navigation">
+
+        <a href="#getting-started" class="doc-nav-item">
+
+            <div class="doc-nav-icon">
+                🚀
+            </div>
+
+            <span>
+                Getting Started
+            </span>
+
+        </a>
+
+
+        <a href="#student-guide" class="doc-nav-item">
+
+            <div class="doc-nav-icon">
+                👨‍🎓
+            </div>
+
+            <span>
+                Student Guide
+            </span>
+
+        </a>
+
+
+        <a href="#dashboard-guide" class="doc-nav-item">
+
+            <div class="doc-nav-icon">
+                📊
+            </div>
+
+            <span>
+                Dashboard
+            </span>
+
+        </a>
+
+
+        <a href="#ai-guide" class="doc-nav-item">
+
+            <div class="doc-nav-icon">
+                🤖
+            </div>
+
+            <span>
+                AI Assistant
+            </span>
+
+        </a>
+
+    </div>
+
+
+    <!-- =================================================
+         GETTING STARTED
+    ================================================= -->
+
+    <div class="doc-card" id="getting-started">
+
+        <div class="doc-heading">
+
+            <div class="doc-heading-icon">
+                🚀
+            </div>
+
+            <h2>
+                Getting Started
+            </h2>
+
+        </div>
+
+        <p>
+            Follow these steps to start using the
+            College Smart Portal.
+        </p>
+
+
+        <div class="steps-container">
+
+
+            <div class="doc-step">
+
+                <div class="step-number">
+                    1
+                </div>
+
+                <h5>
+                    Open the Portal
+                </h5>
+
+                <p>
+                    Open the College Smart Portal using
+                    the live website or your local project.
+                </p>
+
+            </div>
+
+
+            <div class="doc-step">
+
+                <div class="step-number">
+                    2
+                </div>
+
+                <h5>
+                    Create an Account
+                </h5>
+
+                <p>
+                    If registration is available, create
+                    your account using the registration page.
+                </p>
+
+            </div>
+
+
+            <div class="doc-step">
+
+                <div class="step-number">
+                    3
+                </div>
+
+                <h5>
+                    Login
+                </h5>
+
+                <p>
+                    Enter your registered username and
+                    password to access the portal.
+                </p>
+
+            </div>
+
+
+            <div class="doc-step">
+
+                <div class="step-number">
+                    4
+                </div>
+
+                <h5>
+                    Explore the Portal
+                </h5>
+
+                <p>
+                    After login, use the navigation menu
+                    to access the available features.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         STUDENT GUIDE
+    ================================================= -->
+
+    <div class="doc-card" id="student-guide">
+
+        <div class="doc-heading">
+
+            <div class="doc-heading-icon">
+                👨‍🎓
+            </div>
+
+            <h2>
+                Student Management Guide
+            </h2>
+
+        </div>
+
+        <p>
+            The student management section allows
+            authorized users to manage student records.
+        </p>
+
+
+        <div class="feature-guide">
+
+
+            <div class="guide-box">
+
+                <div class="guide-icon">
+                    ➕
+                </div>
+
+                <h5>
+                    Add Student
+                </h5>
+
+                <p>
+                    Open the Add Student page and enter
+                    the required student details.
+                </p>
+
+            </div>
+
+
+            <div class="guide-box">
+
+                <div class="guide-icon">
+                    ✏️
+                </div>
+
+                <h5>
+                    Edit Student
+                </h5>
+
+                <p>
+                    Select a student record and update
+                    the required information.
+                </p>
+
+            </div>
+
+
+            <div class="guide-box">
+
+                <div class="guide-icon">
+                    🗑️
+                </div>
+
+                <h5>
+                    Delete Student
+                </h5>
+
+                <p>
+                    Remove an unwanted student record
+                    using the delete option.
+                </p>
+
+            </div>
+
+
+            <div class="guide-box">
+
+                <div class="guide-icon">
+                    🔎
+                </div>
+
+                <h5>
+                    Search
+                </h5>
+
+                <p>
+                    Search for students quickly using
+                    the available search functionality.
+                </p>
+
+            </div>
+
+
+            <div class="guide-box">
+
+                <div class="guide-icon">
+                    🔽
+                </div>
+
+                <h5>
+                    Filter
+                </h5>
+
+                <p>
+                    Filter student records based on
+                    the available criteria.
+                </p>
+
+            </div>
+
+
+            <div class="guide-box">
+
+                <div class="guide-icon">
+                    ↕️
+                </div>
+
+                <h5>
+                    Sort
+                </h5>
+
+                <p>
+                    Sort student records to find
+                    information more easily.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         DASHBOARD
+    ================================================= -->
+
+    <div class="doc-card" id="dashboard-guide">
+
+        <div class="doc-heading">
+
+            <div class="doc-heading-icon">
+                📊
+            </div>
+
+            <h2>
+                Dashboard Guide
+            </h2>
+
+        </div>
+
+        <p>
+            The dashboard provides a quick overview of
+            important college and student information.
+        </p>
+
+
+        <div class="info-list">
+
+
+            <div class="info-item">
+
+                <div class="info-item-icon">
+                    👨‍🎓
+                </div>
+
+                <div>
+
+                    <strong>
+                        Total Students
+                    </strong>
+
+                    <span>
+                        Shows the total number of
+                        student records available.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <div class="info-item-icon">
+                    📚
+                </div>
+
+                <div>
+
+                    <strong>
+                        Total Subjects
+                    </strong>
+
+                    <span>
+                        Displays the number of subjects
+                        available in the portal.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <div class="info-item-icon">
+                    ✅
+                </div>
+
+                <div>
+
+                    <strong>
+                        Pass / Fail Information
+                    </strong>
+
+                    <span>
+                        Provides an overview of student
+                        academic performance.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <div class="info-item-icon">
+                    🏆
+                </div>
+
+                <div>
+
+                    <strong>
+                        Top Students
+                    </strong>
+
+                    <span>
+                        Displays top-performing students
+                        based on the available records.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         SEARCH / FILTER
+    ================================================= -->
+
+    <div class="doc-card">
+
+        <div class="doc-heading">
+
+            <div class="doc-heading-icon">
+                🔎
+            </div>
+
+            <h2>
+                Search, Filter & Sort
+            </h2>
+
+        </div>
+
+        <p>
+            These features help you quickly find the
+            required student information.
+        </p>
+
+
+        <div class="steps-container">
+
+
+            <div class="doc-step">
+
+                <div class="step-number">
+                    🔎
+                </div>
+
+                <h5>
+                    Search
+                </h5>
+
+                <p>
+                    Enter the student's name or relevant
+                    information in the search box.
+                </p>
+
+            </div>
+
+
+            <div class="doc-step">
+
+                <div class="step-number">
+                    🔽
+                </div>
+
+                <h5>
+                    Filter
+                </h5>
+
+                <p>
+                    Select the required filter option
+                    to narrow down the displayed records.
+                </p>
+
+            </div>
+
+
+            <div class="doc-step">
+
+                <div class="step-number">
+                    ↕
+                </div>
+
+                <h5>
+                    Sort
+                </h5>
+
+                <p>
+                    Use sorting options to arrange
+                    records in the required order.
+                </p>
+
+            </div>
+
+
+            <div class="doc-step">
+
+                <div class="step-number">
+                    🔄
+                </div>
+
+                <h5>
+                    Reset
+                </h5>
+
+                <p>
+                    Clear the search or filter when you
+                    want to view the complete records again.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         AI ASSISTANT
+    ================================================= -->
+
+    <div class="doc-card" id="ai-guide">
+
+        <div class="doc-heading">
+
+            <div class="doc-heading-icon">
+                🤖
+            </div>
+
+            <h2>
+                AI Assistant Guide
+            </h2>
+
+        </div>
+
+
+        <div class="ai-guide">
+
+            <div class="ai-guide-icon">
+                🤖
+            </div>
+
+            <div>
+
+                <h4>
+                    Ask the AI Assistant
+                </h4>
+
+                <p>
+                    Open the AI Assistant from the portal
+                    and type your question in the chat box.
+                    You can use it to ask questions and
+                    get student-friendly assistance.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="info-list mt-3">
+
+
+            <div class="info-item">
+
+                <div class="info-item-icon">
+                    💬
+                </div>
+
+                <div>
+
+                    <strong>
+                        Type a Question
+                    </strong>
+
+                    <span>
+                        Enter your question in the message
+                        box and press the send button.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <div class="info-item-icon">
+                    🔊
+                </div>
+
+                <div>
+
+                    <strong>
+                        Voice Features
+                    </strong>
+
+                    <span>
+                        Use the available voice controls
+                        when you want to interact using voice.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <div class="info-item-icon">
+                    📋
+                </div>
+
+                <div>
+
+                    <strong>
+                        Copy Response
+                    </strong>
+
+                    <span>
+                        Use the copy option to copy an
+                        AI-generated response.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         FEEDBACK
+    ================================================= -->
+
+    <div class="doc-card">
+
+        <div class="doc-heading">
+
+            <div class="doc-heading-icon">
+                💬
+            </div>
+
+            <h2>
+                Feedback & Rating
+            </h2>
+
+        </div>
+
+        <p>
+            Your feedback helps improve the portal.
+            Use the Feedback section to share your
+            experience and submit a rating.
+        </p>
+
+
+        <div class="steps-container">
+
+
+            <div class="doc-step">
+
+                <div class="step-number">
+                    1
+                </div>
+
+                <h5>
+                    Open Feedback
+                </h5>
+
+                <p>
+                    Navigate to the Feedback page
+                    from the portal menu.
+                </p>
+
+            </div>
+
+
+            <div class="doc-step">
+
+                <div class="step-number">
+                    2
+                </div>
+
+                <h5>
+                    Give Rating
+                </h5>
+
+                <p>
+                    Select the rating that represents
+                    your experience.
+                </p>
+
+            </div>
+
+
+            <div class="doc-step">
+
+                <div class="step-number">
+                    3
+                </div>
+
+                <h5>
+                    Write Feedback
+                </h5>
+
+                <p>
+                    Enter your comments or suggestions
+                    in the feedback box.
+                </p>
+
+            </div>
+
+
+            <div class="doc-step">
+
+                <div class="step-number">
+                    4
+                </div>
+
+                <h5>
+                    Submit
+                </h5>
+
+                <p>
+                    Submit your feedback after
+                    completing the form.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         ADMIN GUIDE
+    ================================================= -->
+
+    <div class="doc-card">
+
+        <div class="doc-heading">
+
+            <div class="doc-heading-icon">
+                🛡️
+            </div>
+
+            <h2>
+                Admin Guide
+            </h2>
+
+        </div>
+
+        <p>
+            Authorized administrators can manage
+            important portal data and records.
+        </p>
+
+
+        <table class="admin-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Feature
+                    </th>
+
+                    <th>
+                        Purpose
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <tr>
+
+                    <td>
+                        Student Management
+                    </td>
+
+                    <td>
+                        Add, edit and delete student records.
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        Subject Management
+                    </td>
+
+                    <td>
+                        Manage available subjects.
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        Dashboard
+                    </td>
+
+                    <td>
+                        Monitor student statistics
+                        and academic information.
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        Feedback
+                    </td>
+
+                    <td>
+                        Review submitted feedback
+                        and ratings.
+                    </td>
+
+                </tr>
+
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- =================================================
+         LOCAL SETUP
+    ================================================= -->
+
+    <div class="doc-card">
+
+        <div class="doc-heading">
+
+            <div class="doc-heading-icon">
+                ⚙️
+            </div>
+
+            <h2>
+                Local Setup
+            </h2>
+
+        </div>
+
+        <p>
+            To run the project on your computer,
+            create a virtual environment and install
+            the required packages.
+        </p>
+
+
+        <div class="setup-box">
+
+            python -m venv myenv<br>
+
+            myenv\Scripts\activate<br>
+
+            pip install -r requirements.txt<br>
+
+            python app.py
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         PROJECT LINKS
+    ================================================= -->
+
+    <div class="doc-card text-center">
+
+        <div class="doc-heading justify-content-center">
+
+            <div class="doc-heading-icon">
+                🔗
+            </div>
+
+            <h2>
+                Project Links
+            </h2>
+
+        </div>
+
+
+        <p>
+            Access the source code and live application.
+        </p>
+
+
+        <div class="project-links justify-content-center">
+
+
+            <a
+                href="https://github.com/mohinighuge49-design/python-training.git"
+                target="_blank"
+                class="project-link github-link">
+
+                <i class="bi bi-github"></i>
+
+                GitHub Repository
+
+            </a>
+
+
+            <a
+                href="https://mohini.pythonanywhere.com/"
+                target="_blank"
+                class="project-link live-link">
+
+                🌐
+
+                Live Demo
+
+            </a>
+
+
+            <a
+                href="/contact_us"
+                class="project-link contact-link">
+
+                <i class="bi bi-envelope-fill"></i>
+
+                Contact Us
+
+            </a>
+
+
+        </div>
+
+
+        <a href="#top" class="back-top">
+
+            ↑ Back to Top
+
+        </a>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

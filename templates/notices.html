@@ -1,58 +1,863 @@
 {% extends "base.html" %}
 
-{% block title %}College Notices{% endblock %}
+{% block title %}
+College Notices
+{% endblock %}
 
 {% block content %}
- 
-<div class="container mt-5">
 
-<div class="text-center mb-5">
-    <div class="display-5 fw-bold text-primary">
-        📢 College Notice Board
+<style>
+
+/* =========================================
+   MAIN PAGE
+========================================= */
+
+.notice-page{
+    padding:30px 0 60px;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.notice-hero{
+    position:relative;
+    overflow:hidden;
+
+    padding:45px 25px;
+
+    text-align:center;
+
+    color:white;
+
+    border-radius:28px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #6610f2,
+            #d63384
+        );
+
+    box-shadow:
+        0 18px 45px rgba(60,50,150,.20);
+}
+
+
+.notice-hero h1{
+    position:relative;
+
+    font-size:36px;
+
+    font-weight:800;
+
+    margin-bottom:8px;
+}
+
+
+.notice-hero p{
+    position:relative;
+
+    margin:0;
+
+    font-size:15px;
+
+    opacity:.9;
+}
+
+
+.notice-hero-icon{
+    font-size:48px;
+
+    margin-bottom:10px;
+
+    animation:bell 2s infinite;
+}
+
+
+@keyframes bell{
+
+    0%,100%{
+        transform:rotate(0);
+    }
+
+    25%{
+        transform:rotate(8deg);
+    }
+
+    75%{
+        transform:rotate(-8deg);
+    }
+
+}
+
+
+/* =========================================
+   SUMMARY
+========================================= */
+
+.notice-summary{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin:25px 0 18px;
+
+    padding:15px 20px;
+
+    border-radius:16px;
+
+    background:white;
+
+    border:1px solid #e4e5eb;
+
+    box-shadow:
+        0 8px 22px rgba(0,0,0,.05);
+}
+
+
+.notice-count{
+    padding:7px 14px;
+
+    border-radius:20px;
+
+    background:#eef3ff;
+
+    color:#0d6efd;
+
+    font-size:12px;
+
+    font-weight:800;
+}
+
+
+/* =========================================
+   NOTICE CARD
+========================================= */
+
+.notice-card{
+    position:relative;
+
+    overflow:hidden;
+
+    margin-bottom:20px;
+
+    background:white;
+
+    border-radius:20px;
+
+    border:1px solid #e2e4eb;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.07);
+
+    transition:.3s ease;
+}
+
+
+.notice-card:hover{
+    transform:translateY(-5px);
+
+    box-shadow:
+        0 18px 40px rgba(0,0,0,.12);
+}
+
+
+/* left line */
+
+.notice-card::before{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:0;
+    bottom:0;
+
+    width:5px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #0d6efd,
+            #6610f2
+        );
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.notice-header{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    padding:20px 22px;
+
+    border-bottom:1px solid #eeeeF2;
+}
+
+
+.notice-title{
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+}
+
+
+.notice-title-icon{
+    width:42px;
+    height:42px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:#eef3ff;
+
+    font-size:21px;
+}
+
+
+.notice-title h3{
+    margin:0;
+
+    font-size:19px;
+
+    font-weight:800;
+
+    color:#252a40;
+}
+
+
+/* =========================================
+   PRIORITY
+========================================= */
+
+.notice-priority{
+    padding:6px 11px;
+
+    border-radius:20px;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    white-space:nowrap;
+}
+
+
+.priority-urgent{
+    background:#ffe5e5;
+
+    color:#dc3545;
+}
+
+
+.priority-important{
+    background:#fff0d9;
+
+    color:#d97706;
+}
+
+
+.priority-general{
+    background:#e8f1ff;
+
+    color:#0d6efd;
+}
+
+
+/* =========================================
+   PINNED
+========================================= */
+
+.pin-badge{
+    display:inline-block;
+
+    margin-right:6px;
+
+    padding:5px 9px;
+
+    border-radius:15px;
+
+    background:#fff3cd;
+
+    color:#856404;
+
+    font-size:10px;
+
+    font-weight:800;
+}
+
+
+/* =========================================
+   BODY
+========================================= */
+
+.notice-body{
+    padding:20px 25px;
+}
+
+
+.notice-message{
+    padding:16px;
+
+    margin-bottom:12px;
+
+    border-radius:14px;
+
+    background:#f7f9ff;
+
+    border:1px solid #e5e8f2;
+
+    color:#555a6d;
+
+    font-size:14px;
+
+    line-height:1.7;
+}
+
+
+.notice-message strong{
+    display:block;
+
+    margin-bottom:5px;
+
+    color:#30354a;
+
+    font-size:12px;
+}
+
+
+.notice-note{
+    padding:14px 16px;
+
+    margin-bottom:12px;
+
+    border-radius:14px;
+
+    background:#effaf4;
+
+    border:1px solid #d7f0e1;
+
+    color:#397051;
+
+    font-size:13px;
+
+    line-height:1.6;
+}
+
+
+.notice-extra{
+    padding:14px 16px;
+
+    margin-bottom:12px;
+
+    border-radius:14px;
+
+    background:#f5f5f7;
+
+    border:1px solid #e5e5e9;
+
+    color:#666a78;
+
+    font-size:13px;
+
+    line-height:1.6;
+}
+
+
+/* =========================================
+   EXPIRY
+========================================= */
+
+.notice-expiry{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    margin-top:5px;
+
+    padding:7px 12px;
+
+    border-radius:20px;
+
+    background:#f1f2f6;
+
+    color:#666b7a;
+
+    font-size:11px;
+
+    font-weight:700;
+}
+
+
+/* =========================================
+   EMPTY
+========================================= */
+
+.empty-notice{
+    padding:60px 20px;
+
+    text-align:center;
+
+    border-radius:22px;
+
+    background:white;
+
+    border:1px solid #e3e4eb;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.06);
+}
+
+
+.empty-icon{
+    font-size:55px;
+
+    margin-bottom:12px;
+}
+
+
+.empty-notice h3{
+    font-weight:800;
+
+    color:#303448;
+}
+
+
+.empty-notice p{
+    color:#777b8c;
+
+    font-size:14px;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.notice-footer{
+    margin-top:45px;
+
+    padding:40px 25px 20px;
+
+    color:white;
+
+    border-radius:28px 28px 0 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0f172a,
+            #1e40af
+        );
+
+    box-shadow:
+        0 -10px 35px rgba(0,0,0,.15);
+}
+
+
+.notice-footer h4{
+    font-size:21px;
+
+    font-weight:800;
+}
+
+
+.notice-footer h5{
+    color:#93c5fd;
+
+    font-weight:800;
+}
+
+
+.notice-footer p{
+    color:#dbeafe;
+
+    font-size:13px;
+
+    line-height:1.6;
+}
+
+
+.footer-icon{
+    font-size:45px;
+
+    animation:float 3s ease-in-out infinite;
+}
+
+
+@keyframes float{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-7px);
+    }
+
+}
+
+
+.footer-line{
+    border-color:rgba(255,255,255,.25);
+}
+
+
+.footer-bottom{
+    text-align:center;
+
+    color:#bfdbfe;
+
+    font-size:12px;
+}
+
+
+/* =========================================
+   DARK MODE
+========================================= */
+
+body.dark-mode .notice-summary,
+body.dark-mode .notice-card,
+body.dark-mode .empty-notice{
+    background:#1e1e23;
+
+    border-color:#373740;
+}
+
+
+body.dark-mode .notice-title h3,
+body.dark-mode .empty-notice h3{
+    color:white;
+}
+
+
+body.dark-mode .notice-header{
+    border-color:#373740;
+}
+
+
+body.dark-mode .notice-title-icon{
+    background:#30284b;
+}
+
+
+body.dark-mode .notice-message{
+    background:#26262e;
+
+    border-color:#3a3a44;
+
+    color:#c5c5ce;
+}
+
+
+body.dark-mode .notice-message strong{
+    color:#eeeeF2;
+}
+
+
+body.dark-mode .notice-note{
+    background:#1f3028;
+
+    border-color:#304d3d;
+
+    color:#acd5bc;
+}
+
+
+body.dark-mode .notice-extra{
+    background:#29292f;
+
+    border-color:#3b3b43;
+
+    color:#c2c2cb;
+}
+
+
+body.dark-mode .notice-expiry{
+    background:#292930;
+
+    color:#c3c3cc;
+}
+
+
+body.dark-mode .empty-notice p{
+    color:#c0c0c9;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media(max-width:650px){
+
+    .notice-hero{
+        padding:35px 20px;
+    }
+
+    .notice-hero h1{
+        font-size:28px;
+    }
+
+    .notice-summary{
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:10px;
+    }
+
+    .notice-header{
+        align-items:flex-start;
+
+        flex-direction:column;
+    }
+
+    .notice-body{
+        padding:18px 20px;
+    }
+
+}
+
+</style>
+
+
+<div class="notice-page">
+
+
+    <!-- =====================================
+         HERO
+    ====================================== -->
+
+    <div class="notice-hero">
+
+        <div class="notice-hero-icon">
+            📢
+        </div>
+
+        <h1>
+            College Notice Board
+        </h1>
+
+        <p>
+            Stay updated with the latest college
+            announcements and important information.
+        </p>
+
     </div>
-    <p class="text-muted">
-        Latest Updates & Announcements
-    </p>
-</div>
 
-{% for notice in notices %}
 
-<div class="card shadow-lg border-0 mb-4">
+    <!-- =====================================
+         SUMMARY
+    ====================================== -->
 
-    <!-- Notice Header -->
-    <div class="card-header bg-primary text-white ">
-        <h3 class="mb-0">{{ notice.title }}</h3>
+    <div class="notice-summary">
+
+        <div class="fw-bold">
+
+            🔔 Latest Announcements
+
+        </div>
+
+        <div class="notice-count">
+
+            {{ notices|length }}
+            Notice{% if notices|length != 1 %}s{% endif %}
+
+        </div>
+
     </div>
 
-    <!-- Notice Body -->
-    <div class="card-body">
 
-        <div class="alert alert-info mt-4">
+    <!-- =====================================
+         NOTICE LIST
+    ====================================== -->
+
+    {% if notices %}
+
+        {% for notice in notices %}
+
+      <div class="notice-card">
+
+
+    <!-- ===============================
+         NOTICE HEADER
+    ================================ -->
+
+    <div class="notice-header">
+
+        <div class="notice-title">
+
+            <div class="notice-title-icon">
+                📌
+            </div>
+
+            <div>
+
+                {% if notice.pinned %}
+
+                    <span class="pin-badge">
+                        📌 PINNED
+                    </span>
+
+                {% endif %}
+
+                <h3>
+                    {{ notice.title }}
+                </h3>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRIORITY -->
+
+        {% if notice.priority == "Urgent" %}
+
+            <span class="notice-priority priority-urgent">
+                🔴 URGENT
+            </span>
+
+        {% elif notice.priority == "Important" %}
+
+            <span class="notice-priority priority-important">
+                🟠 IMPORTANT
+            </span>
+
+        {% else %}
+
+            <span class="notice-priority priority-general">
+                🔵 GENERAL
+            </span>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- ===============================
+         NOTICE BODY
+    ================================ -->
+
+    <div class="notice-body">
+
+        {% if notice.message %}
+
+        <div class="notice-message">
+
+            <strong>
+                📢 Announcement
+            </strong>
+
             {{ notice.message }}
+
         </div>
 
-        <div class="alert alert-success mt-4">
+        {% endif %}
+
+
+        {% if notice.note %}
+
+        <div class="notice-note">
+
+            <strong>
+                ✅ Note
+            </strong>
+
             {{ notice.note }}
+
         </div>
 
-        <div class="alert alert-secondary mt-4">
+        {% endif %}
+
+
+        {% if notice.msg %}
+
+        <div class="notice-extra">
+
+            <strong>
+                ℹ️ Additional Information
+            </strong>
+
             {{ notice.msg }}
+
         </div>
+
+        {% endif %}
+
+
+        {% if notice.expiry %}
+
+        <div class="notice-expiry">
+
+            📅 Valid until:
+            <strong>{{ notice.expiry }}</strong>
+
+        </div>
+
+        {% endif %}
 
     </div>
 
 </div>
 
-{% endfor %}
-<!-- ================= FOOTER ================= -->
+        {% endfor %}
 
-<footer class="footer mt-5">
+    {% else %}
 
-    <div class="container py-5">
+        <div class="empty-notice">
+
+            <div class="empty-icon">
+                📭
+            </div>
+
+            <h3>
+                No Notices Available
+            </h3>
+
+            <p>
+                There are currently no notices to display.
+                Please check back later for updates.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
+<footer class="notice-footer">
+
+    <div class="container">
 
         <div class="row g-4">
 
-            <!-- College Info -->
+
             <div class="col-md-4">
 
                 <h4>
@@ -70,7 +875,6 @@
             </div>
 
 
-            <!-- Empty Space -->
             <div class="col-md-4 text-center">
 
                 <div class="footer-icon">
@@ -84,13 +888,11 @@
             </div>
 
 
-            <!-- Developer -->
             <div class="col-md-4">
 
                 <h5>
                     👩‍💻 Developer
                 </h5>
-
                 <p>
                     Mohini Ghuge
                 </p>
@@ -105,15 +907,16 @@
 
             </div>
 
+
         </div>
 
 
-        <hr>
+        <hr class="footer-line">
 
 
-        <div class="text-center footer-bottom">
+        <div class="footer-bottom">
 
-            © 2026 College Smart Portal 
+            © 2026 College Smart Portal
             | All Rights Reserved
 
         </div>
@@ -123,114 +926,4 @@
 </footer>
 
 
-<style>
-
-.footer {
-
-    background: linear-gradient(135deg,#0f172a,#1e40af);
-
-    color:white;
-
-    border-radius:30px 30px 0 0;
-
-    box-shadow:0 -10px 35px rgba(0,0,0,0.2);
-
-}
-
-
-.footer h4 {
-
-    font-size:24px;
-
-    font-weight:700;
-
-    margin-bottom:15px;
-
-}
-
-
-.footer h5 {
-
-    color:#93c5fd;
-
-    font-size:20px;
-
-    font-weight:700;
-
-    margin-bottom:15px;
-
-}
-
-
-.footer p {
-
-    color:#dbeafe;
-
-    font-size:15px;
-
-    margin-bottom:8px;
-
-}
-
-
-.footer-icon {
-
-    font-size:55px;
-
-    margin-bottom:15px;
-
-    animation: float 3s ease-in-out infinite;
-
-}
-
-
-.footer .col-md-4 {
-
-    transition:0.3s;
-
-}
-
-
-.footer .col-md-4:hover {
-
-    transform:translateY(-6px);
-
-}
-
-
-.footer hr {
-
-    border-color:rgba(255,255,255,0.3);
-
-}
-
-
-.footer-bottom {
-
-    color:#bfdbfe;
-
-    font-size:14px;
-
-}
-
-
-
-@keyframes float {
-
-    0% {
-        transform:translateY(0);
-    }
-
-    50% {
-        transform:translateY(-8px);
-    }
-
-    100% {
-        transform:translateY(0);
-    }
-
-}
-
-
-</style>
 {% endblock %}

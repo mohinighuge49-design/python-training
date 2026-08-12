@@ -292,91 +292,479 @@ About Us - College Smart Portal
         </div>
 
     </div>
-        <!-- Technologies Used -->
+       <!-- Features & Technology Stack -->
 
-    <div class="card about-card mb-4">
+<style>
 
-        <div class="card-body p-4">
+.stack-section{
+    background:linear-gradient(135deg,#111827,#172554);
+    border-radius:25px;
+    padding:30px;
+    box-shadow:0 15px 40px rgba(0,0,0,.20);
+    color:white;
+}
 
-            <h2 class="section-title">
-                🛠 Technologies Used
-            </h2>
+.stack-heading{
+    text-align:center;
+    margin-bottom:30px;
+}
 
-            <div class="table-responsive">
+.stack-heading h2{
+    font-weight:700;
+    font-size:32px;
+}
 
-                <table class="table table-hover table-bordered align-middle text-center">
+.stack-heading h2 span{
+    color:#facc15;
+}
 
-                    <thead class="table-primary">
+.stack-heading p{
+    color:#cbd5e1;
+    margin-bottom:0;
+}
 
-                        <tr>
+/* Two Cards */
 
-                            <th width="30%">Technology</th>
-                            <th>Purpose</th>
+.stack-card{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.10);
+    border-radius:20px;
+    padding:22px;
+    height:100%;
+    backdrop-filter:blur(8px);
+}
 
-                        </tr>
+/* Card Heading */
 
-                    </thead>
+.stack-card-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:20px;
+}
 
-                    <tbody>
+.stack-icon{
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#6366f1,#06b6d4);
+    font-size:22px;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
 
-                        <tr>
+.stack-card-title h4{
+    margin:0;
+    color:#facc15;
+    font-weight:700;
+}
 
-                            <td>🐍 Python</td>
-                            <td>Backend Development</td>
+/* List Items */
 
-                        </tr>
+.stack-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background:rgba(255,255,255,.08);
+    border-radius:10px;
+    padding:12px 15px;
+    margin-bottom:10px;
+    transition:.3s;
+    border:1px solid transparent;
+}
 
-                        <tr>
+.stack-item:hover{
+    transform:translateX(6px);
+    background:linear-gradient(90deg,#4f46e5,#06b6d4);
+    border-color:rgba(255,255,255,.2);
+}
 
-                            <td>⚡ Flask</td>
-                            <td>Web Application Framework</td>
+.stack-item:last-child{
+    margin-bottom:0;
+}
 
-                        </tr>
+.stack-item-icon{
+    width:28px;
+    height:28px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#facc15;
+    font-size:18px;
+}
 
-                        <tr>
+.stack-item strong{
+    font-weight:500;
+    color:#f8fafc;
+}
 
-                            <td>🎨 Bootstrap 5</td>
-                            <td>Responsive UI Design</td>
+/* Technology Purpose */
 
-                        </tr>
+.tech-purpose{
+    margin-left:auto;
+    font-size:13px;
+    color:#cbd5e1;
+}
 
-                        <tr>
+@media(max-width:768px){
 
-                            <td>🌐 HTML5</td>
-                            <td>Web Page Structure</td>
+    .stack-section{
+        padding:20px 15px;
+    }
 
-                        </tr>
+    .stack-heading h2{
+        font-size:25px;
+    }
 
-                        <tr>
+    .stack-card{
+        padding:18px;
+    }
 
-                            <td>🎯 CSS3</td>
-                            <td>Styling & Animations</td>
+    .tech-purpose{
+        display:none;
+    }
 
-                        </tr>
+}
 
-                        <tr>
+</style>
 
-                            <td>📄 Jinja2</td>
-                            <td>Dynamic HTML Templates</td>
 
-                        </tr>
+<div class="stack-section mb-4">
 
-                        <tr>
+    <!-- Heading -->
 
-                            <td>🗄 SQLite</td>
-                            <td>Database Management</td>
+    <div class="stack-heading">
 
-                        </tr>
+        <h2>
+            ✨ Features & <span>Technology Stack</span>
+        </h2>
 
-                    </tbody>
+        <p>
+            Explore the smart features and technologies powering College Smart Portal.
+        </p>
 
-                </table>
+    </div>
+
+
+    <div class="row g-4">
+
+        <!-- ================= FEATURES ================= -->
+
+        <div class="col-lg-6">
+
+            <div class="stack-card">
+
+                <div class="stack-card-title">
+
+                    <div class="stack-icon">
+                        ✨
+                    </div>
+
+                    <h4>
+                        Features
+                    </h4>
+
+                </div>
+
+
+                <div class="stack-item">
+
+                    <div class="stack-item-icon">
+                        🏫
+                    </div>
+
+                    <strong>
+                        College Information
+                    </strong>
+
+                </div>
+
+
+                <div class="stack-item">
+
+                    <div class="stack-item-icon">
+                        👨‍🎓
+                    </div>
+
+                    <strong>
+                        Student Records Management
+                    </strong>
+
+                </div>
+
+                <div class="stack-item">
+
+                    <div class="stack-item-icon">
+                        📧
+                    </div>
+
+                    <strong>
+                        Email Feedback System
+                    </strong>
+
+                </div>
+                <div class="stack-item">
+
+                    <div class="stack-item-icon">
+                        📢
+                    </div>
+
+                    <strong>
+                        Notice Board
+                    </strong>
+
+                </div>
+
+
+                <div class="stack-item">
+
+                    <div class="stack-item-icon">
+                        📊
+                    </div>
+
+                    <strong>
+                        Dashboard & Analytics
+                    </strong>
+
+                </div>
+
+
+                <div class="stack-item">
+
+                    <div class="stack-item-icon">
+                        🤖
+                    </div>
+
+                    <strong>
+                        AI Assistant
+                    </strong>
+
+                </div>
+
+
+                <div class="stack-item">
+
+                    <div class="stack-item-icon">
+                        🔍
+                    </div>
+
+                    <strong>
+                        Search & Filter
+                    </strong>
+
+                </div>
+
+
+                <div class="stack-item">
+
+                    <div class="stack-item-icon">
+                        🪪
+                    </div>
+
+                    <strong>
+                        Student ID Card
+                    </strong>
+
+                </div>
+
+
+                <div class="stack-item">
+
+                    <div class="stack-item-icon">
+                        📄
+                    </div>
+
+                    <strong>
+                        Report Card
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= TECHNOLOGY STACK ================= -->
+
+        <div class="col-lg-6">
+
+            <div class="stack-card">
+
+                <div class="stack-card-title">
+
+                    <div class="stack-icon">
+                        ⚙️
+                    </div>
+
+                    <h4>
+                        Technology Stack
+                    </h4>
+
+                </div>
+
+
+                <div class="stack-item">
+
+                    <div class="stack-item-icon">
+                        🐍
+                    </div>
+
+                    <strong>
+                        Python
+                    </strong>
+
+                    <span class="tech-purpose">
+                        Backend
+                    </span>
+
+                </div>
+
+
+                <div class="stack-item">
+
+                    <div class="stack-item-icon">
+                        ⚡
+                    </div>
+
+                    <strong>
+                        Flask
+                    </strong>
+
+                    <span class="tech-purpose">
+                        Framework
+                    </span>
+
+                </div>
+
+
+                <div class="stack-item">
+
+                    <div class="stack-item-icon">
+                        🌐
+                    </div>
+
+                    <strong>
+                        HTML5
+                    </strong>
+
+                    <span class="tech-purpose">
+                        Structure
+                    </span>
+
+                </div>
+
+
+                <div class="stack-item">
+
+                    <div class="stack-item-icon">
+                        🎨
+                    </div>
+
+                    <strong>
+                        CSS3
+                    </strong>
+
+                    <span class="tech-purpose">
+                        Styling
+                    </span>
+
+                </div>
+
+
+                <div class="stack-item">
+
+                    <div class="stack-item-icon">
+                        🅱️
+                    </div>
+
+                    <strong>
+                        Bootstrap 5
+                    </strong>
+
+                    <span class="tech-purpose">
+                        UI Design
+                    </span>
+
+                </div>
+
+
+                <div class="stack-item">
+
+                    <div class="stack-item-icon">
+                        🗄️
+                    </div>
+
+                    <strong>
+                        SQLite
+                    </strong>
+
+                    <span class="tech-purpose">
+                        Database
+                    </span>
+
+                </div>
+
+
+                <div class="stack-item">
+
+                    <div class="stack-item-icon">
+                        📄
+                    </div>
+
+                    <strong>
+                        Jinja2
+                    </strong>
+
+                    <span class="tech-purpose">
+                        Templates
+                    </span>
+
+                </div>
+
+
+                <div class="stack-item">
+
+                    <div class="stack-item-icon">
+                        ⚙️
+                    </div>
+
+                    <strong>
+                        JavaScript
+                    </strong>
+
+                    <span class="tech-purpose">
+                        Interactivity
+                    </span>
+
+                </div>
+
+
+                <div class="stack-item">
+
+                    <div class="stack-item-icon">
+                        🐙
+                    </div>
+
+                    <strong>
+                        Git & GitHub
+                    </strong>
+
+                    <span class="tech-purpose">
+                        Version Control
+                    </span>
+
+                </div>
 
             </div>
 
         </div>
 
     </div>
+
+</div>
 
     <!-- Vision -->
 
@@ -459,79 +847,484 @@ About Us - College Smart Portal
 
         </div>
 
-    </div>
-        <!-- Developer Section -->
+    </div><!-- =========================
+     DEVELOPER SECTION
+========================= -->
 
-    <style>
+<style>
 
-    .developer-card{
-        border:none;
-        border-radius:25px;
-        box-shadow:0 15px 35px rgba(0,0,0,.10);
-        transition:.35s;
-    }
+/* =====================================
+   DEVELOPER MAIN CARD
+===================================== */
 
-    .developer-card:hover{
-        transform:translateY(-8px);
-        box-shadow:0 22px 45px rgba(0,0,0,.18);
-    }
+.developer-card{
+    border:none;
+    border-radius:28px;
+    background:rgba(255,255,255,.96);
+    box-shadow:0 20px 50px rgba(80,60,120,.15);
+    transition:.35s ease;
+    overflow:hidden;
+}
 
-    .profile-img{
-        width:180px;
-        height:180px;
-        object-fit:cover;
-        border-radius:50%;
-        border:5px solid #0d6efd;
-        box-shadow:0 10px 25px rgba(0,0,0,.18);
-    }
-
-    .skill-box{
-        border:1px solid #dee2e6;
-        border-radius:15px;
-        padding:18px;
-        transition:.3s;
-        background:#fff;
-    }
-
-    .skill-box:hover{
-        background:#0d6efd;
-        color:#fff;
-        transform:scale(1.05);
-    }
-
-    .contact-box{
-        background:linear-gradient(135deg,#154fa7,#2c0669);
-        color:white;
-        border-radius:20px;
-    }
-/* Dark Mode Developer Section */
-
-body.dark-mode .developer-card{
-    background:#1e1e1e;
-    color:white;
+.developer-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 25px 55px rgba(80,60,120,.20);
 }
 
 
-body.dark-mode .developer-card h2,
-body.dark-mode .developer-card h3,
-body.dark-mode .developer-card h6{
+/* =====================================
+   PROFILE
+===================================== */
+
+.profile-img{
+    width:150px;
+    height:150px;
+    object-fit:cover;
+    border-radius:50%;
+    border:5px solid #0d6efd;
+    box-shadow:0 10px 28px rgba(0,0,0,.18);
+}
+
+
+.developer-title{
+    font-size:25px;
+    font-weight:800;
+    color:#292b40;
+}
+
+
+.developer-title span{
+    background:linear-gradient(90deg,#4267ff,#d82bb0);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+
+.developer-name{
+    color:#18213b;
+    font-size:30px;
+}
+
+
+.developer-college{
+    color:#74778b;
+    font-size:14px;
+}
+
+
+.course-badge{
+    display:inline-block;
+    padding:8px 25px;
+    border-radius:30px;
+    color:white;
+    font-weight:600;
+
+    background:
+    linear-gradient(
+        90deg,
+        #4267ff,
+        #d82bb0
+    );
+
+    box-shadow:0 7px 18px rgba(75,70,230,.25);
+}
+
+
+/* =====================================
+   DIVIDER
+===================================== */
+
+.developer-divider{
+    height:1px;
+    background:#e1e2e8;
+    margin:28px 0 20px;
+}
+
+
+/* =====================================
+   SKILLS
+===================================== */
+
+.skill-box{
+    border:1px solid #e0e2ea;
+    border-radius:15px;
+    padding:17px;
+
+    background:#fff;
+
+    transition:.3s ease;
+
+    color:#34364a;
+}
+
+
+.skill-box:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 25px rgba(60,60,100,.12);
+
+    background:#f8f9ff;
+}
+
+
+.skill-icon{
+    font-size:25px;
+}
+
+
+.skill-box h6{
+    color:#34364a;
+    font-weight:700;
+}
+
+
+/* =====================================
+   PROJECT LINKS TITLE
+===================================== */
+
+.project-title{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:15px;
+
+    margin:35px 0 25px;
+}
+
+
+.project-title-line{
+    width:110px;
+    height:1px;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        #c9cbd5
+    );
+}
+
+
+.project-title h3{
+    margin:0;
+
+    font-size:23px;
+    font-weight:800;
+
+    background:
+    linear-gradient(
+        90deg,
+        #4267ff,
+        #e832b0
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+
+/* =====================================
+   PROJECT LINK CARDS
+===================================== */
+
+.project-link-card{
+    height:100%;
+
+    padding:28px 18px 22px;
+
+    border-radius:17px;
+
+    background:#fff;
+
+    border:1px solid #e2e4eb;
+
+    text-align:center;
+
+    transition:.35s ease;
+}
+
+
+.project-link-card:hover{
+    transform:translateY(-8px);
+
+    box-shadow:
+    0 18px 35px rgba(60,60,100,.14);
+}
+
+
+.project-icon{
+    width:58px;
+    height:58px;
+
+    margin:0 auto 14px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:27px;
+
+    background:#fff;
+
+    box-shadow:
+    0 6px 18px rgba(50,50,80,.13);
+}
+
+
+.project-link-card h5{
+    font-weight:800;
+    color:#20263c;
+}
+
+
+.project-link-card p{
+    min-height:48px;
+
+    font-size:13px;
+
+    line-height:1.6;
+
+    color:#707488;
+}
+
+
+/* =====================================
+   PROJECT BUTTONS
+===================================== */
+
+.project-btn{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:9px 17px;
+
+    border-radius:25px;
+
+    color:white !important;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    transition:.3s ease;
+}
+
+
+.project-btn:hover{
+    transform:scale(1.05);
     color:white !important;
 }
 
 
-body.dark-mode .developer-card .text-muted{
-    color:#cfcfcf !important;
+/* GitHub */
+
+.github-card{
+    border-bottom:3px solid #18213b;
 }
 
+
+.github-btn{
+    background:#18213b;
+}
+
+
+/* Live Demo */
+
+.live-card{
+    border-bottom:3px solid #2673ed;
+}
+
+
+.live-btn{
+    background:linear-gradient(
+        90deg,
+        #2673ed,
+        #2766d8
+    );
+}
+
+
+/* Documentation */
+
+.docs-card{
+    border-bottom:3px solid #19b86b;
+}
+
+
+.docs-btn{
+    background:linear-gradient(
+        90deg,
+        #19b86b,
+        #13a95e
+    );
+}
+
+
+/* Developer Profile */
+
+.profile-card{
+    border-bottom:3px solid #ec318b;
+}
+
+
+.profile-btn{
+    background:linear-gradient(
+        90deg,
+        #ec318b,
+        #db2379
+    );
+}
+
+
+/* =====================================
+   CONTACT BUTTON
+===================================== */
+
+.contact-area{
+    text-align:center;
+    margin-top:30px;
+}
+
+
+.contact-btn{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:12px 30px;
+
+    border-radius:30px;
+
+    color:white !important;
+
+    text-decoration:none;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    background:
+    linear-gradient(
+        90deg,
+        #4776ff,
+        #6d28ed,
+        #e532b2
+    );
+
+    box-shadow:
+    0 12px 28px rgba(90,60,220,.28);
+
+    transition:.3s ease;
+}
+
+
+.contact-btn:hover{
+    transform:translateY(-3px) scale(1.03);
+
+    color:white !important;
+
+    box-shadow:
+    0 16px 35px rgba(90,60,220,.35);
+}
+
+
+.contact-text{
+    margin-top:10px;
+
+    font-size:13px;
+
+    color:#74778b;
+}
+
+
+/* =====================================
+   DARK MODE
+===================================== */
+
+body.dark-mode .developer-card{
+    background:#1b1b1f;
+    color:white;
+}
+
+
+body.dark-mode .developer-title{
+    color:white;
+}
+
+
+body.dark-mode .developer-name{
+    color:white;
+}
+
+
+body.dark-mode .developer-college{
+    color:#c7c7cf;
+}
+
+
+body.dark-mode .developer-divider{
+    background:#3a3a42;
+}
+
+
+/* Skills */
 
 body.dark-mode .skill-box{
-    background:#14072e;
-    color:rgb(12, 12, 12);
-    border-color:#d9d2d2;
+    background:#24242b;
+    color:white;
+    border-color:#3c3c45;
 }
 
 
-/* Light Mode */
+body.dark-mode .skill-box h6{
+    color:white !important;
+}
+
+
+body.dark-mode .skill-box:hover{
+    background:#302450;
+}
+
+
+/* Project cards */
+
+body.dark-mode .project-link-card{
+    background:#24242b;
+    border-color:#3c3c45;
+}
+
+
+body.dark-mode .project-link-card h5{
+    color:white;
+}
+
+
+body.dark-mode .project-link-card p{
+    color:#c4c4cc;
+}
+
+
+body.dark-mode .project-icon{
+    background:#303038;
+}
+
+
+/* Contact text */
+
+body.dark-mode .contact-text{
+    color:#c4c4cc;
+}
+
+
+/* =====================================
+   LIGHT MODE
+===================================== */
 
 body.light-mode .developer-card{
     background:white;
@@ -541,86 +1334,372 @@ body.light-mode .developer-card{
 body.light-mode .skill-box{
     background:white;
 }
-    </style>
 
-    <div class="card developer-card mb-4">
 
-        <div class="card-body text-center p-5">
+body.light-mode .project-link-card{
+    background:white;
+}
 
-            <img
-                src="{{ url_for('static', filename='uploads/monu.png') }}"
-                class="profile-img">
 
-            <h2 class="mt-4 fw-bold">
-                👩‍💻 Developed By
-            </h2>
-            <h3 class="developer-name fw-bold">
-                Mohini Vijay Ghuge
-            </h3>
+/* =====================================
+   RESPONSIVE
+===================================== */
 
-            <p class="text-muted mb-3">
-                Student of Government Polytechnic Hingoli
-            </p>
+@media(max-width:900px){
 
-            <span class="badge bg-primary fs-6 px-4 py-2">
-                Computer Engineering
-            </span>
+    .project-title-line{
+        width:60px;
+    }
 
-            <hr class="my-4">
+}
 
-            <div class="row g-3">
 
-                <div class="col-md-3 col-6">
-                    <div class="skill-box">
+@media(max-width:600px){
+
+    .developer-name{
+        font-size:24px;
+    }
+
+    .developer-title{
+        font-size:21px;
+    }
+
+    .project-title-line{
+        width:35px;
+    }
+
+    .project-title h3{
+        font-size:20px;
+    }
+
+}
+
+</style>
+
+
+<!-- =========================
+     DEVELOPER CARD
+========================= -->
+
+<div class="card developer-card mb-4">
+
+    <div class="card-body text-center p-4 p-md-5">
+
+
+        <!-- Profile Image -->
+
+        <img
+            src="{{ url_for('static', filename='uploads/monu.png') }}"
+            class="profile-img"
+            alt="Mohini Vijay Ghuge">
+
+
+        <!-- Developer Name -->
+
+        <h2 class="developer-title mt-4 mb-2">
+            💻 <span>Developed By</span> ✨
+        </h2>
+
+
+        <h3 class="developer-name fw-bold mb-1">
+            Mohini Vijay Ghuge
+        </h3>
+
+
+        <p class="developer-college mb-3">
+            Student of Government Polytechnic Hingoli
+        </p>
+
+
+        <span class="course-badge">
+            Computer Engineering
+        </span>
+
+
+        <!-- Divider -->
+
+        <div class="developer-divider"></div>
+
+
+        <!-- =========================
+             TECHNOLOGIES
+        ========================= -->
+
+        <div class="row g-3">
+
+
+            <!-- Python -->
+
+            <div class="col-md-3 col-6">
+
+                <div class="skill-box">
+
+                    <div class="skill-icon">
                         🐍
-                        <h6 class="mt-2 mb-0">Python</h6>
                     </div>
-                </div>
 
-                <div class="col-md-3 col-6">
-                    <div class="skill-box">
-                        ⚡
-                        <h6 class="mt-2 mb-0">Flask</h6>
-                    </div>
-                </div>
+                    <h6 class="mt-2 mb-0">
+                        Python
+                    </h6>
 
-                <div class="col-md-3 col-6">
-                    <div class="skill-box">
-                        🎨
-                        <h6 class="mt-2 mb-0">Bootstrap</h6>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-6">
-                    <div class="skill-box">
-                        💻
-                        <h6 class="mt-2 mb-0">Jinja2</h6>
-                    </div>
                 </div>
 
             </div>
 
+
+            <!-- Flask -->
+
+            <div class="col-md-3 col-6">
+
+                <div class="skill-box">
+
+                    <div class="skill-icon">
+                        ⚡
+                    </div>
+
+                    <h6 class="mt-2 mb-0">
+                        Flask
+                    </h6>
+
+                </div>
+
+            </div>
+
+
+            <!-- Bootstrap -->
+
+            <div class="col-md-3 col-6">
+
+                <div class="skill-box">
+
+                    <div class="skill-icon">
+                        🎨
+                    </div>
+
+                    <h6 class="mt-2 mb-0">
+                        Bootstrap
+                    </h6>
+
+                </div>
+
+            </div>
+
+
+            <!-- Jinja2 -->
+
+            <div class="col-md-3 col-6">
+
+                <div class="skill-box">
+
+                    <div class="skill-icon">
+                        💻
+                    </div>
+
+                    <h6 class="mt-2 mb-0">
+                        Jinja2
+                    </h6>
+
+                </div>
+
+            </div>
+
+
         </div>
 
+
+        <!-- =========================
+             PROJECT LINKS
+        ========================= -->
+
+        <div class="project-title">
+
+            <div class="project-title-line"></div>
+
+            <h3>
+                🌐 Project Links
+            </h3>
+
+            <div class="project-title-line"></div>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <!-- =====================
+                 GITHUB
+            ====================== -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="project-link-card github-card">
+
+                    <div class="project-icon">
+                        <i class="bi bi-github"></i>
+                    </div>
+
+                    <h5>
+                        GitHub Repository
+                    </h5>
+
+                    <p>
+                        Explore the source code
+                        and project files.
+                    </p>
+
+                    <a
+                        href="https://github.com/mohinighuge49-design/python-training.git"
+                        target="_blank"
+                        class="project-btn github-btn">
+
+                        View on GitHub
+                        <span>→</span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================
+                 LIVE DEMO
+            ====================== -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="project-link-card live-card">
+
+                    <div class="project-icon">
+                        🌐
+                    </div>
+
+                    <h5>
+                        Live Demo
+                    </h5>
+
+                    <p>
+                        Check out the live
+                        College Smart Portal.
+                    </p>
+
+                    <a
+                        href="https://mohini.pythonanywhere.com/"
+                        target="_blank"
+                        class="project-btn live-btn">
+
+                        Visit Live Site
+                        <span>→</span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================
+                 DOCUMENTATION
+            ====================== -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="project-link-card docs-card">
+
+                    <div class="project-icon">
+                        📖
+                    </div>
+
+                    <h5>
+                        Documentation
+                    </h5>
+
+                    <p>
+                        Read project details,
+                        features and user guide.
+                    </p>
+
+                 <a
+                    href="/documentation"
+                    class="project-btn docs-btn">
+
+                    View Docs
+                    <span>→</span>
+
+                </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================
+                 DEVELOPER PROFILE
+            ====================== -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="project-link-card profile-card">
+
+                    <div class="project-icon">
+                        👤
+                    </div>
+
+                    <h5>
+                        Developer Profile
+                    </h5>
+
+                    <p>
+                        Explore my GitHub profile
+                        and other projects.
+                    </p>
+
+                    <a
+                        href="https://github.com/mohinighuge49-design"
+                        target="_blank"
+                        class="project-btn profile-btn">
+
+                        View Profile
+                        <span>→</span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =========================
+             CONTACT
+        ========================= -->
+
+        <div class="contact-area">
+
+            <a
+                href="/contact_us"
+                class="contact-btn">
+
+                <i class="bi bi-envelope-fill"></i>
+
+                Contact Me
+
+                <span>→</span>
+
+            </a>
+
+
+            <p class="contact-text">
+                I'd love to connect with you! 💖
+            </p>
+
+        </div>
+
+
     </div>
-
-    <!-- Contact -->
-
-  <div class="text-center my-5">
-
-        <a href="/contact_us"
-        class="btn btn-lg px-5 py-3 rounded-pill shadow-lg text-white"
-        style="
-        background:linear-gradient(135deg,#0d6efd,#6610f2);
-        font-weight:600;
-        letter-spacing:.5px;">
-
-        <i class="bi bi-envelope-fill"></i>
-        Contact Us
-
-        </a>
-
-     </div>
 
 </div>
 

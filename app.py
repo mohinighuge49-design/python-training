@@ -3,6 +3,7 @@ import smtplib
 from email.message import EmailMessage
 from re import search
 from turtle import title
+import uuid
 from click import prompt
 from dotenv import load_dotenv
 from flask import Flask, jsonify, render_template, request, flash, url_for, redirect, session, abort
@@ -37,11 +38,39 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-notices_list = [ { "title": "🚀python training related Notices", 
-                  "message": "Python Internship Program started.",
-                  "note": "Training focuses on Python fundamentals.", 
-                  "msg": "Students should attend regularly." } ]
+notices_list = [
 
+    {
+        "title": "Semester Examination Schedule",
+        "message": "The semester examination timetable has been announced.",
+        "note": "Students are requested to check the examination schedule carefully.",
+        "msg": "Contact your department for any queries.",
+        "priority": "Urgent",
+        "pinned": True,
+        "expiry": "20 Aug 2026"
+    },
+
+    {
+        "title": "Python Workshop",
+        "message": "A Python programming workshop will be conducted for students.",
+        "note": "All interested students are encouraged to participate.",
+        "msg": "Venue: Computer Department Lab.",
+        "priority": "Important",
+        "pinned": False,
+        "expiry": "25 Aug 2026"
+    },
+
+    {
+        "title": "College Holiday",
+        "message": "The college will remain closed on the upcoming holiday.",
+        "note": "Regular classes will resume from the next working day.",
+        "msg": "",
+        "priority": "General",
+        "pinned": False,
+        "expiry": "18 Aug 2026"
+    }
+
+]
 @app.route('/')
 def home():
 
@@ -115,28 +144,34 @@ def home():
 def college_info():
     return render_template('college_info.html')
 
-@app.route('/notices', methods=['GET', 'POST'])
+@app.route('/documentation')
+def documentation():
+    return render_template('documentation.html')
+
+@app.route('/notices')
 def notices():
 
-    if request.method == 'POST':
+    priority_order = {
+        "Urgent": 1,
+        "Important": 2,
+        "General": 3
+    }
 
-        new_notice = {
-            "title": request.form['title'],
-            "message": request.form['message'],
-            "note": request.form['note'],
-            "msg": request.form['msg']
-        }
-
-        notices_list.append(new_notice)
-
-        flash("✅ Notice Added Successfully", "success")
-
+    sorted_notices = sorted(
+        notices_list,
+        key=lambda notice: (
+            not notice.get("pinned", False),
+            priority_order.get(
+                notice.get("priority", "General"),
+                3
+            )
+        )
+    )
 
     return render_template(
         'notices.html',
-        notices=notices_list
+        notices=sorted_notices
     )
-
 @app.route('/delete_notice/<int:id>')
 def delete_notice(id):
 
@@ -439,38 +474,90 @@ def report_card(student_id):
 
 @app.route('/filter')
 def filter_students():
-   
+
     subject = request.args.get('subject', '')
     grade = request.args.get('grade', '')
 
+    # Pagination
+    page = request.args.get('page', 1, type=int)
+    per_page = 5
+    offset = (page - 1) * per_page
+
     conn = get_db(MOHINI_DB)
-    
-    subjects = conn.execute('''SELECT DISTINCT Subject FROM stud
-                            WHERE subject IS NOT NULL
-                            AND subject != ""
-                            ORDER BY subject ASC''').fetchall()    
-    
+
+    # Subjects
+    subjects = conn.execute('''
+        SELECT DISTINCT Subject
+        FROM stud
+        WHERE Subject IS NOT NULL
+        AND Subject != ""
+        ORDER BY Subject ASC
+    ''').fetchall()
+
+    # Main query
     query = 'SELECT * FROM stud WHERE 1=1'
+    count_query = 'SELECT COUNT(*) FROM stud WHERE 1=1'
+
     params = []
+    count_params = []
+
+    # Subject filter
     if subject:
-      query += ' AND Subject = ?'
-      params.append(subject) 
-    if grade =='excellent':
+        query += ' AND Subject = ?'
+        count_query += ' AND Subject = ?'
+
+        params.append(subject)
+        count_params.append(subject)
+
+    # Grade filter
+    if grade == 'excellent':
         query += ' AND marks >= 90'
+        count_query += ' AND marks >= 90'
+
     elif grade == 'good':
         query += ' AND marks >= 75 AND marks < 90'
+        count_query += ' AND marks >= 75 AND marks < 90'
+
     elif grade == 'average':
         query += ' AND marks >= 60 AND marks < 75'
+        count_query += ' AND marks >= 60 AND marks < 75'
+
     elif grade == 'poor':
         query += ' AND marks < 45'
-        
-    query += ' ORDER BY id DESC'
-    students = conn.execute(query, params).fetchall()
+        count_query += ' AND marks < 45'
+
+    # Total students
+    total = conn.execute(
+        count_query,
+        count_params
+    ).fetchone()[0]
+
+    # Pagination
+    query += ' ORDER BY id DESC LIMIT ? OFFSET ?'
+
+    params.extend([per_page, offset])
+
+    students = conn.execute(
+        query,
+        params
+    ).fetchall()
+
     conn.close()
-    return render_template('filter.html', students=students, subjects=subjects, selected_subject=subject, selected_grade=grade)
 
+    # Total pages
+    total_pages = (total + per_page - 1) // per_page
 
-#========filter===========
+    return render_template(
+        'filter.html',
+        students=students,
+        subjects=subjects,
+        selected_subject=subject,
+        selected_grade=grade,
+        page=page,
+        total_pages=total_pages
+    )
+
+#========students===========
 @app.route('/students')
 def students():
 
@@ -700,7 +787,6 @@ def feedback():
         message = request.form.get('message')
         suggestion = request.form.get('suggestion')
 
-        # Logout झाल्यानंतर URL मधून username घ्या
         username = request.args.get('user') or request.form.get('name') or "Anonymous"
 
         # Save feedback in database
@@ -786,14 +872,6 @@ def admin_feedback():
         return redirect(url_for('home'))
 
     conn = get_db(MOHINI_DB)
-
-    print("DATABASE:", MOHINI_DB)
-
-    print("ADMIN FEEDBACK COLUMNS:")
-    columns = conn.execute("PRAGMA table_info(feedback)").fetchall()
-
-    for column in columns:
-        print(dict(column))
 
     feedbacks = conn.execute("""
         SELECT id, name, rating, message, suggestion, created_at
@@ -937,199 +1015,522 @@ def assistant():
 
     chats = db.execute(
         """
-        SELECT id, chat_title, created_at
+        SELECT conversation_id,
+               chat_title,
+               MAX(created_at) AS created_at
         FROM chat_history
+        WHERE user_id = ?
+        GROUP BY conversation_id
         ORDER BY created_at DESC
-        """
+        """,
+        (session.get("user_id", 0),)
     ).fetchall()
 
+    # Current page साठी नवीन conversation
+    conversation_id = str(uuid.uuid4())
+    session["conversation_id"] = conversation_id
+
+    db.close()
 
     return render_template(
         "assistant.html",
         chats=chats
     )
-
     #============================chatboat route==============================
 @app.route('/chatbot', methods=['POST'])
 def chatbot():
+
     print("=== CHATBOT ROUTE CALLED ===")
-    message = request.form.get('message', '').lower().strip()
+
+    message = request.form.get('message', '').strip()
+
+    if not message:
+        return jsonify({
+            "reply": "⚠️ Please enter a message."
+        })
+
+    message_lower = message.lower()
 
     conn = get_db(MOHINI_DB)
 
-    # ---------------- SMART KEYWORD MATCH ---------------- #
-
-    
-    responses = {
-
-        # ================= GREETINGS =================
-        "hello": "👋 Hello Student! How can I help you?",
-        "hi": "👋 Hi! Ask me about college, students, marks, subjects.",
-        "good morning": "🌅 Good Morning! Ready to learn?",
-        "good night": "🌙 Good Night! Take rest 😊",
-        "ok": "👍 Okay! What else do you want to know?",
-        "bye": "👋 Goodbye! See you soon.",
-        "thanks": "🙏 You're welcome! Happy to help.",
-        "thank you": "🙏 You're welcome! Happy to help.",
-        "ohk": "👍 Okay! What else do you want to know?",
-        "done": "✅ Great! Anything else you want to ask?",
-        "welcome": "🙏 You're welcome! Happy to help.",
-        "good": "👍 Great! Keep up the good work.",
-
-        # ================= COLLEGE INFO =================
-        "college": "🏫 Government Polytechnic Hingoli is a technical institute.",
-        "about college": "🏫 It provides diploma courses in engineering fields.",
-        "database": "🗄️ Database is connected to student management system.",
-
-        # ================= HELP =================
-        "help": "🤖 Try: students, topper, average, subjects, recent, marks",
-        "give me some study tips": "📚 Ask for AI study tips on student detail page.",
-        "how to manage timing":  "⏰ Create a study schedule, prioritize tasks, and take breaks.",
-        "how to improve concentration": "🧘‍♂️ Practice mindfulness, eliminate distractions",
-
-        # ================= STUDENTS =================
-        "students": lambda: f"👨‍🎓 Total Students: {conn.execute('SELECT COUNT(*) as c FROM stud').fetchone()['c']}",
-        "total students": lambda: f"👨‍🎓 Total Students: {conn.execute('SELECT COUNT(*) as c FROM stud').fetchone()['c']}",
-        "count students": lambda: f"👨‍🎓 Total Students: {conn.execute('SELECT COUNT(*) as c FROM stud').fetchone()['c']}",
-
-        "show students": lambda: (
-            "👨‍🎓 Students List:\n" +
-            "\n".join([i["name"] for i in conn.execute("SELECT name FROM stud").fetchall()])
-        ),
-
-        # ================= TOPPER =================
-        "topper": lambda: (
-            lambda r: f"🏆 Topper: {r['name']} with {r['marks']} marks"
-        )(conn.execute("SELECT name, marks FROM stud ORDER BY marks DESC LIMIT 1").fetchone()),
-
-        "highest marks": lambda: f"🏆 Highest Marks: {conn.execute('SELECT MAX(marks) as m FROM stud').fetchone()['m']}",
-
-        "lowest marks": lambda: f"📉 Lowest Marks: {conn.execute('SELECT MIN(marks) as m FROM stud').fetchone()['m']}",
-
-        # ================= AVERAGE =================
-        "average": lambda: (
-            lambda r: f"📊 Average Marks: {round(r['avg'],2)}"
-        )(conn.execute("SELECT AVG(marks) as avg FROM stud").fetchone()),
-
-        # ================= RECENT =================
-        "recent": lambda: (
-            "🕒 Recent Students: " +
-            ", ".join([i["name"] for i in conn.execute("SELECT name FROM stud ORDER BY id DESC LIMIT 5").fetchall()])
-        ),
-
-        # ================= SUBJECTS =================
-        "subjects": lambda: (
-            "📚 Subjects: " +
-            ", ".join([i["name"] for i in conn.execute("SELECT name FROM subjects").fetchall()])
-        ),
-
-        # ================= PASS / FAIL =================
-        "pass students": lambda: f"✅ Passed Students: {conn.execute('SELECT COUNT(*) as c FROM stud WHERE marks >= 40').fetchone()['c']}",
-        "fail students": lambda: f"❌ Failed Students: {conn.execute('SELECT COUNT(*) as c FROM stud WHERE marks < 40').fetchone()['c']}",
-
-        # ================= EXTRA SMART =================
-        "marks": "📊 Try: topper, average marks, highest marks, lowest marks",
-
-        "student list": lambda: (
-            "👨‍🎓 All Students:\n" +
-            "\n".join([i["name"] for i in conn.execute("SELECT name FROM stud").fetchall()])
-        ),
-
-        "top 5": lambda: (
-            "🏅 Top 5 Students:\n" +
-            "\n".join(
-                [f"{i['name']} - {i['marks']}" for i in conn.execute(
-                    "SELECT name, marks FROM stud ORDER BY marks DESC LIMIT 5"
-                ).fetchall()]
-            )
-        ),
-
-        "attendance": "📅 Attendance system is coming soon in next update!",
-
-        "result": "📊 Ask: topper, average, pass students, fail students"
-    }
     reply = None
 
-    # ---------------- SMART SEARCH ---------------- #
-    for key in responses:
-        if key in message:
-            result = responses[key]
-            reply = result() if callable(result) else result
-            break
+    # ==========================================
+    # SMART KEYWORD RESPONSES
+    # ==========================================
 
-    # ---------------- DEFAULT AI RESPONSE ---------------- #
+    if "total students" in message_lower \
+            or "count students" in message_lower \
+            or message_lower == "students":
+
+        count = conn.execute(
+            "SELECT COUNT(*) AS c FROM stud"
+        ).fetchone()["c"]
+
+        reply = f"👨‍🎓 Total Students: {count}"
+
+
+    elif "topper" in message_lower \
+            or "highest marks" in message_lower:
+
+        topper = conn.execute(
+            """
+            SELECT name, marks
+            FROM stud
+            ORDER BY marks DESC
+            LIMIT 1
+            """
+        ).fetchone()
+
+        if topper:
+            reply = (
+                f"🏆 Topper: {topper['name']} "
+                f"with {topper['marks']} marks"
+            )
+        else:
+            reply = "⚠️ No student data available."
+
+
+    elif "lowest marks" in message_lower:
+
+        lowest = conn.execute(
+            "SELECT MIN(marks) AS m FROM stud"
+        ).fetchone()
+
+        reply = (
+            f"📉 Lowest Marks: {lowest['m']}"
+            if lowest and lowest["m"] is not None
+            else "⚠️ No marks data available."
+        )
+
+
+    elif "average" in message_lower:
+
+        average = conn.execute(
+            "SELECT AVG(marks) AS avg FROM stud"
+        ).fetchone()
+
+        if average and average["avg"] is not None:
+            reply = (
+                f"📊 Average Marks: "
+                f"{round(average['avg'], 2)}"
+            )
+        else:
+            reply = "⚠️ No marks data available."
+
+
+    elif "pass percentage" in message_lower \
+            or "pass %" in message_lower:
+
+        total = conn.execute(
+            "SELECT COUNT(*) AS c FROM stud"
+        ).fetchone()["c"]
+
+        passed = conn.execute(
+            """
+            SELECT COUNT(*) AS c
+            FROM stud
+            WHERE marks >= 35
+            """
+        ).fetchone()["c"]
+
+        if total > 0:
+            percentage = round(
+                (passed / total) * 100,
+                2
+            )
+        else:
+            percentage = 0
+
+        reply = (
+            f"✅ Pass Percentage: "
+            f"{percentage}%"
+        )
+
+
+    elif "pass students" in message_lower:
+
+        count = conn.execute(
+            """
+            SELECT COUNT(*) AS c
+            FROM stud
+            WHERE marks >= 35
+            """
+        ).fetchone()["c"]
+
+        reply = (
+            f"✅ Passed Students: {count}"
+        )
+
+
+    elif "fail students" in message_lower:
+
+        count = conn.execute(
+            """
+            SELECT COUNT(*) AS c
+            FROM stud
+            WHERE marks < 35
+            """
+        ).fetchone()["c"]
+
+        reply = (
+            f"❌ Failed Students: {count}"
+        )
+
+
+    elif "subjects" in message_lower \
+            or "best subject" in message_lower:
+
+        if "best subject" in message_lower:
+
+            subject = conn.execute(
+                """
+                SELECT Subject,
+                       ROUND(AVG(marks),2) AS avg_marks
+                FROM stud
+                GROUP BY Subject
+                ORDER BY avg_marks DESC
+                LIMIT 1
+                """
+            ).fetchone()
+
+            if subject:
+                reply = (
+                    f"📚 Best Subject: "
+                    f"{subject['Subject']} "
+                    f"(Average: {subject['avg_marks']})"
+                )
+            else:
+                reply = "⚠️ No subject data available."
+
+        else:
+
+            subjects = conn.execute(
+                """
+                SELECT DISTINCT Subject
+                FROM stud
+                WHERE Subject IS NOT NULL
+                AND Subject != ''
+                ORDER BY Subject
+                """
+            ).fetchall()
+
+            if subjects:
+
+                subject_names = [
+                    s["Subject"]
+                    for s in subjects
+                ]
+
+                reply = (
+                    "📚 Subjects:\n" +
+                    "\n".join(
+                        f"• {subject}"
+                        for subject in subject_names
+                    )
+                )
+
+            else:
+
+                reply = "⚠️ No subjects available."
+
+
+    elif "show students" in message_lower \
+            or "student list" in message_lower:
+
+        students = conn.execute(
+            """
+            SELECT name, marks
+            FROM stud
+            ORDER BY id DESC
+            """
+        ).fetchall()
+
+        if students:
+
+            reply = (
+                "👨‍🎓 Students List:\n\n" +
+                "\n".join(
+                    f"• {s['name']} - {s['marks']} marks"
+                    for s in students
+                )
+            )
+
+        else:
+
+            reply = "⚠️ No students available."
+
+
+    elif "top 5" in message_lower:
+
+        students = conn.execute(
+            """
+            SELECT name, marks
+            FROM stud
+            ORDER BY marks DESC
+            LIMIT 5
+            """
+        ).fetchall()
+
+        if students:
+
+            reply = (
+                "🏅 Top 5 Students:\n\n" +
+                "\n".join(
+                    f"{index + 1}. "
+                    f"{s['name']} - "
+                    f"{s['marks']} marks"
+                    for index, s in enumerate(students)
+                )
+            )
+
+        else:
+
+            reply = "⚠️ No student data available."
+
+
+    elif "recent" in message_lower:
+
+        students = conn.execute(
+            """
+            SELECT name
+            FROM stud
+            ORDER BY id DESC
+            LIMIT 5
+            """
+        ).fetchall()
+
+        if students:
+
+            reply = (
+                "🕒 Recent Students:\n" +
+                ", ".join(
+                    s["name"]
+                    for s in students
+                )
+            )
+
+        else:
+
+            reply = "⚠️ No recent students."
+
+
+    elif message_lower in ["hello", "hi", "hey"]:
+
+        reply = (
+            "👋 Hello Student! "
+            "How can I help you?"
+        )
+
+
+    elif "good morning" in message_lower:
+
+        reply = (
+            "🌅 Good Morning! "
+            "Ready to learn?"
+        )
+
+
+    elif "good night" in message_lower:
+
+        reply = (
+            "🌙 Good Night! "
+            "Take rest 😊"
+        )
+
+
+    elif "thanks" in message_lower \
+            or "thank you" in message_lower:
+
+        reply = (
+            "🙏 You're welcome! "
+            "Happy to help."
+        )
+
+
+    elif "college" in message_lower:
+
+        reply = (
+            "🏫 Government Polytechnic Hingoli "
+            "is a technical institute."
+        )
+
+
+    elif "help" in message_lower:
+
+        reply = (
+            "🤖 You can ask me:\n\n"
+            "• Total students\n"
+            "• Topper student\n"
+            "• Average marks\n"
+            "• Best subject\n"
+            "• Pass percentage\n"
+            "• Subjects\n"
+            "• Top 5 students"
+        )
+
+
+    # ==========================================
+    # GROQ AI RESPONSE
+    # ==========================================
+
     if not reply:
 
         try:
 
             completion = groq_client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
-                messages=[
-                    {
-                       "role": "system",
-                        "content": """
-                        You are Mohini's College Smart Portal AI Assistant.
 
-                        Rules:
-                        - If the user asks in Marathi, reply in simple Marathi + English mix.
-                        - If the user asks in English, reply in simple English.
-                        - Keep answers short, clear, and student-friendly.
-                        - Help diploma students with study, coding, college, and career questions.
-                        - Use bullet points when useful.
-                        """
+                model="llama-3.1-8b-instant",
+
+                messages=[
+
+                    {
+                        "role": "system",
+
+                        "content": """
+You are Mohini's College Smart Portal AI Assistant.
+
+Rules:
+
+- If the user asks in Marathi, reply in simple Marathi + English mix.
+- If the user asks in English, reply in simple English.
+- Keep answers short and student-friendly.
+- Help diploma students with study, coding, college and career questions.
+- Use bullet points when useful.
+"""
                     },
+
                     {
                         "role": "user",
                         "content": message
                     }
+
                 ]
+
             )
 
-            reply = completion.choices[0].message.content
+            reply = (
+                completion
+                .choices[0]
+                .message
+                .content
+            )
+
 
         except Exception as e:
 
-            print("GROQ ERROR:", e)
+            print(
+                "=============================="
+            )
 
-            reply = "⚠️ AI service is currently unavailable."
+            print(
+                "GROQ ERROR:",
+                e
+            )
 
-    # ================= SAVE CHAT HISTORY ================= #
+            print(
+                "=============================="
+            )
 
-    user_id = session.get("user_id", 0)
-
-    print("USER ID:", user_id)
-    print("MESSAGE:", message)
-    print("REPLY:", reply)
+            reply = (
+                "⚠️ AI service is currently unavailable."
+            )
 
 
-    # check first chat for title
+    # ==========================================
+    # SAVE CHAT HISTORY
+    # ==========================================
+
+    user_id = session.get(
+        "user_id",
+        0
+    )
+
+    conversation_id = session.get(
+        "conversation_id"
+    )
+
+    if not conversation_id:
+
+        conversation_id = str(
+            uuid.uuid4()
+        )
+
+        session["conversation_id"] = (
+            conversation_id
+        )
+
+
+    print(
+        "USER ID:",
+        user_id
+    )
+
+    print(
+        "CONVERSATION ID:",
+        conversation_id
+    )
+
+    print(
+        "MESSAGE:",
+        message
+    )
+
+    print(
+        "REPLY:",
+        reply
+    )
+
+
+    # ==========================================
+    # CHECK OLD CHAT
+    # ==========================================
+
     old_chat = conn.execute(
         """
-        SELECT id 
-        FROM chat_history 
-        WHERE user_id=?
+        SELECT id
+        FROM chat_history
+        WHERE conversation_id = ?
         LIMIT 1
         """,
-        (user_id,)
+        (conversation_id,)
     ).fetchone()
 
-    title = generate_chat_title(message)
-  
 
-    print("Saving chat...")
-    print("USER ID:", user_id)
-    print("MESSAGE:", message)
-    print("REPLY:", reply)
-    print("TITLE:", title)
+    # ==========================================
+    # CHAT TITLE
+    # ==========================================
+
+    if old_chat:
+
+        title = "College AI Chat"
+
+    else:
+
+        title = generate_chat_title(
+            message
+        )
+
+
+    # ==========================================
+    # INSERT CHAT
+    # ==========================================
 
     conn.execute(
         """
         INSERT INTO chat_history
-        (user_id, user_message, ai_reply, chat_title)
-        VALUES (?,?,?,?)
+        (
+            user_id,
+            conversation_id,
+            user_message,
+            ai_reply,
+            chat_title
+        )
+        VALUES (?, ?, ?, ?, ?)
         """,
         (
             user_id,
+            conversation_id,
             message,
             reply,
             title
@@ -1138,13 +1539,17 @@ def chatbot():
 
 
     conn.commit()
+
     conn.close()
 
+
+    # ==========================================
+    # RETURN RESPONSE
+    # ==========================================
 
     return jsonify({
         "reply": reply
     })
-
 @app.route("/chat-history")
 def get_chat_history():
 
@@ -1152,17 +1557,26 @@ def get_chat_history():
 
     history = db.execute(
         """
-        SELECT id, chat_title
+        SELECT conversation_id,
+               MAX(id) AS id,
+               MAX(chat_title) AS chat_title,
+               MAX(created_at) AS created_at
         FROM chat_history
-        ORDER BY id DESC
-        """
+        WHERE user_id = ?
+          AND conversation_id IS NOT NULL
+        GROUP BY conversation_id
+        ORDER BY created_at DESC
+        """,
+        (session.get("user_id", 0),)
     ).fetchall()
 
+    db.close()
 
     return jsonify([
         {
-            "id":h["id"],
-            "title":h["chat_title"]
+            "id": h["id"],
+            "conversation_id": h["conversation_id"],
+            "title": h["chat_title"] or "New Chat"
         }
         for h in history
     ])
@@ -1206,6 +1620,46 @@ def generate_chat_title(message):
 
     except Exception:
         return "New Chat"
+
+@app.route("/conversation/<conversation_id>")
+def conversation(conversation_id):
+
+    db = get_db(MOHINI_DB)
+
+    # Selected conversation मधले सर्व messages
+    messages = db.execute(
+        """
+        SELECT user_message, ai_reply
+        FROM chat_history
+        WHERE conversation_id = ?
+        ORDER BY id ASC
+        """,
+        (conversation_id,)
+    ).fetchall()
+
+    # Sidebar साठी previous conversations
+    chats = db.execute(
+        """
+        SELECT conversation_id,
+               chat_title,
+               MAX(created_at) AS created_at
+        FROM chat_history
+        WHERE user_id = ?
+          AND conversation_id IS NOT NULL
+        GROUP BY conversation_id
+        ORDER BY created_at DESC
+        """,
+        (session.get("user_id", 0),)
+    ).fetchall()
+
+    db.close()
+
+    return render_template(
+        "assistant.html",
+        chats=chats,
+        messages=messages,
+        current_conversation=conversation_id
+    )
 #===============ID-Card=====================
 @app.route('/id_card/<int:student_id>')
 def id_card(student_id):

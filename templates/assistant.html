@@ -4,66 +4,78 @@
 
 <style>
 
-.chat-card{
+/* ===============================
+   MAIN LAYOUT
+================================ */
 
+.assistant-layout{
+    display:flex;
+    gap:20px;
+    height:calc(100vh - 150px);
+    align-items:stretch;
+}
+
+.chat-area{
+    flex:1;
     height:100%;
+}
 
+
+/* ===============================
+   CHAT CARD
+================================ */
+
+.chat-card{
+    height:100%;
     border:none;
-
     border-radius:25px;
-
     overflow:hidden;
-
     background:white;
-
-    box-shadow:
-    0 20px 50px rgba(0,0,0,.15);
-
+    box-shadow:0 20px 50px rgba(0,0,0,.15);
 }
+
+
+/* ===============================
+   CHAT HEADER
+================================ */
+
 .chat-header{
-
-    background:
-    linear-gradient(135deg,#6d0d82,#a01d9e);
-
+    background:linear-gradient(135deg,#6d0d82,#a01d9e);
     color:white;
-
     text-align:center;
-
     padding:18px;
-
 }
-
 
 .chat-header h2{
-
     font-size:24px;
-
     margin-bottom:5px;
-
 }
-.chat-input-area{
 
-    position:sticky;
 
-    bottom:0;
-
-    background:white;
-
-    padding:12px;
-
-}
+/* ===============================
+   CHAT MESSAGES
+================================ */
 
 #chatMessages{
-
     height:calc(100vh - 360px);
-
     overflow-y:auto;
-
     padding:25px;
-
     background:#ffffff;
-
 }
+
+#chatMessages::-webkit-scrollbar{
+    width:8px;
+}
+
+#chatMessages::-webkit-scrollbar-thumb{
+    background:#3180a1;
+    border-radius:20px;
+}
+
+
+/* ===============================
+   USER MESSAGE
+================================ */
 
 .user-msg{
     display:flex;
@@ -80,21 +92,148 @@
     box-shadow:0 5px 15px rgba(25,135,84,.25);
 }
 
-.bot-msg{
-    display:flex;
-    align-items:flex-start;
-    gap:10px;
-    margin-bottom:15px;
+/* ===============================
+   BOT MESSAGE
+================================ */
+
+.bot-message{
+    margin:10px 0 14px;
 }
 
-.bot-msg span{
+.bot-title{
+    font-weight:600;
+    color:#2563eb;
+    margin-bottom:5px;
+    font-size:12px;
+}
+
+
+/* ===============================
+   COMPACT AI REPLY BOX
+================================ */
+
+.ai-reply-box{
+    background:#ffffff !important;
+    color:#222222 !important;
+    border:1px solid #e5e7eb;
+    border-radius:14px;
+    padding:12px 14px;
+    margin-top:5px;
+    max-width:70%;
+    box-shadow:0 5px 14px rgba(0,0,0,.07);
+}
+
+
+/* ===============================
+   AI TEXT
+================================ */
+
+.message-text{
+    white-space:pre-wrap;
+    line-height:1.35;
+    color:#222222 !important;
+    background:transparent !important;
+    font-size:13px;
+    font-weight:400;
+}
+
+
+/* ===============================
+   AI BOTTOM ACTIONS
+================================ */
+
+.ai-bottom-actions{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:8px;
+}
+
+
+/* LIKE / DISLIKE */
+
+.feedback-buttons{
+    display:flex;
+    gap:5px;
+    margin:0;
+}
+
+.feedback-btn{
+    border:none;
+    background:#f1f5f9;
+    width:27px;
+    height:27px;
+    border-radius:50%;
+    cursor:pointer;
+    transition:.2s;
+    font-size:12px;
+    padding:0;
+}
+
+.feedback-btn:hover{
+    transform:scale(1.08);
+    background:#e2e8f0;
+}
+
+.feedback-btn.selected{
+    background:#2563eb;
+    color:white;
+}
+
+
+/* COPY / REGENERATE */
+
+.reply-actions{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:5px;
+    margin:0;
+}
+
+.copy-btn{
+    border:none;
+    background:#d8e8ec;
+    width:27px;
+    height:27px;
+    border-radius:50%;
+    cursor:pointer;
+    transition:.3s;
+    font-size:12px;
+    padding:0;
+}
+
+.copy-btn:hover{
+    background:#2563eb;
+    color:#fff;
+    transform:scale(1.08);
+}
+
+.regenerate-btn{
+    border:none;
+    background:#eef2ff;
+    color:#4f46e5;
+    padding:5px 10px;
+    font-size:11px;
+    border-radius:15px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.regenerate-btn:hover{
+    background:#4f46e5;
+    color:white;
+    transform:translateY(-1px);
+}
+/* ===============================
+   INPUT AREA
+================================ */
+
+.chat-input-area{
+    position:sticky;
+    bottom:0;
     background:white;
-    color:#333;
-    padding:12px 18px;
-    border-radius:20px 20px 20px 5px;
-    border:1px solid #e9ecef;
-    max-width:75%;
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    padding:12px;
 }
 
 .chat-input{
@@ -105,91 +244,15 @@
 }
 
 .chat-input:focus{
-    box-shadow:0 0 0 0.2rem rgba(20, 93, 203, 0.25);
+    box-shadow:0 0 0 0.2rem rgba(20,93,203,.25);
     background:white;
 }
-/* CHATGPT STYLE SIDEBAR */
-
-.chat-sidebar{
-
-    width:260px;
-
-    background:#171717;
-
-    color:white;
-
-    padding:15px;
-
-    border-radius:15px;
-
-    height:100%;
-
-}
 
 
-.chat-sidebar h5{
+/* ===============================
+   BUTTONS
+================================ */
 
-    color:white;
-
-    margin-bottom:20px;
-
-}
-
-
-.chat-sidebar .btn-primary{
-
-    background:#2f2f2f;
-
-    border:none;
-
-    color:white;
-
-    text-align:left;
-
-}
-
-
-.chat-sidebar .btn-primary:hover{
-
-    background:#3f3f3f;
-
-}
-
-
-.chat-item{
-    display: block;
-    padding: 12px;
-    margin-bottom: 8px;
-    border-radius: 10px;
-    background: #f8f9fa;
-    color: #222;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    border: 1px solid #e5e7eb;
-    transition: .3s;
-}
-
-.chat-item:hover{
-    background: #e9f2ff;
-    color: #0d6efd;
-}
-.chat-sidebar .btn-danger{
-
-    background:#2f2f2f;
-
-    border:none;
-
-    color:#ff6b6b;
-
-}
-
-
-.chat-sidebar hr{
-
-    border-color:#444;
-
-}
 .voice-btn{
     width:55px;
     height:55px;
@@ -212,6 +275,11 @@
     transform:translateY(-2px) scale(1.05);
 }
 
+
+/* ===============================
+   TYPING
+================================ */
+
 .typing{
     font-style:italic;
     color:#666;
@@ -225,279 +293,46 @@
     }
 }
 
-#chatMessages::-webkit-scrollbar{
-    width:8px;
-}
 
-#chatMessages::-webkit-scrollbar-thumb{
-    background:#3180a1;
-    border-radius:20px;
-}
-.chat-sidebar{
-    height:560px;
-    overflow-y:auto;
-}
-
-
-.chat-item{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-.suggestion-chips{
-
-    display:flex;
-
-    gap:10px;
-
-    flex-wrap:wrap;
-
-    padding:12px 18px;
-
-}
-
-.chip{
-
-    border:none;
-
-    border-radius:25px;
-
-    background:#b9bdc1;
-
-    padding:8px 15px;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-}
-
-.chip:hover{
-
-    background:linear-gradient(135deg,#2563eb,#7c3aed);
-
-    color:white;
-
-    transform:translateY(-2px);
-
-}
-.bot-message{
-
-    background:transparent;
-
-    padding:15px;
-
-    margin:15px 0;
-
-}
-
-.bot-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:10px;
-}
-
-.bot-title{
-    font-weight:600;
-    color:#2563eb;
-}
-.ai-reply-box{
-
-    background:#ffffff;
-
-    border:1px solid #e5e7eb;
-
-    border-radius:18px;
-
-    padding:18px;
-
-    margin-top:10px;
-
-    max-width:75%;
-
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
-
-}
-
-
-.ai-reply-box .copy-btn{
-
-    display:block;
-
-    margin-left:auto;
-
-    margin-top:12px;
-
-    width:auto;
-
-    height:auto;
-
-    padding:6px 15px;
-
-    border-radius:20px;
-
-    background:#2563eb;
-
-    color:white;
-
-}
-
-
-.ai-reply-box .copy-btn:hover{
-
-    background:#1d4ed8;
-
-}
-.copy-btn{
-    border:none;
-    background:#bcd6de;
-    width:38px;
-    height:38px;
-    border-radius:50%;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.copy-btn:hover{
-    background:#2563eb;
-    color:#fff;
-    transform:scale(1.1);
-}
-
-.message-text{
-    white-space:pre-wrap;
-    line-height:1.4;
-}
-.assistant-layout{
-    display:flex;
-    gap:20px;
-    height:calc(100vh - 150px);
-    align-items:stretch;
-}
+/* ===============================
+   SIDEBAR
+================================ */
 
 .chat-sidebar{
-
     width:280px;
     background:#ffffff;
     padding:18px;
-
     border-radius:20px;
-
     box-shadow:0 10px 30px rgba(0,0,0,.12);
-
     height:100%;
-
     overflow-y:auto;
-
-}
-.chat-area{
-
-    flex:1;
-
-    height:100%;
-
-}
-
-.chat-item{
-    padding:12px;
-    border-radius:10px;
-    margin-bottom:10px;
-    cursor:pointer;
-    background:#f8f9fa;
-}
-
-
-.chat-item:hover{
-    background:#e9f2ff;
-}
-
-.new-chat-btn{
-
-display:block;
-
-padding:12px;
-
-border-radius:10px;
-
-background:#2f2f2f;
-
-color:white;
-
-text-decoration:none;
-
-margin-bottom:15px;
-
-}
-
-.clear-btn{
-
-display:block;
-
-padding:10px;
-
-color:#ff7777;
-
-text-decoration:none;
-
-border-radius:10px;
-
-}
-
-
-.clear-btn:hover{
-
-background:#2f2f2f;
-
-}
-.new-chat-btn:hover{
-
-background:#404040;
-
-color:white;
-
-}
-
-@media(max-width:768px){
-
-    .assistant-layout{
-        flex-direction:column;
-    }
-
-
-    .chat-sidebar{
-        width:100%;
-    }
-
-.chat-card{
-
-    height:650px;
-
-}
-
-#chatMessages{
-
-    height:400px;
-
-}
-}
-.chat-sidebar{
-
     display:flex;
     flex-direction:column;
-
 }
 
+.chat-sidebar h5{
+    color:#222;
+    margin-bottom:20px;
+}
+
+.chat-sidebar hr{
+    border-color:#ddd;
+}
 
 .chat-list{
-
     flex:1;
-
     overflow-y:auto;
-
 }
 
+
+/* ===============================
+   CHAT ITEMS
+================================ */
+
 .chat-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
     padding:12px;
     margin-bottom:8px;
     border-radius:10px;
@@ -507,213 +342,509 @@ color:white;
     font-size:14px;
     font-weight:500;
     cursor:pointer;
-    transition:0.3s;
+    transition:.3s;
+    text-decoration:none;
 }
 
 .chat-item:hover{
-    background:linear-gradient(135deg,#a25eb2,#5e28aa,#a01d9e);
+    background:linear-gradient(
+        135deg,
+        #a25eb2,
+        #5e28aa,
+        #a01d9e
+    );
     color:#fff;
+    text-decoration:none;
 }
 
-.chat-item:hover,
 .chat-item.active{
-
     background:#2f2f2f;
-
     color:white;
-
 }
 
 
+/* ===============================
+   NEW CHAT
+================================ */
+
+.new-chat-btn{
+    display:block;
+    padding:12px;
+    border-radius:10px;
+    background:#2f2f2f;
+    color:white;
+    text-decoration:none;
+    margin-bottom:15px;
+}
+
+.new-chat-btn:hover{
+    background:#404040;
+    color:white;
+}
+
+
+/* ===============================
+   CLEAR BUTTON
+================================ */
 
 .sidebar-bottom{
-
     margin-top:auto;
-
     padding-top:15px;
-
-    border-top:1px solid #444;
-
+    border-top:1px solid #ddd;
 }
-
 
 .clear-btn{
-
     display:block;
-
     text-align:center;
-
     padding:10px;
-
     border-radius:10px;
-
     background:#2f2f2f;
-
     color:#ff7777;
-
     text-decoration:none;
+}
 
+.clear-btn:hover{
+    background:#3a3a3a;
+    color:#ff7777;
 }
 
 
-.clear-btn:hover{
+/* ===============================
+   SUGGESTION CHIPS
+================================ */
 
-    background:#3a3a3a;
+.suggestion-chips{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    padding:12px 18px;
+}
 
+.chip{
+    border:none;
+    border-radius:25px;
+    background:#b9bdc1;
+    padding:8px 15px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.chip:hover{
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+    color:white;
+    transform:translateY(-2px);
+}
+
+
+/* ===============================
+   MOBILE
+================================ */
+
+@media(max-width:768px){
+
+    .assistant-layout{
+        flex-direction:column;
+        height:auto;
+    }
+
+    .chat-sidebar{
+        width:100%;
+        height:300px;
+    }
+
+    .chat-area{
+        height:auto;
+    }
+
+    .chat-card{
+        height:650px;
+    }
+
+    #chatMessages{
+        height:400px;
+    }
+
+}
+/* ===============================
+   FEEDBACK TOAST
+================================ */
+
+.feedback-toast{
+    position:fixed;
+    top:25px;
+    right:25px;
+    background:#198754;
+    color:white;
+    padding:10px 18px;
+    border-radius:10px;
+    font-size:13px;
+    font-weight:500;
+    box-shadow:0 8px 25px rgba(0,0,0,.2);
+    opacity:0;
+    transform:translateY(-15px);
+    pointer-events:none;
+    transition:.3s ease;
+    z-index:9999;
+}
+
+.feedback-toast.show{
+    opacity:1;
+    transform:translateY(0);
+}
+/* ===============================
+   AI REPLY - COMPACT & READABLE
+================================ */
+
+.bot-msg{
+    padding:12px 16px !important;
+    margin:8px 0 !important;
+    width:fit-content !important;
+    max-width:75% !important;
+    height:auto !important;
+    min-height:0 !important;
+    line-height:1.6 !important;
+    font-size:16px !important;
+}
+
+.bot-msg p{
+    margin:0 !important;
+    font-size:16px !important;
+    line-height:1.6 !important;
 }
 </style>
 
+<div id="feedbackToast" class="feedback-toast">
+    Thanks for your feedback 💖!
+</div>
 <div class="container py-5">
 
-<div class="assistant-layout">
+    <div class="assistant-layout">
 
 
-    <!-- LEFT SIDEBAR -->
-  <div class="chat-sidebar">
+        <!-- ===============================
+             LEFT SIDEBAR
+        ================================ -->
 
-    <h5>
-        🤖 Your Chats
-    </h5>
+        <div class="chat-sidebar">
 
-
-    <a href="/assistant"
-       id="newChatBtn"
-       class="new-chat-btn">
-        ✏️ New chat
-    </a>
+            <h5>
+                🤖 Your Chats
+            </h5>
 
 
-    <hr>
+            <a href="/assistant"
+               id="newChatBtn"
+               class="new-chat-btn">
+                ✏️ New chat
+            </a>
 
 
-    <div class="chat-list">
-
-        {% for chat in chats %}
-
-        <div class="chat-item">
-
-            {{ chat.chat_title }}
-
-        </div>
-
-        {% endfor %}
+            <hr>
 
 
-        <!-- Current Chat -->
-        <div class="chat-item active">
+            <div class="chat-list">
 
-            College AI Chat
+                {% for chat in chats %}
 
-        </div>
+                <a href="{{ url_for('conversation', conversation_id=chat['conversation_id']) }}"
+                   class="chat-item">
 
+                    💬 {{ chat['chat_title'] }}
 
-    </div>
+                </a>
 
-
-    <!-- Bottom Clear Button -->
-    <div class="sidebar-bottom">
-
-        <a href="/clear_chat"
-           id="clearHistoryBtn"
-           class="clear-btn">
-
-            🗑 Clear History
-
-        </a>
-
-    </div>
+                {% endfor %}
 
 
-</div>
-  <!-- RIGHT CHAT AREA -->
-<div class="chat-area">
+                <!-- Current Chat -->
 
-    <div class="card chat-card">
+                <div class="chat-item active">
 
-        <div class="chat-header">
-            <h2>🤖 College AI Assistant</h2>
-            <small>
-                Ask about students, marks, subjects and college information
-            </small>
-            <h2 class="mt-2">
-                <span class="badge bg-success">Online</span>
-                </h2>
-        </div>
-
-        <div class="card-body">
-
-            <div class="suggestion-chips">
-
-    <button class="chip"
-            onclick="setQuestion('Show topper student')">
-        🏆 Topper
-    </button>
-
-    <button class="chip"
-            onclick="setQuestion('Total students')">
-        👨‍🎓 Students
-    </button>
-
-    <button class="chip"
-            onclick="setQuestion('Best subject')">
-        📚 Best Subject
-    </button>
-
-    <button class="chip"
-            onclick="setQuestion('Average marks')">
-        📈 Average
-    </button>
-
-    <button class="chip"
-            onclick="setQuestion('Pass percentage')">
-        ✅ Pass %
-    </button>
-
-</div>
-
-<div class="conversation" id="chatMessages">
-
-                <div class="bot-msg">
-
-                    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png"
-                         width="40">
-
-                    <span>
-                        👋 Hello Student! I am your College AI Assistant.
-                    </span>
+                    💬 College AI Chat
 
                 </div>
 
             </div>
 
-      <div class="d-flex align-items-center mt-3 chat-input-area">
 
-                <input
-                    type="text"
-                    id="userInput"
-                    class="form-control chat-input "
-                    placeholder="💬 Ask anything..."
-                    onkeypress="if(event.key==='Enter') sendMessage()"
-                >
-                
+            <!-- Sidebar Bottom -->
 
-                <button
-                    class="btn voice-btn"
-                    onclick="startVoice()">
-                    🎤
-                </button>
+            <div class="sidebar-bottom">
 
-                <button
-                    class="btn text-white send-btn"
-                    onclick="sendMessage()">
-                    🚀 Send
-                </button>
-  
-                <button
-                    class="btn btn-warning ms-2"
-                    onclick="speakLastReply()">
-                    🔊 Listen
-                </button>
+                <a href="/clear_chat"
+                   id="clearHistoryBtn"
+                   class="clear-btn">
+
+                    🗑 Clear History
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ===============================
+             RIGHT CHAT AREA
+        ================================ -->
+
+        <div class="chat-area">
+
+            <div class="card chat-card">
+
+
+                <!-- HEADER -->
+
+                <div class="chat-header">
+
+                    <h2>
+                        🤖 College AI Assistant
+                    </h2>
+
+                    <small>
+                        Ask about students, marks, subjects and college information
+                    </small>
+
+                    <h2 class="mt-2">
+
+                        <span class="badge bg-success">
+                            Online
+                        </span>
+
+                    </h2>
+
+                </div>
+
+
+
+                <div class="card-body">
+
+
+                    <!-- ===============================
+                         SUGGESTIONS
+                    ================================ -->
+
+                    <div class="suggestion-chips">
+
+                        <button
+                            class="chip"
+                            onclick="setQuestion('Show topper student')">
+
+                            🏆 Topper
+
+                        </button>
+
+
+                        <button
+                            class="chip"
+                            onclick="setQuestion('Total students')">
+
+                            👨‍🎓 Students
+
+                        </button>
+
+
+                        <button
+                            class="chip"
+                            onclick="setQuestion('Best subject')">
+
+                            📚 Best Subject
+
+                        </button>
+
+
+                        <button
+                            class="chip"
+                            onclick="setQuestion('Average marks')">
+
+                            📈 Average
+
+                        </button>
+
+
+                        <button
+                            class="chip"
+                            onclick="setQuestion('Pass percentage')">
+
+                            ✅ Pass %
+
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- ===============================
+                         CHAT MESSAGES
+                    ================================ -->
+
+                    <div
+                        class="conversation"
+                        id="chatMessages">
+
+
+                        {% if messages %}
+
+                            {% for msg in messages %}
+
+
+                                <!-- USER MESSAGE -->
+
+                                <div class="user-msg">
+
+                                    <span>
+                                        {{ msg['user_message'] }}
+                                    </span>
+
+                                </div>
+
+
+
+                                <!-- AI MESSAGE -->
+
+                                <div class="bot-message">
+
+                                    <div class="bot-title">
+                                        🤖 College AI
+                                    </div>
+
+
+                                    <div class="ai-reply-box">
+
+                                        <div class="message-text">
+                                            {{ msg['ai_reply'] }}
+                                        </div>
+
+
+                                       <div class="ai-bottom-actions">
+
+                                <!-- LIKE / DISLIKE -->
+
+                                <div class="feedback-buttons">
+
+                                    <button
+                                        class="feedback-btn"
+                                        onclick="giveFeedback(this,'like')">
+
+                                        👍
+
+                                    </button>
+
+                                    <button
+                                        class="feedback-btn"
+                                        onclick="giveFeedback(this,'dislike')">
+
+                                        👎
+
+                                    </button>
+
+                                </div>
+
+
+                                <!-- COPY / REGENERATE -->
+
+                                <div class="reply-actions">
+
+                                    <button
+                                        class="copy-btn"
+                                        onclick="copyMessage(this)">
+
+                                        📋
+
+                                    </button>
+
+                                    <button
+                                        class="regenerate-btn"
+                                        onclick="regenerateMessage(this)">
+
+                                        🔄 Regenerate
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+                                    </div>
+
+                                </div>
+
+
+                            {% endfor %}
+
+
+                        {% else %}
+
+
+                            <!-- DEFAULT MESSAGE -->
+
+                            <div class="bot-msg">
+
+                                <span>
+                                    👋 Hello Student! I am your College AI Assistant.
+                                </span>
+
+                            </div>
+
+
+                        {% endif %}
+
+
+                    </div>
+
+
+
+                    <!-- ===============================
+                         INPUT
+                    ================================ -->
+
+                    <div class="d-flex align-items-center mt-3 chat-input-area">
+
+
+                        <input
+                            type="text"
+                            id="userInput"
+                            class="form-control chat-input"
+                            placeholder="💬 Ask anything..."
+                            onkeypress="if(event.key==='Enter') sendMessage()"
+                        >
+
+
+                        <button
+                            class="btn voice-btn"
+                            onclick="startVoice()">
+
+                            🎤
+
+                        </button>
+
+
+                        <button
+                            class="btn text-white send-btn"
+                            onclick="sendMessage()">
+
+                            🚀 Send
+
+                        </button>
+
+
+                        <button
+                            class="btn btn-warning ms-2"
+                            onclick="speakLastReply()">
+
+                            🔊 Listen
+
+                        </button>
+
+
+                    </div>
+
+
+                </div>
 
             </div>
 
@@ -722,209 +853,532 @@ color:white;
     </div>
 
 </div>
-</div>
-</div>
+
+
 
 <script>
 
+/* ===============================
+   GLOBAL VARIABLES
+================================ */
+
 let lastReply = "";
+
+let chatMessages =
+    document.getElementById("chatMessages");
+
+
+/* ===============================
+   SEND MESSAGE
+================================ */
 
 function sendMessage(){
 
-    let input = document.getElementById("userInput");
-    let msg = input.value.trim();
+    let input =
+        document.getElementById("userInput");
 
-    if(msg==="") return;
-
-
-    let chat = document.getElementById("chatMessages");
+    let msg =
+        input.value.trim();
 
 
-    // user message
+    if(msg === ""){
+        return;
+    }
+
+
+    let chat =
+        document.getElementById("chatMessages");
+
+
+    /* USER MESSAGE */
+
     chat.innerHTML += `
-    <div class="user-msg">
-        <span>${msg}</span>
-    </div>
+
+        <div class="user-msg">
+
+            <span>
+                ${escapeHtml(msg)}
+            </span>
+
+        </div>
+
     `;
 
 
-    // typing
+    /* TYPING */
+
     chat.innerHTML += `
-    <div id="typing" class="typing">
-        🤖 AI is typing...
-    </div>
+
+        <div id="typing" class="typing">
+
+            🤖 AI is thinking •••
+
+        </div>
+
     `;
 
 
-    chat.scrollTop = chat.scrollHeight;
-    loadHistory();
+    chat.scrollTop =
+        chat.scrollHeight;
 
+
+    /* SAVE USER MESSAGE */
+
+    saveHistory();
+
+
+    /* API CALL */
 
     fetch("/chatbot",{
+
         method:"POST",
+
         headers:{
             "Content-Type":
             "application/x-www-form-urlencoded"
         },
-        body:"message="+encodeURIComponent(msg)
+
+        body:
+        "message=" +
+        encodeURIComponent(msg)
+
     })
 
 
-    .then(res=>res.json())
+    .then(res => res.json())
 
 
-    .then(data=>{
-
+    .then(data => {
 
         let typing =
-        document.getElementById("typing");
+            document.getElementById("typing");
+
 
         if(typing){
             typing.remove();
         }
 
 
-        lastReply = data.reply;
+        lastReply =
+            data.reply;
 
 
-        // AI response + copy button
-    chat.innerHTML += `
+        /* AI RESPONSE */
 
-<div class="bot-message">
+        chat.innerHTML += `
 
-    <div class="bot-title">
-        🤖 College AI
-    </div>
+            <div class="bot-message">
 
+                <div class="bot-title">
 
-    <div class="ai-reply-box">
+                    🤖 College AI
 
-        <div class="message-text">
-            ${data.reply}
-        </div>
+                </div>
 
 
-        <button 
-        class="copy-btn"
-        onclick="copyMessage(this)">
-            📋 Copy
-        </button>
+                <div class="ai-reply-box">
 
-    </div>
+                    <div class="message-text">
+
+                        ${escapeHtml(data.reply)}
+
+                    </div>
 
 
-</div>
+                    <div class="ai-bottom-actions">
 
-`;
+                <!-- LIKE / DISLIKE -->
+
+                <div class="feedback-buttons">
+
+                    <button
+                        class="feedback-btn"
+                        onclick="giveFeedback(this,'like')">
+
+                        👍
+
+                    </button>
+
+                    <button
+                        class="feedback-btn"
+                        onclick="giveFeedback(this,'dislike')">
+
+                        👎
+
+                    </button>
+
+                </div>
+
+
+                <!-- COPY / REGENERATE -->
+
+    <div class="reply-actions">
+
+                        <button
+                            class="copy-btn"
+                            onclick="copyMessage(this)">
+
+                            📋
+
+                        </button>
+
+
+                        <button
+                            class="regenerate-btn"
+                            onclick="regenerateMessage(this)">
+
+                            🔄 Regenerate
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
 
 
         chat.scrollTop =
-        chat.scrollHeight;
+            chat.scrollHeight;
+
+
+        saveHistory();
 
     })
 
-    .catch(error=>{
-        console.log(error);
+
+    .catch(error => {
+
+        console.log(
+            "CHAT ERROR:",
+            error
+        );
+
+        let typing =
+            document.getElementById("typing");
+
+
+        if(typing){
+            typing.remove();
+        }
+
+
+        chat.innerHTML += `
+
+            <div class="bot-msg">
+
+                <span>
+                    ⚠️ AI service is currently unavailable.
+                </span>
+
+            </div>
+
+        `;
+
+        chat.scrollTop =
+            chat.scrollHeight;
+
     });
 
 
-    input.value="";
+    input.value = "";
 
 }
+
+
+/* ===============================
+   ESCAPE HTML
+================================ */
+
+function escapeHtml(text){
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        text;
+
+    return div.innerHTML;
+
+}
+
+
+/* ===============================
+   VOICE INPUT
+================================ */
 
 function startVoice(){
 
-    const recognition = new webkitSpeechRecognition();
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
 
-    recognition.lang = "en-US";
 
-    recognition.onresult = function(event){
+    if(!SpeechRecognition){
 
-        let text = event.results[0][0].transcript;
+        alert(
+            "Voice recognition is not supported in this browser."
+        );
 
-        document.getElementById("userInput").value = text;
+        return;
 
-        sendMessage();
-    };
+    }
 
-    recognition.onerror = function(event){
 
-        console.log("VOICE ERROR:", event.error);
+    const recognition =
+        new SpeechRecognition();
 
-    };
+
+    recognition.lang =
+        "en-IN";
+
+
+    recognition.onresult =
+        function(event){
+
+            let text =
+                event.results[0][0].transcript;
+
+
+            document.getElementById(
+                "userInput"
+            ).value = text;
+
+
+            sendMessage();
+
+        };
+
+
+    recognition.onerror =
+        function(event){
+
+            console.log(
+                "VOICE ERROR:",
+                event.error
+            );
+
+        };
+
 
     recognition.start();
+
 }
+
+
+/* ===============================
+   SPEECH
+================================ */
 
 function speak(text){
 
     window.speechSynthesis.cancel();
 
+
     let speech =
-    new SpeechSynthesisUtterance(text);
+        new SpeechSynthesisUtterance(text);
 
-    speech.lang = "en-IN";
-    speech.rate = 1;
-    speech.pitch = 1;
-    speech.volume = 1;
 
-    window.speechSynthesis.speak(speech);
+    speech.lang =
+        "en-IN";
+
+    speech.rate =
+        1;
+
+    speech.pitch =
+        1;
+
+    speech.volume =
+        1;
+
+
+    window.speechSynthesis.speak(
+        speech
+    );
+
 }
+
+
+/* ===============================
+   SPEAK LAST REPLY
+================================ */
 
 function speakLastReply(){
 
     if(!lastReply){
-        alert("No AI response available.");
+
+        alert(
+            "No AI response available."
+        );
+
         return;
+
     }
 
+
     speak(lastReply);
+
 }
 
 
+/* ===============================
+   SUGGESTION QUESTIONS
+================================ */
+
 function setQuestion(question){
 
-    document.getElementById("userInput").value = question;
+    document.getElementById(
+        "userInput"
+    ).value = question;
+
 
     sendMessage();
 
 }
 
+
+/* ===============================
+   COPY MESSAGE
+================================ */
+
 function copyMessage(button){
 
-    const text = button
-        .closest(".bot-message")
+    const text =
+        button
+        .closest(".ai-reply-box")
         .querySelector(".message-text")
         .innerText;
 
+
     navigator.clipboard.writeText(text);
 
-    button.innerHTML = '<i class="bi bi-check-lg"></i>';
 
-    setTimeout(()=>{
-        button.innerHTML = '<i class="bi bi-clipboard"></i>';
+    button.innerHTML =
+        "✅";
+
+
+    setTimeout(() => {
+
+        button.innerHTML =
+            "📋";
+
     },1500);
 
 }
 
-// ================= CHAT STORAGE =================
 
-let chatMessages = document.getElementById("chatMessages");
+/* ===============================
+   REGENERATE
+================================ */
+
+function regenerateMessage(button){
+
+    const botMessage =
+        button.closest(".bot-message");
 
 
-// Load old chat history
-window.onload = function(){
+    let userMessage =
+        botMessage.previousElementSibling;
 
-    let history = localStorage.getItem("chatHistory");
 
-    if(history){
-        chatMessages.innerHTML = history;
+    while(
+        userMessage &&
+        !userMessage.classList.contains(
+            "user-msg"
+        )
+    ){
+
+        userMessage =
+            userMessage.previousElementSibling;
+
     }
 
-};
+
+    if(!userMessage){
+
+        alert(
+            "Unable to find previous question."
+        );
+
+        return;
+
+    }
 
 
-// Save chat history
+    const question =
+        userMessage
+        .querySelector("span")
+        .innerText;
+
+
+    botMessage.remove();
+
+
+    document.getElementById(
+        "userInput"
+    ).value = question;
+
+
+    sendMessage();
+
+}
+
+
+/* ===============================
+   FEEDBACK
+================================ */
+
+function giveFeedback(button,type){
+
+    const buttons =
+        button.parentElement
+        .querySelectorAll(".feedback-btn");
+
+
+    buttons.forEach(btn => {
+
+        btn.classList.remove("selected");
+
+    });
+
+
+    button.classList.add("selected");
+
+
+    console.log(
+        "AI Feedback:",
+        type
+    );
+
+
+    /* SHOW THANKS MESSAGE */
+
+    const toast =
+        document.getElementById("feedbackToast");
+
+
+    toast.innerHTML =
+        type === "like"
+        ? "💙 Thanks for your feedback!"
+        : "💙 Thanks for your feedback!";
+
+
+    toast.classList.add("show");
+
+
+    setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    },2000);
+
+}
+/* ===============================
+   SAVE HISTORY
+================================ */
+
 function saveHistory(){
 
     localStorage.setItem(
@@ -935,84 +1389,163 @@ function saveHistory(){
 }
 
 
-// Call this after every user + AI message
-function addMessage(message){
+/* ===============================
+   LOAD HISTORY
+================================ */
 
-    chatMessages.innerHTML += message;
+window.onload = function(){
 
-    saveHistory();
-
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-
-}
-
-
-
-// ================= NEW CHAT =================
-
-document.getElementById("newChatBtn")
-.addEventListener("click",function(){
-
-    chatMessages.innerHTML = "";
-
-    localStorage.removeItem("chatHistory");
-
-    chatMessages.innerHTML = `
-    <div class="bot-msg">
-        👋 Hi! New chat started. How can I help you?
-    </div>
-    `;
-
-    saveHistory();
-
-});
+    let history =
+        localStorage.getItem(
+            "chatHistory"
+        );
 
 
+    if(history){
 
-// ================= CLEAR HISTORY =================
-
-document.getElementById("clearHistoryBtn")
-.addEventListener("click",function(){
-
-    let confirmClear = confirm(
-        "Are you sure you want to clear chat history?"
-    );
-
-
-    if(confirmClear){
-
-        localStorage.removeItem("chatHistory");
-
-        chatMessages.innerHTML = "";
-
-        alert("✅ Chat history cleared");
+        chatMessages.innerHTML =
+            history;
 
     }
 
-});
+};
+
+
+/* ===============================
+   NEW CHAT
+================================ */
+
+document
+.getElementById("newChatBtn")
+.addEventListener(
+    "click",
+    function(event){
+
+        event.preventDefault();
+
+
+        chatMessages.innerHTML = `
+
+            <div class="bot-msg">
+
+                <span>
+                    👋 Hi! New chat started.
+                    How can I help you?
+                </span>
+
+            </div>
+
+        `;
+
+
+        localStorage.removeItem(
+            "chatHistory"
+        );
+
+
+        saveHistory();
+
+    }
+);
+
+
+/* ===============================
+   CLEAR HISTORY
+================================ */
+
+document
+.getElementById("clearHistoryBtn")
+.addEventListener(
+    "click",
+    function(event){
+
+        let confirmClear =
+            confirm(
+                "Are you sure you want to clear chat history?"
+            );
+
+
+        if(!confirmClear){
+
+            event.preventDefault();
+
+            return;
+
+        }
+
+
+        localStorage.removeItem(
+            "chatHistory"
+        );
+
+    }
+);
+
+
+/* ===============================
+   LOAD CHAT HISTORY FROM SERVER
+================================ */
+
 function loadHistory(){
 
-fetch("/chat-history")
-.then(res=>res.json())
-.then(data=>{
+    fetch("/chat-history")
 
-    let list = document.querySelector(".chat-list");
+    .then(res =>
+        res.json()
+    )
 
-    list.innerHTML = "";
+    .then(data => {
 
-    data.forEach(item=>{
+        let list =
+            document.querySelector(
+                ".chat-list"
+            );
 
-        let div = document.createElement("div");
 
-        div.className = "chat-item";
+        if(!list){
+            return;
+        }
 
-        div.textContent = "💬 " + item.title;
 
-        list.appendChild(div);
+        list.innerHTML = "";
+
+
+        data.forEach(item => {
+
+            let div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "chat-item";
+
+
+            div.textContent =
+                "💬 " +
+                item.title;
+
+
+            list.appendChild(
+                div
+            );
+
+        });
+
+    })
+
+    .catch(error => {
+
+        console.log(
+            "HISTORY ERROR:",
+            error
+        );
 
     });
 
-});
 }
+
 </script>
+
 {% endblock %}
