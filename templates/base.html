@@ -1812,6 +1812,36 @@ body.dark-mode {
     background: #1a2340 !important;
     color: #ffffff;
 }
+/* =========================================
+   DARK MODE - PRIORITY BADGES
+========================================= */
+
+body.dark-mode .priority-urgent{
+    background:#4a1f24 !important;
+    color:#ff6b6b !important;
+    border:1px solid #7f3038;
+}
+
+body.dark-mode .priority-important{
+    background:#4a351c !important;
+    color:#ffb84d !important;
+    border:1px solid #7a5828;
+}
+
+body.dark-mode .priority-general{
+    background:#1e3555 !important;
+    color:#6ea8ff !important;
+    border:1px solid #31598c;
+}
+/* =========================================
+   PINNED BADGE - DARK MODE
+========================================= */
+
+body.dark-mode .pin-badge{
+    background:#4a3b16 !important;
+    color:#ffd966 !important;
+    border:1px solid #705a20;
+}
 </style>
 </head>
 
@@ -1931,7 +1961,7 @@ body.dark-mode {
 
                         {% if session.get('username') %}
 
-                        <li><a class="dropdown-item" href="/profile">👤 Profile</a></li>
+                        <li><a class="dropdown-item" href="/my_profile">👤 Profile</a></li>
                         <li><a class="dropdown-item" href="/settings">⚙️ Settings</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item text-danger" href="/logout">🚪 Logout</a></li>

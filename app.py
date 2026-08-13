@@ -657,6 +657,31 @@ def detail(id):
 
     return render_template("detail.html", student=student)
 
+# ========== MY PROFILE ==========
+@app.route("/my_profile")
+def my_profile():
+
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    conn = get_db(MOHINI_DB)
+
+    student = conn.execute(
+        "SELECT * FROM stud WHERE name = ?",
+        (session["username"],)
+    ).fetchone()
+
+    conn.close()
+
+    if student is None:
+        flash("Student profile not found!", "warning")
+        return redirect(url_for("home"))
+
+    return render_template(
+        "detail.html",
+        student=student
+    )
+
 #=========edit_student  (update)===========
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])
 def edit_student(id):

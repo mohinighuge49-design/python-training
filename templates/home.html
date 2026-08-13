@@ -1,972 +1,703 @@
-{% extends "base.html" %}
+    {% extends "base.html" %}
 
-{% block title %}Government Polytechnic Hingoli{% endblock %}
+    {% block title %}Government Polytechnic Hingoli{% endblock %}
 
-{% block content %}
-<style>
+    {% block content %}
+    <style>
 
-body{
-    background:linear-gradient(135deg,#edf4ff,#f8fbff,#eef5ff);
-    font-family:'Segoe UI',sans-serif;
-}
+    body{
+        background:linear-gradient(135deg,#edf4ff,#f8fbff,#eef5ff);
+        font-family:'Segoe UI',sans-serif;
+    }
 
-/* ===== SAME SIZE FOR ALL CARDS ===== */
+    /* ===== SAME SIZE FOR ALL CARDS ===== */
 
-.same-card{
-    height:340px;
-    border-radius:20px;
-    transition:0.3s;
-}
+    .same-card{
+        height:340px;
+        border-radius:20px;
+        transition:0.3s;
+    }
 
-.same-card:hover{
-    transform:translateY(-8px);
-    box-shadow:0 20px 40px rgba(0,0,0,.18);
-}
+    .same-card:hover{
+        transform:translateY(-8px);
+        box-shadow:0 20px 40px rgba(0,0,0,.18);
+    }
 
-.same-card .card-body{
-    height:100%;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-}
+    .same-card .card-body{
+        height:100%;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        text-align:center;
+    }
 
-.same-card img{
-    max-width:100%;
-    object-fit:cover;
-}
+    .same-card img{
+        max-width:100%;
+        object-fit:cover;
+    }
 
-.same-card p{
-    font-size:14px;
-    line-height:1.5;
-}
-/* ========= HERO ========= */
+    .same-card p{
+        font-size:14px;
+        line-height:1.5;
+    }
+    /* ========= HERO ========= */
 
-.hero{
+    .hero{
+
+        background:
+        linear-gradient(
+        135deg,
+        #1e3c72,
+        #2a5298,
+        #4f46e5);
+
+        border-radius:30px;
+
+        min-height:470px;
+
+        display:flex;
+
+        align-items:center;
+
+        position:relative;
+
+        overflow:hidden;
+
+        box-shadow:
+        0 25px 60px rgba(0,0,0,.20);
+
+    }
+
+    .hero::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:420px;
+
+    height:420px;
+
+    background:rgba(255,255,255,.10);
+
+    border-radius:50%;
+
+    right:-150px;
+
+    top:-150px;
+
+    filter:blur(20px);
+
+    }
+
+    .hero::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:320px;
+
+    height:320px;
+
+    background:rgba(255,255,255,.08);
+
+    left:-100px;
+
+    bottom:-100px;
+
+    border-radius:50%;
+
+    }
+
+    /* ========= GLASS ========= */
+
+    .glass{
+
+    background:rgba(255,255,255,.12);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.18);
+
+    padding:35px;
+
+    border-radius:25px;
+
+    }
+
+    /* ========= HERO IMAGE ========= */
+
+    /* ========= HERO COLLEGE IMAGE ========= */
+
+    .hero img{
+        width:100% !important;
+        max-width:520px !important;
+
+        height:430px !important;
+        max-height:none !important;
+
+        object-fit:cover;
+
+        border-radius:22px;
+
+        box-shadow:
+            0 20px 45px rgba(0,0,0,.30);
+
+        transition:.4s;
+
+        animation:floatImage 4s ease-in-out infinite;
+    }
+
+    .hero img:hover{
+        transform:scale(1.03);
+    }
+
+
+    /* Floating Animation */
+
+    @keyframes floatImage{
+
+        0%{
+            transform:translateY(0);
+        }
+
+        50%{
+            transform:translateY(-10px);
+        }
+
+        100%{
+            transform:translateY(0);
+        }
+
+    }
+
+    .hero img:hover{
+
+    transform:scale(1.05);
+
+    }
+
+    /* ========= BUTTON ========= */
+
+    .hero-btn{
+
+    border-radius:50px;
+
+    padding:12px 25px;
+
+    font-weight:600;
+
+    margin-right:10px;
+
+    transition:.35s;
+
+    }
+
+    .hero-btn:hover{
+
+    transform:translateY(-4px);
+
+    }
+    .hero img{
+        animation: floatImage 4s ease-in-out infinite;
+    }
+
+    @keyframes floatImage{
+
+    0%{
+    transform:translateY(0);
+    }
+
+    50%{
+    transform:translateY(-12px);
+    }
+
+    100%{
+    transform:translateY(0);
+    }
+
+    }
+    /* ========= WELCOME ========= */
+
+    .welcome-card{
+
+    border:none;
+
+    border-radius:22px;
+
+    background:white;
+
+    box-shadow:
+
+    0 10px 30px rgba(0,0,0,.08);
+
+    }
+
+    .welcome-card:hover{
+
+    transform:translateY(-4px);
+
+    }
+
+    .dashboard-card {
+        border: none;
+        border-radius: 22px;
+        overflow: hidden;
+        transition: all 0.35s ease;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        position: relative;
+    }
+
+    .dashboard-card::before {
+        content: "";
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        background: rgba(255,255,255,0.15);
+        border-radius: 50%;
+        top: -40px;
+        right: -40px;
+    }
+
+    .dashboard-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+    }
+
+    .dashboard-card .card-body {
+        padding: 30px 20px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .dashboard-card h1 {
+        font-size: 55px;
+        margin-bottom: 15px;
+        transition: 0.3s;
+    }
+
+    .dashboard-card:hover h1 {
+        transform: scale(1.15) rotate(5deg);
+    }
+
+    .dashboard-card h2 {
+        font-size: 35px;
+        letter-spacing: 1px;
+    }
+
+    .dashboard-card p {
+        font-size: 16px;
+        opacity: 0.9;
+        letter-spacing: 0.5px;
+    }
+
+
+    /* ========= STATS ========= */
+
+
+    .info-card{
+
+    transition:.4s;
+
+    }
+    .card-body p{
+        font-size:14px;
+        line-height:1.5;
+    }
+    .info-card:hover{
+
+    transform:translateY(-12px) scale(1.03);
+
+    box-shadow:0 25px 45px rgba(0,0,0,.25);
+
+    }
+    /* Equal Height Cards */
+
+    .equal-height{
+        display:flex;
+    }
+
+    .equal-height .card{
+        width:100%;
+        min-height:520px;
+    }
+
+    .equal-height .card-body{
+        display:flex;
+        flex-direction:column;
+    }
+
+    .equal-height .list-group{
+        flex:1;
+    }
+    /* Counter */
+
+    .counter{
+
+    font-size:42px;
+
+    font-weight:700;
+
+    }
+
+    /* ========= ICON ========= */
+
+    .info-card h1{
+
+    font-size:45px;
+
+    transition:.35s;
+
+    }
+
+    .info-card:hover h1{
+
+    transform:scale(1.15) rotate(8deg);
+
+    }
+
+
+    /* ========= NORMAL CARD ========= */
+
+    .card{
+
+    border:none;
+
+    border-radius:22px;
+
+    box-shadow:
+
+    0 12px 30px rgba(0,0,0,.08);
+
+    transition:.35s;
+
+    }
+
+    .card:hover{
+
+    transform:translateY(-6px);
+
+    }
+    /* Equal Cards */
+
+    .row.align-items-stretch>.col-lg-4{
+        display:flex;
+    }
+
+    .row.align-items-stretch .card{
+        width:100%;
+        height:340px;
+    }
+    /* Calendar Size */
+    #calendar{
+        width:100%;
+        max-width:100%;
+        height:250px;
+        overflow:hidden;
+    }
+
+    .fc{
+        height:250px !important;
+    }
+
+    .fc-scrollgrid{
+        border:none !important;
+    }
+
+    .fc-view-harness{
+        overflow:hidden !important;
+    }
+    /* Calendar view buttons size */
+    .fc .fc-button {
+        padding: 4px 8px !important;
+        font-size: 12px !important;
+        height: 28px !important;
+        border-radius: 3px !important;
+    }
+
+    /* Month Week Day text */
+    .fc .fc-button-primary {
+        min-width: 45px !important;
+    }
+
+    /* Calendar header spacing */
+    .fc .fc-toolbar.fc-header-toolbar {
+        margin-bottom: 10px;
+    }
+
+    /* Previous Next buttons  */
+    .fc .fc-prev-button,
+    .fc .fc-next-button {
+        padding: 2px 6px !important;
+        font-size: 12px !important;
+    }
+    .fc-toolbar-title {
+        font-size: 18px !important;
+        font-weight: 600;
+    }
+    /* Calendar card spacing */
+    #calendar {
+        padding: 10px;
+    }
+
+    /* Date numbers size */
+    .fc-daygrid-day-number {
+        font-size: 13px;
+    }
+
+    /* Week names size */
+    .fc-col-header-cell-cushion {
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    /* Today button */
+    .fc-today-button {
+        font-size: 12px !important;
+    }
+    /* ========= IMAGE ========= */
+
+    .rounded-circle{
+
+    border:5px solid white;
+
+    box-shadow:
+
+    0 10px 25px rgba(0,0,0,.20);
+
+    }
+
+    /* ========= GALLERY ========= */
+
+    img{
+
+    transition:.4s;
+
+    }
+
+    img:hover{
+
+    transform:scale(1.04);
+
+    }
+    .img-fluid{
+
+    transition:.4s;
+
+    }
+
+    .img-fluid:hover{
+
+    transform:scale(1.05);
+
+    }
+    /* ========= FOOTER ========= */
+
+    .footer{
 
     background:
+
     linear-gradient(
-    135deg,
-    #1e3c72,
-    #2a5298,
-    #4f46e5);
 
-    border-radius:30px;
+    90deg,
 
-    min-height:470px;
+    #0f172a,
 
-    display:flex;
+    #1e3a8a,
 
-    align-items:center;
+    #2563eb);
 
-    position:relative;
+    color:white;
 
-    overflow:hidden;
+    border-radius:25px 25px 0 0;
 
     box-shadow:
-    0 25px 60px rgba(0,0,0,.20);
 
-}
+    0 -10px 35px rgba(0,0,0,.18);
 
-.hero::before{
+    }
 
-content:"";
+    /* ========= CALENDAR ========= */
 
-position:absolute;
+    #calendar{
 
-width:420px;
+    background:white;
 
-height:420px;
+    border-radius:15px;
 
-background:rgba(255,255,255,.10);
+    padding:8px;
 
-border-radius:50%;
+    }
 
-right:-150px;
+    /* ========= RESPONSIVE ========= */
 
-top:-150px;
+    @media(max-width:768px){
 
-filter:blur(20px);
+    .hero{
 
-}
+    padding:35px;
 
-.hero::after{
+    text-align:center;
 
-content:"";
+    min-height:auto;
 
-position:absolute;
+    }
+    /* Principal, Notice & Calendar Same Size */
+    .equal-card{
+        height:500px;
+        border-radius:20px;
+    }
 
-width:320px;
+    .equal-card .card-body{
+        overflow:auto;
+    }
 
-height:320px;
+    #calendar{
+        height:260px;
+    }
+    .hero h1{
 
-background:rgba(255,255,255,.08);
+    font-size:34px;
 
-left:-100px;
+    }
 
-bottom:-100px;
+    .counter{
 
-border-radius:50%;
+    font-size:34px;
 
-}
+    }
 
-/* ========= GLASS ========= */
-
-.glass{
-
-background:rgba(255,255,255,.12);
-
-backdrop-filter:blur(18px);
-
-border:1px solid rgba(255,255,255,.18);
-
-padding:35px;
-
-border-radius:25px;
-
-}
-
-/* ========= HERO IMAGE ========= */
-
-.hero img{
-
-border-radius:18px;
-
-box-shadow:
-
-0 20px 45px rgba(0,0,0,.25);
-
-transition:.4s;
-
-}
-
-.hero img:hover{
-
-transform:scale(1.05);
-
-}
-
-/* ========= BUTTON ========= */
-
-.hero-btn{
-
-border-radius:50px;
-
-padding:12px 25px;
-
-font-weight:600;
-
-margin-right:10px;
-
-transition:.35s;
-
-}
-
-.hero-btn:hover{
-
-transform:translateY(-4px);
-
-}
-.hero img{
-    animation: floatImage 4s ease-in-out infinite;
-}
-
-@keyframes floatImage{
-
-0%{
-transform:translateY(0);
-}
-
-50%{
-transform:translateY(-12px);
-}
-
-100%{
-transform:translateY(0);
-}
-
-}
-/* ========= WELCOME ========= */
-
-.welcome-card{
-
-border:none;
-
-border-radius:22px;
-
-background:white;
-
-box-shadow:
-
-0 10px 30px rgba(0,0,0,.08);
-
-}
-
-.welcome-card:hover{
-
-transform:translateY(-4px);
-
-}
-
-.dashboard-card {
-    border: none;
-    border-radius: 22px;
-    overflow: hidden;
-    transition: all 0.35s ease;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-    position: relative;
-}
-
-.dashboard-card::before {
-    content: "";
-    position: absolute;
-    width: 120px;
-    height: 120px;
-    background: rgba(255,255,255,0.15);
-    border-radius: 50%;
-    top: -40px;
-    right: -40px;
-}
-
-.dashboard-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.25);
-}
-
-.dashboard-card .card-body {
-    padding: 30px 20px;
-    position: relative;
-    z-index: 1;
-}
-
-.dashboard-card h1 {
-    font-size: 55px;
-    margin-bottom: 15px;
-    transition: 0.3s;
-}
-
-.dashboard-card:hover h1 {
-    transform: scale(1.15) rotate(5deg);
-}
-
-.dashboard-card h2 {
-    font-size: 35px;
-    letter-spacing: 1px;
-}
-
-.dashboard-card p {
-    font-size: 16px;
-    opacity: 0.9;
-    letter-spacing: 0.5px;
-}
-
-
-/* ========= STATS ========= */
-
-
-.info-card{
-
-transition:.4s;
-
-}
-.card-body p{
-    font-size:14px;
-    line-height:1.5;
-}
-.info-card:hover{
-
-transform:translateY(-12px) scale(1.03);
-
-box-shadow:0 25px 45px rgba(0,0,0,.25);
-
-}
-/* Equal Height Cards */
-
-.equal-height{
-    display:flex;
-}
-
-.equal-height .card{
-    width:100%;
-    min-height:520px;
-}
-
-.equal-height .card-body{
-    display:flex;
-    flex-direction:column;
-}
-
-.equal-height .list-group{
-    flex:1;
-}
-/* Counter */
-
-.counter{
-
-font-size:42px;
-
-font-weight:700;
-
-}
-
-/* ========= ICON ========= */
-
-.info-card h1{
-
-font-size:45px;
-
-transition:.35s;
-
-}
-
-.info-card:hover h1{
-
-transform:scale(1.15) rotate(8deg);
-
-}
-
-
-/* ========= NORMAL CARD ========= */
-
-.card{
-
-border:none;
-
-border-radius:22px;
-
-box-shadow:
-
-0 12px 30px rgba(0,0,0,.08);
-
-transition:.35s;
-
-}
-
-.card:hover{
-
-transform:translateY(-6px);
-
-}
-/* Equal Cards */
-
-.row.align-items-stretch>.col-lg-4{
-    display:flex;
-}
-
-.row.align-items-stretch .card{
-    width:100%;
-    height:340px;
-}
-/* Calendar Size */
-#calendar{
-    width:100%;
-    max-width:100%;
-    height:250px;
-    overflow:hidden;
-}
-
-.fc{
-    height:250px !important;
-}
-
-.fc-scrollgrid{
-    border:none !important;
-}
-
-.fc-view-harness{
-    overflow:hidden !important;
-}
-/* Calendar view buttons size */
-.fc .fc-button {
-    padding: 4px 8px !important;
-    font-size: 12px !important;
-    height: 28px !important;
-    border-radius: 3px !important;
-}
-
-/* Month Week Day text */
-.fc .fc-button-primary {
-    min-width: 45px !important;
-}
-
-/* Calendar header spacing */
-.fc .fc-toolbar.fc-header-toolbar {
-    margin-bottom: 10px;
-}
-
-/* Previous Next buttons  */
-.fc .fc-prev-button,
-.fc .fc-next-button {
-    padding: 2px 6px !important;
-    font-size: 12px !important;
-}
-.fc-toolbar-title {
-    font-size: 18px !important;
-    font-weight: 600;
-}
-/* Calendar card spacing */
-#calendar {
-    padding: 10px;
-}
-
-/* Date numbers size */
-.fc-daygrid-day-number {
-    font-size: 13px;
-}
-
-/* Week names size */
-.fc-col-header-cell-cushion {
-    font-size: 13px;
-    font-weight: 600;
-}
-
-/* Today button */
-.fc-today-button {
-    font-size: 12px !important;
-}
-/* ========= IMAGE ========= */
-
-.rounded-circle{
-
-border:5px solid white;
-
-box-shadow:
-
-0 10px 25px rgba(0,0,0,.20);
-
-}
-
-/* ========= GALLERY ========= */
-
-img{
-
-transition:.4s;
-
-}
-
-img:hover{
-
-transform:scale(1.04);
-
-}
-.img-fluid{
-
-transition:.4s;
-
-}
-
-.img-fluid:hover{
-
-transform:scale(1.05);
-
-}
-/* ========= FOOTER ========= */
-
-.footer{
-
-background:
-
-linear-gradient(
-
-90deg,
-
-#0f172a,
-
-#1e3a8a,
-
-#2563eb);
-
-color:white;
-
-border-radius:25px 25px 0 0;
-
-box-shadow:
-
-0 -10px 35px rgba(0,0,0,.18);
-
-}
-
-/* ========= CALENDAR ========= */
-
-#calendar{
-
-background:white;
-
-border-radius:15px;
-
-padding:8px;
-
-}
-
-/* ========= RESPONSIVE ========= */
-
-@media(max-width:768px){
-
-.hero{
-
-padding:35px;
-
-text-align:center;
-
-min-height:auto;
-
-}
-/* Principal, Notice & Calendar Same Size */
-.equal-card{
-    height:500px;
-    border-radius:20px;
-}
-
-.equal-card .card-body{
-    overflow:auto;
-}
-
-#calendar{
-    height:260px;
-}
-.hero h1{
-
-font-size:34px;
-
-}
-
-.counter{
-
-font-size:34px;
-
-}
-
-}
-/* =========================================
-   📸 CAMPUS GALLERY - SAME IMAGE SIZE
-========================================= */
-
-.campus-gallery .col-md-4{
-    height:200px !important;
-    overflow:hidden !important;
-}
-
-.campus-gallery .col-md-4 img{
-    width:100% !important;
-    height:200px !important;
-
-    min-height:200px !important;
-    max-height:200px !important;
-
-    object-fit:cover !important;
-    display:block !important;
-
-    border-radius:16px !important;
-
-    transition:transform .4s ease,
-               box-shadow .4s ease !important;
-}
-
-
-/* Hover Effect */
-
-.campus-gallery .col-md-4:hover img{
-    transform:scale(1.04) !important;
-
-    box-shadow:
-        0 15px 35px rgba(0,0,0,.20) !important;
-}
-
-
-/* Mobile */
-
-@media(max-width:768px){
+    }
+    /* =========================================
+    📸 CAMPUS GALLERY - SAME IMAGE SIZE
+    ========================================= */
 
     .campus-gallery .col-md-4{
-        height:220px !important;
-        margin-bottom:20px;
+        height:200px !important;
+        overflow:hidden !important;
     }
 
     .campus-gallery .col-md-4 img{
-        height:220px !important;
-        min-height:220px !important;
-        max-height:220px !important;
+        width:100% !important;
+        height:200px !important;
+
+        min-height:200px !important;
+        max-height:200px !important;
+
+        object-fit:cover !important;
+        display:block !important;
+
+        border-radius:16px !important;
+
+        transition:transform .4s ease,
+                box-shadow .4s ease !important;
     }
 
-}
-</style>
 
-<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
+    /* Hover Effect */
 
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+    .campus-gallery .col-md-4:hover img{
+        transform:scale(1.04) !important;
 
-<div class="container-fluid px-4">
+        box-shadow:
+            0 15px 35px rgba(0,0,0,.20) !important;
+    }
 
-<!-- ================= Welcome Card ================= -->
 
-<div class="card welcome-card shadow-lg mb-4">
+    /* Mobile */
 
-    <div class="card-body py-4">
+    @media(max-width:768px){
 
-        <div class="row align-items-center">
+        .campus-gallery .col-md-4{
+            height:220px !important;
+            margin-bottom:20px;
+        }
 
-            <div class="col-md-8">
+        .campus-gallery .col-md-4 img{
+            height:220px !important;
+            min-height:220px !important;
+            max-height:220px !important;
+        }
 
-                <h2 class="fw-bold text-primary mb-2">
+    }
+    /* =========================================
+    DARK MODE FIX - EXPLORE COLLEGE
+    ========================================= */
 
-                    👋 Welcome,
-                    {{ session['username'] }}
+    body.dark-mode .hero .hero-btn.btn-light{
+        background:#ffffff !important;
+        color:#1e3c72 !important;
+        border-color:#ffffff !important;
+    }
 
-                </h2>
+    body.dark-mode .hero .hero-btn.btn-light:hover{
+        background:#f1f5ff !important;
+        color:#1e3c72 !important;
+    }
+    /* =========================================
+    HERO COLLEGE IMAGE
+    ========================================= */
 
-                <p class="text-muted mb-2">
+    .hero-college-img{
+        width:100%;
+        max-width:520px;
+        max-height:450px;
+        object-fit:cover;
+        border-radius:22px;
+        box-shadow:0 20px 45px rgba(0,0,0,.25);
+    }
+    .hero-college-img{
+        max-width:100%;
+        max-height:300px;
+    }
+    </style>
 
-                    Welcome to <strong>College Smart Portal</strong>
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
 
-                </p>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
 
-                <span class="badge bg-success fs-6">
+    <div class="container-fluid px-4">
 
-                    {{ session['role']|title }}
+    <!-- ================= Welcome Card ================= -->
 
-                </span>
+    <div class="card welcome-card shadow-lg mb-4">
 
-            </div>
+        <div class="card-body py-4">
 
-            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+            <div class="row align-items-center">
 
-                <h5 class="text-secondary mb-0">
+                <div class="col-md-8">
 
-                    🎓 Government Polytechnic Hingoli
+                    <h2 class="fw-bold text-primary mb-2">
 
-                </h5>
+                        👋 Welcome,
+                        {{ session['username'] }}
 
-            </div>
+                    </h2>
 
-        </div>
+                    <p class="text-muted mb-2">
 
-    </div>
+                        Welcome to <strong>College Smart Portal</strong>
 
-</div>
+                    </p>
 
+                    <span class="badge bg-success fs-6">
 
-<!-- ================= PREMIUM HERO ================= -->
+                        {{ session['role']|title }}
 
-<div class="hero mt-4">
+                    </span>
 
-<div class="container">
+                </div>
 
-<div class="row align-items-center">
+                <div class="col-md-4 text-md-end mt-3 mt-md-0">
 
-<div class="col-lg-7">
+                    <h5 class="text-secondary mb-0">
 
-<div class="glass">
+                        🎓 Government Polytechnic Hingoli
 
-<span class="badge bg-warning text-dark mb-3 fs-6">
-
-🚀 AI Powered Smart Portal
-
-</span>
-
-<h1 class="display-4 fw-bold text-white">
-
-🎓 Government Polytechnic Hingoli
-
-</h1>
-
-<p class="lead text-light mt-3">
-
-Empowering Students Through
-
-<strong>Quality Technical Education</strong>
-
-with Innovation,
-
-Technology & Excellence.
-
-</p>
-
-<div class="mt-4">
-
-<a href="/college_info"
-
-class="btn btn-light hero-btn">
-
-🏫 Explore College
-
-</a>
-
-<a href="/students"
-
-class="btn btn-outline-light hero-btn">
-
-👨‍🎓 Students
-
-</a>
-
-</div>
-
-<div class="row mt-5">
-
-<div class="col-6 col-md-3">
-
-<div class="text-center">
-
-<h3 class="fw-bold text-warning">
-
-{{ total_students }}
-
-</h3>
-
-<small class="text-light">
-
-Students
-
-</small>
-
-</div>
-
-</div>
-
-<div class="col-6 col-md-3">
-
-<div class="text-center">
-
-<h3 class="fw-bold text-info">
-
-9+
-
-</h3>
-
-<small class="text-light">
-
-Subjects
-
-</small>
-
-</div>
-
-</div>
-
-<div class="col-6 col-md-3 mt-4 mt-md-0">
-
-<div class="text-center">
-
-<h3 class="fw-bold text-success">
-
-95%
-
-</h3>
-
-<small class="text-light">
-
-Placement
-
-</small>
-
-</div>
-
-</div>
-
-<div class="col-6 col-md-3 mt-4 mt-md-0">
-
-<div class="text-center">
-
-<h3 class="fw-bold text-danger">
-
-AI
-
-</h3>
-
-<small class="text-light">
-
-Assistant
-
-</small>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="col-lg-5 text-center">
-
-<img
-
-src="{{ url_for('static', filename='uploads/g.p.Hingoli_college.jpg') }}"
-
-class="img-fluid"
-
-style="max-height:330px;">
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-<!-- ================= PREMIUM STATISTICS ================= -->
-
-<div class="row mt-5 g-4">
-
-    <div class="col-lg-3 col-md-6">
-
-       <div class="dashboard-card text-center text-white h-100"
-             style="background:linear-gradient(135deg,#d18bd2,#1d4ed8);">
-
-            <div class="card-body">
-
-                <h1 class="display-3">👨‍🎓</h1>
-
-                <h2 class="fw-bold">{{ total_students }}</h2>
-
-                <p class="mb-0">Total Students</p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="col-lg-3 col-md-6">
-
-       <div class=" dashboard-card text-center text-white h-100"
-             style="background:linear-gradient(135deg,#e2b89a,#059669);">
-
-            <div class="card-body">
-
-                <h1 class="display-3">🏫</h1>
-
-                <h2 class="fw-bold">3</h2>
-
-                <p class="mb-0">Departments</p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="col-lg-3 col-md-6">
-
-       <div class="dashboard-card text-center text-white h-100"
-             style="background: linear-gradient(135deg,#de8da3,#1e40af);">
-
-            <div class="card-body">
-
-                <h1 class="display-3">💼</h1>
-
-                <h2 class="fw-bold">95%</h2>
-
-                <p class="mb-0">Placement</p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="col-lg-3 col-md-6">
-
-        <div class=" dashboard-card text-center text-white h-100"
-             style="background: linear-gradient(135deg,#d1adcc,#334155);">
-
-            <div class="card-body">
-
-                <h1 class="display-3">📅</h1>
-
-                <h2 class="fw-bold">2009</h2>
-
-                <p class="mb-0">Established</p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- ================= SECOND ROW ================= -->
-
-<div class="row mt-5 g-4 align-items-stretch">
-
-    <!-- Principal -->
-    <div class="col-lg-4">
-
-        <div class="card shadow-lg border-0 same-card">
-
-            <div class="card-header bg-primary text-white text-center fw-bold"
-                style="background:linear-gradient(135deg,#d983b7,#4f46e5);">
-                👨‍🏫 Principal
-            </div>
-
-            <div class="card-body text-center d-flex flex-column justify-content-center">
-
-                <img
-                    src="{{ url_for('static', filename='uploads/principal.jpeg') }}"
-                    class="rounded-circle shadow mb-3"
-                    width="150"
-                    height="150"
-                    style="object-fit:cover;">
-
-                <h5 class="fw-bold text-primary mb-1">
-                    Mr. B. P. Deosarakar
-                </h5>
-
-                <small class="text-muted">
-                    Government Polytechnic Hingoli
-                </small>
-
-                <p class="mt-3 mb-0 small">
-                    Welcome to Government Polytechnic Hingoli.
-                    We believe in quality education,
-                    innovation and skill development.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Notices -->
-
-    <div class="col-lg-4">
-
-        <div class="card shadow-lg border-0 same-card">
-
-            <div class="card-header text-center text-white fw-bold"
-           style="background:linear-gradient(135deg,#d983b7,#4f46e5);">
-
-                📢 Latest Notices
-
-            </div>
-
-            <div class="card-body d-flex flex-column">
-
-                <ul class="list-group list-group-flush flex-grow-1">
-
-                    <li class="list-group-item">📌 Semester Examination</li>
-
-                    <li class="list-group-item">🎯 Scholarship Notice</li>
-
-                    <li class="list-group-item">💼 Placement Drive</li>
-
-                    <li class="list-group-item">🎉 Cultural Event</li>
-
-                </ul>
-
-                <div class="text-center mt-3">
-
-                    <a href="/notices"
-                       class="btn btn-danger btn-sm rounded-pill px-4">
-
-                        View All →
-
-                    </a>
+                    </h5>
 
                 </div>
 
@@ -976,22 +707,240 @@ style="max-height:330px;">
 
     </div>
 
-    <!-- Calendar -->
 
-    <div class="col-lg-4">
+    <!-- ================= PREMIUM HERO ================= -->
 
-        <div class="card shadow-lg border-0 same-card">
+    <div class="hero mt-4">
 
-            <div class="card-header text-center text-white fw-bold"
-               style="background:linear-gradient(135deg,#d983b7,#4f46e5);">
+    <div class="container">
 
-                📅 Academic Calendar
+    <div class="row align-items-center">
+
+    <div class="col-lg-7">
+
+    <div class="glass">
+
+    <span class="badge bg-warning text-dark mb-3 fs-6">
+
+    🚀 AI Powered Smart Portal
+
+    </span>
+
+    <h1 class="display-4 fw-bold text-white">
+
+    🎓 Government Polytechnic Hingoli
+
+    </h1>
+
+    <p class="lead text-light mt-3">
+
+    Empowering Students Through
+
+    <strong>Quality Technical Education</strong>
+
+    with Innovation,
+
+    Technology & Excellence.
+
+    </p>
+
+    <div class="mt-4">
+
+    <a href="/college_info"
+
+    class="btn btn-light hero-btn">
+
+    🏫 Explore College
+
+    </a>
+
+    <a href="/students"
+
+    class="btn btn-outline-light hero-btn">
+
+    👨‍🎓 Students
+
+    </a>
+
+    </div>
+
+    <div class="row mt-5">
+
+    <div class="col-6 col-md-3">
+
+    <div class="text-center">
+
+    <h3 class="fw-bold text-warning">
+
+    {{ total_students }}
+
+    </h3>
+
+    <small class="text-light">
+
+    Students
+
+    </small>
+
+    </div>
+
+    </div>
+
+    <div class="col-6 col-md-3">
+
+    <div class="text-center">
+
+    <h3 class="fw-bold text-info">
+
+    9+
+
+    </h3>
+
+    <small class="text-light">
+
+    Subjects
+
+    </small>
+
+    </div>
+
+    </div>
+
+    <div class="col-6 col-md-3 mt-4 mt-md-0">
+
+    <div class="text-center">
+
+    <h3 class="fw-bold text-success">
+
+    95%
+
+    </h3>
+
+    <small class="text-light">
+
+    Placement
+
+    </small>
+
+    </div>
+
+    </div>
+
+    <div class="col-6 col-md-3 mt-4 mt-md-0">
+
+    <div class="text-center">
+
+    <h3 class="fw-bold text-danger">
+
+    AI
+
+    </h3>
+
+    <small class="text-light">
+
+    Assistant
+
+    </small>
+
+    </div>
+
+    </div>
+
+    </div>
+
+    </div>
+
+    </div>
+
+    <div class="col-lg-5 text-center">
+
+    <img
+        src="{{ url_for('static', filename='uploads/g.p.Hingoli_college.jpg') }}"
+        class="img-fluid hero-college-img"
+        alt="Government Polytechnic Hingoli">
+
+    </div>
+
+    </div>
+
+    </div>
+
+    </div>
+    <!-- ================= PREMIUM STATISTICS ================= -->
+
+    <div class="row mt-5 g-4">
+
+        <div class="col-lg-3 col-md-6">
+
+        <div class="dashboard-card text-center text-white h-100"
+                style="background:linear-gradient(135deg,#d18bd2,#1d4ed8);">
+
+                <div class="card-body">
+
+                    <h1 class="display-3">👨‍🎓</h1>
+
+                    <h2 class="fw-bold">{{ total_students }}</h2>
+
+                    <p class="mb-0">Total Students</p>
+
+                </div>
 
             </div>
 
-            <div class="card-body">
+        </div>
 
-                <div id="calendar"></div>
+        <div class="col-lg-3 col-md-6">
+
+        <div class=" dashboard-card text-center text-white h-100"
+                style="background:linear-gradient(135deg,#e2b89a,#059669);">
+
+                <div class="card-body">
+
+                    <h1 class="display-3">🏫</h1>
+
+                    <h2 class="fw-bold">3</h2>
+
+                    <p class="mb-0">Departments</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+        <div class="dashboard-card text-center text-white h-100"
+                style="background: linear-gradient(135deg,#de8da3,#1e40af);">
+
+                <div class="card-body">
+
+                    <h1 class="display-3">💼</h1>
+
+                    <h2 class="fw-bold">95%</h2>
+
+                    <p class="mb-0">Placement</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class=" dashboard-card text-center text-white h-100"
+                style="background: linear-gradient(135deg,#d1adcc,#334155);">
+
+                <div class="card-body">
+
+                    <h1 class="display-3">📅</h1>
+
+                    <h2 class="fw-bold">2009</h2>
+
+                    <p class="mb-0">Established</p>
+
+                </div>
 
             </div>
 
@@ -999,518 +948,628 @@ style="max-height:330px;">
 
     </div>
 
-</div>
-<!-- ===================== OUR DEPARTMENTS ===================== -->
+    <!-- ================= SECOND ROW ================= -->
+
+    <div class="row mt-5 g-4 align-items-stretch">
+
+        <!-- Principal -->
+        <div class="col-lg-4">
+
+            <div class="card shadow-lg border-0 same-card">
+
+                <div class="card-header bg-primary text-white text-center fw-bold"
+                    style="background:linear-gradient(135deg,#d983b7,#4f46e5);">
+                    👨‍🏫 Principal
+                </div>
+
+                <div class="card-body text-center d-flex flex-column justify-content-center">
+
+                    <img
+                        src="{{ url_for('static', filename='uploads/principal.jpeg') }}"
+                        class="rounded-circle shadow mb-3"
+                        width="150"
+                        height="150"
+                        style="object-fit:cover;">
+
+                    <h5 class="fw-bold text-primary mb-1">
+                        Mr. B. P. Deosarakar
+                    </h5>
+
+                    <small class="text-muted">
+                        Government Polytechnic Hingoli
+                    </small>
+
+                    <p class="mt-3 mb-0 small">
+                        Welcome to Government Polytechnic Hingoli.
+                        We believe in quality education,
+                        innovation and skill development.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Notices -->
+
+        <div class="col-lg-4">
+
+            <div class="card shadow-lg border-0 same-card">
+
+                <div class="card-header text-center text-white fw-bold"
+            style="background:linear-gradient(135deg,#d983b7,#4f46e5);">
+
+                    📢 Latest Notices
+
+                </div>
+
+                <div class="card-body d-flex flex-column">
+
+                    <ul class="list-group list-group-flush flex-grow-1">
+
+                        <li class="list-group-item">📌 Semester Examination</li>
+
+                        <li class="list-group-item">🎯 Scholarship Notice</li>
+
+                        <li class="list-group-item">💼 Placement Drive</li>
+
+                        <li class="list-group-item">🎉 Cultural Event</li>
+
+                    </ul>
+
+                    <div class="text-center mt-3">
+
+                        <a href="/notices"
+                        class="btn btn-danger btn-sm rounded-pill px-4">
+
+                            View All →
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Calendar -->
+
+        <div class="col-lg-4">
+
+            <div class="card shadow-lg border-0 same-card">
+
+                <div class="card-header text-center text-white fw-bold"
+                style="background:linear-gradient(135deg,#d983b7,#4f46e5);">
+
+                    📅 Academic Calendar
+
+                </div>
+
+                <div class="card-body">
+
+                    <div id="calendar"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- ===================== OUR DEPARTMENTS ===================== -->
 
 
-<div class="container mt-5">
+    <div class="container mt-5">
 
-    <h2 class="fw-bold text-center mb-5">
-        📚 Our Departments
+        <h2 class="fw-bold text-center mb-5">
+            📚 Our Departments
+        </h2>
+
+        <div class="row g-4">
+
+            <div class="col-lg-4">
+
+                <div class="card text-center h-100 shadow-lg">
+
+                    <div class="card-body p-4">
+
+                        <div class="display-2 mb-3">💻</div>
+
+                        <h4 class="fw-bold">
+                            Computer Engineering
+                        </h4>
+
+                        <p class="text-muted">
+
+                            Python, Java, Flask,
+                            AI, Machine Learning,
+                            Database, Networking,
+                            Web Development.
+
+                        </p>
+
+                        <a href="/college_info"
+                        class="btn btn-primary rounded-pill px-4">
+
+                            Read More
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="card text-center h-100 shadow-lg">
+
+                    <div class="card-body p-4">
+
+                        <div class="display-2 mb-3">⚙️</div>
+
+                        <h4 class="fw-bold">
+
+                            Mechanical Engineering
+
+                        </h4>
+
+                        <p class="text-muted">
+
+                            CAD, CAM,
+                            CNC Machines,
+                            Automobile,
+                            Production Technology.
+
+                        </p>
+
+                        <a href="/college_info"
+                        class="btn btn-success rounded-pill px-4">
+
+                            Read More
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="card text-center h-100 shadow-lg">
+
+                    <div class="card-body p-4">
+
+                        <div class="display-2 mb-3">⚡</div>
+
+                        <h4 class="fw-bold">
+
+                            Electrical Engineering
+
+                        </h4>
+
+                        <p class="text-muted">
+
+                            Power Systems,
+                            Automation,
+                            Electrical Machines,
+                            Industrial Electronics.
+
+                        </p>
+
+                        <a href="/college_info"
+                        class="btn btn-warning rounded-pill px-4">
+
+                            Read More
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= FACILITIES ================= -->
+
+    <div class="container mt-5">
+
+    <h2 class="text-center fw-bold mb-5">
+
+    🏫 Campus Facilities
+
     </h2>
 
     <div class="row g-4">
 
-        <div class="col-lg-4">
+    <div class="col-md-3">
 
-            <div class="card text-center h-100 shadow-lg">
+    <div class="card text-center h-100">
 
-                <div class="card-body p-4">
+    <div class="card-body">
 
-                    <div class="display-2 mb-3">💻</div>
+    <div class="display-4">🖥️</div>
 
-                    <h4 class="fw-bold">
-                        Computer Engineering
-                    </h4>
-
-                    <p class="text-muted">
-
-                        Python, Java, Flask,
-                        AI, Machine Learning,
-                        Database, Networking,
-                        Web Development.
-
-                    </p>
-
-                    <a href="/college_info"
-                       class="btn btn-primary rounded-pill px-4">
-
-                        Read More
-
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="col-lg-4">
-
-            <div class="card text-center h-100 shadow-lg">
-
-                <div class="card-body p-4">
-
-                    <div class="display-2 mb-3">⚙️</div>
-
-                    <h4 class="fw-bold">
-
-                        Mechanical Engineering
-
-                    </h4>
-
-                    <p class="text-muted">
-
-                        CAD, CAM,
-                        CNC Machines,
-                        Automobile,
-                        Production Technology.
-
-                    </p>
-
-                    <a href="/college_info"
-                       class="btn btn-success rounded-pill px-4">
-
-                        Read More
-
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="col-lg-4">
-
-            <div class="card text-center h-100 shadow-lg">
-
-                <div class="card-body p-4">
-
-                    <div class="display-2 mb-3">⚡</div>
-
-                    <h4 class="fw-bold">
-
-                        Electrical Engineering
-
-                    </h4>
-
-                    <p class="text-muted">
-
-                        Power Systems,
-                        Automation,
-                        Electrical Machines,
-                        Industrial Electronics.
-
-                    </p>
-
-                    <a href="/college_info"
-                       class="btn btn-warning rounded-pill px-4">
-
-                        Read More
-
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
+    <h5>Computer Lab</h5>
 
     </div>
 
-</div>
+    </div>
 
-<!-- ================= FACILITIES ================= -->
+    </div>
 
-<div class="container mt-5">
+    <div class="col-md-3">
 
-<h2 class="text-center fw-bold mb-5">
+    <div class="card text-center h-100">
 
-🏫 Campus Facilities
+    <div class="card-body">
 
-</h2>
+    <div class="display-4">📚</div>
 
-<div class="row g-4">
+    <h5>Library</h5>
 
-<div class="col-md-3">
+    </div>
 
-<div class="card text-center h-100">
+    </div>
 
-<div class="card-body">
+    </div>
 
-<div class="display-4">🖥️</div>
+    <div class="col-md-3">
 
-<h5>Computer Lab</h5>
+    <div class="card text-center h-100">
 
-</div>
+    <div class="card-body">
 
-</div>
+    <div class="display-4">⚽</div>
 
-</div>
+    <h5>Sports</h5>
 
-<div class="col-md-3">
+    </div>
 
-<div class="card text-center h-100">
+    </div>
 
-<div class="card-body">
+    </div>
 
-<div class="display-4">📚</div>
+    <div class="col-md-3">
 
-<h5>Library</h5>
+    <div class="card text-center h-100">
 
-</div>
+    <div class="card-body">
 
-</div>
+    <div class="display-4">🌐</div>
 
-</div>
+    <h5>Free Wi-Fi</h5>
 
-<div class="col-md-3">
+    </div>
 
-<div class="card text-center h-100">
+    </div>
 
-<div class="card-body">
+    </div>
 
-<div class="display-4">⚽</div>
+    </div>
 
-<h5>Sports</h5>
+    </div>
 
-</div>
+    <!-- ================= GALLERY ================= -->
 
-</div>
+    <div class="container mt-5">
 
-</div>
+    <h2 class="fw-bold text-center mb-5">
 
-<div class="col-md-3">
+    📸 Campus Gallery
 
-<div class="card text-center h-100">
+    </h2>
 
-<div class="card-body">
+    <div class="row campus-gallery ">
 
-<div class="display-4">🌐</div>
+    <div class="col-md-4">
 
-<h5>Free Wi-Fi</h5>
+    <img src="{{ url_for('static', filename='uploads/Screenshot 2026-08-07 lab.jpg') }}"
+    class="img-fluid rounded-4 shadow-lg">
 
-</div>
+    </div>
 
-</div>
+    <div class="col-md-4">
 
-</div>
+    <img src="{{ url_for('static', filename='uploads/g.p.Hingoli_college.jpg') }}"
+    class="img-fluid rounded-4 shadow-lg">
 
-</div>
+    </div>
 
-</div>
+    <div class="col-md-4">
 
-<!-- ================= GALLERY ================= -->
+    <img src="{{ url_for('static', filename='uploads/Screenshot 2026-08-07 clg.jpg') }}"
+    class="img-fluid rounded-4 shadow-lg">
 
-<div class="container mt-5">
+    </div>
 
-<h2 class="fw-bold text-center mb-5">
+    </div>
 
-📸 Campus Gallery
+    </div>
 
-</h2>
+    <!-- ================= QUICK ACCESS ================= -->
 
-<div class="row campus-gallery ">
+    <div class="container mt-5 mb-5">
 
-<div class="col-md-4">
+    <h2 class="fw-bold text-center mb-5">
 
-<img src="{{ url_for('static', filename='uploads/Screenshot 2026-08-07 lab.jpg') }}"
-class="img-fluid rounded-4 shadow-lg">
+    🚀 Quick Access
 
-</div>
+    </h2>
 
-<div class="col-md-4">
+    <div class="row g-4">
 
-<img src="{{ url_for('static', filename='uploads/g.p.Hingoli_college.jpg') }}"
-class="img-fluid rounded-4 shadow-lg">
+    {% set quick_links = [
 
-</div>
+    ('👨‍🎓','Students','/students'),
 
-<div class="col-md-4">
+    ('📊','Dashboard','/dashboard'),
 
-<img src="{{ url_for('static', filename='uploads/Screenshot 2026-08-07 clg.jpg') }}"
-class="img-fluid rounded-4 shadow-lg">
+    ('📢','Notices','/notices'),
 
-</div>
+    ('🤖','AI Assistant','/assistant')
 
-</div>
+    ] %}
 
-</div>
+    {% for icon,title,link in quick_links %}
 
-<!-- ================= QUICK ACCESS ================= -->
+    <div class="col-lg-3 col-md-6">
 
-<div class="container mt-5 mb-5">
+    <a href="{{ link }}"
+    class="text-decoration-none">
 
-<h2 class="fw-bold text-center mb-5">
+    <div class="card text-center h-100 shadow-lg">
 
-🚀 Quick Access
+    <div class="card-body py-5">
 
-</h2>
+    <h1>{{ icon }}</h1>
 
-<div class="row g-4">
+    <h5 class="mt-3">
 
-{% set quick_links = [
+    {{ title }}
 
-('👨‍🎓','Students','/students'),
+    </h5>
 
-('📊','Dashboard','/dashboard'),
+    </div>
 
-('📢','Notices','/notices'),
+    </div>
 
-('🤖','AI Assistant','/assistant')
+    </a>
 
-] %}
+    </div>
 
-{% for icon,title,link in quick_links %}
+    {% endfor %}
 
-<div class="col-lg-3 col-md-6">
+    </div>
 
-<a href="{{ link }}"
-class="text-decoration-none">
+    </div>
 
-<div class="card text-center h-100 shadow-lg">
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
 
-<div class="card-body py-5">
+        var calendarEl = document.getElementById('calendar');
 
-<h1>{{ icon }}</h1>
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
 
-<h5 class="mt-3">
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
 
-{{ title }}
+            height: 450,
 
-</h5>
+            selectable: true,
 
-</div>
+            dateClick: function(info) {
+                alert("Selected Date: " + info.dateStr);
+            }
 
-</div>
+        });
 
-</a>
-
-</div>
-
-{% endfor %}
-
-</div>
-
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-
-    var calendarEl = document.getElementById('calendar');
-
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-
-        headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
-        },
-
-        height: 450,
-
-        selectable: true,
-
-        dateClick: function(info) {
-            alert("Selected Date: " + info.dateStr);
-        }
+        calendar.render();
 
     });
+    </script>
+    <!-- ================= FOOTER ================= -->
 
-    calendar.render();
+    <footer class="footer mt-5">
 
-});
-</script>
-<!-- ================= FOOTER ================= -->
+        <div class="container py-5">
 
-<footer class="footer mt-5">
+            <div class="row g-4">
 
-    <div class="container py-5">
+                <!-- College Info -->
+                <div class="col-md-4">
 
-        <div class="row g-4">
+                    <h4>
+                        🎓 College Smart Portal
+                    </h4>
 
-            <!-- College Info -->
-            <div class="col-md-4">
+                    <p>
+                        Government Polytechnic Hingoli
+                    </p>
 
-                <h4>
-                    🎓 College Smart Portal
-                </h4>
+                    <p>
+                        Smart Digital Campus Management System
+                    </p>
 
-                <p>
-                    Government Polytechnic Hingoli
-                </p>
-
-                <p>
-                    Smart Digital Campus Management System
-                </p>
-
-            </div>
-
-
-            <!-- Empty Space -->
-            <div class="col-md-4 text-center">
-
-                <div class="footer-icon">
-                    🏫
                 </div>
 
-                <p>
-                    Empowering Students Through Technology
-                </p>
+
+                <!-- Empty Space -->
+                <div class="col-md-4 text-center">
+
+                    <div class="footer-icon">
+                        🏫
+                    </div>
+
+                    <p>
+                        Empowering Students Through Technology
+                    </p>
+
+                </div>
+
+
+                <!-- Developer -->
+                <div class="col-md-4">
+
+                    <h5>
+                        👩‍💻 Developer
+                    </h5>
+
+                    <p>
+                        Mohini Ghuge
+                    </p>
+
+                    <p>
+                        🚀 Python Internship Project
+                    </p>
+
+                    <p>
+                        ⚙ Flask | SQLite | Bootstrap
+                    </p>
+
+                </div>
 
             </div>
 
 
-            <!-- Developer -->
-            <div class="col-md-4">
+            <hr>
 
-                <h5>
-                    👩‍💻 Developer
-                </h5>
 
-                <p>
-                    Mohini Ghuge
-                </p>
+            <div class="text-center footer-bottom">
 
-                <p>
-                    🚀 Python Internship Project
-                </p>
-
-                <p>
-                    ⚙ Flask | SQLite | Bootstrap
-                </p>
+                © 2026 College Smart Portal 
+                | All Rights Reserved
 
             </div>
 
         </div>
 
-
-        <hr>
-
-
-        <div class="text-center footer-bottom">
-
-            © 2026 College Smart Portal 
-            | All Rights Reserved
-
-        </div>
-
-    </div>
-
-</footer>
+    </footer>
 
 
-<style>
+    <style>
 
-.footer {
+    .footer {
 
-    background: linear-gradient(135deg,#0f172a,#1e40af);
+        background: linear-gradient(135deg,#0f172a,#1e40af);
 
-    color:white;
+        color:white;
 
-    border-radius:30px 30px 0 0;
+        border-radius:30px 30px 0 0;
 
-    box-shadow:0 -10px 35px rgba(0,0,0,0.2);
+        box-shadow:0 -10px 35px rgba(0,0,0,0.2);
 
-}
-
-
-.footer h4 {
-
-    font-size:24px;
-
-    font-weight:700;
-
-    margin-bottom:15px;
-
-}
-
-
-.footer h5 {
-
-    color:#93c5fd;
-
-    font-size:20px;
-
-    font-weight:700;
-
-    margin-bottom:15px;
-
-}
-
-
-.footer p {
-
-    color:#dbeafe;
-
-    font-size:15px;
-
-    margin-bottom:8px;
-
-}
-
-
-.footer-icon {
-
-    font-size:55px;
-
-    margin-bottom:15px;
-
-    animation: float 3s ease-in-out infinite;
-
-}
-
-
-.footer .col-md-4 {
-
-    transition:0.3s;
-
-}
-
-
-.footer .col-md-4:hover {
-
-    transform:translateY(-6px);
-
-}
-
-
-.footer hr {
-
-    border-color:rgba(255,255,255,0.3);
-
-}
-
-
-.footer-bottom {
-
-    color:#bfdbfe;
-
-    font-size:14px;
-
-}
-
-
-
-@keyframes float {
-
-    0% {
-        transform:translateY(0);
     }
 
-    50% {
-        transform:translateY(-8px);
+
+    .footer h4 {
+
+        font-size:24px;
+
+        font-weight:700;
+
+        margin-bottom:15px;
+
     }
 
-    100% {
-        transform:translateY(0);
+
+    .footer h5 {
+
+        color:#93c5fd;
+
+        font-size:20px;
+
+        font-weight:700;
+
+        margin-bottom:15px;
+
     }
 
-}
+
+    .footer p {
+
+        color:#dbeafe;
+
+        font-size:15px;
+
+        margin-bottom:8px;
+
+    }
 
 
-</style>
+    .footer-icon {
 
-{% endblock %}
+        font-size:55px;
+
+        margin-bottom:15px;
+
+        animation: float 3s ease-in-out infinite;
+
+    }
+
+
+    .footer .col-md-4 {
+
+        transition:0.3s;
+
+    }
+
+
+    .footer .col-md-4:hover {
+
+        transform:translateY(-6px);
+
+    }
+
+
+    .footer hr {
+
+        border-color:rgba(255,255,255,0.3);
+
+    }
+
+
+    .footer-bottom {
+
+        color:#bfdbfe;
+
+        font-size:14px;
+
+    }
+
+
+
+    @keyframes float {
+
+        0% {
+            transform:translateY(0);
+        }
+
+        50% {
+            transform:translateY(-8px);
+        }
+
+        100% {
+            transform:translateY(0);
+        }
+
+    }
+
+
+    </style>
+
+    {% endblock %}
