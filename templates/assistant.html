@@ -1,173 +1,298 @@
 {% extends "base.html" %}
 
 {% block content %}
-
 <style>
 
-/* ===============================
-   MAIN LAYOUT
-================================ */
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+*{
+    box-sizing:border-box;
+}
 
 .assistant-layout{
     display:flex;
     gap:20px;
-    height:calc(100vh - 150px);
+    width:100%;
+    height:calc(100vh - 130px);
+    min-height:600px;
     align-items:stretch;
 }
 
 .chat-area{
     flex:1;
+    min-width:0;
     height:100%;
 }
 
 
-/* ===============================
+/* =========================================================
    CHAT CARD
-================================ */
+========================================================= */
 
 .chat-card{
+    width:100%;
     height:100%;
-    border:none;
-    border-radius:25px;
+    border:none !important;
+    border-radius:24px !important;
     overflow:hidden;
-    background:white;
-    box-shadow:0 20px 50px rgba(0,0,0,.15);
+    background:#ffffff;
+    box-shadow:0 15px 40px rgba(0,0,0,.12);
+    display:flex;
+    flex-direction:column;
 }
 
 
-/* ===============================
+/* =========================================================
    CHAT HEADER
-================================ */
+========================================================= */
 
 .chat-header{
-    background:linear-gradient(135deg,#6d0d82,#a01d9e);
-    color:white;
+    flex-shrink:0;
+    background:linear-gradient(
+        135deg,
+        #6d0d82,
+        #a01d9e
+    );
+    color:#ffffff;
     text-align:center;
-    padding:18px;
+    padding:16px 20px;
 }
 
 .chat-header h2{
-    font-size:24px;
-    margin-bottom:5px;
+    font-size:23px;
+    margin:0 0 5px 0;
+    font-weight:700;
+}
+
+.chat-header small{
+    font-size:12px;
+    opacity:.95;
+}
+
+.chat-header .badge{
+    font-size:12px;
+    padding:7px 14px;
 }
 
 
-/* ===============================
-   CHAT MESSAGES
-================================ */
+/* =========================================================
+   CARD BODY
+========================================================= */
 
-#chatMessages{
-    height:calc(100vh - 360px);
-    overflow-y:auto;
-    padding:25px;
+.chat-card .card-body{
+    padding:0 !important;
+    display:flex;
+    flex-direction:column;
+    flex:1;
+    min-height:0;
     background:#ffffff;
 }
 
+
+/* =========================================================
+   SUGGESTION CHIPS
+========================================================= */
+
+.suggestion-chips{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    padding:12px 18px 8px;
+    flex-shrink:0;
+}
+
+.chip{
+    border:none;
+    border-radius:20px;
+    background:#eef1f5;
+    color:#333;
+    padding:7px 13px;
+    font-size:12px;
+    font-weight:500;
+    cursor:pointer;
+    transition:.25s ease;
+}
+
+.chip:hover{
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+    color:#ffffff;
+    transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   CHAT MESSAGES
+========================================================= */
+
+#chatMessages{
+    flex:1;
+    min-height:0;
+    overflow-y:auto;
+    padding:18px 22px;
+    background:#ffffff;
+    scroll-behavior:smooth;
+}
+
 #chatMessages::-webkit-scrollbar{
-    width:8px;
+    width:7px;
+}
+
+#chatMessages::-webkit-scrollbar-track{
+    background:#f5f5f5;
 }
 
 #chatMessages::-webkit-scrollbar-thumb{
-    background:#3180a1;
+    background:#b7a4c0;
     border-radius:20px;
 }
 
+#chatMessages::-webkit-scrollbar-thumb:hover{
+    background:#7d5a8c;
+}
 
-/* ===============================
+
+/* =========================================================
    USER MESSAGE
-================================ */
+========================================================= */
 
 .user-msg{
     display:flex;
     justify-content:flex-end;
-    margin-bottom:15px;
+    margin:8px 0 14px;
+    width:100%;
 }
 
 .user-msg span{
-    background:linear-gradient(135deg,#198754,#20c997);
-    color:white;
-    padding:12px 18px;
-    border-radius:20px 20px 5px 20px;
-    max-width:75%;
-    box-shadow:0 5px 15px rgba(25,135,84,.25);
+    display:inline-block;
+    max-width:72%;
+    padding:10px 15px;
+    border-radius:18px 18px 5px 18px;
+
+    background:linear-gradient(
+        135deg,
+        #198754,
+        #20c997
+    );
+
+    color:#ffffff;
+    font-size:13px;
+    line-height:1.45;
+
+    box-shadow:
+        0 4px 12px rgba(25,135,84,.18);
+
+    word-wrap:break-word;
 }
 
-/* ===============================
+
+/* =========================================================
    BOT MESSAGE
-================================ */
+========================================================= */
 
 .bot-message{
-    margin:10px 0 14px;
+    width:100%;
+    margin:8px 0 14px;
 }
 
 .bot-title{
-    font-weight:600;
     color:#2563eb;
-    margin-bottom:5px;
     font-size:12px;
+    font-weight:600;
+    margin-bottom:5px;
 }
 
 
-/* ===============================
-   COMPACT AI REPLY BOX
-================================ */
+/* =========================================================
+   AI REPLY BOX
+========================================================= */
 
 .ai-reply-box{
+    display:block;
+    width:fit-content;
+    max-width:72%;
+
     background:#ffffff !important;
     color:#222222 !important;
-    border:1px solid #e5e7eb;
+
+    border:1px solid #e4e7eb;
     border-radius:14px;
-    padding:12px 14px;
-    margin-top:5px;
-    max-width:70%;
-    box-shadow:0 5px 14px rgba(0,0,0,.07);
+
+    padding:10px 13px;
+    margin:0;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,.06);
 }
 
 
-/* ===============================
+/* =========================================================
    AI TEXT
-================================ */
+========================================================= */
 
 .message-text{
     white-space:pre-wrap;
-    line-height:1.35;
+    word-wrap:break-word;
+
     color:#222222 !important;
     background:transparent !important;
+
     font-size:13px;
     font-weight:400;
+    line-height:1.45;
+
+    margin:0;
+    padding:0;
 }
 
 
-/* ===============================
-   AI BOTTOM ACTIONS
-================================ */
+/* =========================================================
+   AI ACTIONS
+========================================================= */
 
 .ai-bottom-actions{
     display:flex;
     align-items:center;
     justify-content:space-between;
+    gap:12px;
+
     margin-top:8px;
+    padding-top:6px;
+
+    border-top:1px solid #f0f0f0;
 }
 
 
-/* LIKE / DISLIKE */
+/* =========================================================
+   LIKE / DISLIKE
+========================================================= */
 
 .feedback-buttons{
     display:flex;
+    align-items:center;
     gap:5px;
-    margin:0;
 }
 
 .feedback-btn{
+    width:26px;
+    height:26px;
+
     border:none;
-    background:#f1f5f9;
-    width:27px;
-    height:27px;
     border-radius:50%;
-    cursor:pointer;
-    transition:.2s;
-    font-size:12px;
+
+    background:#f1f5f9;
+    color:#555;
+
+    font-size:11px;
     padding:0;
+
+    cursor:pointer;
+    transition:.2s ease;
 }
 
 .feedback-btn:hover{
@@ -177,173 +302,403 @@
 
 .feedback-btn.selected{
     background:#2563eb;
-    color:white;
+    color:#ffffff;
 }
 
 
-/* COPY / REGENERATE */
+/* =========================================================
+   COPY / REGENERATE
+========================================================= */
 
 .reply-actions{
     display:flex;
     align-items:center;
-    justify-content:flex-end;
     gap:5px;
-    margin:0;
 }
 
 .copy-btn{
+    width:26px;
+    height:26px;
+
     border:none;
-    background:#d8e8ec;
-    width:27px;
-    height:27px;
     border-radius:50%;
-    cursor:pointer;
-    transition:.3s;
-    font-size:12px;
+
+    background:#e8f0f2;
+    color:#333;
+
+    font-size:11px;
     padding:0;
+
+    cursor:pointer;
+    transition:.25s;
 }
 
 .copy-btn:hover{
     background:#2563eb;
-    color:#fff;
+    color:#ffffff;
     transform:scale(1.08);
 }
 
 .regenerate-btn{
     border:none;
+    border-radius:14px;
+
     background:#eef2ff;
     color:#4f46e5;
-    padding:5px 10px;
-    font-size:11px;
-    border-radius:15px;
+
+    padding:5px 9px;
+
+    font-size:10px;
+    font-weight:500;
+
     cursor:pointer;
-    transition:.3s;
+    transition:.25s;
 }
 
 .regenerate-btn:hover{
     background:#4f46e5;
-    color:white;
+    color:#ffffff;
     transform:translateY(-1px);
 }
-/* ===============================
-   INPUT AREA
-================================ */
 
-.chat-input-area{
-    position:sticky;
-    bottom:0;
-    background:white;
-    padding:12px;
+
+/* =========================================================
+   DEFAULT BOT MESSAGE
+========================================================= */
+
+.bot-msg{
+    display:inline-block;
+
+    width:fit-content;
+    max-width:72%;
+
+    padding:10px 14px;
+    margin:8px 0;
+
+    background:#ffffff;
+
+    border:1px solid #e5e7eb;
+    border-radius:14px;
+
+    color:#222222;
+
+    font-size:13px;
+    line-height:1.45;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,.05);
 }
 
-.chat-input{
-    border:none;
-    border-radius:50px;
-    padding:15px;
-    background:#b1c3d6;
-}
-
-.chat-input:focus{
-    box-shadow:0 0 0 0.2rem rgba(20,93,203,.25);
-    background:white;
-}
-
-
-/* ===============================
-   BUTTONS
-================================ */
-
-.voice-btn{
-    width:55px;
-    height:55px;
-    border-radius:50%;
-    border:none;
-    margin-left:10px;
-    background:linear-gradient(135deg,#dc3545,#ff6b6b);
-}
-
-.send-btn{
-    border-radius:50px;
-    padding:0 30px;
-    margin-left:10px;
-    background:linear-gradient(135deg,#0d6efd,#6610f2);
-    border:none;
-}
-
-.voice-btn:hover,
-.send-btn:hover{
-    transform:translateY(-2px) scale(1.05);
+.bot-msg span{
+    color:#222222;
 }
 
 
-/* ===============================
+/* =========================================================
    TYPING
-================================ */
+========================================================= */
 
 .typing{
-    font-style:italic;
+    display:inline-block;
+
+    margin:5px 0 12px;
+    padding:8px 12px;
+
+    background:#f4f4f5;
+    border-radius:12px;
+
     color:#666;
-    margin-bottom:15px;
+    font-size:12px;
+    font-style:italic;
+
     animation:blink 1s infinite;
 }
 
 @keyframes blink{
+
     50%{
-        opacity:.3;
+        opacity:.35;
     }
+
 }
 
 
-/* ===============================
+/* =========================================================
+   INPUT AREA
+========================================================= */
+
+.chat-input-area{
+    flex-shrink:0;
+
+    display:flex;
+    align-items:center;
+
+    padding:10px 14px 14px;
+
+    background:#ffffff;
+
+    border-top:1px solid #eeeeee;
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.chat-input{
+    height:48px;
+
+    border:none !important;
+    outline:none !important;
+
+    border-radius:25px !important;
+
+    padding:0 18px !important;
+
+    background:#eef1f4 !important;
+
+    color:#222 !important;
+
+    font-size:13px;
+
+    box-shadow:none !important;
+}
+
+.chat-input::placeholder{
+    color:#777;
+}
+
+.chat-input:focus{
+    background:#ffffff !important;
+
+    box-shadow:
+        0 0 0 2px rgba(37,99,235,.15) !important;
+}
+
+
+/* =========================================================
+   VOICE BUTTON
+========================================================= */
+
+.voice-btn{
+    flex-shrink:0;
+
+    width:46px;
+    height:46px;
+
+    padding:0 !important;
+
+    border:none !important;
+    border-radius:50% !important;
+
+    margin-left:8px;
+
+    background:linear-gradient(
+        135deg,
+        #dc3545,
+        #ff6b6b
+    ) !important;
+
+    color:#ffffff;
+
+    font-size:17px;
+
+    transition:.25s;
+}
+
+.voice-btn:hover{
+    transform:scale(1.06);
+}
+
+
+/* =========================================================
+   SEND BUTTON
+========================================================= */
+
+.send-btn{
+    flex-shrink:0;
+
+    height:46px;
+
+    border:none !important;
+    border-radius:23px !important;
+
+    padding:0 22px !important;
+
+    margin-left:8px;
+
+    background:linear-gradient(
+        135deg,
+        #0d6efd,
+        #6610f2
+    ) !important;
+
+    font-size:13px;
+    font-weight:600;
+
+    transition:.25s;
+}
+
+.send-btn:hover{
+    transform:translateY(-1px);
+}
+
+
+/* =========================================================
+   LISTEN BUTTON
+========================================================= */
+
+.chat-input-area .btn-warning{
+    flex-shrink:0;
+
+    height:42px;
+
+    border:none;
+
+    border-radius:20px;
+
+    padding:0 14px;
+
+    margin-left:7px !important;
+
+    font-size:12px;
+    font-weight:600;
+}
+
+
+/* =========================================================
    SIDEBAR
-================================ */
+========================================================= */
 
 .chat-sidebar{
-    width:280px;
-    background:#ffffff;
-    padding:18px;
-    border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,.12);
+    flex:0 0 265px;
+    width:265px;
+
     height:100%;
-    overflow-y:auto;
+
     display:flex;
     flex-direction:column;
+
+    padding:18px;
+
+    background:#ffffff;
+
+    border-radius:20px;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.10);
+
+    overflow:hidden;
 }
 
 .chat-sidebar h5{
+    flex-shrink:0;
+
     color:#222;
-    margin-bottom:20px;
+
+    font-size:17px;
+    font-weight:600;
+
+    margin:0 0 16px;
 }
 
 .chat-sidebar hr{
-    border-color:#ddd;
+    width:100%;
+
+    margin:5px 0 12px;
+
+    border:0;
+    border-top:1px solid #e5e5e5;
 }
+
+
+/* =========================================================
+   NEW CHAT
+========================================================= */
+
+.new-chat-btn{
+    flex-shrink:0;
+
+    display:block;
+
+    padding:11px 13px;
+
+    border-radius:10px;
+
+    background:#2f2f2f;
+    color:#ffffff;
+
+    text-decoration:none;
+
+    font-size:13px;
+    font-weight:500;
+
+    transition:.25s;
+}
+
+.new-chat-btn:hover{
+    background:#414141;
+    color:#ffffff;
+}
+
+
+/* =========================================================
+   CHAT LIST
+========================================================= */
 
 .chat-list{
     flex:1;
+
+    min-height:0;
+
     overflow-y:auto;
+
+    padding-right:3px;
+}
+
+.chat-list::-webkit-scrollbar{
+    width:5px;
+}
+
+.chat-list::-webkit-scrollbar-thumb{
+    background:#c9c9c9;
+    border-radius:10px;
 }
 
 
-/* ===============================
+/* =========================================================
    CHAT ITEMS
-================================ */
+========================================================= */
 
 .chat-item{
     display:flex;
-    justify-content:space-between;
+
     align-items:center;
-    padding:12px;
-    margin-bottom:8px;
+
+    width:100%;
+
+    padding:10px 11px;
+
+    margin-bottom:7px;
+
     border-radius:10px;
-    background:#f8f9fa;
+
+    background:#f7f8fa;
+
     color:#212529;
-    border:1px solid #dee2e6;
-    font-size:14px;
+
+    border:1px solid #e1e4e8;
+
+    font-size:13px;
     font-weight:500;
+
     cursor:pointer;
-    transition:.3s;
+
+    transition:.25s;
+
     text-decoration:none;
+
+    overflow:hidden;
 }
 
 .chat-item:hover{
@@ -353,54 +708,56 @@
         #5e28aa,
         #a01d9e
     );
-    color:#fff;
+
+    color:#ffffff;
+
+    border-color:transparent;
+
     text-decoration:none;
 }
 
 .chat-item.active{
     background:#2f2f2f;
-    color:white;
+    color:#ffffff;
+    border-color:#2f2f2f;
 }
 
 
-/* ===============================
-   NEW CHAT
-================================ */
-
-.new-chat-btn{
-    display:block;
-    padding:12px;
-    border-radius:10px;
-    background:#2f2f2f;
-    color:white;
-    text-decoration:none;
-    margin-bottom:15px;
-}
-
-.new-chat-btn:hover{
-    background:#404040;
-    color:white;
-}
-
-
-/* ===============================
-   CLEAR BUTTON
-================================ */
+/* =========================================================
+   SIDEBAR BOTTOM
+========================================================= */
 
 .sidebar-bottom{
-    margin-top:auto;
-    padding-top:15px;
-    border-top:1px solid #ddd;
+    flex-shrink:0;
+
+    margin-top:12px;
+
+    padding-top:12px;
+
+    border-top:1px solid #e1e1e1;
 }
 
 .clear-btn{
     display:block;
+
+    width:100%;
+
     text-align:center;
-    padding:10px;
+
+    padding:9px 10px;
+
     border-radius:10px;
+
     background:#2f2f2f;
+
     color:#ff7777;
+
     text-decoration:none;
+
+    font-size:12px;
+    font-weight:500;
+
+    transition:.25s;
 }
 
 .clear-btn:hover{
@@ -409,85 +766,37 @@
 }
 
 
-/* ===============================
-   SUGGESTION CHIPS
-================================ */
-
-.suggestion-chips{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    padding:12px 18px;
-}
-
-.chip{
-    border:none;
-    border-radius:25px;
-    background:#b9bdc1;
-    padding:8px 15px;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.chip:hover{
-    background:linear-gradient(
-        135deg,
-        #2563eb,
-        #7c3aed
-    );
-    color:white;
-    transform:translateY(-2px);
-}
-
-
-/* ===============================
-   MOBILE
-================================ */
-
-@media(max-width:768px){
-
-    .assistant-layout{
-        flex-direction:column;
-        height:auto;
-    }
-
-    .chat-sidebar{
-        width:100%;
-        height:300px;
-    }
-
-    .chat-area{
-        height:auto;
-    }
-
-    .chat-card{
-        height:650px;
-    }
-
-    #chatMessages{
-        height:400px;
-    }
-
-}
-/* ===============================
+/* =========================================================
    FEEDBACK TOAST
-================================ */
+========================================================= */
 
 .feedback-toast{
     position:fixed;
+
     top:25px;
     right:25px;
+
     background:#198754;
-    color:white;
+    color:#ffffff;
+
     padding:10px 18px;
+
     border-radius:10px;
+
     font-size:13px;
     font-weight:500;
-    box-shadow:0 8px 25px rgba(0,0,0,.2);
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.20);
+
     opacity:0;
+
     transform:translateY(-15px);
+
     pointer-events:none;
+
     transition:.3s ease;
+
     z-index:9999;
 }
 
@@ -495,28 +804,97 @@
     opacity:1;
     transform:translateY(0);
 }
-/* ===============================
-   AI REPLY - COMPACT & READABLE
-================================ */
 
-.bot-msg{
-    padding:12px 16px !important;
-    margin:8px 0 !important;
-    width:fit-content !important;
-    max-width:75% !important;
-    height:auto !important;
-    min-height:0 !important;
-    line-height:1.6 !important;
-    font-size:16px !important;
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:900px){
+
+    .assistant-layout{
+        flex-direction:column;
+        height:auto;
+        min-height:auto;
+    }
+
+    .chat-sidebar{
+        width:100%;
+        flex:0 0 auto;
+        height:280px;
+    }
+
+    .chat-area{
+        width:100%;
+        height:650px;
+    }
+
+    .chat-card{
+        height:650px;
+    }
+
+    #chatMessages{
+        min-height:0;
+    }
+
 }
 
-.bot-msg p{
-    margin:0 !important;
-    font-size:16px !important;
-    line-height:1.6 !important;
+
+@media(max-width:600px){
+
+    .assistant-layout{
+        gap:12px;
+    }
+
+    .chat-sidebar{
+        height:240px;
+        padding:14px;
+    }
+
+    .chat-header{
+        padding:13px;
+    }
+
+    .chat-header h2{
+        font-size:19px;
+    }
+
+    .suggestion-chips{
+        padding:8px 10px;
+        gap:5px;
+    }
+
+    .chip{
+        font-size:10px;
+        padding:6px 9px;
+    }
+
+    #chatMessages{
+        padding:12px;
+    }
+
+    .user-msg span,
+    .ai-reply-box,
+    .bot-msg{
+        max-width:88%;
+    }
+
+    .chat-input-area{
+        padding:8px;
+    }
+
+    .send-btn{
+        padding:0 14px !important;
+        font-size:11px;
+    }
+
+    .chat-input-area .btn-warning{
+        padding:0 9px;
+        font-size:10px;
+    }
+
 }
 </style>
-
 <div id="feedbackToast" class="feedback-toast">
     Thanks for your feedback 💖!
 </div>
@@ -524,9 +902,8 @@
 
     <div class="assistant-layout">
 
-
         <!-- ===============================
-             LEFT SIDEBAR
+            LEFT SIDEBAR
         ================================ -->
 
         <div class="chat-sidebar">
@@ -535,22 +912,21 @@
                 🤖 Your Chats
             </h5>
 
-
             <a href="/assistant"
-               id="newChatBtn"
-               class="new-chat-btn">
-                ✏️ New chat
-            </a>
+            id="newChatBtn"
+            class="new-chat-btn">
 
+                ✏️ New chat
+
+            </a>
 
             <hr>
 
-
-           <div class="chat-list">
+            <div class="chat-list">
 
                 {% for chat in chats %}
 
-                    {% if chat.get('conversation_id') %}
+                    {% if chat['conversation_id'] %}
 
                         <a href="{{ url_for('conversation', conversation_id=chat['conversation_id']) }}"
                         class="chat-item">
@@ -562,7 +938,9 @@
                     {% else %}
 
                         <div class="chat-item">
+
                             💬 {{ chat['chat_title'] }}
+
                         </div>
 
                     {% endif %}
@@ -571,13 +949,12 @@
 
             </div>
 
-                <!-- Current Chat -->
 
-                <div class="chat-item active">
+            <!-- Current Chat -->
 
-                    💬 College AI Chat
+            <div class="chat-item active">
 
-                </div>
+                💬 College AI Chat
 
             </div>
 
@@ -587,8 +964,8 @@
             <div class="sidebar-bottom">
 
                 <a href="/clear_chat"
-                   id="clearHistoryBtn"
-                   class="clear-btn">
+                id="clearHistoryBtn"
+                class="clear-btn">
 
                     🗑 Clear History
 
@@ -597,9 +974,6 @@
             </div>
 
         </div>
-
-
-
         <!-- ===============================
              RIGHT CHAT AREA
         ================================ -->
