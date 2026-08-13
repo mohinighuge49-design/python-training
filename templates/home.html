@@ -1,82 +1,74 @@
-    {% extends "base.html" %}
+{% extends "base.html" %}
 
-    {% block title %}Government Polytechnic Hingoli{% endblock %}
+ {% block title %}Government Polytechnic Hingoli{% endblock %}
 
-    {% block content %}
-    <style>
+{% block content %}
+ 
+ <style>
+/* =============GLOBAL========= */
+body{
+    background:linear-gradient(135deg,#edf4ff,#f8fbff,#eef5ff);
+    font-family:'Segoe UI',sans-serif;
+    overflow-x:hidden;
+}
 
-    body{
-        background:linear-gradient(135deg,#edf4ff,#f8fbff,#eef5ff);
-        font-family:'Segoe UI',sans-serif;
-    }
+.card{
+    border:none;
+    border-radius:22px;
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+    transition:.35s ease;
+}
 
-    /* ===== SAME SIZE FOR ALL CARDS ===== */
+.card:hover{
+    transform:translateY(-6px);
+}
 
-    .same-card{
-        height:340px;
-        border-radius:20px;
-        transition:0.3s;
-    }
 
-    .same-card:hover{
-        transform:translateY(-8px);
-        box-shadow:0 20px 40px rgba(0,0,0,.18);
-    }
+/* ================= WELCOME CARD=================== */
 
-    .same-card .card-body{
-        height:100%;
-        display:flex;
-        flex-direction:column;
-        justify-content:center;
-        align-items:center;
-        text-align:center;
-    }
+.welcome-card{
+    border:none;
+    border-radius:22px;
+    background:#fff;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    transition:.3s ease;
+}
 
-    .same-card img{
-        max-width:100%;
-        object-fit:cover;
-    }
+.welcome-card:hover{
+    transform:translateY(-4px);
+}
 
-    .same-card p{
-        font-size:14px;
-        line-height:1.5;
-    }
-    /* ========= HERO ========= */
 
-    .hero{
+/* ============== PREMIUM HERO============== */
 
-        background:
-        linear-gradient(
+.hero{
+    background:linear-gradient(
         135deg,
         #1e3c72,
         #2a5298,
-        #4f46e5);
+        #4f46e5
+    );
 
-        border-radius:30px;
+    border-radius:30px;
+    min-height:470px;
 
-        min-height:470px;
+    display:flex;
+    align-items:center;
 
-        display:flex;
+    position:relative;
+    overflow:hidden;
 
-        align-items:center;
+    box-shadow:0 25px 60px rgba(0,0,0,.20);
+}
 
-        position:relative;
 
-        overflow:hidden;
+/* Decorative Circle - Right */
 
-        box-shadow:
-        0 25px 60px rgba(0,0,0,.20);
-
-    }
-
-    .hero::before{
-
+.hero::before{
     content:"";
-
     position:absolute;
 
     width:420px;
-
     height:420px;
 
     background:rgba(255,255,255,.10);
@@ -84,105 +76,63 @@
     border-radius:50%;
 
     right:-150px;
-
     top:-150px;
 
     filter:blur(20px);
 
-    }
+    pointer-events:none;
+}
 
-    .hero::after{
 
+/* Decorative Circle - Left */
+
+.hero::after{
     content:"";
-
     position:absolute;
 
     width:320px;
-
     height:320px;
 
     background:rgba(255,255,255,.08);
 
     left:-100px;
-
     bottom:-100px;
 
     border-radius:50%;
 
-    }
+    pointer-events:none;
+}
 
-    /* ========= GLASS ========= */
 
-    .glass{
+/* ================ HERO GLASS===================== */
 
+.glass{
     background:rgba(255,255,255,.12);
 
     backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
 
     border:1px solid rgba(255,255,255,.18);
 
     padding:35px;
-
     border-radius:25px;
-
-    }
-
-    /* ========= HERO IMAGE ========= */
-
-    /* ========= HERO COLLEGE IMAGE ========= */
-
-    .hero img{
-        width:100% !important;
-        max-width:520px !important;
-
-        height:430px !important;
-        max-height:none !important;
-
-        object-fit:cover;
-
-        border-radius:22px;
-
-        box-shadow:
-            0 20px 45px rgba(0,0,0,.30);
-
-        transition:.4s;
-
-        animation:floatImage 4s ease-in-out infinite;
-    }
-
-    .hero img:hover{
-        transform:scale(1.03);
-    }
+}
 
 
-    /* Floating Animation */
+/* ==============HERO TEXT============ */
 
-    @keyframes floatImage{
+.hero h1{
+    line-height:1.2;
+}
 
-        0%{
-            transform:translateY(0);
-        }
+.hero p.lead{
+    line-height:1.6;
+}
 
-        50%{
-            transform:translateY(-10px);
-        }
 
-        100%{
-            transform:translateY(0);
-        }
+/* ===================HERO BUTTON======================= */
 
-    }
-
-    .hero img:hover{
-
-    transform:scale(1.05);
-
-    }
-
-    /* ========= BUTTON ========= */
-
-    .hero-btn{
-
+.hero-btn{
     border-radius:50px;
 
     padding:12px 25px;
@@ -191,468 +141,868 @@
 
     margin-right:10px;
 
-    transition:.35s;
+    transition:.35s ease;
+}
 
-    }
-
-    .hero-btn:hover{
-
+.hero-btn:hover{
     transform:translateY(-4px);
+}
 
-    }
-    .hero img{
-        animation: floatImage 4s ease-in-out infinite;
-    }
 
-    @keyframes floatImage{
+/* Dark Mode Explore Button */
+
+body.dark-mode .hero .hero-btn.btn-light{
+    background:#fff !important;
+    color:#1e3c72 !important;
+    border-color:#fff !important;
+}
+
+body.dark-mode .hero .hero-btn.btn-light:hover{
+    background:#f1f5ff !important;
+    color:#1e3c72 !important;
+}
+
+
+/* ================== HERO COLLEGE IMAGE - DESKTOP================ */
+
+.hero-college-img{
+    width:100% !important;
+    max-width:520px !important;
+
+    height:430px !important;
+
+    object-fit:cover !important;
+    object-position:center !important;
+
+    border-radius:22px !important;
+
+    display:block !important;
+    margin:0 auto !important;
+
+    box-shadow:0 20px 45px rgba(0,0,0,.30) !important;
+
+    animation:floatImage 4s ease-in-out infinite;
+
+    transition:transform .4s ease,
+               box-shadow .4s ease !important;
+}
+
+.hero-college-img:hover{
+    transform:scale(1.03);
+}
+
+
+/* Floating Animation */
+
+@keyframes floatImage{
 
     0%{
-    transform:translateY(0);
+        transform:translateY(0);
     }
 
     50%{
-    transform:translateY(-12px);
+        transform:translateY(-10px);
     }
 
     100%{
-    transform:translateY(0);
+        transform:translateY(0);
     }
 
-    }
-    /* ========= WELCOME ========= */
+}
 
-    .welcome-card{
 
+/* ===================== HERO STATISTICS========================== */
+
+.hero .row.mt-5{
+    margin-top:40px !important;
+}
+
+.hero .row.mt-5 h3{
+    font-size:25px;
+    margin-bottom:4px;
+}
+
+.hero .row.mt-5 small{
+    font-size:12px;
+}
+
+
+/* ====================PREMIUM DASHBOARD CARDS==================== */
+
+.dashboard-card{
     border:none;
 
     border-radius:22px;
 
-    background:white;
+    overflow:hidden;
 
-    box-shadow:
+    position:relative;
 
-    0 10px 30px rgba(0,0,0,.08);
+    transition:all .35s ease;
 
-    }
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+}
 
-    .welcome-card:hover{
+.dashboard-card::before{
+    content:"";
 
-    transform:translateY(-4px);
+    position:absolute;
 
-    }
+    width:120px;
+    height:120px;
 
-    .dashboard-card {
-        border: none;
-        border-radius: 22px;
-        overflow: hidden;
-        transition: all 0.35s ease;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-        position: relative;
-    }
+    background:rgba(255,255,255,.15);
 
-    .dashboard-card::before {
-        content: "";
-        position: absolute;
-        width: 120px;
-        height: 120px;
-        background: rgba(255,255,255,0.15);
-        border-radius: 50%;
-        top: -40px;
-        right: -40px;
-    }
+    border-radius:50%;
 
-    .dashboard-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 25px 50px rgba(0,0,0,0.25);
-    }
+    top:-40px;
+    right:-40px;
 
-    .dashboard-card .card-body {
-        padding: 30px 20px;
-        position: relative;
-        z-index: 1;
-    }
+    pointer-events:none;
+}
 
-    .dashboard-card h1 {
-        font-size: 55px;
-        margin-bottom: 15px;
-        transition: 0.3s;
-    }
+.dashboard-card:hover{
+    transform:translateY(-10px);
 
-    .dashboard-card:hover h1 {
-        transform: scale(1.15) rotate(5deg);
-    }
+    box-shadow:0 25px 50px rgba(0,0,0,.25);
+}
 
-    .dashboard-card h2 {
-        font-size: 35px;
-        letter-spacing: 1px;
-    }
+.dashboard-card .card-body{
+    padding:30px 20px;
 
-    .dashboard-card p {
-        font-size: 16px;
-        opacity: 0.9;
-        letter-spacing: 0.5px;
-    }
+    position:relative;
+    z-index:1;
+}
 
+.dashboard-card h1{
+    font-size:55px;
 
-    /* ========= STATS ========= */
+    margin-bottom:15px;
+
+    transition:.3s ease;
+}
+
+.dashboard-card:hover h1{
+    transform:scale(1.15) rotate(5deg);
+}
+
+.dashboard-card h2{
+    font-size:35px;
+    letter-spacing:1px;
+}
+
+.dashboard-card p{
+    font-size:16px;
+
+    opacity:.9;
+
+    letter-spacing:.5px;
+}
 
 
-    .info-card{
+/* ================INFO CARDS===================== */
 
-    transition:.4s;
+.info-card{
+    transition:.4s ease;
+}
 
-    }
-    .card-body p{
-        font-size:14px;
-        line-height:1.5;
-    }
-    .info-card:hover{
-
+.info-card:hover{
     transform:translateY(-12px) scale(1.03);
 
     box-shadow:0 25px 45px rgba(0,0,0,.25);
+}
 
-    }
-    /* Equal Height Cards */
-
-    .equal-height{
-        display:flex;
-    }
-
-    .equal-height .card{
-        width:100%;
-        min-height:520px;
-    }
-
-    .equal-height .card-body{
-        display:flex;
-        flex-direction:column;
-    }
-
-    .equal-height .list-group{
-        flex:1;
-    }
-    /* Counter */
-
-    .counter{
-
-    font-size:42px;
-
-    font-weight:700;
-
-    }
-
-    /* ========= ICON ========= */
-
-    .info-card h1{
-
+.info-card h1{
     font-size:45px;
 
-    transition:.35s;
+    transition:.35s ease;
+}
 
-    }
-
-    .info-card:hover h1{
-
+.info-card:hover h1{
     transform:scale(1.15) rotate(8deg);
+}
 
-    }
+.card-body p{
+    font-size:14px;
+    line-height:1.5;
+}
 
 
-    /* ========= NORMAL CARD ========= */
+/* =========================================================
+   SAME SIZE CARDS
+========================================================= */
 
-    .card{
+.same-card{
+    height:340px;
 
-    border:none;
+    border-radius:20px;
 
-    border-radius:22px;
+    transition:.3s ease;
+}
 
-    box-shadow:
+.same-card:hover{
+    transform:translateY(-8px);
 
-    0 12px 30px rgba(0,0,0,.08);
+    box-shadow:0 20px 40px rgba(0,0,0,.18);
+}
 
-    transition:.35s;
+.same-card .card-body{
+    height:100%;
 
-    }
+    display:flex;
 
-    .card:hover{
+    flex-direction:column;
 
-    transform:translateY(-6px);
+    justify-content:center;
 
-    }
-    /* Equal Cards */
+    align-items:center;
 
-    .row.align-items-stretch>.col-lg-4{
-        display:flex;
-    }
+    text-align:center;
+}
 
-    .row.align-items-stretch .card{
-        width:100%;
-        height:340px;
-    }
-    /* Calendar Size */
-    #calendar{
-        width:100%;
-        max-width:100%;
-        height:250px;
-        overflow:hidden;
-    }
+.same-card img{
+    max-width:100%;
 
-    .fc{
-        height:250px !important;
-    }
+    object-fit:cover;
+}
 
-    .fc-scrollgrid{
-        border:none !important;
-    }
+.same-card p{
+    font-size:14px;
+    line-height:1.5;
+}
 
-    .fc-view-harness{
-        overflow:hidden !important;
-    }
-    /* Calendar view buttons size */
-    .fc .fc-button {
-        padding: 4px 8px !important;
-        font-size: 12px !important;
-        height: 28px !important;
-        border-radius: 3px !important;
-    }
 
-    /* Month Week Day text */
-    .fc .fc-button-primary {
-        min-width: 45px !important;
-    }
+/* =========================================================
+   EQUAL HEIGHT
+========================================================= */
 
-    /* Calendar header spacing */
-    .fc .fc-toolbar.fc-header-toolbar {
-        margin-bottom: 10px;
-    }
+.equal-height{
+    display:flex;
+}
 
-    /* Previous Next buttons  */
-    .fc .fc-prev-button,
-    .fc .fc-next-button {
-        padding: 2px 6px !important;
-        font-size: 12px !important;
-    }
-    .fc-toolbar-title {
-        font-size: 18px !important;
-        font-weight: 600;
-    }
-    /* Calendar card spacing */
-    #calendar {
-        padding: 10px;
-    }
+.equal-height .card{
+    width:100%;
+    min-height:520px;
+}
 
-    /* Date numbers size */
-    .fc-daygrid-day-number {
-        font-size: 13px;
-    }
+.equal-height .card-body{
+    display:flex;
+    flex-direction:column;
+}
 
-    /* Week names size */
-    .fc-col-header-cell-cushion {
-        font-size: 13px;
-        font-weight: 600;
-    }
+.equal-height .list-group{
+    flex:1;
+}
 
-    /* Today button */
-    .fc-today-button {
-        font-size: 12px !important;
-    }
-    /* ========= IMAGE ========= */
 
-    .rounded-circle{
+/* =========================================================
+   EQUAL 3 CARDS
+========================================================= */
 
-    border:5px solid white;
+.row.align-items-stretch > .col-lg-4{
+    display:flex;
+}
 
-    box-shadow:
+.row.align-items-stretch .card{
+    width:100%;
+    height:340px;
+}
 
-    0 10px 25px rgba(0,0,0,.20);
 
-    }
+/* =========================================================
+   COUNTER
+========================================================= */
 
-    /* ========= GALLERY ========= */
+.counter{
+    font-size:42px;
+    font-weight:700;
+}
 
-    img{
 
-    transition:.4s;
+/* =========================================================
+   CALENDAR
+========================================================= */
 
-    }
+#calendar{
+    width:100%;
+    max-width:100%;
 
-    img:hover{
+    height:250px;
 
-    transform:scale(1.04);
+    overflow:hidden;
 
-    }
-    .img-fluid{
-
-    transition:.4s;
-
-    }
-
-    .img-fluid:hover{
-
-    transform:scale(1.05);
-
-    }
-    /* ========= FOOTER ========= */
-
-    .footer{
-
-    background:
-
-    linear-gradient(
-
-    90deg,
-
-    #0f172a,
-
-    #1e3a8a,
-
-    #2563eb);
-
-    color:white;
-
-    border-radius:25px 25px 0 0;
-
-    box-shadow:
-
-    0 -10px 35px rgba(0,0,0,.18);
-
-    }
-
-    /* ========= CALENDAR ========= */
-
-    #calendar{
-
-    background:white;
+    background:#fff;
 
     border-radius:15px;
 
     padding:8px;
+}
 
+.fc{
+    height:250px !important;
+}
+
+.fc-scrollgrid{
+    border:none !important;
+}
+
+.fc-view-harness{
+    overflow:hidden !important;
+}
+
+
+/* Calendar Buttons */
+
+.fc .fc-button{
+    padding:4px 8px !important;
+
+    font-size:12px !important;
+
+    height:28px !important;
+
+    border-radius:5px !important;
+}
+
+.fc .fc-button-primary{
+    min-width:45px !important;
+}
+
+
+/* Calendar Toolbar */
+
+.fc .fc-toolbar.fc-header-toolbar{
+    margin-bottom:10px;
+}
+
+.fc-toolbar-title{
+    font-size:18px !important;
+
+    font-weight:600;
+}
+
+
+/* Previous / Next */
+
+.fc .fc-prev-button,
+.fc .fc-next-button{
+    padding:2px 6px !important;
+
+    font-size:12px !important;
+}
+
+
+/* Calendar Date */
+
+.fc-daygrid-day-number{
+    font-size:13px;
+}
+
+
+/* Week Names */
+
+.fc-col-header-cell-cushion{
+    font-size:13px;
+
+    font-weight:600;
+}
+
+
+/* Today */
+
+.fc-today-button{
+    font-size:12px !important;
+}
+
+
+/* =========================================================
+   PRINCIPAL IMAGE
+========================================================= */
+
+.rounded-circle{
+    border:5px solid white;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.20);
+}
+
+
+/* =========================================================
+   GENERAL IMAGES
+========================================================= */
+
+img{
+    transition:.4s ease;
+}
+
+
+/* =========================================================
+   CAMPUS GALLERY
+========================================================= */
+
+.campus-gallery .col-md-4{
+    height:200px !important;
+
+    overflow:hidden !important;
+}
+
+.campus-gallery .col-md-4 img{
+    width:100% !important;
+
+    height:200px !important;
+
+    min-height:200px !important;
+    max-height:200px !important;
+
+    object-fit:cover !important;
+
+    display:block !important;
+
+    border-radius:16px !important;
+
+    transition:
+        transform .4s ease,
+        box-shadow .4s ease !important;
+}
+
+.campus-gallery .col-md-4:hover img{
+    transform:scale(1.04) !important;
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.20) !important;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+    background:linear-gradient(
+        135deg,
+        #0f172a,
+        #1e40af
+    );
+
+    color:white;
+
+    border-radius:30px 30px 0 0;
+
+    box-shadow:
+        0 -10px 35px rgba(0,0,0,.20);
+}
+
+.footer h4{
+    font-size:24px;
+
+    font-weight:700;
+
+    margin-bottom:15px;
+}
+
+.footer h5{
+    color:#93c5fd;
+
+    font-size:20px;
+
+    font-weight:700;
+
+    margin-bottom:15px;
+}
+
+.footer p{
+    color:#dbeafe;
+
+    font-size:15px;
+
+    margin-bottom:8px;
+}
+
+.footer-icon{
+    font-size:55px;
+
+    margin-bottom:15px;
+
+    animation:footerFloat 3s ease-in-out infinite;
+}
+
+.footer .col-md-4{
+    transition:.3s ease;
+}
+
+.footer .col-md-4:hover{
+    transform:translateY(-6px);
+}
+
+.footer hr{
+    border-color:rgba(255,255,255,.3);
+}
+
+.footer-bottom{
+    color:#bfdbfe;
+
+    font-size:14px;
+}
+
+
+/* Footer Animation */
+
+@keyframes footerFloat{
+
+    0%{
+        transform:translateY(0);
     }
 
-    /* ========= RESPONSIVE ========= */
+    50%{
+        transform:translateY(-8px);
+    }
 
-    @media(max-width:768px){
+    100%{
+        transform:translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE - MAX 768px
+========================================================= */
+
+@media(max-width:768px){
+
+    /* Page */
+
+    body{
+        overflow-x:hidden;
+    }
+
+
+    /* Hero */
 
     .hero{
+        margin-top:15px !important;
 
-    padding:35px;
+        padding:18px 12px !important;
 
-    text-align:center;
+        border-radius:22px !important;
 
-    min-height:auto;
+        min-height:auto !important;
 
+        text-align:center;
     }
-    /* Principal, Notice & Calendar Same Size */
-    .equal-card{
-        height:500px;
+
+    .hero .container{
+        padding-left:0 !important;
+        padding-right:0 !important;
+    }
+
+    .hero .row{
+        margin:0 !important;
+    }
+
+
+    /* Hero Text */
+
+    .hero .col-lg-7{
+        padding:0 8px !important;
+    }
+
+    .hero .glass{
+        padding:22px 15px !important;
+
+        border-radius:18px !important;
+
+        text-align:center;
+    }
+
+
+    /* Badge */
+
+    .hero .badge{
+        font-size:13px !important;
+
+        padding:8px 13px !important;
+
+        margin-bottom:12px !important;
+
+        display:inline-block;
+
+        white-space:nowrap;
+    }
+
+
+    /* Heading */
+
+    .hero h1{
+        font-size:27px !important;
+
+        line-height:1.25 !important;
+
+        margin-bottom:10px !important;
+    }
+
+
+    /* Description */
+
+    .hero p.lead{
+        font-size:14px !important;
+
+        line-height:1.55 !important;
+
+        margin-top:10px !important;
+    }
+
+
+    /* Buttons */
+
+    .hero-btn{
+        padding:9px 16px !important;
+
+        font-size:13px !important;
+
+        margin:4px !important;
+    }
+
+
+    /* Hero Statistics */
+
+    .hero .row.mt-5{
+        margin-top:25px !important;
+    }
+
+    .hero .row.mt-5 h3{
+        font-size:21px !important;
+    }
+
+    .hero .row.mt-5 small{
+        font-size:11px !important;
+    }
+
+
+    /* Hero Image */
+
+    .hero .col-lg-5{
+        padding:15px 8px 5px !important;
+    }
+
+    .hero-college-img{
+        width:100% !important;
+
+        max-width:100% !important;
+
+        height:220px !important;
+
+        max-height:220px !important;
+
+        object-fit:cover !important;
+
+        object-position:center !important;
+
+        border-radius:18px !important;
+
+        display:block !important;
+
+        margin:0 auto !important;
+
+        box-shadow:
+            0 12px 28px rgba(0,0,0,.25) !important;
+
+        animation:none !important;
+    }
+
+    /* Mobile image zoom completely disabled */
+
+    .hero-college-img:hover{
+        transform:none !important;
+    }
+
+
+    /* Decorative Circles */
+
+    .hero::before{
+        width:220px !important;
+        height:220px !important;
+
+        right:-110px !important;
+        top:-100px !important;
+    }
+
+    .hero::after{
+        width:180px !important;
+        height:180px !important;
+
+        left:-90px !important;
+        bottom:-80px !important;
+    }
+
+
+    /* Dashboard Cards */
+
+    .dashboard-card{
         border-radius:20px;
     }
 
-    .equal-card .card-body{
+    .dashboard-card .card-body{
+        padding:25px 15px;
+    }
+
+    .dashboard-card h1{
+        font-size:48px;
+    }
+
+    .dashboard-card h2{
+        font-size:30px;
+    }
+
+
+    /* Same Cards */
+
+    .same-card{
+        height:500px !important;
+
+        border-radius:20px;
+    }
+
+    .same-card .card-body{
         overflow:auto;
     }
 
+
+    /* Calendar */
+
     #calendar{
-        height:260px;
-    }
-    .hero h1{
-
-    font-size:34px;
-
+        height:260px !important;
     }
 
-    .counter{
-
-    font-size:34px;
-
+    .fc{
+        height:260px !important;
     }
 
-    }
-    /* =========================================
-    📸 CAMPUS GALLERY - SAME IMAGE SIZE
-    ========================================= */
+
+    /* Gallery */
 
     .campus-gallery .col-md-4{
-        height:200px !important;
-        overflow:hidden !important;
+        height:220px !important;
+
+        margin-bottom:20px;
     }
 
     .campus-gallery .col-md-4 img{
-        width:100% !important;
-        height:200px !important;
+        height:220px !important;
 
-        min-height:200px !important;
-        max-height:200px !important;
+        min-height:220px !important;
 
-        object-fit:cover !important;
-        display:block !important;
-
-        border-radius:16px !important;
-
-        transition:transform .4s ease,
-                box-shadow .4s ease !important;
+        max-height:220px !important;
     }
 
 
-    /* Hover Effect */
+    /* Counter */
 
-    .campus-gallery .col-md-4:hover img{
-        transform:scale(1.04) !important;
-
-        box-shadow:
-            0 15px 35px rgba(0,0,0,.20) !important;
+    .counter{
+        font-size:34px;
     }
 
 
-    /* Mobile */
+    /* Section spacing */
 
-    @media(max-width:768px){
-
-        .campus-gallery .col-md-4{
-            height:220px !important;
-            margin-bottom:20px;
-        }
-
-        .campus-gallery .col-md-4 img{
-            height:220px !important;
-            min-height:220px !important;
-            max-height:220px !important;
-        }
-
-    }
-    /* =========================================
-    DARK MODE FIX - EXPLORE COLLEGE
-    ========================================= */
-
-    body.dark-mode .hero .hero-btn.btn-light{
-        background:#ffffff !important;
-        color:#1e3c72 !important;
-        border-color:#ffffff !important;
+    .container.mt-5{
+        margin-top:35px !important;
     }
 
-    body.dark-mode .hero .hero-btn.btn-light:hover{
-        background:#f1f5ff !important;
-        color:#1e3c72 !important;
+
+    /* Footer */
+
+    .footer{
+        border-radius:22px 22px 0 0;
     }
-    /* =========================================
-    HERO COLLEGE IMAGE
-    ========================================= */
+
+    .footer .col-md-4{
+        text-align:center;
+
+        margin-bottom:15px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES - MAX 400px
+========================================================= */
+
+@media(max-width:400px){
+
+    .hero{
+        padding:12px 8px !important;
+    }
+
+    .hero .glass{
+        padding:18px 12px !important;
+    }
+
+    .hero .badge{
+        font-size:11px !important;
+
+        padding:7px 10px !important;
+    }
+
+    .hero h1{
+        font-size:23px !important;
+    }
+
+    .hero p.lead{
+        font-size:13px !important;
+    }
+
+    .hero-btn{
+        font-size:12px !important;
+
+        padding:8px 13px !important;
+    }
 
     .hero-college-img{
-        width:100%;
-        max-width:520px;
-        max-height:450px;
-        object-fit:cover;
-        border-radius:22px;
-        box-shadow:0 20px 45px rgba(0,0,0,.25);
+        height:190px !important;
+
+        max-height:190px !important;
     }
-    .hero-college-img{
-        max-width:100%;
-        max-height:300px;
+
+    .hero .row.mt-5 h3{
+        font-size:18px !important;
     }
-    </style>
+
+    .hero .row.mt-5 small{
+        font-size:10px !important;
+    }
+
+    .dashboard-card h1{
+        font-size:42px;
+    }
+
+    .dashboard-card h2{
+        font-size:26px;
+    }
+
+    .same-card{
+        height:460px !important;
+    }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.01ms !important;
+    }
+
+}
+
+</style>
 
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
 
@@ -1192,71 +1542,71 @@
 
     <div class="row g-4">
 
-    <div class="col-md-3">
+            <div class="col-md-3">
 
-    <div class="card text-center h-100">
+            <div class="card text-center h-100">
 
-    <div class="card-body">
+                <div class="card-body">
 
-    <div class="display-4">🖥️</div>
+                    <div class="display-4">🖥️</div>
 
-    <h5>Computer Lab</h5>
+                        <h5>Computer Lab</h5>
 
-    </div>
+                    </div>
 
-    </div>
+                </div>
 
-    </div>
+            </div>
 
-    <div class="col-md-3">
+            <div class="col-md-3">
 
-    <div class="card text-center h-100">
+              <div class="card text-center h-100">
 
-    <div class="card-body">
+                <div class="card-body">
 
-    <div class="display-4">📚</div>
+                   <div class="display-4">📚</div>
 
-    <h5>Library</h5>
+                       <h5>Library</h5>
 
-    </div>
+                    </div>
 
-    </div>
+                 </div>
 
-    </div>
+            </div>
 
-    <div class="col-md-3">
+            <div class="col-md-3">
 
-    <div class="card text-center h-100">
+                <div class="card text-center h-100">
 
-    <div class="card-body">
+                   <div class="card-body">
+ 
+                     <div class="display-4">⚽</div>
 
-    <div class="display-4">⚽</div>
+                        <h5>Sports</h5>
 
-    <h5>Sports</h5>
+                       </div>
 
-    </div>
+                </div>
 
-    </div>
+            </div>
 
-    </div>
+            <div class="col-md-3">
 
-    <div class="col-md-3">
+                <div class="card text-center h-100">
 
-    <div class="card text-center h-100">
+                    <div class="card-body">
 
-    <div class="card-body">
+                        <div class="display-4">🌐</div>
 
-    <div class="display-4">🌐</div>
+                             <h5>Free Wi-Fi</h5>
 
-    <h5>Free Wi-Fi</h5>
+                         </div>
 
-    </div>
+                     </div>
 
-    </div>
+                </div>
 
-    </div>
-
-    </div>
+            </div>
 
     </div>
 
@@ -1264,34 +1614,34 @@
 
     <div class="container mt-5">
 
-    <h2 class="fw-bold text-center mb-5">
+        <h2 class="fw-bold text-center mb-5">
 
-    📸 Campus Gallery
+        📸 Campus Gallery
 
-    </h2>
+        </h2>
 
-    <div class="row campus-gallery ">
+        <div class="row campus-gallery ">
 
-    <div class="col-md-4">
+         <div class="col-md-4">
 
-    <img src="{{ url_for('static', filename='uploads/Screenshot 2026-08-07 lab.jpg') }}"
-    class="img-fluid rounded-4 shadow-lg">
+            <img src="{{ url_for('static', filename='uploads/Screenshot 2026-08-07 lab.jpg') }}"
+            class="img-fluid rounded-4 shadow-lg">
 
-    </div>
+        </div>
 
-    <div class="col-md-4">
+        <div class="col-md-4">
 
-    <img src="{{ url_for('static', filename='uploads/g.p.Hingoli_college.jpg') }}"
-    class="img-fluid rounded-4 shadow-lg">
+            <img src="{{ url_for('static', filename='uploads/g.p.Hingoli_college.jpg') }}"
+            class="img-fluid rounded-4 shadow-lg">
 
-    </div>
+        </div>
 
-    <div class="col-md-4">
+        <div class="col-md-4">
 
-    <img src="{{ url_for('static', filename='uploads/Screenshot 2026-08-07 clg.jpg') }}"
-    class="img-fluid rounded-4 shadow-lg">
+            <img src="{{ url_for('static', filename='uploads/Screenshot 2026-08-07 clg.jpg') }}"
+            class="img-fluid rounded-4 shadow-lg">
 
-    </div>
+        </div>
 
     </div>
 

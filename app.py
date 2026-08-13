@@ -788,6 +788,7 @@ def login():
         conn.close()
         
         if user and check_password_hash(user['password'], password):
+            session['user_id'] = user['id']  
             session['username'] = username
             session['email'] = user['email']
             session['role'] = user['role']
@@ -892,7 +893,7 @@ Thank you.
 
         return redirect(url_for('login'))
 
-    # GET request → Feedback page दाखवा
+    # GET request → Feedback page 
     username = request.args.get('user', '')
 
     return render_template(
@@ -1057,13 +1058,15 @@ def assistant():
                MAX(created_at) AS created_at
         FROM chat_history
         WHERE user_id = ?
+          AND conversation_id IS NOT NULL
+          AND conversation_id != ''
         GROUP BY conversation_id
         ORDER BY created_at DESC
         """,
         (session.get("user_id", 0),)
     ).fetchall()
 
-    # Current page साठी नवीन conversation
+    # New conversation for fresh assistant page
     conversation_id = str(uuid.uuid4())
     session["conversation_id"] = conversation_id
 
@@ -1071,7 +1074,9 @@ def assistant():
 
     return render_template(
         "assistant.html",
-        chats=chats
+        chats=chats,
+        messages=[],
+        current_conversation=conversation_id
     )
     #============================chatboat route==============================
 @app.route('/chatbot', methods=['POST'])
@@ -1601,6 +1606,7 @@ def get_chat_history():
         FROM chat_history
         WHERE user_id = ?
           AND conversation_id IS NOT NULL
+          AND conversation_id != ''
         GROUP BY conversation_id
         ORDER BY created_at DESC
         """,
@@ -1617,18 +1623,6 @@ def get_chat_history():
         }
         for h in history
     ])
-@app.route("/clear_chat")
-def clear_chat():
-
-    db = get_db(MOHINI_DB)
-
-    db.execute(
-        "DELETE FROM chat_history"
-    )
-
-    db.commit()
-
-    return redirect("/assistant")
 def generate_chat_title(message):
 
     prompt = f"""
@@ -1663,7 +1657,7 @@ def conversation(conversation_id):
 
     db = get_db(MOHINI_DB)
 
-    # Selected conversation मधले सर्व messages
+    # Selected conversation messages
     messages = db.execute(
         """
         SELECT user_message, ai_reply
@@ -1674,7 +1668,7 @@ def conversation(conversation_id):
         (conversation_id,)
     ).fetchall()
 
-    # Sidebar साठी previous conversations
+    # Sidebar previous conversations
     chats = db.execute(
         """
         SELECT conversation_id,
@@ -1683,6 +1677,7 @@ def conversation(conversation_id):
         FROM chat_history
         WHERE user_id = ?
           AND conversation_id IS NOT NULL
+          AND conversation_id != ''
         GROUP BY conversation_id
         ORDER BY created_at DESC
         """,
@@ -1690,6 +1685,9 @@ def conversation(conversation_id):
     ).fetchall()
 
     db.close()
+
+    # Continue selected conversation
+    session["conversation_id"] = conversation_id
 
     return render_template(
         "assistant.html",
