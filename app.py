@@ -883,13 +883,16 @@ Thank you.
             )
 
         except Exception as e:
+            print("========== EMAIL ERROR ==========")
+            print(repr(e))
+            print("EMAIL ADDRESS:", EMAIL_ADDRESS)
+            print("PASSWORD SET:", bool(EMAIL_PASSWORD))
+            print("=================================")
 
-            print("EMAIL ERROR:", repr(e))
             flash(
                 'Feedback submitted, but email could not be sent.',
                 'danger'
             )
-
         return redirect(url_for('login'))
 
     # GET request → Feedback page 
