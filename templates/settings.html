@@ -1,160 +1,282 @@
 {% extends "base.html" %}
 
-{% block title %}Settings{% endblock %}
-
 {% block content %}
 
 <style>
 
-/* ================================
-   SETTINGS PAGE
-================================ */
+/* =========================================================
+   ⚙️ MODERN SETTINGS PAGE
+========================================================= */
 
 .settings-page{
-    padding:30px 0 60px;
+    max-width:1100px;
+    margin:0 auto;
+    padding:10px 0 40px;
 }
 
-
-/* ================================
-   HEADER
-================================ */
+/* ================= HEADER ================= */
 
 .settings-header{
-    padding:30px;
-    border-radius:24px;
+    position:relative;
+    padding:35px;
+    margin-bottom:25px;
+    border-radius:28px;
+    overflow:hidden;
 
     background:
         linear-gradient(
             135deg,
+            #2563eb,
             #4f46e5,
-            #7c3aed,
-            #db2777
+            #7c3aed
         );
 
     color:white;
 
     box-shadow:
-        0 15px 40px rgba(79,70,229,.25);
-
-    margin-bottom:25px;
+        0 20px 50px rgba(37,99,235,.25);
 }
 
-.settings-header h2{
+.settings-header::before{
+    content:"";
+    position:absolute;
+    width:250px;
+    height:250px;
+    border-radius:50%;
+    background:rgba(255,255,255,.10);
+    right:-70px;
+    top:-100px;
+}
+
+.settings-header::after{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    background:rgba(255,255,255,.08);
+    left:-80px;
+    bottom:-100px;
+}
+
+.settings-header-content{
+    position:relative;
+    z-index:2;
+}
+
+.settings-icon{
+    width:65px;
+    height:65px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:20px;
+
+    background:rgba(255,255,255,.18);
+
+    backdrop-filter:blur(10px);
+
+    font-size:30px;
+
+    margin-bottom:18px;
+}
+
+.settings-header h1{
+    font-size:34px;
     font-weight:800;
-    margin-bottom:5px;
+    margin-bottom:8px;
 }
 
 .settings-header p{
     margin:0;
-    opacity:.9;
+    color:rgba(255,255,255,.82);
+    font-size:15px;
 }
 
 
-/* ================================
-   ACCOUNT CARD
-================================ */
+/* ================= MAIN GRID ================= */
 
-.account-card{
+.settings-grid{
+    display:grid;
+    grid-template-columns:280px 1fr;
+    gap:22px;
+}
+
+
+/* ================= SIDEBAR ================= */
+
+.settings-sidebar{
+    position:sticky;
+    top:90px;
+    height:max-content;
+
+    padding:15px;
+
+    border-radius:24px;
+
+    background:rgba(255,255,255,.72);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.7);
+
+    box-shadow:
+        0 15px 40px rgba(30,64,175,.10);
+}
+
+.settings-nav{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.settings-nav button{
+    width:100%;
     border:none;
-    border-radius:22px;
+    background:transparent;
 
-    background:white;
+    padding:14px 16px;
 
-    box-shadow:
-        0 12px 35px rgba(0,0,0,.09);
+    border-radius:15px;
 
-    overflow:hidden;
+    display:flex;
+    align-items:center;
+    gap:12px;
 
-    transition:.3s ease;
+    font-weight:600;
+    color:#475569;
+
+    text-align:left;
+
+    transition:.3s;
 }
 
-.account-card:hover{
-    transform:translateY(-5px);
-
-    box-shadow:
-        0 20px 45px rgba(0,0,0,.14);
+.settings-nav button i{
+    font-size:19px;
+    width:24px;
 }
 
-.account-top{
-    padding:25px;
+.settings-nav button:hover{
+    background:#eef4ff;
+    color:#2563eb;
+    transform:translateX(4px);
+}
 
+.settings-nav button.active{
     background:
         linear-gradient(
             135deg,
-            #eef2ff,
-            #f5f3ff
+            #2563eb,
+            #6366f1
         );
 
-    text-align:center;
+    color:white;
+
+    box-shadow:
+        0 8px 20px rgba(37,99,235,.25);
 }
 
-.profile-icon{
-    width:85px;
-    height:85px;
 
-    margin:auto;
+/* ================= CONTENT ================= */
+
+.settings-content{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.settings-card{
+    border-radius:24px;
+    padding:25px;
+
+    background:rgba(255,255,255,.78);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.75);
+
+    box-shadow:
+        0 12px 35px rgba(30,64,175,.08);
+
+    transition:.3s;
+}
+
+.settings-card:hover{
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 18px 45px rgba(30,64,175,.13);
+}
+
+
+/* ================= CARD HEADER ================= */
+
+.settings-card-header{
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+    margin-bottom:22px;
+}
+
+.settings-card-icon{
+    width:48px;
+    height:48px;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    border-radius:50%;
+    border-radius:15px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #4f46e5,
-            #9333ea
-        );
+    background:#eef4ff;
 
-    color:white;
+    color:#2563eb;
 
-    font-size:42px;
-
-    box-shadow:
-        0 10px 25px rgba(79,70,229,.3);
+    font-size:21px;
 }
 
-.account-top h4{
-    margin-top:15px;
-
-    font-weight:800;
-
-    color:#252a40;
+.settings-card-header h3{
+    margin:0;
+    font-size:20px;
+    font-weight:750;
+    color:#1e293b;
 }
 
-.account-top p{
-    margin:4px 0;
-
-    color:#777b8c;
+.settings-card-header p{
+    margin:3px 0 0;
+    font-size:13px;
+    color:#64748b;
 }
 
 
-/* ================================
-   ACCOUNT DETAILS
-================================ */
+/* ================= SETTING ROW ================= */
 
-.account-details{
-    padding:25px;
-}
-
-.detail-row{
+.setting-row{
     display:flex;
-
     align-items:center;
+    justify-content:space-between;
 
-    gap:14px;
+    gap:20px;
 
-    padding:14px 0;
+    padding:17px 0;
 
-    border-bottom:1px solid #eeeeF2;
+    border-bottom:1px solid #e5e7eb;
 }
 
-.detail-row:last-child{
+.setting-row:last-child{
     border-bottom:none;
+    padding-bottom:0;
 }
 
-.detail-icon{
+.setting-info{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.setting-small-icon{
     width:40px;
     height:40px;
 
@@ -164,606 +286,943 @@
 
     border-radius:12px;
 
-    background:#eef2ff;
+    background:#f1f5f9;
 
-    font-size:19px;
+    color:#475569;
+
+    flex-shrink:0;
 }
 
-.detail-text small{
+.setting-info strong{
     display:block;
-
-    color:#8a8e9d;
-
-    font-size:11px;
+    font-size:15px;
+    color:#1e293b;
 }
 
-.detail-text strong{
-    color:#303448;
-}
-
-
-/* ================================
-   SETTINGS OPTIONS
-================================ */
-
-.options-card{
-    border:none;
-
-    border-radius:22px;
-
-    background:white;
-
-    box-shadow:
-        0 12px 35px rgba(0,0,0,.09);
-
-    padding:25px;
-}
-
-.options-card h5{
-    font-weight:800;
-
-    color:#303448;
-}
-
-.setting-item{
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    padding:16px 0;
-
-    border-bottom:1px solid #eeeeF2;
-}
-
-.setting-left{
-    display:flex;
-
-    align-items:center;
-
-    gap:14px;
-}
-
-.setting-icon{
-    width:42px;
-    height:42px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    border-radius:12px;
-
-    background:#f1f3ff;
-
-    font-size:20px;
-}
-
-.setting-left strong{
+.setting-info span{
     display:block;
-
-    color:#303448;
-}
-
-.setting-left small{
-    color:#858997;
-
     font-size:12px;
+    margin-top:3px;
+    color:#64748b;
 }
 
 
-/* ================================
-   BUTTON
-================================ */
+/* ================= LANGUAGE ================= */
 
-.edit-profile-btn{
-    border:none;
+.language-select{
+    min-width:180px;
 
     border-radius:13px;
 
-    padding:12px;
+    border:1px solid #dbe4f0;
+
+    padding:10px 14px;
+
+    font-weight:600;
+
+    background:white;
+
+    color:#1e293b;
+
+    outline:none;
+
+    transition:.3s;
+}
+
+.language-select:focus{
+    border-color:#2563eb;
+
+    box-shadow:
+        0 0 0 4px rgba(37,99,235,.10);
+}
+
+
+/* ================= TOGGLE ================= */
+
+.switch{
+    position:relative;
+
+    width:52px;
+    height:29px;
+
+    flex-shrink:0;
+}
+
+.switch input{
+    display:none;
+}
+
+.slider{
+    position:absolute;
+    inset:0;
+
+    cursor:pointer;
+
+    border-radius:30px;
+
+    background:#cbd5e1;
+
+    transition:.3s;
+}
+
+.slider::before{
+    content:"";
+
+    position:absolute;
+
+    width:21px;
+    height:21px;
+
+    left:4px;
+    top:4px;
+
+    background:white;
+
+    border-radius:50%;
+
+    box-shadow:0 2px 5px rgba(0,0,0,.2);
+
+    transition:.3s;
+}
+
+.switch input:checked + .slider{
+    background:#2563eb;
+}
+
+.switch input:checked + .slider::before{
+    transform:translateX(23px);
+}
+
+
+/* ================= PROFILE ================= */
+
+.profile-mini{
+    display:flex;
+    align-items:center;
+    gap:15px;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    background:#f8fafc;
+}
+
+.profile-avatar{
+    width:58px;
+    height:58px;
+
+    border-radius:18px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #7c3aed
+        );
+
+    color:white;
+
+    font-size:25px;
+
+    box-shadow:
+        0 8px 20px rgba(37,99,235,.25);
+}
+
+.profile-mini h4{
+    margin:0;
+    font-size:17px;
+    color:#1e293b;
+}
+
+.profile-mini p{
+    margin:3px 0 0;
+    font-size:13px;
+    color:#64748b;
+}
+
+
+/* ================= SAVE BUTTON ================= */
+
+.save-area{
+    display:flex;
+    justify-content:flex-end;
+
+    padding-top:5px;
+}
+
+.save-settings{
+    border:none;
+
+    padding:12px 25px;
+
+    border-radius:14px;
+
+    color:white;
 
     font-weight:700;
 
     background:
         linear-gradient(
             135deg,
-            #f59e0b,
-            #f97316
+            #2563eb,
+            #7c3aed
         );
 
-    color:white;
+    box-shadow:
+        0 10px 25px rgba(37,99,235,.25);
 
     transition:.3s;
 }
 
-.edit-profile-btn:hover{
-    transform:translateY(-2px);
-
-    color:white;
+.save-settings:hover{
+    transform:translateY(-3px);
 
     box-shadow:
-        0 8px 20px rgba(249,115,22,.25);
+        0 15px 30px rgba(37,99,235,.35);
 }
 
 
-/* ================================
-   DARK MODE
-================================ */
+/* ================= STATUS ================= */
 
-body.dark-mode .account-card,
-body.dark-mode .options-card{
+.settings-status{
+    display:none;
 
-    background:#1e1e23;
+    margin-top:15px;
 
-    box-shadow:
-        0 15px 40px rgba(0,0,0,.35);
+    padding:12px 15px;
+
+    border-radius:13px;
+
+    background:#dcfce7;
+
+    color:#166534;
+
+    font-weight:600;
+
+    font-size:14px;
 }
 
-body.dark-mode .account-top{
+
+/* =========================================================
+   🌙 DARK MODE
+========================================================= */
+
+body.dark-mode .settings-sidebar,
+body.dark-mode .settings-card{
 
     background:
-        linear-gradient(
-            135deg,
-            #25213b,
-            #30244a
-        );
+        rgba(15,23,42,.88) !important;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.30);
 }
 
-body.dark-mode .account-top h4,
-body.dark-mode .detail-text strong,
-body.dark-mode .options-card h5,
-body.dark-mode .setting-left strong{
-
-    color:#f1f1f5;
+body.dark-mode .settings-nav button{
+    color:#cbd5e1;
 }
 
-body.dark-mode .detail-row,
-body.dark-mode .setting-item{
-
-    border-color:#373740;
+body.dark-mode .settings-nav button:hover{
+    background:#1e293b;
+    color:#60a5fa;
 }
 
-body.dark-mode .detail-icon,
-body.dark-mode .setting-icon{
-
-    background:#30284b;
+body.dark-mode .settings-nav button.active{
+    color:white;
 }
 
-body.dark-mode .account-top p,
-body.dark-mode .detail-text small,
-body.dark-mode .setting-left small{
+body.dark-mode .settings-card-header h3{
+    color:white;
+}
 
-    color:#b7b7c2;
+body.dark-mode .settings-card-header p{
+    color:#94a3b8;
+}
+
+body.dark-mode .settings-card-icon{
+    background:#172554;
+    color:#60a5fa;
+}
+
+body.dark-mode .setting-row{
+    border-color:#334155;
+}
+
+body.dark-mode .setting-info strong{
+    color:#f8fafc;
+}
+
+body.dark-mode .setting-info span{
+    color:#94a3b8;
+}
+
+body.dark-mode .setting-small-icon{
+    background:#1e293b;
+    color:#cbd5e1;
+}
+
+body.dark-mode .language-select{
+    background:#0f172a;
+    color:white;
+    border-color:#475569;
+}
+
+body.dark-mode .profile-mini{
+    background:#1e293b;
+}
+
+body.dark-mode .profile-mini h4{
+    color:white;
+}
+
+body.dark-mode .profile-mini p{
+    color:#94a3b8;
+}
+
+body.dark-mode .settings-status{
+    background:#14532d;
+    color:#bbf7d0;
 }
 
 
-/* ================================
-   RESPONSIVE
-================================ */
+/* ================= MOBILE ================= */
 
-@media(max-width:768px){
+@media(max-width:850px){
 
-    .settings-page{
-        padding:20px 10px 40px;
+    .settings-grid{
+        grid-template-columns:1fr;
+    }
+
+    .settings-sidebar{
+        position:static;
+    }
+
+    .settings-nav{
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
     }
 
     .settings-header{
-        padding:25px 20px;
+        padding:27px;
     }
 
+    .settings-header h1{
+        font-size:28px;
+    }
+}
+
+@media(max-width:550px){
+
+    .settings-nav{
+        grid-template-columns:1fr;
+    }
+
+    .setting-row{
+        align-items:flex-start;
+    }
+
+    .language-select{
+        min-width:135px;
+    }
+
+    .settings-card{
+        padding:20px;
+    }
+
+    .save-area{
+        justify-content:stretch;
+    }
+
+    .save-settings{
+        width:100%;
+    }
 }
 
 </style>
 
 
-<div class="container settings-page">
+<div class="settings-page">
 
-
-    <!-- ================================
-         HEADER
-    ================================= -->
+    <!-- ================= HEADER ================= -->
 
     <div class="settings-header">
 
-        <h2>
-            ⚙️ Account Settings
-        </h2>
+        <div class="settings-header-content">
 
-        <p>
-            Manage your profile and account preferences
-        </p>
+            <div class="settings-icon">
+                <i class="bi bi-sliders2"></i>
+            </div>
+
+            <h1 id="settingsTitle">
+                Settings Center
+            </h1>
+
+            <p id="settingsSubtitle">
+                Manage your College Smart Portal preferences
+            </p>
+
+        </div>
 
     </div>
 
 
-    <div class="row g-4">
+    <!-- ================= GRID ================= -->
+
+    <div class="settings-grid">
 
 
-        <!-- ================================
-             MY PROFILE
-        ================================= -->
+        <!-- ================= SIDEBAR ================= -->
 
-        <div class="col-lg-5">
+        <div class="settings-sidebar">
 
-            <div class="account-card">
+            <div class="settings-nav">
 
-                <div class="account-top">
+                <button class="active"
+                        onclick="showSection('general',this)">
 
-                    <div class="profile-icon">
-                        👤
+                    <i class="bi bi-gear"></i>
+
+                    <span data-en="General"
+                          data-mr="सामान्य">
+                        General
+                    </span>
+
+                </button>
+
+
+                <button onclick="showSection('account',this)">
+
+                    <i class="bi bi-person"></i>
+
+                    <span data-en="Account"
+                          data-mr="खाते">
+                        Account
+                    </span>
+
+                </button>
+
+
+                <button onclick="showSection('notifications',this)">
+
+                    <i class="bi bi-bell"></i>
+
+                    <span data-en="Notifications"
+                          data-mr="सूचना">
+                        Notifications
+                    </span>
+
+                </button>
+
+
+                <button onclick="showSection('security',this)">
+
+                    <i class="bi bi-shield-lock"></i>
+
+                    <span data-en="Security"
+                          data-mr="सुरक्षा">
+                        Security
+                    </span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= CONTENT ================= -->
+
+        <div class="settings-content">
+
+
+            <!-- ================= GENERAL ================= -->
+
+            <div class="settings-card settings-section"
+                 id="general">
+
+                <div class="settings-card-header">
+
+                    <div class="settings-card-icon">
+                        <i class="bi bi-sliders"></i>
                     </div>
 
-                    <h4>
-                        {{ session.get('username','User') }}
-                    </h4>
+                    <div>
 
-                    <p>
-                        {{ session.get('email','Email not available') }}
-                    </p>
+                        <h3 data-en="General Settings"
+                            data-mr="सामान्य सेटिंग्ज">
+                            General Settings
+                        </h3>
 
-                    <span class="badge bg-primary mt-2">
+                        <p data-en="Customize your portal experience"
+                           data-mr="तुमचा पोर्टल अनुभव customize करा">
+                            Customize your portal experience
+                        </p>
 
-                        {{ session.get('role','Student')|title }}
+                    </div>
 
+                </div>
+
+
+                <!-- LANGUAGE -->
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <div class="setting-small-icon">
+                            <i class="bi bi-translate"></i>
+                        </div>
+
+                        <div>
+
+                            <strong data-en="Language"
+                                    data-mr="भाषा">
+                                Language
+                            </strong>
+
+                            <span data-en="Choose your preferred language"
+                                  data-mr="तुमची आवडती भाषा निवडा">
+                                Choose your preferred language
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <select class="language-select"
+                            id="languageSelect"
+                            onchange="changeLanguage(this.value)">
+
+                        <option value="en">
+                            🇬🇧 English
+                        </option>
+
+                        <option value="mr">
+                            🇮🇳 मराठी
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- THEME -->
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <div class="setting-small-icon">
+                            <i class="bi bi-moon-stars"></i>
+                        </div>
+
+                        <div>
+
+                            <strong data-en="Dark Mode"
+                                    data-mr="डार्क मोड">
+                                Dark Mode
+                            </strong>
+
+                            <span data-en="Use a darker appearance"
+                                  data-mr="गडद appearance वापरा">
+                                Use a darker appearance
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <label class="switch">
+
+                        <input type="checkbox"
+                               id="darkModeSwitch"
+                               onchange="changeTheme(this)">
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- AUTO SAVE -->
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <div class="setting-small-icon">
+                            <i class="bi bi-save"></i>
+                        </div>
+
+                        <div>
+
+                            <strong data-en="Auto Save"
+                                    data-mr="ऑटो सेव">
+                                Auto Save
+                            </strong>
+
+                            <span data-en="Automatically save your preferences"
+                                  data-mr="तुमच्या preferences आपोआप save करा">
+                                Automatically save your preferences
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <label class="switch">
+
+                        <input type="checkbox"
+                               id="autoSave"
+                               checked>
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= ACCOUNT ================= -->
+
+            <div class="settings-card settings-section"
+                 id="account">
+
+                <div class="settings-card-header">
+
+                    <div class="settings-card-icon">
+                        <i class="bi bi-person-circle"></i>
+                    </div>
+
+                    <div>
+
+                        <h3 data-en="Account"
+                            data-mr="खाते">
+                            Account
+                        </h3>
+
+                        <p data-en="Manage your account information"
+                           data-mr="तुमच्या account ची माहिती manage करा">
+                            Manage your account information
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="profile-mini">
+
+                    <div class="profile-avatar">
+
+                        <i class="bi bi-person-fill"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h4>
+                            {{ session['username'] if session.get('username') else 'User' }}
+                        </h4>
+
+                        <p data-en="College Smart Portal Account"
+                           data-mr="College Smart Portal खाते">
+                            College Smart Portal Account
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <div class="setting-small-icon">
+                            <i class="bi bi-person"></i>
+                        </div>
+
+                        <div>
+
+                            <strong data-en="Profile"
+                                    data-mr="प्रोफाइल">
+                                Profile
+                            </strong>
+
+                            <span data-en="View and edit your profile"
+                                  data-mr="तुमची प्रोफाइल पहा आणि edit करा">
+                                View and edit your profile
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <a href="/my_profile"
+                       class="btn btn-outline-primary btn-sm">
+
+                        <span data-en="Open"
+                              data-mr="उघडा">
+                            Open
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= NOTIFICATIONS ================= -->
+
+            <div class="settings-card settings-section"
+                 id="notifications">
+
+                <div class="settings-card-header">
+
+                    <div class="settings-card-icon">
+                        <i class="bi bi-bell"></i>
+                    </div>
+
+                    <div>
+
+                        <h3 data-en="Notifications"
+                            data-mr="सूचना">
+                            Notifications
+                        </h3>
+
+                        <p data-en="Control portal notifications"
+                           data-mr="पोर्टलच्या सूचना नियंत्रित करा">
+                            Control portal notifications
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <div class="setting-small-icon">
+                            <i class="bi bi-megaphone"></i>
+                        </div>
+
+                        <div>
+
+                            <strong data-en="New Notices"
+                                    data-mr="नवीन सूचना">
+                                New Notices
+                            </strong>
+
+                            <span data-en="Get notified about new college notices"
+                                  data-mr="नवीन कॉलेज नोटिसची सूचना मिळवा">
+                                Get notified about new college notices
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <label class="switch">
+
+                        <input type="checkbox"
+                               id="noticeNotification"
+                               checked>
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <div class="setting-small-icon">
+                            <i class="bi bi-chat-dots"></i>
+                        </div>
+
+                        <div>
+
+                            <strong data-en="Feedback Updates"
+                                    data-mr="Feedback अपडेट">
+                                Feedback Updates
+                            </strong>
+
+                            <span data-en="Receive feedback related updates"
+                                  data-mr="Feedback संबंधित अपडेट मिळवा">
+                                Receive feedback related updates
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <label class="switch">
+
+                        <input type="checkbox"
+                               id="feedbackNotification"
+                               checked>
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SECURITY ================= -->
+
+            <div class="settings-card settings-section"
+                 id="security">
+
+                <div class="settings-card-header">
+
+                    <div class="settings-card-icon">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+
+                    <div>
+
+                        <h3 data-en="Security"
+                            data-mr="सुरक्षा">
+                            Security
+                        </h3>
+
+                        <p data-en="Keep your account secure"
+                           data-mr="तुमचे खाते सुरक्षित ठेवा">
+                            Keep your account secure
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <div class="setting-small-icon">
+                            <i class="bi bi-lock"></i>
+                        </div>
+
+                       <div>
+
+                        <strong data-en="Password"
+                                data-mr="पासवर्ड">
+                            Password
+                        </strong>
+
+                        <span data-en="Update your account password"
+                            data-mr="तुमचा account password बदला">
+                            Update your account password
+                        </span>
+
+                    </div>
+
+                    </div>
+
+                    <a href="/edit_profile"
+                    class="btn btn-outline-primary btn-sm">
+
+                        <span data-en="Edit Profile"
+                            data-mr="प्रोफाइल संपादित करा">
+                            Edit Profile
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <div class="setting-small-icon">
+                            <i class="bi bi-shield-lock"></i>
+                        </div>
+
+                        <div>
+
+                            <strong data-en="Secure Session"
+                                    data-mr="सुरक्षित Session">
+                                Secure Session
+                            </strong>
+
+                            <span data-en="Keep your login session protected"
+                                  data-mr="तुमचे login session सुरक्षित ठेवा">
+                                Keep your login session protected
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <span class="badge bg-success">
+                        <i class="bi bi-check-circle"></i>
+                        <span data-en="Active"
+                              data-mr="सक्रिय">
+                            Active
+                        </span>
                     </span>
 
                 </div>
 
-
-                <div class="account-details">
-
-
-                    <!-- NAME -->
-
-                    <div class="detail-row">
-
-                        <div class="detail-icon">
-                            👤
-                        </div>
-
-                        <div class="detail-text">
-
-                            <small>
-                                Full Name
-                            </small>
-
-                            <strong>
-                                {{ session.get('username','Not set') }}
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- EMAIL -->
-
-                    <div class="detail-row">
-
-                        <div class="detail-icon">
-                            📧
-                        </div>
-
-                        <div class="detail-text">
-
-                            <small>
-                                Email Address
-                            </small>
-
-                            <strong>
-                                {{ session.get('email','Not set') }}
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- ROLE -->
-
-                    <div class="detail-row">
-
-                        <div class="detail-icon">
-                            🎓
-                        </div>
-
-                        <div class="detail-text">
-
-                            <small>
-                                Account Role
-                            </small>
-
-                            <strong>
-                                {{ session.get('role','Student')|title }}
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- EDIT PROFILE -->
-
-                    <a href="/edit_profile"
-                       class="btn edit-profile-btn w-100 mt-3">
-
-                        ✏️ Edit Profile
-
-                    </a>
-
-
-                </div>
-
             </div>
 
-        </div>
 
+            <!-- ================= SAVE ================= -->
 
+            <div class="settings-card">
 
-        <!-- ================================
-             SETTINGS
-        ================================= -->
+                <div class="save-area">
 
-        <div class="col-lg-7">
+                    <button class="save-settings"
+                            onclick="saveSettings()">
 
-            <div class="options-card">
+                        <i class="bi bi-check2-circle"></i>
 
-                <h5>
-                    🔧 Preferences
-                </h5>
+                        <span data-en="Save Changes"
+                              data-mr="बदल जतन करा">
+                            Save Changes
+                        </span>
 
-                <hr>
-
-
-                <!-- NOTIFICATIONS -->
-
-                <div class="setting-item">
-
-                    <div class="setting-left">
-
-                        <div class="setting-icon">
-                            🔔
-                        </div>
-
-                        <div>
-
-                            <strong>
-                                Notifications
-                            </strong>
-
-                            <small>
-                                Receive important college updates
-                            </small>
-
-                        </div>
-
-                    </div>
-
-                    <div class="form-check form-switch">
-
-                        <input
-                            class="form-check-input"
-                            type="checkbox"
-                            id="notify">
-
-                    </div>
+                    </button>
 
                 </div>
-<!-- LANGUAGE -->
 
-<div class="setting-item">
+                <div class="settings-status"
+                     id="settingsStatus">
 
-    <div class="setting-left">
+                    <i class="bi bi-check-circle-fill"></i>
 
-        <div class="setting-icon">
-            🌐
-        </div>
-
-        <div>
-
-            <strong>
-                Language
-            </strong>
-
-            <small>
-                Choose your preferred portal language
-            </small>
-
-        </div>
-
-    </div>
-
-    <select class="form-select form-select-sm"
-            style="width:120px;"
-            id="languageSelect">
-
-        <option value="english">
-            English
-        </option>
-
-        <option value="marathi">
-            Marathi
-        </option>
-
-    </select>
-
-</div>
-<!-- AUTO SCROLL -->
-
-<div class="setting-item">
-
-    <div class="setting-left">
-
-        <div class="setting-icon">
-            📜
-        </div>
-
-        <div>
-
-            <strong>
-                Auto Scroll
-            </strong>
-
-            <small>
-                Automatically scroll chat messages
-            </small>
-
-        </div>
-
-    </div>
-
-    <div class="form-check form-switch">
-
-        <input
-            class="form-check-input"
-            type="checkbox"
-            id="autoScroll"
-            checked>
-
-    </div>
-
-</div>
-<!-- SOUND -->
-
-<div class="setting-item">
-
-    <div class="setting-left">
-
-        <div class="setting-icon">
-            🔊
-        </div>
-
-        <div>
-
-            <strong>
-                Sound Effects
-            </strong>
-
-            <small>
-                Enable notification and assistant sounds
-            </small>
-
-        </div>
-
-    </div>
-
-    <div class="form-check form-switch">
-
-        <input
-            class="form-check-input"
-            type="checkbox"
-            id="soundEffects">
-
-    </div>
-
-</div>
-<!-- COMPACT UI -->
-
-<div class="setting-item">
-
-    <div class="setting-left">
-
-        <div class="setting-icon">
-            ✨
-        </div>
-
-        <div>
-
-            <strong>
-                Compact Interface
-            </strong>
-
-            <small>
-                Reduce spacing for a cleaner layout
-            </small>
-
-        </div>
-
-    </div>
-
-    <div class="form-check form-switch">
-
-        <input
-            class="form-check-input"
-            type="checkbox"
-            id="compactMode">
-
-    </div>
-
-</div>
-
-                <!-- DARK MODE -->
-
-                <div class="setting-item">
-
-                    <div class="setting-left">
-
-                        <div class="setting-icon">
-                            🌙
-                        </div>
-
-                        <div>
-
-                            <strong id="themeTitle">
-                                Dark Mode
-                            </strong>
-
-                            <small id="themeDescription">
-                                Switch between light and dark theme
-                            </small>
-
-                        </div>
-
-                    </div>
-
-                    <div class="form-check form-switch">
-
-                        <input
-                            class="form-check-input"
-                            type="checkbox"
-                            id="darkMode">
-
-                    </div>
+                    <span id="statusText">
+                        Settings saved successfully!
+                    </span>
 
                 </div>
-
-
-                <!-- LOGOUT -->
-
-                <div class="setting-item">
-
-                    <div class="setting-left">
-
-                        <div class="setting-icon">
-                            🚪
-                        </div>
-
-                        <div>
-
-                            <strong>
-                                Logout
-                            </strong>
-
-                            <small>
-                                Sign out from your account
-                            </small>
-
-                        </div>
-
-                    </div>
-
-                    <a href="/logout"
-                       class="btn btn-outline-danger btn-sm">
-
-                        Logout
-
-                    </a>
-
-                </div>
-
 
             </div>
 
@@ -773,89 +1232,295 @@ body.dark-mode .setting-left small{
 
 </div>
 
-
-<!-- ================================
-     DARK MODE SCRIPT
-================================= -->
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function(){
-
-    const darkMode =
-        document.getElementById("darkMode");
-
-    const themeTitle =
-        document.getElementById("themeTitle");
-
-    const themeDescription =
-        document.getElementById("themeDescription");
+/* =========================================================
+   ⚙️ SETTINGS JAVASCRIPT
+========================================================= */
 
 
-    /* Load saved theme */
+/* ================= SECTION SWITCH ================= */
 
-    const savedTheme =
-        localStorage.getItem("theme");
+function showSection(sectionId, button){
+
+    document.querySelectorAll(".settings-section")
+        .forEach(section => {
+
+            section.style.display = "none";
+
+        });
+
+    const section =
+        document.getElementById(sectionId);
+
+    if(section){
+        section.style.display = "block";
+    }
 
 
-    if(savedTheme === "dark"){
+    document.querySelectorAll(".settings-nav button")
+        .forEach(btn => {
 
-        document.body.classList.add("dark-mode");
+            btn.classList.remove("active");
 
-        darkMode.checked = true;
+        });
 
-        themeTitle.innerText =
-            "Light Mode";
+    button.classList.add("active");
+}
 
-        themeDescription.innerText =
-            "Switch back to the light theme";
+
+/* ================= LANGUAGE ================= */
+
+function changeLanguage(language){
+
+    document.querySelectorAll("[data-en]")
+        .forEach(element => {
+
+            if(language === "mr"){
+
+                element.textContent =
+                    element.getAttribute("data-mr");
+
+            }else{
+
+                element.textContent =
+                    element.getAttribute("data-en");
+
+            }
+
+        });
+
+
+    localStorage.setItem(
+        "portalLanguage",
+        language
+    );
+
+    const title =
+        document.getElementById("settingsTitle");
+
+    const subtitle =
+        document.getElementById("settingsSubtitle");
+
+
+    if(language === "mr"){
+
+        title.textContent =
+            "सेटिंग्ज सेंटर";
+
+        subtitle.textContent =
+            "तुमच्या College Smart Portal च्या सेटिंग्ज व्यवस्थापित करा";
+
+    }else{
+
+        title.textContent =
+            "Settings Center";
+
+        subtitle.textContent =
+            "Manage your College Smart Portal preferences";
+
+    }
+
+}
+
+
+/* ================= THEME ================= */
+
+function changeTheme(toggle){
+
+    if(toggle.checked){
+
+        if(typeof applyTheme === "function"){
+
+            applyTheme("dark");
+
+        }else{
+
+            document.body.classList.add("dark-mode");
+
+        }
+
+    }else{
+
+        if(typeof applyTheme === "function"){
+
+            applyTheme("light");
+
+        }else{
+
+            document.body.classList.remove("dark-mode");
+
+        }
+
+    }
+
+}
+
+
+/* ================= SAVE ================= */
+
+function saveSettings(){
+
+    const language =
+        document.getElementById("languageSelect").value;
+
+    const autoSave =
+        document.getElementById("autoSave").checked;
+
+    const notices =
+        document.getElementById("noticeNotification").checked;
+
+    const feedback =
+        document.getElementById("feedbackNotification").checked;
+
+
+    localStorage.setItem(
+        "portalLanguage",
+        language
+    );
+
+    localStorage.setItem(
+        "autoSave",
+        autoSave
+    );
+
+    localStorage.setItem(
+        "noticeNotification",
+        notices
+    );
+
+    localStorage.setItem(
+        "feedbackNotification",
+        feedback
+    );
+
+
+    const status =
+        document.getElementById("settingsStatus");
+
+    const statusText =
+        document.getElementById("statusText");
+
+
+    if(language === "mr"){
+
+        statusText.textContent =
+            "सेटिंग्ज यशस्वीरित्या जतन झाल्या!";
+
+    }else{
+
+        statusText.textContent =
+            "Settings saved successfully!";
 
     }
 
 
-    /* Toggle theme */
+    status.style.display = "block";
 
-    darkMode.addEventListener("change", function(){
 
-        if(this.checked){
+    setTimeout(function(){
 
-            document.body.classList.add("dark-mode");
+        status.style.display = "none";
 
-            localStorage.setItem(
-                "theme",
-                "dark"
-            );
+    },3000);
 
-            themeTitle.innerText =
-                "Light Mode";
+}
 
-            themeDescription.innerText =
-                "Switch back to the light theme";
+
+/* ================= LOAD SETTINGS ================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        /* Language */
+
+        const savedLanguage =
+            localStorage.getItem("portalLanguage") || "en";
+
+        const languageSelect =
+            document.getElementById("languageSelect");
+
+        languageSelect.value =
+            savedLanguage;
+
+        changeLanguage(savedLanguage);
+
+
+        /* Theme */
+
+        const darkSwitch =
+            document.getElementById("darkModeSwitch");
+
+        if(localStorage.getItem("theme") === "dark"){
+
+            darkSwitch.checked = true;
+
+        }else{
+
+            darkSwitch.checked = false;
 
         }
 
-        else{
 
-            document.body.classList.remove("dark-mode");
+        /* Auto Save */
 
-            localStorage.setItem(
-                "theme",
-                "light"
-            );
+        const autoSave =
+            localStorage.getItem("autoSave");
 
-            themeTitle.innerText =
-                "Dark Mode";
+        if(autoSave !== null){
 
-            themeDescription.innerText =
-                "Switch between light and dark theme";
+            document.getElementById("autoSave").checked =
+                autoSave === "true";
 
         }
 
-    });
 
-});
+        /* Notices */
+
+        const notices =
+            localStorage.getItem("noticeNotification");
+
+        if(notices !== null){
+
+            document.getElementById(
+                "noticeNotification"
+            ).checked =
+                notices === "true";
+
+        }
+
+
+        /* Feedback */
+
+        const feedback =
+            localStorage.getItem(
+                "feedbackNotification"
+            );
+
+        if(feedback !== null){
+
+            document.getElementById(
+                "feedbackNotification"
+            ).checked =
+                feedback === "true";
+
+        }
+
+
+        /* Default section */
+
+        showSection(
+            "general",
+            document.querySelector(
+                ".settings-nav button"
+            )
+        );
+
+    }
+);
 
 </script>
-
 
 {% endblock %}

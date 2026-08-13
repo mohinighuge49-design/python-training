@@ -791,12 +791,24 @@ def login():
             session['username'] = username
             session['email'] = user['email']
             session['role'] = user['role']
+            # Default language
+            session['language'] = session.get('language', 'english')
+
             flash(f'Welcome {username}!', 'success')
             return redirect(url_for('home'))
         else:
             flash('Invalid username or password', 'danger')
     return render_template('login.html')
 
+@app.route('/set-language/<language>')
+def set_language(language):
+
+    if language not in ['english', 'marathi']:
+        language = 'english'
+
+    session['language'] = language
+
+    return redirect(request.referrer or url_for('home'))
 @app.route('/logout')
 def logout():
     username = session.get('username')
