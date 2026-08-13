@@ -8,7 +8,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
 <title>🎓 College Smart Portal</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
 <style>
 
 /* =====================================================
@@ -23,16 +22,18 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
 
 html{
     scroll-behavior:smooth;
+    min-height:100%;
 }
 
 html,
 body{
-    height:100%;
+    min-height:100%;
 }
 
 body{
     font-family:'Segoe UI',sans-serif;
     min-height:100vh;
+    margin:0;
 
     background:
         radial-gradient(
@@ -59,19 +60,26 @@ body{
 
     background-attachment:fixed;
     color:#212529;
-    transition:.4s;
+    transition:
+        background .4s ease,
+        color .3s ease;
 }
 
 body::before{
     content:"";
     position:fixed;
+
     width:420px;
     height:420px;
+
     background:rgba(37,99,235,.15);
     border-radius:50%;
+
     top:-160px;
     left:-160px;
+
     filter:blur(90px);
+
     z-index:-2;
     pointer-events:none;
 }
@@ -79,13 +87,18 @@ body::before{
 body::after{
     content:"";
     position:fixed;
+
     width:420px;
     height:420px;
+
     background:rgba(124,58,237,.15);
     border-radius:50%;
+
     bottom:-160px;
     right:-160px;
+
     filter:blur(90px);
+
     z-index:-2;
     pointer-events:none;
 }
@@ -132,13 +145,20 @@ body::after{
 
     border-bottom:
         1px solid rgba(255,255,255,.10);
+
+    transition:
+        background .4s ease,
+        box-shadow .4s ease;
 }
 
 .navbar-brand{
     font-size:25px;
     font-weight:700;
+
     color:#fff !important;
+
     letter-spacing:.5px;
+
     transition:.3s;
 }
 
@@ -148,22 +168,33 @@ body::after{
 
 .custom-link{
     color:white !important;
+
     padding:9px 14px;
+
     border-radius:12px;
+
     font-weight:500;
+
     transition:.3s;
+
     position:relative;
 }
 
 .custom-link::after{
     content:"";
+
     position:absolute;
+
     left:50%;
     bottom:3px;
+
     width:0;
     height:2px;
+
     background:#93c5fd;
+
     transform:translateX(-50%);
+
     transition:.3s;
 }
 
@@ -183,13 +214,20 @@ body::after{
 
 .ai-assistant-btn{
     position:relative;
+
     display:inline-flex;
+
     align-items:center;
     justify-content:center;
+
     padding:11px 24px;
+
     border-radius:50px;
+
     text-decoration:none;
+
     color:white !important;
+
     font-weight:700;
 
     background:
@@ -221,6 +259,7 @@ body::after{
 }
 
 @keyframes aiGradient{
+
     0%{
         background-position:0% 50%;
     }
@@ -241,12 +280,15 @@ body::after{
 
 .btn{
     border-radius:50px;
+
     font-weight:600;
+
     transition:.30s;
 }
 
 .btn:hover{
     transform:translateY(-3px);
+
     box-shadow:
         0 12px 22px rgba(0,0,0,.18);
 }
@@ -256,25 +298,20 @@ body::after{
     border:none;
 }
 
-.btn-success{
-    border:none;
-}
-
-.btn-danger{
-    border:none;
-}
-
+.btn-success,
+.btn-danger,
 .btn-warning{
     border:none;
 }
 
 
 /* =====================================================
-   🃏 NORMAL CARDS - LIGHT MODE
+   🃏 NORMAL CARDS
 ===================================================== */
 
 .card{
     border:none;
+
     border-radius:24px;
 
     background:rgba(255,255,255,.78);
@@ -295,13 +332,15 @@ body::after{
     animation:fadeUp .6s ease;
 
     position:relative;
+
     overflow:hidden;
 }
 
 .card:hover{
     transform:translateY(-8px);
 
-    border-color:rgba(99,102,241,.18);
+    border-color:
+        rgba(99,102,241,.18);
 
     box-shadow:
         0 20px 45px rgba(30,64,175,.15);
@@ -309,6 +348,7 @@ body::after{
 
 .card::after{
     content:"";
+
     position:absolute;
 
     width:180px;
@@ -325,6 +365,7 @@ body::after{
     right:-80px;
 
     pointer-events:none;
+
     transition:.5s;
 }
 
@@ -357,11 +398,17 @@ body::after{
 
 .stats-card{
     border:none;
+
     border-radius:22px;
+
     padding:25px;
+
     color:#fff;
+
     overflow:hidden;
+
     position:relative;
+
     transition:.35s;
 }
 
@@ -374,11 +421,16 @@ body::after{
 
 .stats-card::before{
     content:"";
+
     position:absolute;
+
     width:120px;
     height:120px;
+
     border-radius:50%;
+
     background:rgba(255,255,255,.15);
+
     top:-40px;
     right:-40px;
 }
@@ -427,11 +479,13 @@ body::after{
 .notice-card{
     border-left:
         6px solid #2563eb;
+
     transition:.3s;
 }
 
 .notice-card:hover{
     border-left-color:#7c3aed;
+
     transform:translateY(-6px);
 }
 
@@ -439,11 +493,6 @@ body::after{
 /* =====================================================
    👨‍🎓 STUDENT CARD
 ===================================================== */
-
-.student-card img{
-    border-radius:15px;
-    object-fit:cover;
-}
 
 .student-card{
     transition:.3s;
@@ -453,6 +502,11 @@ body::after{
     transform:scale(1.02);
 }
 
+.student-card img{
+    border-radius:15px;
+    object-fit:cover;
+}
+
 
 /* =====================================================
    📋 TABLE
@@ -460,18 +514,22 @@ body::after{
 
 .table{
     width:100% !important;
+
     display:table !important;
+
     table-layout:auto !important;
 
     background:#fff;
 
     border-radius:18px;
+
     overflow:hidden;
 
     box-shadow:
         0 10px 25px rgba(30,64,175,.08);
 
     border-collapse:separate !important;
+
     border-spacing:0 !important;
 }
 
@@ -494,18 +552,22 @@ body::after{
 
 .table tr{
     display:table-row !important;
+
     width:100% !important;
 }
 
 .table th,
 .table td{
     display:table-cell !important;
+
     vertical-align:middle !important;
 }
 
 .table th{
     padding:15px;
+
     font-weight:600;
+
     border:none;
 }
 
@@ -519,12 +581,15 @@ body::after{
 
 .table tbody tr:hover{
     background:#eef6ff;
+
     transform:none !important;
 }
 
 .table-responsive{
     width:100%;
+
     overflow-x:auto;
+
     -webkit-overflow-scrolling:touch;
 }
 
@@ -570,6 +635,7 @@ input[type="text"]{
 
 .alert{
     border:none;
+
     border-radius:18px;
 
     box-shadow:
@@ -583,7 +649,9 @@ input[type="text"]{
 
 .badge{
     border-radius:30px;
+
     padding:8px 12px;
+
     font-weight:600;
 }
 
@@ -615,6 +683,7 @@ img:hover{
 
 .dropdown-menu{
     border:none;
+
     border-radius:18px;
 
     box-shadow:
@@ -629,6 +698,7 @@ img:hover{
 
 .dropdown-item:hover{
     background:#eef4ff;
+
     padding-left:20px;
 }
 
@@ -639,7 +709,9 @@ img:hover{
 
 .page-title{
     font-size:34px;
+
     font-weight:700;
+
     color:#1e3a8a;
 }
 
@@ -667,6 +739,7 @@ a:hover{
 
 #loader{
     position:fixed;
+
     width:100%;
     height:100%;
 
@@ -678,6 +751,7 @@ a:hover{
     z-index:9999;
 
     display:flex;
+
     justify-content:center;
     align-items:center;
 }
@@ -706,11 +780,14 @@ a:hover{
 
 .loader-box h5{
     margin-top:20px;
+
     color:#0d6efd;
+
     font-weight:600;
 }
 
 @keyframes spin{
+
     100%{
         transform:rotate(360deg);
     }
@@ -722,13 +799,16 @@ a:hover{
 ===================================================== */
 
 @keyframes fadeUp{
+
     from{
         opacity:0;
+
         transform:translateY(20px);
     }
 
     to{
         opacity:1;
+
         transform:translateY(0);
     }
 }
@@ -748,6 +828,141 @@ a:hover{
 
 
 /* =====================================================
+   ☀️ LIGHT MODE
+===================================================== */
+
+body.light-mode{
+    min-height:100vh;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e4def5,
+            #eae4ea,
+            #e4def5
+        ) !important;
+
+    color:#25233a !important;
+}
+
+body:not(.dark-mode){
+    background:
+        radial-gradient(
+            circle at 5% 5%,
+            rgba(59,130,246,.22),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 95% 90%,
+            rgba(124,58,237,.20),
+            transparent 32%
+        ),
+        linear-gradient(
+            135deg,
+            #edf5ff 0%,
+            #ffffff 48%,
+            #f3efff 100%
+        ) !important;
+
+    color:#1e293b !important;
+}
+
+body.light-mode .card{
+    background:#ffffff !important;
+
+    color:#25233a !important;
+
+    border:
+        1px solid #e4dff0;
+
+    box-shadow:
+        0 8px 25px rgba(80,60,120,.08);
+}
+
+body.light-mode .developer-card{
+    background:white;
+}
+
+body.light-mode .table{
+    color:#25233a;
+}
+
+
+/* =====================================================
+   🧭 LIGHT NAVBAR
+===================================================== */
+
+body:not(.dark-mode) .navbar,
+body.light-mode .navbar{
+    background:
+        linear-gradient(
+            90deg,
+            #0f172a 0%,
+            #172554 50%,
+            #2563eb 100%
+        ) !important;
+
+    color:#ffffff !important;
+
+    box-shadow:
+        0 8px 30px rgba(15,23,42,.25) !important;
+}
+
+body:not(.dark-mode) .navbar-brand,
+body:not(.dark-mode) .navbar .custom-link,
+body.light-mode .navbar-brand,
+body.light-mode .navbar .custom-link{
+    color:#ffffff !important;
+}
+
+body:not(.dark-mode) .navbar .custom-link:hover,
+body.light-mode .navbar .custom-link:hover{
+    color:#ffffff !important;
+
+    background:
+        rgba(255,255,255,.14) !important;
+}
+
+
+/* =====================================================
+   🔐 LIGHT LOGIN
+===================================================== */
+
+body:not(.dark-mode) .login-card{
+    background:
+        rgba(255,255,255,.88) !important;
+
+    border:
+        1px solid rgba(255,255,255,.9) !important;
+
+    box-shadow:
+        0 25px 60px rgba(30,64,175,.16),
+        0 5px 20px rgba(0,0,0,.06) !important;
+}
+
+body:not(.dark-mode) .login-title{
+    color:#2563eb !important;
+}
+
+body:not(.dark-mode) .login-card label{
+    color:#334155 !important;
+}
+
+body:not(.dark-mode) .login-subtitle,
+body:not(.dark-mode) .login-card .text-muted{
+    color:#64748b !important;
+}
+
+body:not(.dark-mode) .login-card a{
+    color:#2563eb !important;
+}
+
+body:not(.dark-mode) .login-card a:hover{
+    color:#7c3aed !important;
+}
+
+
+/* =====================================================
    🌙 DARK MODE - BODY
 ===================================================== */
 
@@ -761,13 +976,11 @@ body.dark-mode{
             rgba(37,99,235,.45) 0%,
             transparent 32%
         ),
-
         radial-gradient(
             circle at 95% 85%,
             rgba(124,58,237,.42) 0%,
             transparent 35%
         ),
-
         linear-gradient(
             135deg,
             #020617 0%,
@@ -778,16 +991,7 @@ body.dark-mode{
     color:#ffffff !important;
 }
 
-
-/* =====================================================
-   🌌 DARK GLOW
-===================================================== */
-
 body.dark-mode::before{
-    content:"";
-
-    position:fixed;
-
     width:500px;
     height:500px;
 
@@ -797,20 +1001,10 @@ body.dark-mode::before{
     background:
         rgba(37,99,235,.25);
 
-    border-radius:50%;
-
     filter:blur(100px);
-
-    z-index:-2;
-
-    pointer-events:none;
 }
 
 body.dark-mode::after{
-    content:"";
-
-    position:fixed;
-
     width:500px;
     height:500px;
 
@@ -820,13 +1014,7 @@ body.dark-mode::after{
     background:
         rgba(124,58,237,.28);
 
-    border-radius:50%;
-
     filter:blur(100px);
-
-    z-index:-2;
-
-    pointer-events:none;
 }
 
 
@@ -858,13 +1046,15 @@ body.dark-mode .navbar span{
 }
 
 body.dark-mode .custom-link:hover{
-    background:rgba(255,255,255,.10);
+    background:
+        rgba(255,255,255,.10);
+
     color:#ffffff !important;
 }
 
 
 /* =====================================================
-   📝 DARK MODE - GLOBAL TEXT
+   📝 DARK GLOBAL TEXT
 ===================================================== */
 
 body.dark-mode h1,
@@ -918,13 +1108,25 @@ body.dark-mode a:hover{
    🃏 DARK NORMAL CARDS
 ===================================================== */
 
-/*
-   IMPORTANT:
-   Only normal cards become dark.
-   Colorful cards are excluded.
-*/
-
-body.dark-mode .card:not(.dashboard-card):not(.stats-card):not(.bg-primary):not(.bg-success):not(.bg-info):not(.bg-warning):not(.bg-danger):not(.bg-dark):not([style*="linear-gradient"]){
+body.dark-mode .card:not(
+    .dashboard-card
+):not(
+    .stats-card
+):not(
+    .bg-primary
+):not(
+    .bg-success
+):not(
+    .bg-info
+):not(
+    .bg-warning
+):not(
+    .bg-danger
+):not(
+    .bg-dark
+):not(
+    [style*="linear-gradient"]
+){
 
     background:
         rgba(15,23,42,.94) !important;
@@ -939,18 +1141,146 @@ body.dark-mode .card:not(.dashboard-card):not(.stats-card):not(.bg-primary):not(
 }
 
 
-/* Normal card text */
+/* =====================================================
+   ✨ DARK CARD TEXT
+===================================================== */
 
-body.dark-mode .card:not(.dashboard-card):not(.stats-card):not(.bg-primary):not(.bg-success):not(.bg-info):not(.bg-warning):not(.bg-danger):not(.bg-dark):not([style*="linear-gradient"]) h1,
-body.dark-mode .card:not(.dashboard-card):not(.stats-card):not(.bg-primary):not(.bg-success):not(.bg-info):not(.bg-warning):not(.bg-danger):not(.bg-dark):not([style*="linear-gradient"]) h2,
-body.dark-mode .card:not(.dashboard-card):not(.stats-card):not(.bg-primary):not(.bg-success):not(.bg-info):not(.bg-warning):not(.bg-danger):not(.bg-dark):not([style*="linear-gradient"]) h3,
-body.dark-mode .card:not(.dashboard-card):not(.stats-card):not(.bg-primary):not(.bg-success):not(.bg-info):not(.bg-warning):not(.bg-danger):not(.bg-dark):not([style*="linear-gradient"]) h4,
-body.dark-mode .card:not(.dashboard-card):not(.stats-card):not(.bg-primary):not(.bg-success):not(.bg-info):not(.bg-warning):not(.bg-danger):not(.bg-dark):not([style*="linear-gradient"]) h5,
-body.dark-mode .card:not(.dashboard-card):not(.stats-card):not(.bg-primary):not(.bg-success):not(.bg-info):not(.bg-warning):not(.bg-danger):not(.bg-dark):not([style*="linear-gradient"]) h6{
+body.dark-mode .card:not(
+    .dashboard-card
+):not(
+    .stats-card
+):not(
+    .bg-primary
+):not(
+    .bg-success
+):not(
+    .bg-info
+):not(
+    .bg-warning
+):not(
+    .bg-danger
+):not(
+    .bg-dark
+):not(
+    [style*="linear-gradient"]
+) h1,
+body.dark-mode .card:not(
+    .dashboard-card
+):not(
+    .stats-card
+):not(
+    .bg-primary
+):not(
+    .bg-success
+):not(
+    .bg-info
+):not(
+    .bg-warning
+):not(
+    .bg-danger
+):not(
+    .bg-dark
+):not(
+    [style*="linear-gradient"]
+) h2,
+body.dark-mode .card:not(
+    .dashboard-card
+):not(
+    .stats-card
+):not(
+    .bg-primary
+):not(
+    .bg-success
+):not(
+    .bg-info
+):not(
+    .bg-warning
+):not(
+    .bg-danger
+):not(
+    .bg-dark
+):not(
+    [style*="linear-gradient"]
+) h3,
+body.dark-mode .card:not(
+    .dashboard-card
+):not(
+    .stats-card
+):not(
+    .bg-primary
+):not(
+    .bg-success
+):not(
+    .bg-info
+):not(
+    .bg-warning
+):not(
+    .bg-danger
+):not(
+    .bg-dark
+):not(
+    [style*="linear-gradient"]
+) h4,
+body.dark-mode .card:not(
+    .dashboard-card
+):not(
+    .stats-card
+):not(
+    .bg-primary
+):not(
+    .bg-success
+):not(
+    .bg-info
+):not(
+    .bg-warning
+):not(
+    .bg-danger
+):not(
+    .bg-dark
+):not(
+    [style*="linear-gradient"]
+) h5,
+body.dark-mode .card:not(
+    .dashboard-card
+):not(
+    .stats-card
+):not(
+    .bg-primary
+):not(
+    .bg-success
+):not(
+    .bg-info
+):not(
+    .bg-warning
+):not(
+    .bg-danger
+):not(
+    .bg-dark
+):not(
+    [style*="linear-gradient"]
+) h6{
     color:#ffffff !important;
 }
 
-body.dark-mode .card:not(.dashboard-card):not(.stats-card):not(.bg-primary):not(.bg-success):not(.bg-info):not(.bg-warning):not(.bg-danger):not(.bg-dark):not([style*="linear-gradient"]) p{
+body.dark-mode .card:not(
+    .dashboard-card
+):not(
+    .stats-card
+):not(
+    .bg-primary
+):not(
+    .bg-success
+):not(
+    .bg-info
+):not(
+    .bg-warning
+):not(
+    .bg-danger
+):not(
+    .bg-dark
+):not(
+    [style*="linear-gradient"]
+) p{
     color:#e2e8f0 !important;
 }
 
@@ -973,8 +1303,7 @@ body.dark-mode .glass{
 
 
 /* =====================================================
-   🎨 BOOTSTRAP COLORFUL CARDS
-   KEEP THEIR ORIGINAL COLORS
+   🎨 BOOTSTRAP COLOR CARDS
 ===================================================== */
 
 body.dark-mode .card.bg-primary{
@@ -1007,13 +1336,10 @@ body.dark-mode .card.bg-dark{
     color:#ffffff !important;
 }
 
-
-/* Colorful card text */
-
 body.dark-mode .card.bg-primary *,
 body.dark-mode .card.bg-success *,
 body.dark-mode .card.bg-danger *{
-    color:#050505 !important;
+    color:#ffffff !important;
 }
 
 body.dark-mode .card.bg-info *,
@@ -1021,10 +1347,13 @@ body.dark-mode .card.bg-warning *{
     color:#212529 !important;
 }
 
+body.dark-mode .card.bg-dark *{
+    color:#ffffff !important;
+}
+
 
 /* =====================================================
    🎨 INLINE GRADIENT CARDS
-   KEEP ORIGINAL GRADIENT
 ===================================================== */
 
 body.dark-mode .card[style*="linear-gradient"]{
@@ -1047,9 +1376,6 @@ body.dark-mode .dashboard-card{
 body.dark-mode .dashboard-card *{
     color:#ffffff !important;
 }
-
-
-/* Your exact dashboard gradients */
 
 body.dark-mode .dashboard-card:nth-child(1){
     background:
@@ -1089,13 +1415,10 @@ body.dark-mode .dashboard-card:nth-child(4){
 
 
 /* =====================================================
-   📊 STATS CARDS
+   📊 DARK STATS CARDS
 ===================================================== */
 
-body.dark-mode .stats-card{
-    color:#ffffff !important;
-}
-
+body.dark-mode .stats-card,
 body.dark-mode .stats-card *{
     color:#ffffff !important;
 }
@@ -1145,12 +1468,15 @@ body.dark-mode .table{
     background:
         rgba(15,23,42,.94) !important;
 
-    color:#1b1a1a !important;
+    color:#ffffff !important;
 }
 
-body.dark-mode .table td,
-body.dark-mode .table th{
+body.dark-mode .table td{
     color:#161616 !important;
+    border-color:#334155 !important;
+}
+
+body.dark-mode .table th{
     border-color:#334155 !important;
 }
 
@@ -1238,11 +1564,13 @@ body.dark-mode .btn-primary{
         ) !important;
 
     color:#ffffff !important;
+
     border:none !important;
 }
 
 body.dark-mode .btn-outline-primary{
     color:#60a5fa !important;
+
     border-color:#3b82f6 !important;
 }
 
@@ -1257,7 +1585,7 @@ body.dark-mode .btn-outline-light{
 
 
 /* =====================================================
-   📢 DARK ALERT
+   📢 DARK ALERTS
 ===================================================== */
 
 body.dark-mode .alert{
@@ -1303,6 +1631,7 @@ body.dark-mode .dropdown-item{
 
 body.dark-mode .dropdown-item:hover{
     background:#1e293b !important;
+
     color:#ffffff !important;
 }
 
@@ -1317,8 +1646,56 @@ body.dark-mode .badge{
 
 
 /* =====================================================
-   🦶 DARK FOOTER
+   ⚠️ PRIORITY BADGES
 ===================================================== */
+
+body.dark-mode .priority-urgent{
+    background:#4a1f24 !important;
+    color:#ff6b6b !important;
+    border:1px solid #7f3038;
+}
+
+body.dark-mode .priority-important{
+    background:#4a351c !important;
+    color:#ffb84d !important;
+    border:1px solid #7a5828;
+}
+
+body.dark-mode .priority-general{
+    background:#1e3555 !important;
+    color:#6ea8ff !important;
+    border:1px solid #31598c;
+}
+
+
+/* =====================================================
+   📌 PINNED BADGE
+===================================================== */
+
+body.dark-mode .pin-badge{
+    background:#4a3b16 !important;
+
+    color:#ffd966 !important;
+
+    border:1px solid #705a20;
+}
+
+
+/* =====================================================
+   🦶 FOOTER
+===================================================== */
+
+footer{
+    margin-top:60px;
+
+    padding:25px;
+
+    text-align:center;
+
+    color:#6b7280;
+
+    font-size:15px;
+}
 
 body.dark-mode footer{
     color:#cbd5e1 !important;
@@ -1334,36 +1711,20 @@ body.dark-mode footer h5{
 
 
 /* =====================================================
-   🤖 AI BUTTON
-===================================================== */
-
-body.dark-mode .ai-assistant-btn{
-    color:#ffffff !important;
-}
-
-
-/* =====================================================
-   🌙 DARK ICONS
-===================================================== */
-
-body.dark-mode .bi{
-    color:inherit;
-}
-
-
-/* =====================================================
-   🔐 LOGIN CARD
+   🔐 DARK LOGIN / AUTH CARD
 ===================================================== */
 
 body.dark-mode .login-card,
 body.dark-mode .auth-card{
     position:relative;
+
     overflow:hidden;
 
     background:
         rgba(30,41,59,.82) !important;
 
     backdrop-filter:blur(22px);
+
     -webkit-backdrop-filter:blur(22px);
 
     border:
@@ -1399,113 +1760,21 @@ body.dark-mode .auth-card::before{
 
 
 /* =====================================================
-   🔥 INLINE BLACK TEXT FIX
+   👨‍💻 DEVELOPER CARD
 ===================================================== */
 
-body.dark-mode [style*="color:black"],
-body.dark-mode [style*="color: black"],
-body.dark-mode [style*="color:#000"],
-body.dark-mode [style*="color: #000"],
-body.dark-mode [style*="color:#212529"],
-body.dark-mode [style*="color: #212529"]{
-    color:#ffffff !important;
+.developer-card h2,
+.developer-card h3,
+.developer-card p{
+    color:var(--text-color) !important;
 }
 
-
-/* =====================================================
-   ☀️ LIGHT MODE
-===================================================== */
-
-body:not(.dark-mode){
-    background:
-        radial-gradient(
-            circle at 5% 5%,
-            rgba(59,130,246,.22),
-            transparent 30%
-        ),
-
-        radial-gradient(
-            circle at 95% 90%,
-            rgba(124,58,237,.20),
-            transparent 32%
-        ),
-
-        linear-gradient(
-            135deg,
-            #edf5ff 0%,
-            #ffffff 48%,
-            #f3efff 100%
-        ) !important;
-
-    color:#1e293b !important;
+body.dark-mode .developer-card{
+    background:#1e1e1e;
 }
 
-
-/* =====================================================
-   ☀️ LIGHT NAVBAR
-===================================================== */
-
-body:not(.dark-mode) .navbar{
-    background:
-        linear-gradient(
-            90deg,
-            #0f172a 0%,
-            #172554 50%,
-            #2563eb 100%
-        ) !important;
-
-    color:#ffffff !important;
-
-    box-shadow:
-        0 8px 30px rgba(15,23,42,.25) !important;
-}
-
-body:not(.dark-mode) .navbar-brand,
-body:not(.dark-mode) .navbar .custom-link{
-    color:#ffffff !important;
-}
-
-body:not(.dark-mode) .navbar .custom-link:hover{
-    color:#ffffff !important;
-    background:rgba(255,255,255,.14) !important;
-}
-
-
-/* =====================================================
-   ☀️ LIGHT LOGIN
-===================================================== */
-
-body:not(.dark-mode) .login-card{
-    background:
-        rgba(255,255,255,.88) !important;
-
-    border:
-        1px solid rgba(255,255,255,.9) !important;
-
-    box-shadow:
-        0 25px 60px rgba(30,64,175,.16),
-        0 5px 20px rgba(0,0,0,.06) !important;
-}
-
-body:not(.dark-mode) .login-title{
-    color:#2563eb !important;
-}
-
-body:not(.dark-mode) .login-card label{
-    color:#334155 !important;
-}
-
-body:not(.dark-mode) .login-subtitle,
-body:not(.dark-mode) .login-card .text-muted{
-    color:#64748b !important;
-}
-
-body:not(.dark-mode) .login-card a{
-    color:#2563eb !important;
-}
-
-body:not(.dark-mode) .login-card a:hover{
-    color:#7c3aed !important;
+body.light-mode .developer-card{
+    background:white;
 }
 
 
@@ -1515,8 +1784,11 @@ body:not(.dark-mode) .login-card a:hover{
 
 .campus-gallery img{
     width:100%;
+
     height:260px;
+
     object-fit:cover;
+
     border-radius:20px;
 }
 
@@ -1535,7 +1807,71 @@ body.dark-mode .campus-gallery h6{
 
 
 /* =====================================================
-   🌊 TRANSITIONS
+   🤍 WHITE INNER CARDS IN DARK MODE
+   → KEEP TEXT BLACK
+===================================================== */
+
+body.dark-mode .skill-box,
+body.dark-mode .skill-box *,
+body.dark-mode .list-group-item,
+body.dark-mode .list-group-item *,
+body.dark-mode .bg-white,
+body.dark-mode .bg-white *,
+body.dark-mode .card-body.bg-white,
+body.dark-mode .card-body.bg-white *{
+    color:#000000 !important;
+}
+
+body.dark-mode .card[style*="background:#fff"] *,
+body.dark-mode .card[style*="background: #fff"] *,
+body.dark-mode .card[style*="background:white"] *,
+body.dark-mode .card[style*="background: white"] *{
+    color:#000000 !important;
+}
+
+
+/* =====================================================
+   🔥 INLINE BLACK TEXT FIX
+===================================================== */
+
+body.dark-mode [style*="color:black"],
+body.dark-mode [style*="color: black"],
+body.dark-mode [style*="color:#000"],
+body.dark-mode [style*="color: #000"],
+body.dark-mode [style*="color:#212529"],
+body.dark-mode [style*="color: #212529"]{
+    color:#ffffff !important;
+}
+
+
+/* =====================================================
+   🌙 DARK ICONS
+===================================================== */
+
+body.dark-mode .bi{
+    color:inherit;
+}
+
+
+/* =====================================================
+   📏 SHADOW UTILITIES
+===================================================== */
+
+.shadow-soft{
+    box-shadow:
+        0 12px 35px
+        rgba(30,64,175,.08);
+}
+
+.shadow-hover:hover{
+    box-shadow:
+        0 18px 40px
+        rgba(30,64,175,.18);
+}
+
+
+/* =====================================================
+   🌊 GLOBAL TRANSITIONS
 ===================================================== */
 
 body,
@@ -1570,87 +1906,6 @@ img{
 
 
 /* =====================================================
-   🦶 FOOTER
-===================================================== */
-
-footer{
-    margin-top:60px;
-    padding:25px;
-    text-align:center;
-    color:#6b7280;
-    font-size:15px;
-}
-
-
-/* =====================================================
-   📏 SHADOW UTILITIES
-===================================================== */
-
-.shadow-soft{
-    box-shadow:
-        0 12px 35px
-        rgba(30,64,175,.08);
-}
-
-.shadow-hover:hover{
-    box-shadow:
-        0 18px 40px
-        rgba(30,64,175,.18);
-}
-
-
-/* =====================================================
-   📱 RESPONSIVE
-===================================================== */
-
-@media(max-width:992px){
-
-    .navbar-brand{
-        font-size:21px;
-    }
-
-    .custom-link{
-        padding:8px 10px;
-    }
-
-    .ai-assistant-btn{
-        margin-top:10px;
-    }
-}
-
-@media(max-width:768px){
-
-    .card{
-        margin-bottom:20px;
-    }
-
-    .table{
-        font-size:14px;
-        min-width:650px;
-    }
-
-    .table th,
-    .table td{
-        padding:12px 10px;
-        font-size:14px;
-    }
-
-    .btn{
-        width:100%;
-        margin-bottom:10px;
-    }
-
-    .page-title{
-        font-size:28px;
-    }
-
-    .campus-gallery img{
-        height:230px;
-    }
-}
-
-
-/* =====================================================
    📜 CUSTOM SCROLLBAR
 ===================================================== */
 
@@ -1679,169 +1934,321 @@ footer{
             #5b21b6
         );
 }
-/* WHITE CONTENT → BLACK TEXT */
-body.dark-mode .card[style*="background:#fff"] *,
-body.dark-mode .card[style*="background: #fff"] *,
-body.dark-mode .card[style*="background:white"] *,
-body.dark-mode .card[style*="background: white"] *,
-body.dark-mode .list-group-item {
-    color:#000000 !important;
-}
+
+
 /* =====================================================
-   🌙 DARK MODE - WHITE INNER CARDS MUST HAVE BLACK TEXT
+   📱 TABLET RESPONSIVE
 ===================================================== */
 
-/* Skill boxes */
-.dark-mode .skill-box,
-.dark-mode .skill-box * {
-    color: #000000 !important;
-}
+@media(max-width:992px){
 
-/* Achievement list */
-.dark-mode .list-group-item,
-.dark-mode .list-group-item * {
-    color: #000000 !important;
-}
+    .navbar-brand{
+        font-size:21px;
+    }
 
-/* White Bootstrap cards */
-.dark-mode .bg-white,
-.dark-mode .bg-white * {
-    color: #000000 !important;
-}
+    .custom-link{
+        padding:8px 10px;
+    }
 
-/* Cards which have white background */
-.dark-mode .card-body.bg-white,
-.dark-mode .card-body.bg-white * {
-    color: #000000 !important;
-}
-
-/* Keep colorful cards text WHITE */
-.dark-mode .dashboard-card,
-.dark-mode .dashboard-card *,
-.dark-mode .stats-card,
-.dark-mode .stats-card * {
-    color: #ffffff !important;
-}
-</style>
-<style>
-
-/* Default Dark Theme */
-
-body.dark-mode{
-    background:#121212;
-    color:white;
-}
-body.dark-mode .card{
-    background:#1e293b;
-    color:#ffffff;
-    border:1px solid rgba(255,255,255,0.08);
-    box-shadow:0 10px 25px rgba(0,0,0,0.35);
-}
-body.dark-mode .navbar{
-    background:#111827 !important;
+    .ai-assistant-btn{
+        margin-top:10px;
+    }
 }
 
 
-body.dark-mode .table{
-    color:white;
+/* =====================================================
+   📱 MOBILE NAVBAR
+===================================================== */
+
+@media(max-width:991.98px){
+
+    .navbar{
+        padding:10px 12px !important;
+    }
+
+    .navbar .container-fluid{
+        padding-left:10px !important;
+        padding-right:10px !important;
+    }
+
+    .navbar-brand{
+        font-size:18px !important;
+        white-space:nowrap;
+    }
+
+    .navbar-toggler{
+        padding:6px 9px;
+
+        border-radius:10px;
+
+        margin-left:auto;
+    }
+
+    .navbar-collapse{
+        margin-top:12px;
+
+        padding:12px;
+
+        border-radius:18px;
+
+        background:
+            rgba(15,23,42,.97);
+
+        box-shadow:
+            0 15px 35px rgba(0,0,0,.25);
+    }
+
+    .navbar-nav{
+        width:100%;
+
+        margin:0 !important;
+
+        align-items:stretch !important;
+    }
+
+    .navbar-nav .nav-item{
+        width:100%;
+    }
+
+    .custom-link{
+        width:100%;
+
+        padding:11px 14px !important;
+
+        margin:2px 0;
+
+        border-radius:12px;
+
+        display:block;
+    }
+
+    .custom-link:hover{
+        transform:none !important;
+
+        background:
+            rgba(255,255,255,.12);
+    }
+
+    .navbar-collapse > .d-flex{
+        width:100%;
+
+        display:grid !important;
+
+        grid-template-columns:1fr 1fr;
+
+        gap:8px !important;
+
+        margin-top:12px;
+    }
+
+    .navbar-collapse > .d-flex > .btn,
+    .navbar-collapse > .d-flex > .ai-assistant-btn{
+        width:100% !important;
+
+        margin:0 !important;
+
+        padding:10px 8px !important;
+
+        font-size:14px;
+    }
+
+    .ai-assistant-btn{
+        width:100% !important;
+
+        margin:0 !important;
+
+        text-align:center;
+    }
+
+    .navbar-collapse .dropdown{
+        width:100%;
+    }
+
+    .navbar-collapse .dropdown > .btn{
+        width:100% !important;
+
+        margin:0 !important;
+    }
+
+    .navbar-collapse .dropdown-menu{
+        width:100%;
+
+        position:static !important;
+
+        transform:none !important;
+
+        margin-top:6px !important;
+    }
+
+    #datetime{
+        width:100%;
+
+        margin:12px 0 0 !important;
+
+        padding:10px;
+
+        font-size:12px;
+
+        line-height:1.6;
+
+        color:#cbd5e1 !important;
+
+        border-top:
+            1px solid rgba(255,255,255,.10);
+    }
 }
-/* Developer Card Theme */
 
-.developer-card h2,
-.developer-card h3,
-.developer-card p{
-    color: var(--text-color) !important;
+
+/* =====================================================
+   📱 MOBILE
+===================================================== */
+
+@media(max-width:768px){
+
+    .card{
+        margin-bottom:20px;
+    }
+
+    .table{
+        font-size:14px;
+
+        min-width:650px;
+    }
+
+    .table th,
+    .table td{
+        padding:12px 10px;
+
+        font-size:14px;
+    }
+
+    .btn{
+        width:auto;
+
+        max-width:100%;
+
+        margin-bottom:10px;
+    }
+
+    .page-title{
+        font-size:28px;
+    }
+
+    .campus-gallery img{
+        height:230px;
+    }
 }
 
 
-/* Dark mode developer card */
+/* =====================================================
+   📱 SMALL MOBILE
+===================================================== */
 
-body.dark-mode .developer-card{
-    background:#1e1e1e;
+@media(max-width:575.98px){
+
+    .navbar{
+        padding:9px 8px !important;
+    }
+
+    .navbar-brand{
+        font-size:16px !important;
+    }
+
+    .navbar-toggler{
+        font-size:14px;
+    }
+
+    .navbar-collapse{
+        padding:10px;
+
+        border-radius:15px;
+    }
+
+    .custom-link{
+        font-size:14px;
+
+        padding:10px 12px !important;
+    }
+
+    .navbar-collapse > .d-flex{
+        grid-template-columns:1fr;
+    }
+
+    .navbar-collapse > .d-flex .btn,
+    .navbar-collapse > .d-flex .ai-assistant-btn{
+        font-size:14px;
+
+        min-height:42px;
+    }
+
+    #datetime{
+        font-size:11px;
+    }
+
+    .container{
+        max-width:100%;
+    }
+
+    .page-title{
+        font-size:24px !important;
+    }
+
+    .page-subtitle{
+        font-size:14px;
+    }
+
+    .card{
+        border-radius:18px;
+
+        margin-bottom:15px;
+    }
+
+    .btn{
+        width:auto;
+
+        max-width:100%;
+    }
+
+    .table-responsive{
+        overflow-x:auto;
+
+        width:100%;
+    }
+
+    .table{
+        min-width:650px;
+    }
+
+    .campus-gallery img{
+        height:200px !important;
+    }
 }
 
 
-/* Light mode developer card */
-/* Developer Card */
-body.light-mode .developer-card{
-    background:white;
-}
-body.light-mode {
-    min-height: 100vh;
-    background: linear-gradient(
-        135deg,
-        #e4def5,
-        #eae4ea,
-         #e4def5
-    ) !important;
-    color: #25233A;
-}
-/* Cards */
-body.light-mode .card {
-    background: #ffffff !important;
-    color: #25233a !important;
-    border: 1px solid #e4dff0;
-    box-shadow: 0 8px 25px rgba(80, 60, 120, 0.08);
-}
+/* =====================================================
+   📱 VERY SMALL DEVICES
+===================================================== */
 
+@media(max-width:380px){
 
-/* Navbar */
-.navbar{
-    background:#111827 !important;
+    .navbar-brand{
+        font-size:15px !important;
+    }
+
+    .navbar-toggler{
+        padding:5px 7px;
+    }
+
+    .custom-link{
+        font-size:13px;
+    }
+
+    .navbar-collapse > .d-flex .btn,
+    .navbar-collapse > .d-flex .ai-assistant-btn{
+        font-size:13px;
+    }
 }
 
-
-/* Tables */
-body.light-mode .table{
-    color:#25233a;
-}
-
-
-/* Page Height */
-html {
-    min-height: 100%;
-}
-
-body {
-    min-height: 100vh;
-    margin: 0;
-}
-
-/* Dark Theme */
-body.dark-mode {
-    background: #1a2340 !important;
-    color: #ffffff;
-}
-/* =========================================
-   DARK MODE - PRIORITY BADGES
-========================================= */
-
-body.dark-mode .priority-urgent{
-    background:#4a1f24 !important;
-    color:#ff6b6b !important;
-    border:1px solid #7f3038;
-}
-
-body.dark-mode .priority-important{
-    background:#4a351c !important;
-    color:#ffb84d !important;
-    border:1px solid #7a5828;
-}
-
-body.dark-mode .priority-general{
-    background:#1e3555 !important;
-    color:#6ea8ff !important;
-    border:1px solid #31598c;
-}
-/* =========================================
-   PINNED BADGE - DARK MODE
-========================================= */
-
-body.dark-mode .pin-badge{
-    background:#4a3b16 !important;
-    color:#ffd966 !important;
-    border:1px solid #705a20;
-}
 </style>
 </head>
 
@@ -1940,11 +2347,9 @@ body.dark-mode .pin-badge{
                 <i class="bi bi-sun-fill"></i> Light
 
             </button>
-              <li class="nav-item">
-                    <a class="ai-assistant-btn" href="/assistant">
-                        🤖 AI Assistant
-                    </a>
-             </li>
+              <a class="ai-assistant-btn" href="/assistant">
+                    🤖 AI Assistant
+              </a>
                 <!-- Profile -->
                 <div class="dropdown">
                     <a class="btn btn-primary dropdown-toggle"
@@ -2077,14 +2482,7 @@ document.addEventListener("DOMContentLoaded", function(){
     applyTheme(savedTheme);
 
 });
-
 </script>
-<!-- ================= END CHATBOT ================= -->
-
-<!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-
 <!-- =====================================================
      🌙 THEME SYSTEM
 ===================================================== -->
