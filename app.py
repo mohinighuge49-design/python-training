@@ -884,8 +884,7 @@ Thank you.
 
         except Exception as e:
 
-            print("EMAIL ERROR:", e)
-
+            print("EMAIL ERROR:", repr(e))
             flash(
                 'Feedback submitted, but email could not be sent.',
                 'danger'
