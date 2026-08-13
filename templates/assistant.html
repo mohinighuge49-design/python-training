@@ -546,19 +546,30 @@
             <hr>
 
 
-            <div class="chat-list">
+           <div class="chat-list">
 
                 {% for chat in chats %}
 
-                <a href="{{ url_for('conversation', conversation_id=chat['conversation_id']) }}"
-                   class="chat-item">
+                    {% if chat.get('conversation_id') %}
 
-                    💬 {{ chat['chat_title'] }}
+                        <a href="{{ url_for('conversation', conversation_id=chat['conversation_id']) }}"
+                        class="chat-item">
 
-                </a>
+                            💬 {{ chat['chat_title'] }}
+
+                        </a>
+
+                    {% else %}
+
+                        <div class="chat-item">
+                            💬 {{ chat['chat_title'] }}
+                        </div>
+
+                    {% endif %}
 
                 {% endfor %}
 
+            </div>
 
                 <!-- Current Chat -->
 
