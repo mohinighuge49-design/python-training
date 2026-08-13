@@ -825,9 +825,16 @@ def feedback():
         message = request.form.get('message')
         suggestion = request.form.get('suggestion')
 
-        username = request.args.get('user') or request.form.get('name') or "Anonymous"
+        username = (
+            request.args.get('user')
+            or request.form.get('name')
+            or "Anonymous"
+        )
 
-        # Save feedback in database
+        # ==============================
+        # SAVE FEEDBACK IN DATABASE
+        # ==============================
+
         conn = get_db(MOHINI_DB)
 
         conn.execute("""
@@ -843,12 +850,22 @@ def feedback():
         conn.commit()
         conn.close()
 
-        # Email
+        # ==============================
+        # EMAIL CONFIGURATION
+        # ==============================
+
+        email_address = os.getenv('EMAIL_ADDRESS')
+        email_password = os.getenv('EMAIL_PASSWORD')
+
+        # ==============================
+        # CREATE EMAIL
+        # ==============================
+
         email = EmailMessage()
 
         email['Subject'] = f"Student Feedback - {rating}/5 ⭐"
-        email['From'] = os.getenv('EMAIL_ADDRESS')
-        email['To'] = os.getenv('EMAIL_ADDRESS')
+        email['From'] = email_address
+        email['To'] = email_address
 
         email.set_content(f"""
 Student Feedback Received
@@ -866,37 +883,66 @@ Suggestions for Improvement:
 Thank you.
 """)
 
+        # ==============================
+        # SEND EMAIL
+        # ==============================
+
         try:
 
-            with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+            # Check environment variables
+            if not email_address:
+                raise ValueError("EMAIL_ADDRESS is not set")
+
+            if not email_password:
+                raise ValueError("EMAIL_PASSWORD is not set")
+
+            with smtplib.SMTP_SSL(
+                'smtp.gmail.com',
+                465,
+                timeout=30
+            ) as smtp:
 
                 smtp.login(
-                    os.getenv('EMAIL_ADDRESS'),
-                    os.getenv('EMAIL_PASSWORD')
+                    email_address,
+                    email_password
                 )
 
                 smtp.send_message(email)
 
+            # Email sent successfully
             flash(
                 'Feedback submitted successfully! Thank you 😊',
                 'success'
             )
 
         except Exception as e:
+
+            # Print actual error in PythonAnywhere Error Log
             print("========== EMAIL ERROR ==========")
             print("ERROR TYPE:", type(e).__name__)
             print("ERROR:", repr(e))
-            print("EMAIL_ADDRESS:", repr(EMAIL_ADDRESS))
-            print("PASSWORD SET:", bool(EMAIL_PASSWORD))
+            print(
+                "EMAIL_ADDRESS SET:",
+                bool(os.getenv('EMAIL_ADDRESS'))
+            )
+            print(
+                "PASSWORD SET:",
+                bool(os.getenv('EMAIL_PASSWORD'))
+            )
             print("=================================")
 
+            # Feedback is already saved in database
             flash(
                 'Feedback submitted, but email could not be sent.',
                 'danger'
             )
+
         return redirect(url_for('login'))
 
-    # GET request → Feedback page 
+    # ==============================
+    # GET REQUEST → FEEDBACK PAGE
+    # ==============================
+
     username = request.args.get('user', '')
 
     return render_template(
