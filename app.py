@@ -884,8 +884,9 @@ Thank you.
 
         except Exception as e:
             print("========== EMAIL ERROR ==========")
-            print(repr(e))
-            print("EMAIL ADDRESS:", EMAIL_ADDRESS)
+            print("ERROR TYPE:", type(e).__name__)
+            print("ERROR:", repr(e))
+            print("EMAIL_ADDRESS:", repr(EMAIL_ADDRESS))
             print("PASSWORD SET:", bool(EMAIL_PASSWORD))
             print("=================================")
 
