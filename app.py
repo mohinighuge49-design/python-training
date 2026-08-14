@@ -14,6 +14,7 @@ import csv
 from flask import Response
 from groq import Groq
 import os
+import traceback
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 load_dotenv(os.path.join(BASE_DIR, '.env'))
@@ -930,7 +931,8 @@ Thank you.
                 bool(os.getenv('EMAIL_PASSWORD'))
             )
             print("=================================")
-
+            traceback.print_exc()
+            
             # Feedback is already saved in database
             flash(
                 'Feedback submitted, but email could not be sent.',
