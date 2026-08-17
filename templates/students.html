@@ -1,367 +1,375 @@
-{% extends "base.html" %}
+        {% extends "base.html" %}
 
-{% block content %}
+        {% block content %}
 
-<style>
+        <style>
 
-.header-gradient{
-    background:linear-gradient(135deg,#0d6efd,#4dabf7);
-}
+        .header-gradient{
+            background:linear-gradient(135deg,#0d6efd,#4dabf7);
+        }
 
-.student-card{
-    border-radius:18px;
-    overflow:hidden;
-}
+        .student-card{
+            border-radius:18px;
+            overflow:hidden;
+        }
 
-.table tbody tr{
-    transition:.25s;
-}
+        .table tbody tr{
+            transition:.25s;
+        }
 
-.table tbody tr:hover{
-    transform:scale(1.01);
-    background:#f8fbff;
-}
+        .table tbody tr:hover{
+            transform:scale(1.01);
+            background:#f8fbff;
+        }
 
-.avatar-img{
-    width:50px;
-    height:50px;
-    border-radius:50%;
-    object-fit:cover;
-    border:2px solid #0d6efd;
-}
+        .avatar-img{
+            width:50px;
+            height:50px;
+            border-radius:50%;
+            object-fit:cover;
+            border:2px solid #0d6efd;
+        }
 
-.search-box{
-    border-radius:30px;
-}
+        .search-box{
+            border-radius:30px;
+        }
 
-.pagination .page-link{
-    border-radius:8px;
-    margin:2px;
-}
+        .pagination .page-link{
+            border-radius:8px;
+            margin:2px;
+        }
 
-</style>
+        </style>
 
-<div class="container mt-4">
+        <div class="container mt-4">
 
-<div class="card shadow-lg border-0 mb-4">
+        <div class="card shadow-lg border-0 mb-4">
 
-<div class="card-body text-center text-white header-gradient">
+        <div class="card-body text-center text-white header-gradient">
 
-<h2>
-<i class="bi bi-people-fill"></i>
-Students Information
-</h2>
+        <h2>
+        <i class="bi bi-people-fill"></i>
+        Students Information
+        </h2>
+           <span class="badge bg-warning text-dark fs-6 mt-2 total-students">
+                Total Students : {{ total }}
+            </span>
+        </div>
 
-<span class="badge bg-warning text-dark fs-6 mt-2">
+        </div>
 
-Total Students : {{ total }}
 
-</span>
+       <div class="card shadow border-0 mb-4">
+        <div class="card-body">
 
-</div>
+            <div class="input-group">
 
-</div>
+                <span class="input-group-text">
+                    🔍
+                </span>
 
+                <input
+                    id="searchInput"
+                    type="text"
+                    class="form-control"
+                    placeholder="Search Name, Roll No, Subject"
+                    value="{{ search }}">
 
-<div class="card shadow border-0 mb-4">
+            </div>
 
-<div class="card-body">
+        </div>
+    </div>
 
-<div class="input-group">
+        <div class="card shadow-lg student-card">
 
-<span class="input-group-text">
+        <div class="card-header bg-dark text-white">
 
-🔍
+        <h5 class="mb-0">
 
-</span>
+        Student Records
 
-<input
+        </h5>
 
-id="searchInput"
+        </div>
 
-type="text"
+        <div class="table-responsive">
 
-class="form-control"
+        <table class="table table-hover align-middle mb-0">
 
-placeholder="Search Name, Roll No, Subject">
+        <thead class="table-dark">
 
-</div>
+        <tr>
 
-</div>
+        <th>#</th>
 
-</div>
+        <th>Photo</th>
 
+        <th>Name</th>
 
+        <th>Roll No</th>
 
-<div class="card shadow-lg student-card">
+        <th>Subject</th>
 
-<div class="card-header bg-dark text-white">
+        <th>Marks</th>
 
-<h5 class="mb-0">
+        <th>Grade</th>
 
-Student Records
+        <th>Action</th>
 
-</h5>
+        </tr>
 
-</div>
+        </thead>
 
-<div class="table-responsive">
+        <tbody id="tableBody">
 
-<table class="table table-hover align-middle mb-0">
+        {% for student in students %}
 
-<thead class="table-dark">
+        <tr>
 
-<tr>
+        <td>
 
-<th>#</th>
+        {{ (page-1)*per_page + loop.index }}
 
-<th>Photo</th>
+        </td>
 
-<th>Name</th>
+        <td>
 
-<th>Roll No</th>
+        {% if student.photo %}
 
-<th>Subject</th>
+        <img
+        src="{{ url_for('static',filename='uploads/'+student.photo) }}"
+        class="avatar-img">
 
-<th>Marks</th>
+        {% else %}
 
-<th>Grade</th>
+        <img
+        src="{{ url_for('static',filename='uploads/default.png') }}"
+        class="avatar-img">
 
-<th>Action</th>
+        {% endif %}
 
-</tr>
+        </td>
 
-</thead>
+        <td>
 
-<tbody id="tableBody">
+        <b>{{ student.name }}</b>
 
-{% for student in students %}
+        </td>
 
-<tr>
+        <td>
 
-<td>
+        <span class="badge bg-info">
 
-{{ (page-1)*per_page + loop.index }}
+        {{ student.roll_no }}
 
-</td>
+        </span>
 
-<td>
+        </td>
 
-{% if student.photo %}
+        <td>
 
-<img
-src="{{ url_for('static',filename='uploads/'+student.photo) }}"
-class="avatar-img">
+        {{ student.Subject }}
 
-{% else %}
+        </td>
 
-<img
-src="{{ url_for('static',filename='uploads/default.png') }}"
-class="avatar-img">
+        <td>
 
-{% endif %}
+        {{ student.marks }}
 
-</td>
+        </td>
 
-<td>
+        <td>
 
-<b>{{ student.name }}</b>
+        {% if student.marks>=90 %}
 
-</td>
+        <span class="badge bg-success">
 
-<td>
+        A+
 
-<span class="badge bg-info">
+        </span>
 
-{{ student.roll_no }}
+        {% elif student.marks>=80 %}
 
-</span>
+        <span class="badge bg-primary">
 
-</td>
+        A
 
-<td>
+        </span>
 
-{{ student.Subject }}
+        {% elif student.marks>=70 %}
 
-</td>
+        <span class="badge bg-warning text-dark">
 
-<td>
+        B+
 
-{{ student.marks }}
+        </span>
 
-</td>
+        {% elif student.marks>=60 %}
 
-<td>
+        <span class="badge bg-info">
 
-{% if student.marks>=90 %}
+        B
 
-<span class="badge bg-success">
+        </span>
 
-A+
+        {% elif student.marks>=35 %}
 
-</span>
+        <span class="badge bg-secondary">
 
-{% elif student.marks>=80 %}
+        C
 
-<span class="badge bg-primary">
+        </span>
 
-A
+        {% else %}
 
-</span>
+        <span class="badge bg-danger">
 
-{% elif student.marks>=70 %}
+        Fail
 
-<span class="badge bg-warning text-dark">
+        </span>
 
-B+
+        {% endif %}
 
-</span>
+        </td>
 
-{% elif student.marks>=60 %}
+        <td>
 
-<span class="badge bg-info">
+            <a
+                href="{{ url_for('detail',id=student.id) }}"
+                class="btn btn-primary btn-sm">
 
-B
+                View
 
-</span>
+            </a>
 
-{% elif student.marks>=35 %}
+        {% if session.get('role')=='admin' %}
 
-<span class="badge bg-secondary">
+            <a
+                href="{{ url_for('edit_student',id=student.id) }}"
+                class="btn btn-warning btn-sm">
 
-C
+                Edit
 
-</span>
+            </a>
 
-{% else %}
+            <a
+                href="{{ url_for('delete_student',id=student.id) }}"
+                class="btn btn-danger btn-sm"
+                onclick="return confirm('Delete Student?')">
 
-<span class="badge bg-danger">
+                Delete
 
-Fail
+            </a>
 
-</span>
+        {% endif %}
 
-{% endif %}
+        </td>
 
-</td>
+        </tr>
 
-<td>
+        {% endfor %}
 
-<a
-href="{{ url_for('detail',id=student.id) }}"
-class="btn btn-primary btn-sm">
+        </tbody>
 
-View
+        </table>
 
-</a>
+        </div>
+        <nav class="mt-4">
 
-{% if session.get('role')=='admin' %}
+        <ul class="pagination justify-content-center">
 
-<a
-href="{{ url_for('edit_student',id=student.id) }}"
-class="btn btn-warning btn-sm">
+        {% if page>1 %}
 
-Edit
+        <li class="page-item">
 
-</a>
+        <a class="page-link"
+        href="{{ url_for('students',page=page-1,search=search) }}">
 
-<a
-href="{{ url_for('delete_student',id=student.id) }}"
-class="btn btn-danger btn-sm"
-onclick="return confirm('Delete Student?')">
+        « Previous
 
-Delete
+        </a>
 
-</a>
+        </li>
 
-{% endif %}
+        {% endif %}
 
-</td>
+        {% for p in range(1,total_pages+1) %}
 
-</tr>
+        <li class="page-item {% if p==page %}active{% endif %}">
 
-{% endfor %}
+        <a class="page-link"
+        href="{{ url_for('students',page=p,search=search) }}">
 
-</tbody>
+        {{ p }}
 
-</table>
+        </a>
 
-</div>
-<nav class="mt-4">
+        </li>
 
-<ul class="pagination justify-content-center">
+        {% endfor %}
 
-{% if page>1 %}
+        {% if page<total_pages %}
 
-<li class="page-item">
+        <li class="page-item">
 
-<a class="page-link"
-href="{{ url_for('students',page=page-1,search=search) }}">
+            <a class="page-link"
+            href="{{ url_for('students',page=page+1,search=search) }}">Next »</a>
+        </li>
 
-« Previous
+        {% endif %}
 
-</a>
+        </ul>
 
-</li>
+        </nav>
 
-{% endif %}
+        </div> <!-- End Card -->
 
-{% for p in range(1,total_pages+1) %}
-
-<li class="page-item {% if p==page %}active{% endif %}">
-
-<a class="page-link"
-href="{{ url_for('students',page=p,search=search) }}">
-
-{{ p }}
-
-</a>
-
-</li>
-
-{% endfor %}
-
-{% if page<total_pages %}
-
-<li class="page-item">
-
-    <a class="page-link"
-    href="{{ url_for('students',page=page+1,search=search) }}">Next »</a>
-</li>
-
-{% endif %}
-
-</ul>
-
-</nav>
-
-</div> <!-- End Card -->
-
-</div> <!-- End Container -->
-
+        </div> <!-- End Container -->
 <script>
 
-const searchInput = document.getElementById("searchInput");
-const rows = document.querySelectorAll("#tableBody tr");
+document.addEventListener("DOMContentLoaded", function () {
 
-searchInput.addEventListener("keyup", function () {
+    const searchInput = document.getElementById("searchInput");
+    const tableBody = document.getElementById("tableBody");
 
-    const value = this.value.toLowerCase();
+    let timer;
 
-    rows.forEach(function (row) {
+    searchInput.addEventListener("input", function () {
 
-        const text = row.innerText.toLowerCase();
+        clearTimeout(timer);
 
-        if (text.includes(value)) {
-            row.style.display = "";
-        } else {
-            row.style.display = "none";
-        }
+        const searchValue = this.value.trim();
+
+        timer = setTimeout(function () {
+
+            fetch(
+                "{{ url_for('students') }}?search=" +
+                encodeURIComponent(searchValue) +
+                "&ajax=1"
+            )
+            .then(response => response.json())
+            .then(data => {
+
+                tableBody.innerHTML = data.html;
+
+                const totalBadge =
+                    document.querySelector(".total-students");
+
+                if (totalBadge) {
+                    totalBadge.textContent =
+                        "Total Students : " + data.total;
+                }
+
+            })
+            .catch(error => {
+                console.error("Live Search Error:", error);
+            });
+
+        }, 200);
 
     });
 
 });
 
 </script>
-
-{% endblock %}
+        {% endblock %}

@@ -179,7 +179,7 @@ def delete_notice(id):
     if session.get('role') != 'admin':
         return redirect(url_for('login'))
 
-    db = get_db()
+    db = get_db(MOHINI_DB)
 
     db.execute(
         "DELETE FROM notices WHERE id = ?",
@@ -557,8 +557,7 @@ def filter_students():
         page=page,
         total_pages=total_pages
     )
-
-#========students===========
+# ==================== STUDENTS ====================
 @app.route('/students')
 def students():
 
@@ -570,10 +569,13 @@ def students():
     offset = (page - 1) * per_page
 
     search = request.args.get('search', '').strip()
+    is_ajax = request.args.get('ajax') == '1'
 
     conn = get_db(MOHINI_DB)
 
     if search:
+
+        search_pattern = f"%{search}%"
 
         total = conn.execute(
             """
@@ -583,11 +585,7 @@ def students():
                OR Subject LIKE ?
                OR roll_no LIKE ?
             """,
-            (
-                f"%{search}%",
-                f"%{search}%",
-                f"%{search}%"
-            )
+            (search_pattern, search_pattern, search_pattern)
         ).fetchone()[0]
 
         students = conn.execute(
@@ -601,9 +599,9 @@ def students():
             LIMIT ? OFFSET ?
             """,
             (
-                f"%{search}%",
-                f"%{search}%",
-                f"%{search}%",
+                search_pattern,
+                search_pattern,
+                search_pattern,
                 per_page,
                 offset
             )
@@ -628,6 +626,123 @@ def students():
     conn.close()
 
     total_pages = (total + per_page - 1) // per_page
+
+    # ================= AJAX SEARCH =================
+    if is_ajax:
+
+        rows = ""
+
+        for index, student in enumerate(students):
+
+            number = (page - 1) * per_page + index + 1
+
+            photo = student["photo"]
+
+            if photo:
+                photo_url = url_for(
+                    'static',
+                    filename='uploads/' + photo
+                )
+            else:
+                photo_url = url_for(
+                    'static',
+                    filename='uploads/default.png'
+                )
+
+            marks = student["marks"]
+
+            if marks >= 90:
+                grade = '<span class="badge bg-success">A+</span>'
+            elif marks >= 80:
+                grade = '<span class="badge bg-primary">A</span>'
+            elif marks >= 70:
+                grade = '<span class="badge bg-warning text-dark">B+</span>'
+            elif marks >= 60:
+                grade = '<span class="badge bg-info">B</span>'
+            elif marks >= 35:
+                grade = '<span class="badge bg-secondary">C</span>'
+            else:
+                grade = '<span class="badge bg-danger">Fail</span>'
+
+            rows += f"""
+            <tr>
+
+                <td>{number}</td>
+
+                <td>
+                    <img src="{photo_url}"
+                         class="avatar-img">
+                </td>
+
+                <td>
+                    <b>{student["name"]}</b>
+                </td>
+
+                <td>
+                    <span class="badge bg-info">
+                        {student["roll_no"]}
+                    </span>
+                </td>
+
+                <td>
+                    {student["Subject"]}
+                </td>
+
+                <td>
+                    {marks}
+                </td>
+
+                <td>
+                    {grade}
+                </td>
+
+                <td>
+
+                    <a href="{url_for('detail', id=student['id'])}"
+                       class="btn btn-primary btn-sm">
+                        View
+                    </a>
+            """
+
+            if session.get('role') == 'admin':
+
+                rows += f"""
+                    <a href="{url_for('edit_student', id=student['id'])}"
+                       class="btn btn-warning btn-sm">
+                        Edit
+                    </a>
+
+                    <a href="{url_for('delete_student', id=student['id'])}"
+                       class="btn btn-danger btn-sm"
+                       onclick="return confirm('Delete Student?')">
+                        Delete
+                    </a>
+                """
+
+            rows += """
+                </td>
+
+            </tr>
+            """
+
+        if not rows:
+
+            rows = """
+            <tr>
+                <td colspan="8"
+                    class="text-center text-muted py-4">
+                    No students found
+                </td>
+            </tr>
+            """
+
+        return jsonify({
+            "html": rows,
+            "total": total,
+            "total_pages": total_pages
+        })
+
+    # ================= NORMAL PAGE =================
 
     return render_template(
         "students.html",
@@ -981,7 +1096,7 @@ def delete_feedback(id):
     if 'username' not in session:
         return redirect(url_for('login'))
 
-    db = get_db()
+    db = get_db(MOHINI_DB)
 
     db.execute(
         "DELETE FROM feedback WHERE id = ?",
@@ -1052,7 +1167,7 @@ def check():
     conn.close()
     return str(result)
 
-#============================day_AI route==============================   
+#============================day_AI route============================== 
 @app.route("/students/<int:id>/tip")
 def get_ai_tip(id):
     conn = get_db(MOHINI_DB)
@@ -1067,36 +1182,52 @@ def get_ai_tip(id):
     if student is None:
         abort(404)
 
+    # Selected student's name
+    student_name = student["name"]
+
     prompt = f"""
-    Give short 2-3 study tips.maximum 45 words, Simple, encouraging and student-friendly."""
+Give exactly 2-3 short study tips for {student_name}.
 
-    client = Groq(
-        api_key=os.environ.get("GROQ_API_KEY"))
-    response = client.chat.completions.create( model="llama-3.1-8b-instant",
-        messages=[
-            {"role": "user", "content": prompt}
-        ]
-    )
-
-    tip = response.choices[0].message.content
+Rules:
+- Maximum 45 words.
+- Simple, clear, encouraging and student-friendly.
+- Give ONLY study tips.
+- Do NOT write a greeting.
+- Do NOT write a closing message.
+- Do NOT invent or use any other person's name.
+- Do NOT use placeholders like [Your Name].
+- Do NOT mention Ramesh, Rohini, Rhea, or any unrelated name.
+- Do not mention hobbies or unrelated activities.
+"""
 
     try:
-        response = client.chat.completions.create(
-            model="llama-3.1-8b-instant",
+        import ollama
+
+        response = ollama.chat(
+            model="llama3.2",
             messages=[
-                {"role": "user", "content": prompt}
-            ]
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            options={
+                "temperature": 0.1
+            }
         )
 
-        tip = response.choices[0].message.content
+        tip = response["message"]["content"]
 
     except Exception as e:
-     tip = f"Error: {e}"
-     print("GROQ ERROR:", e)
+        tip = "⚠️ AI service is currently unavailable."
+        print("OLLAMA ERROR:", e)
 
-    return render_template("detail.html",student=student,tip=tip)
-
-
+    return render_template(
+        "detail.html",
+        student=student,
+        tip=tip,
+        username=student_name
+    )
 @app.route("/assistant")
 def assistant():
 

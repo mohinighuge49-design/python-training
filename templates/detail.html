@@ -160,21 +160,23 @@
                         class="btn btn-warning">
                             ✏ Edit
                         </a>
-
-                        {% if tip %}
+                            {% if tip %}
 
                             <div class="alert alert-success mt-3">
 
-                            <h5>🤖 AI Study Tips</h5>
+                                <h5>🤖 AI Study Tips</h5>
 
-                            <p>
-                            {{ tip }}
-                            </p>
+                                <p class="mb-2">
+                                    <strong>Hi, {{ username }} 👋</strong>
+                                </p>
+
+                                <p class="mb-0">
+                                    {{ tip }}
+                                </p>
 
                             </div>
 
                             {% endif %}
-
                         <a href="{{ url_for('get_ai_tip', id=student.id) }}"
                         class="btn btn-success">
                             🤖 AI Tip
