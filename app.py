@@ -1168,21 +1168,22 @@ def check():
     return str(result)
 
 #============================day_AI route============================== 
+
 @app.route("/students/<int:id>/tip")
 def get_ai_tip(id):
     conn = get_db(MOHINI_DB)
 
-    student = conn.execute(
-        "SELECT * FROM stud WHERE id = ?",
-        (id,)
-    ).fetchone()
-
-    conn.close()
+    try:
+        student = conn.execute(
+            "SELECT * FROM stud WHERE id = ?",
+            (id,)
+        ).fetchone()
+    finally:
+        conn.close()
 
     if student is None:
         abort(404)
 
-    # Selected student's name
     student_name = student["name"]
 
     prompt = f"""
@@ -1192,35 +1193,29 @@ Rules:
 - Maximum 45 words.
 - Simple, clear, encouraging and student-friendly.
 - Give ONLY study tips.
-- Do NOT write a greeting.
-- Do NOT write a closing message.
+- Do NOT write a greeting or closing message.
 - Do NOT invent or use any other person's name.
-- Do NOT use placeholders like [Your Name].
-- Do NOT mention Ramesh, Rohini, Rhea, or any unrelated name.
 - Do not mention hobbies or unrelated activities.
 """
 
     try:
-        import ollama
-
-        response = ollama.chat(
-            model="llama3.2",
+        response = groq_client.chat.completions.create(
+            model="openai/gpt-oss-20b",
             messages=[
                 {
                     "role": "user",
                     "content": prompt
                 }
             ],
-            options={
-                "temperature": 0.1
-            }
+            temperature=0.1,
+            max_tokens=120
         )
 
-        tip = response["message"]["content"]
+        tip = response.choices[0].message.content.strip()
 
     except Exception as e:
         tip = "⚠️ AI service is currently unavailable."
-        print("OLLAMA ERROR:", e)
+        print("GROQ AI TIP ERROR:", repr(e))
 
     return render_template(
         "detail.html",
@@ -1228,6 +1223,7 @@ Rules:
         tip=tip,
         username=student_name
     )
+
 @app.route("/assistant")
 def assistant():
 
